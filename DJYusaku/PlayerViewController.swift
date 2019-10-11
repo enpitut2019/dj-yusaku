@@ -1,5 +1,5 @@
 //
-//  SecondViewController.swift
+//  FirstViewController.swift
 //  DJYusaku
 //
 //  Created by Hayato Kohara on 2019/10/05.
@@ -7,17 +7,12 @@
 //
 
 import UIKit
-import StoreKit
 
-class SecondViewController: UIViewController {
+class PlayerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        SKCloudServiceController.requestAuthorization { status in
-            guard status == .authorized else { return }
-            // できたとき
-        }
     }
 
 
