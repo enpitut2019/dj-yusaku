@@ -7,12 +7,17 @@
 //
 
 import UIKit
+import StoreKit
 
 class SecondViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        SKCloudServiceController.requestAuthorization { status in
+            guard status == .authorized else { return }
+            // できたとき
+        }
     }
 
 
