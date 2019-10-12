@@ -10,10 +10,10 @@ import UIKit
 
 class MusicTableViewCell: UITableViewCell {
     
-    // #warning TableViewCellとアウトレット接続しているけど未使用
+    // TODO: TableViewCellとアウトレット接続しているけど未使用
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var artist: UILabel!
-    @IBOutlet weak var artwork: UIImage! // #warning 未実装
+    @IBOutlet weak var artwork: UIImage! // TODO: 未実装
     
     override func awakeFromNib() {
         super.awakeFromNib()

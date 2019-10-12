@@ -11,7 +11,7 @@ import StoreKit
 
 class SearchViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    private var searchController: UISearchController!
+    private let searchController = UISearchController(searchResultsController: nil)
     
     // 表示確認用サンプルデータ
     let results = [
@@ -23,7 +23,6 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
@@ -62,14 +61,14 @@ extension SearchViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension SearchViewController: UITableViewDelegate {
-    /* 未実装 */
+    /* TODO: 未実装 */
 }
     
 // MARK: - UISearchResultsUpdating
 
 extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        /* 未実装 */
+        /* TODO: 未実装 */
     }
 }
 
