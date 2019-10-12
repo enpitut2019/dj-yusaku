@@ -9,28 +9,42 @@
 import UIKit
 import StoreKit
 
-class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SearchViewController: UIViewController {
+    @IBOutlet weak var tableView: UITableView!
+    private var searchController: UISearchController!
     
+    // 表示確認用サンプルデータ
     let results = [
-        MusicDataModel(title: "Maybe I'm Amazed", artist: "Paul McCartney"),
-        MusicDataModel(title: "Sir Duke", artist: "Stevie Wonder"),
-        MusicDataModel(title: "Rock With You", artist: "Michael Jackson")
+        MusicDataModel(title: "Come Together", artist: "The Beatles"),
+        MusicDataModel(title: "Something", artist: "The Beatles"),
+        MusicDataModel(title: "Oh! Darling", artist: "The Beatles")
     ]
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController = searchController
+        
+        // tableViewのdelegate, dataSource設定
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        // Apple Musicライブラリへのアクセス許可の確認
         SKCloudServiceController.requestAuthorization { status in
             guard status == .authorized else { return }
-            // できたとき
+            // TODO: Apple Musicの契約確認処理
         }
     }
+    
+}
 
-    // MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
 
+extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return results.count
     }
     
@@ -43,7 +57,27 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
 
         return cell
     }
+}
+
+// MARK: - UITableViewDelegate
+
+extension SearchViewController: UITableViewDelegate {
+    /* 未実装 */
+}
     
-    // MARK: - UITableViewDelegate
+// MARK: - UISearchResultsUpdating
+
+extension SearchViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        /* 未実装 */
+    }
+}
+
+// MARK: - UIBarPositioningDelegate
+
+extension SearchViewController: UIBarPositioningDelegate {
+    func position(for bar: UIBarPositioning) -> UIBarPosition {
+        return UIBarPosition.topAttached;
+    }
 
 }
