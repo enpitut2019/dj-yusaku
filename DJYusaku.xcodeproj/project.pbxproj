@@ -18,6 +18,8 @@
 		C447ACBF234882FB00D535EB /* DJYusakuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447ACBE234882FB00D535EB /* DJYusakuTests.swift */; };
 		C447ACCA234882FB00D535EB /* DJYusakuUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447ACC9234882FB00D535EB /* DJYusakuUITests.swift */; };
 		C4CF9725235163EF00C8A102 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CF9724235163EF00C8A102 /* SearchViewController.swift */; };
+		C4D25958235205D10066FCE0 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D25957235205D10066FCE0 /* Secrets.swift */; };
+		C4D2595A235205EC0066FCE0 /* Secrets+Local.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D25959235205EC0066FCE0 /* Secrets+Local.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,8 @@
 		C447ACC9234882FB00D535EB /* DJYusakuUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJYusakuUITests.swift; sourceTree = "<group>"; };
 		C447ACCB234882FB00D535EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4CF9724235163EF00C8A102 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		C4D25957235205D10066FCE0 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		C4D25959235205EC0066FCE0 /* Secrets+Local.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Secrets+Local.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +119,8 @@
 				C436A8552350B16B009F6498 /* MusicDataModel.swift */,
 				C4CF9724235163EF00C8A102 /* SearchViewController.swift */,
 				C436A8572350D36F009F6498 /* MusicTableViewCell.swift */,
+				C4D25957235205D10066FCE0 /* Secrets.swift */,
+				C4D25959235205EC0066FCE0 /* Secrets+Local.swift */,
 			);
 			path = DJYusaku;
 			sourceTree = "<group>";
@@ -270,8 +276,10 @@
 			files = (
 				C4CF9725235163EF00C8A102 /* SearchViewController.swift in Sources */,
 				C436A8562350B16B009F6498 /* MusicDataModel.swift in Sources */,
+				C4D25958235205D10066FCE0 /* Secrets.swift in Sources */,
 				C447ACAA234882F900D535EB /* PlayerViewController.swift in Sources */,
 				C447ACA6234882F900D535EB /* AppDelegate.swift in Sources */,
+				C4D2595A235205EC0066FCE0 /* Secrets+Local.swift in Sources */,
 				C447ACA8234882F900D535EB /* SceneDelegate.swift in Sources */,
 				C436A8582350D36F009F6498 /* MusicTableViewCell.swift in Sources */,
 			);
