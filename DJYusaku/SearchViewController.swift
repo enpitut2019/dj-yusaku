@@ -26,10 +26,12 @@ class SearchViewController: UIViewController {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
         
         // tableViewのdelegate, dataSource設定
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.tableFooterView = UIView() // 空のセルの罫線を消す
         
         // Apple Musicライブラリへのアクセス許可の確認
         SKCloudServiceController.requestAuthorization { status in
@@ -37,7 +39,6 @@ class SearchViewController: UIViewController {
             // TODO: Apple Musicの契約確認処理
         }
     }
-    
 }
 
 // MARK: - UITableViewDataSource
