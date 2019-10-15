@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="64" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2ub-dF-W8m">
-                                <rect key="frame" x="0.0" y="140" width="375" height="532"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="636"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MusicTableViewCell" id="T5J-aV-tbm" customClass="MusicTableViewCell" customModule="DJYusaku" customModuleProvider="target">
@@ -72,6 +72,7 @@
                                         <connections>
                                             <outlet property="artist" destination="hw4-hv-Z0J" id="eDh-lk-OYA"/>
                                             <outlet property="artwork" destination="4BI-ax-603" id="wm6-2b-9i2"/>
+                                            <outlet property="button" destination="v7R-nD-Iia" id="beg-Nn-4cQ"/>
                                             <outlet property="title" destination="yug-k8-ppk" id="jvG-cy-sgH"/>
                                         </connections>
                                     </tableViewCell>
@@ -140,13 +141,13 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="1pJ-Iw-aHU" firstAttribute="leading" secondItem="2ub-dF-W8m" secondAttribute="leading" id="Fv7-LF-P1p"/>
+                            <constraint firstItem="2ub-dF-W8m" firstAttribute="centerY" secondItem="tsR-hK-woN" secondAttribute="centerY" id="KGW-H9-IFs"/>
+                            <constraint firstItem="2ub-dF-W8m" firstAttribute="width" secondItem="PQr-Ze-W5v" secondAttribute="width" id="QLn-7Y-0sz"/>
+                            <constraint firstItem="2ub-dF-W8m" firstAttribute="centerX" secondItem="PQr-Ze-W5v" secondAttribute="centerX" id="Rux-56-S3e"/>
                             <constraint firstItem="1pJ-Iw-aHU" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" id="aR0-0G-ieh"/>
                             <constraint firstItem="1pJ-Iw-aHU" firstAttribute="bottom" secondItem="PQr-Ze-W5v" secondAttribute="bottom" id="cS5-zF-Qg0"/>
-                            <constraint firstItem="1pJ-Iw-aHU" firstAttribute="trailing" secondItem="2ub-dF-W8m" secondAttribute="trailing" id="g6k-i8-Mgr"/>
                             <constraint firstItem="2ub-dF-W8m" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="hDZ-6w-0xn"/>
                             <constraint firstItem="1pJ-Iw-aHU" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="vS2-al-aIo"/>
-                            <constraint firstItem="2ub-dF-W8m" firstAttribute="centerY" secondItem="tsR-hK-woN" secondAttribute="centerY" id="z45-vW-gm9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
@@ -170,7 +171,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="64" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wCp-R2-0r7">
-                                <rect key="frame" x="0.0" y="140" width="375" height="589"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MusicTableViewCell" id="Uxy-eD-cUw" customClass="MusicTableViewCell" customModule="DJYusaku" customModuleProvider="target">
@@ -226,6 +227,7 @@
                                         <connections>
                                             <outlet property="artist" destination="UVM-Kb-uf9" id="KPz-dm-sIi"/>
                                             <outlet property="artwork" destination="rYB-jY-hDQ" id="wMt-Wo-bSp"/>
+                                            <outlet property="button" destination="Sbi-3a-kYZ" id="YT6-j3-dHa"/>
                                             <outlet property="title" destination="DxG-x9-Q3o" id="te8-38-Jf1"/>
                                         </connections>
                                     </tableViewCell>

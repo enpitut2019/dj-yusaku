@@ -55,6 +55,7 @@ extension RequestsViewController: UITableViewDataSource {
         let item = results[indexPath.row]
         cell.title.text = item.title
         cell.artist.text = item.artist
+        cell.button.isHidden = true
 
         return cell
     }
