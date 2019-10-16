@@ -7,15 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C436A8562350B16B009F6498 /* MusicDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C436A8552350B16B009F6498 /* MusicDataModel.swift */; };
+		C436A8582350D36F009F6498 /* MusicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C436A8572350D36F009F6498 /* MusicTableViewCell.swift */; };
 		C447ACA6234882F900D535EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447ACA5234882F900D535EB /* AppDelegate.swift */; };
 		C447ACA8234882F900D535EB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447ACA7234882F900D535EB /* SceneDelegate.swift */; };
-		C447ACAA234882F900D535EB /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447ACA9234882F900D535EB /* FirstViewController.swift */; };
-		C447ACAC234882F900D535EB /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447ACAB234882F900D535EB /* SecondViewController.swift */; };
+		C447ACAA234882F900D535EB /* RequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447ACA9234882F900D535EB /* RequestsViewController.swift */; };
 		C447ACAF234882F900D535EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C447ACAD234882F900D535EB /* Main.storyboard */; };
 		C447ACB1234882FB00D535EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C447ACB0234882FB00D535EB /* Assets.xcassets */; };
 		C447ACB4234882FB00D535EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C447ACB2234882FB00D535EB /* LaunchScreen.storyboard */; };
 		C447ACBF234882FB00D535EB /* DJYusakuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447ACBE234882FB00D535EB /* DJYusakuTests.swift */; };
 		C447ACCA234882FB00D535EB /* DJYusakuUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447ACC9234882FB00D535EB /* DJYusakuUITests.swift */; };
+		C4CF9725235163EF00C8A102 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CF9724235163EF00C8A102 /* SearchViewController.swift */; };
+		C4D25958235205D10066FCE0 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D25957235205D10066FCE0 /* Secrets.swift */; };
+		C4D2595A235205EC0066FCE0 /* Secrets+Local.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D25959235205EC0066FCE0 /* Secrets+Local.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,11 +40,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C436A8552350B16B009F6498 /* MusicDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicDataModel.swift; sourceTree = "<group>"; };
+		C436A8572350D36F009F6498 /* MusicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTableViewCell.swift; sourceTree = "<group>"; };
 		C447ACA2234882F900D535EB /* DJYusaku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DJYusaku.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C447ACA5234882F900D535EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C447ACA7234882F900D535EB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C447ACA9234882F900D535EB /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		C447ACAB234882F900D535EB /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		C447ACA9234882F900D535EB /* RequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsViewController.swift; sourceTree = "<group>"; };
 		C447ACAE234882F900D535EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C447ACB0234882FB00D535EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C447ACB3234882FB00D535EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +56,9 @@
 		C447ACC5234882FB00D535EB /* DJYusakuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DJYusakuUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C447ACC9234882FB00D535EB /* DJYusakuUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJYusakuUITests.swift; sourceTree = "<group>"; };
 		C447ACCB234882FB00D535EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C4CF9724235163EF00C8A102 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		C4D25957235205D10066FCE0 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		C4D25959235205EC0066FCE0 /* Secrets+Local.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Secrets+Local.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,12 +111,16 @@
 			children = (
 				C447ACA5234882F900D535EB /* AppDelegate.swift */,
 				C447ACA7234882F900D535EB /* SceneDelegate.swift */,
-				C447ACA9234882F900D535EB /* FirstViewController.swift */,
-				C447ACAB234882F900D535EB /* SecondViewController.swift */,
+				C447ACA9234882F900D535EB /* RequestsViewController.swift */,
 				C447ACAD234882F900D535EB /* Main.storyboard */,
 				C447ACB0234882FB00D535EB /* Assets.xcassets */,
 				C447ACB2234882FB00D535EB /* LaunchScreen.storyboard */,
 				C447ACB5234882FB00D535EB /* Info.plist */,
+				C436A8552350B16B009F6498 /* MusicDataModel.swift */,
+				C4CF9724235163EF00C8A102 /* SearchViewController.swift */,
+				C436A8572350D36F009F6498 /* MusicTableViewCell.swift */,
+				C4D25957235205D10066FCE0 /* Secrets.swift */,
+				C4D25959235205EC0066FCE0 /* Secrets+Local.swift */,
 			);
 			path = DJYusaku;
 			sourceTree = "<group>";
@@ -262,10 +274,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C447ACAC234882F900D535EB /* SecondViewController.swift in Sources */,
-				C447ACAA234882F900D535EB /* FirstViewController.swift in Sources */,
+				C4CF9725235163EF00C8A102 /* SearchViewController.swift in Sources */,
+				C436A8562350B16B009F6498 /* MusicDataModel.swift in Sources */,
+				C4D25958235205D10066FCE0 /* Secrets.swift in Sources */,
+				C447ACAA234882F900D535EB /* RequestsViewController.swift in Sources */,
 				C447ACA6234882F900D535EB /* AppDelegate.swift in Sources */,
+				C4D2595A235205EC0066FCE0 /* Secrets+Local.swift in Sources */,
 				C447ACA8234882F900D535EB /* SceneDelegate.swift in Sources */,
+				C436A8582350D36F009F6498 /* MusicTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
