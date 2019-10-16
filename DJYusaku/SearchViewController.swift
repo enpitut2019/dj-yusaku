@@ -12,6 +12,8 @@ import StoreKit
 class SearchViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     private let searchController = UISearchController(searchResultsController: nil)
+    private let cloudServiceController = SKCloudServiceController()
+    private var storefrontCountryCode : String? = nil
     
     // 表示確認用サンプルデータ
     let results = [
@@ -24,7 +26,7 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         
         searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = true
+        searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         
@@ -37,6 +39,11 @@ class SearchViewController: UIViewController {
         SKCloudServiceController.requestAuthorization { status in
             guard status == .authorized else { return }
             // TODO: Apple Musicの契約確認処理
+        }
+        // Apple Musicのロケール設定
+        self.cloudServiceController.requestStorefrontCountryCode { (storefrontCountryCode, error) in
+            if error != nil { return } // TODO: エラー処理これでいいのか？
+            self.storefrontCountryCode = storefrontCountryCode
         }
     }
 }
@@ -69,7 +76,33 @@ extension SearchViewController: UITableViewDelegate {
 
 extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        /* TODO: 未実装 */
+        
+        // 検索文字列の取得
+        let searchString = searchController.searchBar.text ?? ""
+        if searchString.isEmpty { return }  // 空なら検索しない
+        
+        // 検索用URLの作成
+        var url : URL
+        if let storeFront = self.storefrontCountryCode {
+            var urlComponents = URLComponents(string: "https://api.music.apple.com/v1/catalog/\(storeFront)/search")!
+            urlComponents.queryItems = [
+                URLQueryItem(name: "term", value: searchString),    // 検索キーワード
+                URLQueryItem(name: "limit", value: "25"),           // 取得件数 (最大25件)
+                URLQueryItem(name: "types", value: "songs"),        // 検索種別 (複数可能)
+            ]
+            url = urlComponents.url!
+        } else { return } // ストアフロント取得に失敗していたら何もしない
+        
+        // GETリクエスト作成
+        var request = URLRequest(url: url)
+        request.addValue("Bearer \(Secrets.DeveloperToken)", forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request) { (data, _, error) in
+            guard error == nil, let data = data else { return }
+            // JSONの処理
+        }
+        
+        // 検索の実行
+        task.resume()
     }
 }
 

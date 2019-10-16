@@ -6,9 +6,7 @@
 //  Copyright © 2019 Yusaku. All rights reserved.
 //
 
-import UIKit
-
-class MusicDataModel : NSObject {
+struct MusicDataModel {
     var title:  String // 曲名
     var artist: String // アーティスト名
 
