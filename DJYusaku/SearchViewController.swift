@@ -1,5 +1,5 @@
 //
-//  SearchMusicTableViewController.swift
+//  SearchViewController.swift
 //  DJYusaku
 //
 //  Created by Hayato Kohara on 2019/10/12.
@@ -49,7 +49,7 @@ extension SearchViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MusicTableViewCell", for: indexPath) as! MusicTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchMusicTableViewCell", for: indexPath) as! SearchMusicTableViewCell
         
         let item = results[indexPath.row]
         cell.title.text = item.title

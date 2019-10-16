@@ -19,7 +19,7 @@
                                 <rect key="frame" x="0.0" y="88" width="375" height="636"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MusicTableViewCell" id="T5J-aV-tbm" customClass="MusicTableViewCell" customModule="DJYusaku" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RequestsMusicTableViewCell" id="T5J-aV-tbm" customClass="RequestsMusicTableViewCell" customModule="DJYusaku" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T5J-aV-tbm" id="Bkg-rZ-UB5">
@@ -32,47 +32,35 @@
                                                         <constraint firstAttribute="width" constant="48" id="XMs-5I-DSO"/>
                                                     </constraints>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v7R-nD-Iia">
-                                                    <rect key="frame" x="327" y="3" width="33" height="58"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="33" id="rKq-Nc-hzl"/>
-                                                    </constraints>
-                                                    <state key="normal" image="plus.circle" catalog="system">
-                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
-                                                    </state>
-                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Music Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yug-k8-ppk">
-                                                    <rect key="frame" x="71" y="11" width="249" height="20"/>
+                                                    <rect key="frame" x="71" y="11" width="288" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hw4-hv-Z0J">
-                                                    <rect key="frame" x="71" y="33" width="249" height="20"/>
+                                                    <rect key="frame" x="71" y="33" width="288" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="v7R-nD-Iia" firstAttribute="top" secondItem="Bkg-rZ-UB5" secondAttribute="topMargin" constant="-8" id="6Z5-J9-d2W"/>
                                                 <constraint firstItem="yug-k8-ppk" firstAttribute="leading" secondItem="hw4-hv-Z0J" secondAttribute="leading" id="HUO-2R-F8t"/>
                                                 <constraint firstItem="yug-k8-ppk" firstAttribute="trailing" secondItem="hw4-hv-Z0J" secondAttribute="trailing" id="Z9C-kP-7n4"/>
+                                                <constraint firstAttribute="trailing" secondItem="yug-k8-ppk" secondAttribute="trailing" constant="16" id="ZHP-h5-kXy"/>
                                                 <constraint firstItem="hw4-hv-Z0J" firstAttribute="bottom" secondItem="Bkg-rZ-UB5" secondAttribute="bottomMargin" id="bNx-60-B5e"/>
                                                 <constraint firstItem="4BI-ax-603" firstAttribute="leading" secondItem="Bkg-rZ-UB5" secondAttribute="leadingMargin" id="d9j-tf-8K1"/>
                                                 <constraint firstItem="yug-k8-ppk" firstAttribute="leading" secondItem="4BI-ax-603" secondAttribute="trailing" constant="8" id="fU2-5O-z9K"/>
                                                 <constraint firstItem="4BI-ax-603" firstAttribute="top" secondItem="Bkg-rZ-UB5" secondAttribute="topMargin" constant="-3" id="iXN-PL-tsf"/>
-                                                <constraint firstItem="v7R-nD-Iia" firstAttribute="leading" secondItem="yug-k8-ppk" secondAttribute="trailing" constant="7" id="kZB-ga-aCl"/>
-                                                <constraint firstItem="v7R-nD-Iia" firstAttribute="trailing" secondItem="Bkg-rZ-UB5" secondAttribute="trailingMargin" id="r92-bG-GYw"/>
-                                                <constraint firstItem="4BI-ax-603" firstAttribute="centerY" secondItem="v7R-nD-Iia" secondAttribute="centerY" id="tMd-H1-JPi"/>
                                                 <constraint firstItem="4BI-ax-603" firstAttribute="centerY" secondItem="Bkg-rZ-UB5" secondAttribute="centerY" id="tz0-ik-wlO"/>
                                                 <constraint firstItem="yug-k8-ppk" firstAttribute="top" secondItem="Bkg-rZ-UB5" secondAttribute="topMargin" id="w4O-3W-snP"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="72" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
                                             <outlet property="artist" destination="hw4-hv-Z0J" id="eDh-lk-OYA"/>
                                             <outlet property="artwork" destination="4BI-ax-603" id="wm6-2b-9i2"/>
-                                            <outlet property="button" destination="v7R-nD-Iia" id="beg-Nn-4cQ"/>
                                             <outlet property="title" destination="yug-k8-ppk" id="jvG-cy-sgH"/>
                                         </connections>
                                     </tableViewCell>
@@ -155,6 +143,8 @@
                         <barButtonItem key="rightBarButtonItem" image="person.2.fill" catalog="system" id="u2n-sH-Den"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="playingArtwork" destination="Klr-Js-sjB" id="pUO-iG-wKn"/>
+                        <outlet property="playingTitle" destination="XGN-5n-Oha" id="bFZ-4V-axr"/>
                         <outlet property="tableView" destination="2ub-dF-W8m" id="Bwj-iS-B5T"/>
                     </connections>
                 </viewController>
@@ -174,7 +164,7 @@
                                 <rect key="frame" x="0.0" y="88" width="375" height="641"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MusicTableViewCell" id="Uxy-eD-cUw" customClass="MusicTableViewCell" customModule="DJYusaku" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchMusicTableViewCell" id="Uxy-eD-cUw" customClass="SearchMusicTableViewCell" customModule="DJYusaku" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Uxy-eD-cUw" id="jsM-e1-0mc">
@@ -224,6 +214,7 @@
                                                 <constraint firstItem="DxG-x9-Q3o" firstAttribute="trailing" secondItem="UVM-Kb-uf9" secondAttribute="trailing" id="p8d-W0-BGS"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="72" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
                                             <outlet property="artist" destination="UVM-Kb-uf9" id="KPz-dm-sIi"/>
                                             <outlet property="artwork" destination="rYB-jY-hDQ" id="wMt-Wo-bSp"/>

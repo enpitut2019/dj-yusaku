@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MusicTableViewCell: UITableViewCell {
+class SearchMusicTableViewCell: UITableViewCell {
     
     // TODO: TableViewCellとアウトレット接続しているけど未使用
     @IBOutlet weak var title: UILabel!

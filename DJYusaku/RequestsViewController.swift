@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  RequestsViewController.swift
 //  DJYusaku
 //
 //  Created by Hayato Kohara on 2019/10/05.
@@ -10,9 +10,11 @@ import UIKit
 
 class RequestsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var playingArtwork: UIImageView!
+    @IBOutlet weak var playingTitle: UILabel!
     
     // 表示確認用サンプルデータ
-    let results = [
+    var requests = [
         MusicDataModel(title: "Come Together", artist: "The Beatles"),
         MusicDataModel(title: "Something", artist: "The Beatles"),
         MusicDataModel(title: "Maxwell's Silver Hammer", artist: "The Beatles"),
@@ -38,7 +40,13 @@ class RequestsViewController: UIViewController {
         // tableViewのdelegate, dataSource設定
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.tableFooterView = UIView() // 空のセルの罫線を消す
+        
+        let footerView = UIView()
+        footerView.frame.size.height = tableView.rowHeight
+        tableView.tableFooterView = footerView // 空のセルの罫線を消す
+        
+        playingArtwork.layer.cornerRadius = playingArtwork.frame.size.width * 0.05
+        playingArtwork.clipsToBounds = true
     }
 }
 
@@ -46,17 +54,16 @@ class RequestsViewController: UIViewController {
 
 extension RequestsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return results.count
+        return requests.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MusicTableViewCell", for: indexPath) as! MusicTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RequestsMusicTableViewCell", for: indexPath) as! RequestsMusicTableViewCell
         
-        let item = results[indexPath.row]
+        let item = requests[indexPath.row]
         cell.title.text = item.title
         cell.artist.text = item.artist
-        cell.button.isHidden = true
-
+        
         return cell
     }
 }
@@ -64,5 +71,11 @@ extension RequestsViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension RequestsViewController: UITableViewDelegate {
-    /* TODO: 未実装 */
+    // セルの編集時の挙動
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            requests.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
 }
