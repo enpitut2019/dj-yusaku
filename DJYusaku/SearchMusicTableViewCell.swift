@@ -8,13 +8,14 @@
 
 import UIKit
 
-class MusicTableViewCell: UITableViewCell {
+class SearchMusicTableViewCell: UITableViewCell {
     
     // TODO: TableViewCellとアウトレット接続しているけど未使用
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var artist: UILabel!
     @IBOutlet weak var artwork: UIImageView!
-
+    @IBOutlet weak var button: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
