@@ -64,10 +64,18 @@ extension SearchViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchMusicTableViewCell", for: indexPath) as! SearchMusicTableViewCell
         
         let item = results[indexPath.row]
-        cell.title.text = item.title
-        cell.artist.text = item.artist
-        cell.artwork.image = item.artwork
+        cell.title.text    = item.title
+        cell.artist.text   = item.artist
+        cell.artwork.image = UIImage()
 
+        do {
+            let imageData = try Data(contentsOf: item.artworkUrl)
+            cell.artwork.image = UIImage(data: imageData)!
+            cell.setNeedsLayout()
+        } catch let error {
+            print("cannot create artwork UIImage : \(error.localizedDescription)")
+            
+        }
         return cell
     }
 }
@@ -84,7 +92,7 @@ extension SearchViewController: UISearchResultsUpdating {
     
     // Apple Musicに検索クエリを投げる
     func search(storeFront: String, term: String, limit: Int, types: String, completion: @escaping (JSON?) -> Void) {
-        guard 1...25 ~= limit else { // Apple Musicの検索は一度に25件までしか取得できない
+        guard 1...25 ~= limit else { // Apple Musicの検索は一度に25件まで
             completion(nil)
             return
         }
@@ -115,10 +123,12 @@ extension SearchViewController: UISearchResultsUpdating {
         task.resume()
     }
     
-    func artwork(urlString: String, width: Int, height: Int) -> UIImage? {
+    func artworkUrl(urlString: String, width: Int, height: Int) -> URL {
         let replaced = urlString.replacingOccurrences(of: "{w}", with: "\(width)")
                                 .replacingOccurrences(of: "{h}", with: "\(height)")
-        guard let url = URL(string: replaced) else { return nil }
+        return URL(string: replaced)!
+        
+        /*
         do {
             let imageData = try Data(contentsOf: url)
             return UIImage(data: imageData)!
@@ -126,12 +136,19 @@ extension SearchViewController: UISearchResultsUpdating {
             print("cannot create artwork UIImage : \(error.localizedDescription)")
             return nil
         }
+         */
     }
     
     func updateSearchResults(for searchController: UISearchController) {
         // 検索文字列の取得
         let searchText = searchController.searchBar.text ?? ""
-        if searchText.isEmpty { return }  // 空なら検索しない
+        if searchText.isEmpty { // 空なら検索しない
+            DispatchQueue.main.async {
+                self.results.removeAll()
+                self.tableView.reloadData()
+            }
+            return
+        }
         
         guard let storeFront = self.storefrontCountryCode else { return } // ロケール取得に失敗していたら何もしない
         
@@ -143,18 +160,22 @@ extension SearchViewController: UISearchResultsUpdating {
             }
             
             DispatchQueue.main.async {
-                self.results.removeAll(keepingCapacity: true)
+                self.results.removeAll()
                 for (_, song):(String, JSON) in songs {
-                    let attributes = song["attributes"]
-                    guard let artwork = self.artwork(urlString: attributes["artwork"]["url"].stringValue, width: 256, height: 256) else { return }
-                    self.results.append(MusicDataModel(title: attributes["name"].stringValue,
-                                                       artist: attributes["artistName"].stringValue,
-                                                       artwork: artwork))
+                    let title      = song["attributes"]["name"].stringValue
+                    let artist     = song["attributes"]["artistName"].stringValue
+                    let artworkUrl = self.artworkUrl(urlString: song["attributes"]["artwork"]["url"].stringValue,
+                                                     width: 256,
+                                                     height: 256
+                    )
+                    self.results.append(MusicDataModel(title: title,
+                                                       artist: artist,
+                                                       artworkUrl: artworkUrl)
+                    )
                 }
                 self.tableView.reloadData()
             }
         }
-        
     }
 }
 

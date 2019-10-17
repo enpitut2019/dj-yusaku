@@ -9,13 +9,13 @@
 import UIKit
 
 struct MusicDataModel {
-    var title:  String // 曲名
-    var artist: String // アーティスト名
-    var artwork: UIImage // 画像アートワーク
+    var title:  String      // 曲名
+    var artist: String      // アーティスト名
+    var artworkUrl: URL     // 画像アートワーク
 
-    init(title: String, artist: String, artwork: UIImage){
+    init(title: String, artist: String, artworkUrl: URL){
         self.title   = title
         self.artist  = artist
-        self.artwork = artwork
+        self.artworkUrl = artworkUrl
     }
 }
