@@ -66,15 +66,17 @@ extension SearchViewController: UITableViewDataSource {
         let item = results[indexPath.row]
         cell.title.text    = item.title
         cell.artist.text   = item.artist
-        cell.artwork.image = UIImage()
-
-        do {
-            let imageData = try Data(contentsOf: item.artworkUrl)
-            cell.artwork.image = UIImage(data: imageData)!
-            cell.setNeedsLayout()
-        } catch let error {
-            print("cannot create artwork UIImage : \(error.localizedDescription)")
-            
+        DispatchQueue.global().async {
+            do {
+                let imageData = try Data(contentsOf: item.artworkUrl)
+                DispatchQueue.main.async {
+                    cell.artwork.image = UIImage(data: imageData)!
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    cell.artwork.image = UIImage()
+                }
+            }
         }
         return cell
     }
