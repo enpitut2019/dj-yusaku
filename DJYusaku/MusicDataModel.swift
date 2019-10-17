@@ -6,12 +6,16 @@
 //  Copyright © 2019 Yusaku. All rights reserved.
 //
 
+import UIKit
+
 struct MusicDataModel {
     var title:  String // 曲名
     var artist: String // アーティスト名
+    var artwork: UIImage // 画像アートワーク
 
-    init(title: String, artist: String){
-        self.title  = title
-        self.artist = artist
+    init(title: String, artist: String, artwork: UIImage){
+        self.title   = title
+        self.artist  = artist
+        self.artwork = artwork
     }
 }

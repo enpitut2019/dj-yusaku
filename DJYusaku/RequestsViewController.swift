@@ -14,25 +14,7 @@ class RequestsViewController: UIViewController {
     @IBOutlet weak var playingTitle: UILabel!
     
     // 表示確認用サンプルデータ
-    var requests = [
-        MusicDataModel(title: "Come Together", artist: "The Beatles"),
-        MusicDataModel(title: "Something", artist: "The Beatles"),
-        MusicDataModel(title: "Maxwell's Silver Hammer", artist: "The Beatles"),
-        MusicDataModel(title: "Oh! Darling", artist: "The Beatles"),
-        MusicDataModel(title: "Octopus's Garden", artist: "The Beatles"),
-        MusicDataModel(title: "I Want You (She's So Heavy)", artist: "The Beatles"),
-        MusicDataModel(title: "Here Comes The Sun", artist: "The Beatles"),
-        MusicDataModel(title: "Because", artist: "The Beatles"),
-        MusicDataModel(title: "You Never Give Me Your Money", artist: "The Beatles"),
-        MusicDataModel(title: "Sun King", artist: "The Beatles"),
-        MusicDataModel(title: "Mean Mr. Mustard", artist: "The Beatles"),
-        MusicDataModel(title: "Polythene Pam", artist: "The Beatles"),
-        MusicDataModel(title: "She Came In Through The Bathroom Window", artist: "The Beatles"),
-        MusicDataModel(title: "Golden Slumbers", artist: "The Beatles"),
-        MusicDataModel(title: "Carry That Weight", artist: "The Beatles"),
-        MusicDataModel(title: "The End", artist: "The Beatles"),
-        MusicDataModel(title: "Her Majesty", artist: "The Beatles")
-    ]
+    private var requests : [MusicDataModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
