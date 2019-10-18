@@ -16,6 +16,7 @@ class SearchViewController: UIViewController {
     private let cloudServiceController = SKCloudServiceController()
     private var storefrontCountryCode : String? = nil
     private var results : [MusicDataModel] = []
+    private let defaultArtwork : UIImage = UIImage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,6 +67,8 @@ extension SearchViewController: UITableViewDataSource {
         let item = results[indexPath.row]
         cell.title.text    = item.title
         cell.artist.text   = item.artist
+        cell.artwork.image = defaultArtwork
+        
         DispatchQueue.global().async {
             do {
                 let imageData = try Data(contentsOf: item.artworkUrl)
@@ -73,9 +76,7 @@ extension SearchViewController: UITableViewDataSource {
                     cell.artwork.image = UIImage(data: imageData)!
                 }
             } catch {
-                DispatchQueue.main.async {
-                    cell.artwork.image = UIImage()
-                }
+                // TODO: 画像が取得できなかった際のエラーハンドリング
             }
         }
         return cell
@@ -114,7 +115,7 @@ extension SearchViewController: UISearchResultsUpdating {
         request.addValue("Bearer \(Secrets.DeveloperToken)", forHTTPHeaderField: "Authorization")
         let task = URLSession.shared.dataTask(with: request) { (data, _, error) in
             guard error == nil, let data = data else { return }
-            do { // JSONの処理
+            do {
                 completion((try JSON(data: data))["results"][types]["data"])
             } catch {
                 completion(nil)
@@ -125,20 +126,11 @@ extension SearchViewController: UISearchResultsUpdating {
         task.resume()
     }
     
+    // 任意のサイズのアートワーク用URLを生成
     func artworkUrl(urlString: String, width: Int, height: Int) -> URL {
         let replaced = urlString.replacingOccurrences(of: "{w}", with: "\(width)")
                                 .replacingOccurrences(of: "{h}", with: "\(height)")
         return URL(string: replaced)!
-        
-        /*
-        do {
-            let imageData = try Data(contentsOf: url)
-            return UIImage(data: imageData)!
-        } catch let error {
-            print("cannot create artwork UIImage : \(error.localizedDescription)")
-            return nil
-        }
-         */
     }
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -164,16 +156,11 @@ extension SearchViewController: UISearchResultsUpdating {
             DispatchQueue.main.async {
                 self.results.removeAll()
                 for (_, song):(String, JSON) in songs {
-                    let title      = song["attributes"]["name"].stringValue
-                    let artist     = song["attributes"]["artistName"].stringValue
-                    let artworkUrl = self.artworkUrl(urlString: song["attributes"]["artwork"]["url"].stringValue,
-                                                     width: 256,
-                                                     height: 256
-                    )
-                    self.results.append(MusicDataModel(title: title,
-                                                       artist: artist,
-                                                       artworkUrl: artworkUrl)
-                    )
+                    let title            = song["attributes"]["name"].stringValue
+                    let artist           = song["attributes"]["artistName"].stringValue
+                    let artworkUrlString = song["attributes"]["artwork"]["url"].stringValue
+                    let artworkUrl = self.artworkUrl(urlString: artworkUrlString, width: 256, height: 256)
+                    self.results.append(MusicDataModel(title: title, artist: artist, artworkUrl: artworkUrl))
                 }
                 self.tableView.reloadData()
             }
