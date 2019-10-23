@@ -17,13 +17,6 @@ class SearchViewController: UIViewController {
     private var storefrontCountryCode : String? = nil
     private var results : [MusicDataModel] = []
     private let defaultArtwork : UIImage = UIImage()
-    //キャッシュ回数をカウントするテスト用変数(あとで消す)
-    class GlobalVar {
-        private init() {}
-        static let shared = GlobalVar()
-
-        var count = 0
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,7 +71,7 @@ extension SearchViewController: UITableViewDataSource {
         
         DispatchQueue.global().async {
                 //let imageData = try Data(contentsOf: item.artworkUrl)
-                if let imageData = Artwork.testCache.object(forKey: item.artworkUrl as AnyObject){
+                if let imageData = Artwork.imageCache.object(forKey: item.artworkUrl as AnyObject){
                 DispatchQueue.main.async {
                     cell.artwork.image = UIImage(data: imageData as! Data)
                     }}
@@ -88,9 +81,8 @@ extension SearchViewController: UITableViewDataSource {
                         print(error)
                         return
                     }
-                    //テスト用のカウント変数
-                    var myCount: GlobalVar
-                    Artwork.testCache.setObject(data as AnyObject, forKey: item.artworkUrl as AnyObject)
+                        
+                    Artwork.imageCache.setObject(data as AnyObject, forKey: item.artworkUrl as AnyObject)
                     DispatchQueue.main.async {
                         cell.artwork.image = UIImage(data: data!)
                         }
