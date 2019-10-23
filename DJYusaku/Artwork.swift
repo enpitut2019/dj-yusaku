@@ -30,17 +30,17 @@ class Artwork {
     // URLを受け取ってキャッシュに保存してUIImageに変換する
     static func cacheProcessing(url: URL) -> UIImage? {
         var returnUIImage: UIImage?
-         if let imageData = imageCache.object(forKey: url as AnyObject){
+        if let imageData = imageCache.object(forKey: url as AnyObject){
             returnUIImage = UIImage(data: imageData as! Data)
         }
          else {
-        let downloadTask = URLSession.shared.dataTask(with: url) { data, _, error in
-        if let error = error {
-            print(error)
-            return
+            let downloadTask = URLSession.shared.dataTask(with: url) { data, _, error in
+                if let error = error {
+                    print(error)
+                    return
             }
-            imageCache.setObject(data as AnyObject, forKey: url as AnyObject)
-            returnUIImage = UIImage(data: data!)
+                imageCache.setObject(data as AnyObject, forKey: url as AnyObject)
+                returnUIImage = UIImage(data: data!)
             }
             downloadTask.resume()
         }

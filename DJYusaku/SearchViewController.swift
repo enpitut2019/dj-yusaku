@@ -70,26 +70,12 @@ extension SearchViewController: UITableViewDataSource {
         cell.artwork.image = defaultArtwork
         
         DispatchQueue.global().async {
-                //let imageData = try Data(contentsOf: item.artworkUrl)
-                if let imageData = Artwork.imageCache.object(forKey: item.artworkUrl as AnyObject){
-                DispatchQueue.main.async {
-                    cell.artwork.image = UIImage(data: imageData as! Data)
-                    }}
-                else {
-                    let downloadTask = URLSession.shared.dataTask(with: item.artworkUrl) { [weak self] data, _, error in
-                    if let error = error {
-                        print(error)
-                        return
-                    }
-                        
-                    Artwork.imageCache.setObject(data as AnyObject, forKey: item.artworkUrl as AnyObject)
-                    DispatchQueue.main.async {
-                        cell.artwork.image = UIImage(data: data!)
-                        }
-                    }
-                    downloadTask.resume()
+            let imageData = Artwork.cacheProcessing(url: item.artworkUrl)
+            DispatchQueue.main.async {
+                cell.artwork.image = imageData
+                cell.artwork.setNeedsDisplay()
                 }
-        }
+            }
         return cell
     }
 }
