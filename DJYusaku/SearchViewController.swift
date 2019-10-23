@@ -17,6 +17,13 @@ class SearchViewController: UIViewController {
     private var storefrontCountryCode : String? = nil
     private var results : [MusicDataModel] = []
     private let defaultArtwork : UIImage = UIImage()
+    //キャッシュ回数をカウントするテスト用変数(あとで消す)
+    class GlobalVar {
+        private init() {}
+        static let shared = GlobalVar()
+
+        var count = 0
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,14 +77,26 @@ extension SearchViewController: UITableViewDataSource {
         cell.artwork.image = defaultArtwork
         
         DispatchQueue.global().async {
-            do {
-                let imageData = try Data(contentsOf: item.artworkUrl)
+                //let imageData = try Data(contentsOf: item.artworkUrl)
+                if let imageData = Artwork.testCache.object(forKey: item.artworkUrl as AnyObject){
                 DispatchQueue.main.async {
-                    cell.artwork.image = UIImage(data: imageData)!
+                    cell.artwork.image = UIImage(data: imageData as! Data)
+                    }}
+                else {
+                    let downloadTask = URLSession.shared.dataTask(with: item.artworkUrl) { [weak self] data, _, error in
+                    if let error = error {
+                        print(error)
+                        return
+                    }
+                    //テスト用のカウント変数
+                    var myCount: GlobalVar
+                    Artwork.testCache.setObject(data as AnyObject, forKey: item.artworkUrl as AnyObject)
+                    DispatchQueue.main.async {
+                        cell.artwork.image = UIImage(data: data!)
+                        }
+                    }
+                    downloadTask.resume()
                 }
-            } catch {
-                // TODO: 画像が取得できなかった際のエラーハンドリング
-            }
         }
         return cell
     }
@@ -126,12 +145,12 @@ extension SearchViewController: UISearchResultsUpdating {
         task.resume()
     }
     
-    // 任意のサイズのアートワーク用URLを生成
-    func artworkUrl(urlString: String, width: Int, height: Int) -> URL {
-        let replaced = urlString.replacingOccurrences(of: "{w}", with: "\(width)")
-                                .replacingOccurrences(of: "{h}", with: "\(height)")
-        return URL(string: replaced)!
-    }
+//    // 任意のサイズのアートワーク用URLを生成
+//    func artworkUrl(urlString: String, width: Int, height: Int) -> URL {
+//        let replaced = urlString.replacingOccurrences(of: "{w}", with: "\(width)")
+//                                .replacingOccurrences(of: "{h}", with: "\(height)")
+//        return URL(string: replaced)!
+//    }
     
     func updateSearchResults(for searchController: UISearchController) {
         // 検索文字列の取得
@@ -159,7 +178,7 @@ extension SearchViewController: UISearchResultsUpdating {
                     let title            = song["attributes"]["name"].stringValue
                     let artist           = song["attributes"]["artistName"].stringValue
                     let artworkUrlString = song["attributes"]["artwork"]["url"].stringValue
-                    let artworkUrl = self.artworkUrl(urlString: artworkUrlString, width: 256, height: 256)
+                    let artworkUrl = Artwork.artworkUrl(urlString: artworkUrlString, width: 256, height: 256)
                     self.results.append(MusicDataModel(title: title, artist: artist, artworkUrl: artworkUrl))
                 }
                 self.tableView.reloadData()
