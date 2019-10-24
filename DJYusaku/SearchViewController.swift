@@ -141,21 +141,19 @@ extension SearchViewController: UISearchResultsUpdating {
                 return
             }
             
-            DispatchQueue.global().async {
-                self.results.removeAll()
-                for (_, song):(String, JSON) in songs {
-                    let title            = song["attributes"]["name"].stringValue
-                    let artist           = song["attributes"]["artistName"].stringValue
-                    let artworkUrlString = song["attributes"]["artwork"]["url"].stringValue
-                    let artworkUrl = Artwork.artworkUrl(urlString: artworkUrlString, width: 256, height: 256)
-                    self.results.append(MusicDataModel(title: title, artist: artist, artworkUrl: artworkUrl))
-                }
-                DispatchQueue.main.async {
-                    //今のserachBarの内容と矛盾しないならtableViewの更新
-                    if searchText == searchController.searchBar.text {
-                        self.tableView.reloadData()
+            DispatchQueue.main.async {
+                //今のserachBarの内容と矛盾しないならself.resultsの更新
+                if searchText == searchController.searchBar.text {
+                    self.results.removeAll()
+                    for (_, song):(String, JSON) in songs {
+                        let title            = song["attributes"]["name"].stringValue
+                        let artist           = song["attributes"]["artistName"].stringValue
+                        let artworkUrlString = song["attributes"]["artwork"]["url"].stringValue
+                        let artworkUrl = Artwork.artworkUrl(urlString: artworkUrlString, width: 256, height: 256)
+                        self.results.append(MusicDataModel(title: title, artist: artist, artworkUrl: artworkUrl))
                     }
                 }
+                self.tableView.reloadData()
             }
         }
     }
