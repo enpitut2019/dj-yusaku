@@ -70,13 +70,9 @@ extension SearchViewController: UITableViewDataSource {
         cell.artwork.image = defaultArtwork
         
         DispatchQueue.global().async {
-            do {
-                let imageData = try Data(contentsOf: item.artworkUrl)
-                DispatchQueue.main.async {
-                    cell.artwork.image = UIImage(data: imageData)!
-                }
-            } catch {
-                // TODO: 画像が取得できなかった際のエラーハンドリング
+            let imageData = Artwork.cacheProcessing(url: item.artworkUrl)
+            DispatchQueue.main.async {
+                cell.artwork.image = imageData
             }
         }
         return cell
@@ -121,16 +117,8 @@ extension SearchViewController: UISearchResultsUpdating {
                 completion(nil)
             }
         }
-        
         // 検索の実行
         task.resume()
-    }
-    
-    // 任意のサイズのアートワーク用URLを生成
-    func artworkUrl(urlString: String, width: Int, height: Int) -> URL {
-        let replaced = urlString.replacingOccurrences(of: "{w}", with: "\(width)")
-                                .replacingOccurrences(of: "{h}", with: "\(height)")
-        return URL(string: replaced)!
     }
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -154,13 +142,16 @@ extension SearchViewController: UISearchResultsUpdating {
             }
             
             DispatchQueue.main.async {
-                self.results.removeAll()
-                for (_, song):(String, JSON) in songs {
-                    let title            = song["attributes"]["name"].stringValue
-                    let artist           = song["attributes"]["artistName"].stringValue
-                    let artworkUrlString = song["attributes"]["artwork"]["url"].stringValue
-                    let artworkUrl = self.artworkUrl(urlString: artworkUrlString, width: 256, height: 256)
-                    self.results.append(MusicDataModel(title: title, artist: artist, artworkUrl: artworkUrl))
+                //今のserachBarの内容と矛盾しないならself.resultsの更新
+                if searchText == searchController.searchBar.text {
+                    self.results.removeAll()
+                    for (_, song):(String, JSON) in songs {
+                        let title            = song["attributes"]["name"].stringValue
+                        let artist           = song["attributes"]["artistName"].stringValue
+                        let artworkUrlString = song["attributes"]["artwork"]["url"].stringValue
+                        let artworkUrl = Artwork.artworkUrl(urlString: artworkUrlString, width: 256, height: 256)
+                        self.results.append(MusicDataModel(title: title, artist: artist, artworkUrl: artworkUrl))
+                    }
                 }
                 self.tableView.reloadData()
             }

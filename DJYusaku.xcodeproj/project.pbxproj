@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B125D88D235F426C00D383E7 /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B125D88C235F426C00D383E7 /* Artwork.swift */; };
 		C436A8562350B16B009F6498 /* MusicDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C436A8552350B16B009F6498 /* MusicDataModel.swift */; };
 		C436A8582350D36F009F6498 /* SearchMusicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C436A8572350D36F009F6498 /* SearchMusicTableViewCell.swift */; };
 		C447ACA6234882F900D535EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447ACA5234882F900D535EB /* AppDelegate.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B125D88C235F426C00D383E7 /* Artwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
 		C436A8552350B16B009F6498 /* MusicDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicDataModel.swift; sourceTree = "<group>"; };
 		C436A8572350D36F009F6498 /* SearchMusicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicTableViewCell.swift; sourceTree = "<group>"; };
 		C447ACA2234882F900D535EB /* DJYusaku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DJYusaku.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +128,7 @@
 				C4D25957235205D10066FCE0 /* Secrets.swift */,
 				C4D25959235205EC0066FCE0 /* Secrets+Local.swift */,
 				C4FDD0CB2356EA8F007569B1 /* RequestsMusicTableViewCell.swift */,
+				B125D88C235F426C00D383E7 /* Artwork.swift */,
 			);
 			path = DJYusaku;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B125D88D235F426C00D383E7 /* Artwork.swift in Sources */,
 				C4CF9725235163EF00C8A102 /* SearchViewController.swift in Sources */,
 				C4FDD0CC2356EA8F007569B1 /* RequestsMusicTableViewCell.swift in Sources */,
 				C436A8562350B16B009F6498 /* MusicDataModel.swift in Sources */,
@@ -467,13 +471,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 29WP3DF4XR;
+				DEVELOPMENT_TEAM = F98SMB4597;
 				INFOPLIST_FILE = DJYusaku/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = jp.yaplus.DJYusaku;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.yaplus.DJYusaku.leney;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -485,13 +489,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 29WP3DF4XR;
+				DEVELOPMENT_TEAM = F98SMB4597;
 				INFOPLIST_FILE = DJYusaku/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = jp.yaplus.DJYusaku;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.yaplus.DJYusaku.leney;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
