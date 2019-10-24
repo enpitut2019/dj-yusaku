@@ -73,9 +73,8 @@ extension SearchViewController: UITableViewDataSource {
             let imageData = Artwork.cacheProcessing(url: item.artworkUrl)
             DispatchQueue.main.async {
                 cell.artwork.image = imageData
-                cell.artwork.setNeedsDisplay()
-                }
             }
+        }
         return cell
     }
 }
@@ -118,17 +117,9 @@ extension SearchViewController: UISearchResultsUpdating {
                 completion(nil)
             }
         }
-        
         // 検索の実行
         task.resume()
     }
-    
-//    // 任意のサイズのアートワーク用URLを生成
-//    func artworkUrl(urlString: String, width: Int, height: Int) -> URL {
-//        let replaced = urlString.replacingOccurrences(of: "{w}", with: "\(width)")
-//                                .replacingOccurrences(of: "{h}", with: "\(height)")
-//        return URL(string: replaced)!
-//    }
     
     func updateSearchResults(for searchController: UISearchController) {
         // 検索文字列の取得
@@ -150,7 +141,7 @@ extension SearchViewController: UISearchResultsUpdating {
                 return
             }
             
-            DispatchQueue.main.async {
+            DispatchQueue.global().async {
                 self.results.removeAll()
                 for (_, song):(String, JSON) in songs {
                     let title            = song["attributes"]["name"].stringValue
@@ -159,7 +150,12 @@ extension SearchViewController: UISearchResultsUpdating {
                     let artworkUrl = Artwork.artworkUrl(urlString: artworkUrlString, width: 256, height: 256)
                     self.results.append(MusicDataModel(title: title, artist: artist, artworkUrl: artworkUrl))
                 }
-                self.tableView.reloadData()
+                DispatchQueue.main.async {
+                    //今のserachBarの内容と矛盾しないならtableViewの更新
+                    if searchText == searchController.searchBar.text {
+                        self.tableView.reloadData()
+                    }
+                }
             }
         }
     }

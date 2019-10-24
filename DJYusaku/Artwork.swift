@@ -15,7 +15,7 @@ class Artwork {
     //static let testCache = Artwork()
     
     //あとでprivateに直す
-    static var imageCache = NSCache<AnyObject, AnyObject>()
+    private static var imageCache = NSCache<AnyObject, AnyObject>()
     
 //    private init() {
 //        //write initialize code
@@ -29,21 +29,18 @@ class Artwork {
     }
     // URLを受け取ってキャッシュに保存してUIImageに変換する
     static func cacheProcessing(url: URL) -> UIImage? {
-        var returnUIImage: UIImage?
+        var artworkImage: UIImage?
         if let imageData = imageCache.object(forKey: url as AnyObject){
-            returnUIImage = UIImage(data: imageData as! Data)
+            artworkImage = UIImage(data: imageData as! Data)
+            return artworkImage
         }
-         else {
-            let downloadTask = URLSession.shared.dataTask(with: url) { data, _, error in
-                if let error = error {
-                    print(error)
-                    return
-            }
-                imageCache.setObject(data as AnyObject, forKey: url as AnyObject)
-                returnUIImage = UIImage(data: data!)
-            }
-            downloadTask.resume()
+        do {
+            let imageData = try Data(contentsOf: url)
+            imageCache.setObject(imageData as AnyObject, forKey: url as AnyObject)
+            artworkImage = UIImage(data: imageData)
+        } catch {
+            // TODO: 画像が取得できなかった際のエラーハンドリング
         }
-        return returnUIImage
+        return artworkImage
     }
 }
