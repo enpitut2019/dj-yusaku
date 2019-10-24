@@ -8,12 +8,14 @@
 
 import UIKit
 
-class MusicDataModel : NSObject {
-    var title:  String // 曲名
-    var artist: String // アーティスト名
+struct MusicDataModel {
+    var title:  String      // 曲名
+    var artist: String      // アーティスト名
+    var artworkUrl: URL     // 画像アートワーク
 
-    init(title: String, artist: String){
-        self.title  = title
-        self.artist = artist
+    init(title: String, artist: String, artworkUrl: URL){
+        self.title   = title
+        self.artist  = artist
+        self.artworkUrl = artworkUrl
     }
 }
