@@ -70,9 +70,9 @@ extension SearchViewController: UITableViewDataSource {
         cell.artwork.image = defaultArtwork
         
         DispatchQueue.global().async {
-            let imageData = Artwork.cacheProcessing(url: item.artworkUrl)
+            let image = Artwork.fetch(url: item.artworkUrl)
             DispatchQueue.main.async {
-                cell.artwork.image = imageData
+                cell.artwork.image = image  // 画像の取得に失敗していたらnilが入ることに注意
             }
         }
         return cell
@@ -142,16 +142,17 @@ extension SearchViewController: UISearchResultsUpdating {
             }
             
             DispatchQueue.main.async {
-                //今のserachBarの内容と矛盾しないならself.resultsの更新
-                if searchText == searchController.searchBar.text {
-                    self.results.removeAll()
-                    for (_, song):(String, JSON) in songs {
-                        let title            = song["attributes"]["name"].stringValue
-                        let artist           = song["attributes"]["artistName"].stringValue
-                        let artworkUrlString = song["attributes"]["artwork"]["url"].stringValue
-                        let artworkUrl = Artwork.artworkUrl(urlString: artworkUrlString, width: 256, height: 256)
-                        self.results.append(MusicDataModel(title: title, artist: artist, artworkUrl: artworkUrl))
-                    }
+                // 今のserachBarの内容と矛盾していれば何もしない
+                let currentText = searchController.searchBar.text
+                guard searchText == currentText else { return }
+                
+                self.results.removeAll()
+                for (_, song):(String, JSON) in songs {
+                    let title            = song["attributes"]["name"].stringValue
+                    let artist           = song["attributes"]["artistName"].stringValue
+                    let artworkUrlString = song["attributes"]["artwork"]["url"].stringValue
+                    let artworkUrl = Artwork.url(urlString: artworkUrlString, width: 256, height: 256)
+                    self.results.append(MusicDataModel(title: title, artist: artist, artworkUrl: artworkUrl))
                 }
                 self.tableView.reloadData()
             }

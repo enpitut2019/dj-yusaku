@@ -11,25 +11,16 @@ import Foundation
 
 class Artwork {
     
-    //お試しのシングルトンのキャッシュ、あとで消す
-    //static let testCache = Artwork()
-    
-    //あとでprivateに直す
     private static var imageCache = NSCache<AnyObject, AnyObject>()
-    
-//    private init() {
-//        //write initialize code
-//    }
-    
-    // 任意のサイズのアートワーク用URLを生成(SearchViewControllerから移動)するクラス関数
-    static func artworkUrl(urlString: String, width: Int, height: Int) -> URL {
+
+    static func url(urlString: String, width: Int, height: Int) -> URL {
         let replaced = urlString.replacingOccurrences(of: "{w}", with: "\(width)")
                                 .replacingOccurrences(of: "{h}", with: "\(height)")
         return URL(string: replaced)!
     }
-    // URLを受け取ってキャッシュに保存してUIImageに変換する
-    static func cacheProcessing(url: URL) -> UIImage? {
-        var artworkImage: UIImage?
+    
+    static func fetch(url: URL) -> UIImage? {
+        var artworkImage: UIImage? = nil
         if let imageData = imageCache.object(forKey: url as AnyObject){
             artworkImage = UIImage(data: imageData as! Data)
             return artworkImage
