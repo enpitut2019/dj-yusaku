@@ -27,7 +27,6 @@ class RequestQueue{
         requests.append(musicDataModel)
         //送る相手を指定していないため要修正
         NotificationCenter.default.post(name: .notifyName, object: nil)
-        print("2")
     }
     
     //requestsの中身を削除

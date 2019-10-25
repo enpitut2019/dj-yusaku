@@ -42,7 +42,6 @@ class RequestsViewController: UIViewController {
     }
     
     @objc func updateRequests(){
-        print("3")
         tableView.reloadData()
     }
 }

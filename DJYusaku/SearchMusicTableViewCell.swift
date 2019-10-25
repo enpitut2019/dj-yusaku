@@ -34,6 +34,5 @@ class SearchMusicTableViewCell: UITableViewCell {
     }
     @IBAction func sendRequest(_ sender: Any) {
         RequestQueue.addRequest(musicDataModel: MusicDataModel(title: title.text ?? "", artist: artist.text ?? "", artworkUrl: artworkUrl!))
-        print("yuyaKiuchi")
     }
 }
