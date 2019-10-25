@@ -38,7 +38,7 @@ class RequestsViewController: UIViewController {
         playingArtwork.layer.cornerRadius = playingArtwork.frame.size.width * 0.05
         playingArtwork.clipsToBounds = true
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updateRequests), name: .notifyName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateRequests), name: .sendRequestName, object: nil)
     }
     
     @objc func updateRequests(){
