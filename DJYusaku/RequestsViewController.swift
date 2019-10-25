@@ -14,7 +14,6 @@ class RequestsViewController: UIViewController {
     @IBOutlet weak var playingArtwork: UIImageView!
     @IBOutlet weak var playingTitle: UILabel!
     
-
     // 表示確認用サンプルデータ
     private var requests = [
         MusicDataModel(title: "Happier", artist: "Marshmello", artworkUrl: Artwork.url(urlString: "https://img.discogs.com/osP7UHCvBmZDrdIlpDgW6ifpaXU=/fit-in/600x595/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-13426814-1553984554-3921.png.jpg", width: 256, height: 256)),
@@ -46,22 +45,6 @@ class RequestsViewController: UIViewController {
             guard status == .authorized else { return }
             // TODO: Apple Musicの契約確認処理
         }
-        // Apple Musicのロケール設定
-        self.cloudServiceController.requestStorefrontCountryCode { (storefrontCountryCode, error) in
-            if error != nil {
-                // アラートを表示
-                let alertController = UIAlertController(title: "Apple Musicの情報の取得に失敗しました",
-                                                        message: "iCloudのログインを確認してください",
-                                                        preferredStyle: UIAlertController.Style.alert)
-                let alertButton = UIAlertAction(title: "OK",
-                                                 style: UIAlertAction.Style.cancel, handler: nil)
-                alertController.addAction(alertButton)
-                self.present(alertController, animated: true, completion: nil)
-                return
-            }
-            self.storefrontCountryCode = storefrontCountryCode
-        }
-        
         
         let footerView = UIView()
         footerView.frame.size.height = tableView.rowHeight
