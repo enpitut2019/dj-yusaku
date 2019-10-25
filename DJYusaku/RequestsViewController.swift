@@ -50,13 +50,13 @@ class RequestsViewController: UIViewController {
 
 extension RequestsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return RequestQueue.countRequests()
+        return RequestQueue.shared.countRequests()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RequestsMusicTableViewCell", for: indexPath) as! RequestsMusicTableViewCell
         
-        let item = RequestQueue.getRequest(indexPath: indexPath.row)
+        let item = RequestQueue.shared.getRequest(indexPath: indexPath.row)
         cell.title.text = item.title
         cell.artist.text = item.artist
         cell.artwork.image = defaultArtwork
@@ -79,7 +79,7 @@ extension RequestsViewController: UITableViewDelegate {
     // セルの編集時の挙動
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            RequestQueue.deleteRequest(indexPath: indexPath.row)
+            RequestQueue.shared.deleteRequest(indexPath: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }

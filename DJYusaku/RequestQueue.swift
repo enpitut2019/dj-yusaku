@@ -19,28 +19,28 @@ class RequestQueue{
     
     static let shared = RequestQueue()
     
-    private static var requests : [MusicDataModel] = []
+    private var requests : [MusicDataModel] = []
     // TODO: requestsの中身を追加する関数と消去する関数
     
     //requestsの中身を追加
-    static func addRequest(musicDataModel: MusicDataModel){
+    func addRequest(musicDataModel: MusicDataModel){
         requests.append(musicDataModel)
         //送る相手を指定していないため要修正
         NotificationCenter.default.post(name: .notifyName, object: nil)
     }
     
     //requestsの中身を削除
-    static func deleteRequest(indexPath: Int){
+    func deleteRequest(indexPath: Int){
         requests.remove(at: indexPath)
     }
     
     //requestsの中身をカウントする
-    static func countRequests() -> Int {
+    func countRequests() -> Int {
         return requests.count
     }
     
     //requestsの中身を取得する
-    static func getRequest(indexPath: Int) -> MusicDataModel {
+    func getRequest(indexPath: Int) -> MusicDataModel {
         return requests[indexPath]
     }
 }
