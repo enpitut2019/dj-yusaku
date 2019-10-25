@@ -34,6 +34,8 @@ class SearchMusicTableViewCell: UITableViewCell {
     }
     //+ボタンを押したらRequestsViewControllerに曲を追加する
     @IBAction func sendRequest(_ sender: Any) {
-        RequestQueue.shared.addRequest(musicDataModel: MusicDataModel(title: title.text ?? "", artist: artist.text ?? "", artworkUrl: artworkUrl!))
+        //artworkUrlがnilなら追加されない
+        guard let artworkUrl = artworkUrl else { return }
+        RequestQueue.shared.addRequest(musicDataModel: MusicDataModel(title: title.text ?? "", artist: artist.text ?? "", artworkUrl: artworkUrl))
     }
 }
