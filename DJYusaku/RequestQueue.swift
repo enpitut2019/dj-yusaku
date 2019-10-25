@@ -14,5 +14,6 @@ class RequestQueue{
     
     static let shared = RequestQueue()
     
-    var music : [MusicDataModel] = []
+    private var requests : [MusicDataModel] = []
+    // TODO: requestsの中身を追加する関数と消去する関数
 }

@@ -15,7 +15,6 @@ class RequestsViewController: UIViewController {
     @IBOutlet weak var playingTitle: UILabel!
     
 
-//    var requests = RequestQueue.shared
     // 表示確認用サンプルデータ
     private var requests = [
         MusicDataModel(title: "Happier", artist: "Marshmello", artworkUrl: Artwork.url(urlString: "https://img.discogs.com/osP7UHCvBmZDrdIlpDgW6ifpaXU=/fit-in/600x595/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-13426814-1553984554-3921.png.jpg", width: 256, height: 256)),
