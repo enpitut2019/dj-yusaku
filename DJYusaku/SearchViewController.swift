@@ -73,6 +73,7 @@ extension SearchViewController: UITableViewDataSource {
             let image = Artwork.fetch(url: item.artworkUrl)
             DispatchQueue.main.async {
                 cell.artwork.image = image  // 画像の取得に失敗していたらnilが入ることに注意
+                cell.artwork.setNeedsLayout()
             }
         }
         return cell
