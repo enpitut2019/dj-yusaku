@@ -9,7 +9,7 @@
 import UIKit
 
 class SearchMusicTableViewCell: UITableViewCell {
-    
+    var requests = RequestQueue.shared
     // TODO: TableViewCellとアウトレット接続しているけど未使用
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var artist: UILabel!
@@ -30,5 +30,7 @@ class SearchMusicTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    @IBAction func musicSelected(_ sender: Any) {
+//        requests.music.append(MusicDataModel(title: title.text, artist: artist.text, artworkUrl: artwork))
+    }
 }
