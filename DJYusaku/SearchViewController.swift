@@ -67,6 +67,7 @@ extension SearchViewController: UITableViewDataSource {
         let item = results[indexPath.row]
         cell.title.text    = item.title
         cell.artist.text   = item.artist
+        cell.artworkUrl = item.artworkUrl
         cell.artwork.image = defaultArtwork
         
         DispatchQueue.global().async {

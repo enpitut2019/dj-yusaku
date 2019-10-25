@@ -15,6 +15,9 @@ class SearchMusicTableViewCell: UITableViewCell {
     @IBOutlet weak var artwork: UIImageView!
     @IBOutlet weak var button: UIButton!
     
+    //sendRequestに必要なURL型の変数(プライベート変数にするかも)
+    var artworkUrl: URL?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -30,6 +33,7 @@ class SearchMusicTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     @IBAction func sendRequest(_ sender: Any) {
-//        requests.music.append(MusicDataModel(title: title.text, artist: artist.text, artworkUrl: artwork))
+        RequestQueue.addRequest(musicDataModel: MusicDataModel(title: title.text ?? "", artist: artist.text ?? "", artworkUrl: artworkUrl!))
+        print("yuyaKiuchi")
     }
 }
