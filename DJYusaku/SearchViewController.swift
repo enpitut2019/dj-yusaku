@@ -43,9 +43,9 @@ class SearchViewController: UIViewController {
                 let alertController = UIAlertController(title: "Apple Musicの情報の取得に失敗しました",
                                                         message: "iCloudのログインを確認してください",
                                                         preferredStyle: UIAlertController.Style.alert)
-                let allertButton = UIAlertAction(title: "OK",
+                let alertButton = UIAlertAction(title: "OK",
                                                  style: UIAlertAction.Style.cancel, handler: nil)
-                alertController.addAction(allertButton)
+                alertController.addAction(alertButton)
                 self.present(alertController, animated: true, completion: nil)
                 return
             }

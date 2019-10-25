@@ -18,7 +18,18 @@ class RequestsViewController: UIViewController {
 //    var requests = RequestQueue.shared
     // 表示確認用サンプルデータ
     private var requests = [
-        MusicDataModel(title: "Happier", artist: "Marshmello", artworkUrl: Artwork.url(urlString: "https://music.apple.com/jp/album/happier/1424703172?i=1424704480", width: 256, height: 256))
+        MusicDataModel(title: "Happier", artist: "Marshmello", artworkUrl: Artwork.url(urlString: "https://img.discogs.com/osP7UHCvBmZDrdIlpDgW6ifpaXU=/fit-in/600x595/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-13426814-1553984554-3921.png.jpg", width: 256, height: 256)),
+        MusicDataModel(title: "Billie Jean", artist: "Michael Jackson", artworkUrl: Artwork.url(urlString: "https://images-na.ssl-images-amazon.com/images/I/51Mz7YQ0e0L._AC_.jpg", width: 256, height: 256)),
+        MusicDataModel(title: "Pretender", artist: "Official髭男dism", artworkUrl: Artwork.url(urlString: "https://cdn.utaten.com/uploads/images/specialArticle/3909/thumbnail/0x800/591283d7ae5bae31c486e1babe0db1af6fffcfcf.jpeg", width: 256, height: 256)),
+        MusicDataModel(title: "MIND CONDUCTOR", artist: "YURiKA", artworkUrl: Artwork.url(urlString: "https://images-na.ssl-images-amazon.com/images/I/81aMFhI4G6L._AC_SL1500_.jpg", width: 256, height: 256)),
+        MusicDataModel(title: "留学生", artist: "MONKEY MAJIK × 岡崎体育", artworkUrl: Artwork.url(urlString: "https://images-na.ssl-images-amazon.com/images/I/61J8sAYJNuL._AC_SL1000_.jpg", width: 256, height: 256)),
+        MusicDataModel(title: "負け犬にアンコールはいらない", artist: "ヨルシカ", artworkUrl: Artwork.url(urlString: "https://images-na.ssl-images-amazon.com/images/I/81yDGHPwMfL._AC_SL1419_.jpg", width: 256, height: 256)),
+        MusicDataModel(title: "KISS OFLIFE", artist: "平井堅", artworkUrl: Artwork.url(urlString: "https://images-na.ssl-images-amazon.com/images/I/71XT%2BN5llOL._AC_SL1221_.jpg", width: 256, height: 256)),
+        MusicDataModel(title: "papa", artist: "Orange range", artworkUrl: Artwork.url(urlString: "https://images-na.ssl-images-amazon.com/images/I/61MIuaFTX0L._AC_.jpg", width: 256, height: 256)),
+        MusicDataModel(title: "Solar System", artist: "Sub Focus", artworkUrl: Artwork.url(urlString: "https://img.discogs.com/ZDQTTaoZDcoYhdnr1kvB9-3ow0k=/fit-in/600x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-13923579-1564159903-8551.jpeg.jpg", width: 256, height: 256)),
+        MusicDataModel(title: "ミツバチ", artist: "遊助", artworkUrl: Artwork.url(urlString: "https://images-na.ssl-images-amazon.com/images/I/51tx6bZYM8L._AC_.jpg", width: 256, height: 256)),
+        MusicDataModel(title: "September", artist: "Earth Wind & Fire", artworkUrl: Artwork.url(urlString: "https://cdn.utaten.com/uploads/images/specialArticle/446/thumbnail/0x800/image.jpeg", width: 256, height: 256)),
+        MusicDataModel(title: "Mr.Suicide", artist: "9mm Parabellum Bullet", artworkUrl: Artwork.url(urlString: "https://images-na.ssl-images-amazon.com/images/I/51CNfp1bYiL._AC_.jpg", width: 256, height: 256))
     ]
     private let cloudServiceController = SKCloudServiceController()
     private let defaultArtwork : UIImage = UIImage()
@@ -43,9 +54,9 @@ class RequestsViewController: UIViewController {
                 let alertController = UIAlertController(title: "Apple Musicの情報の取得に失敗しました",
                                                         message: "iCloudのログインを確認してください",
                                                         preferredStyle: UIAlertController.Style.alert)
-                let allertButton = UIAlertAction(title: "OK",
+                let alertButton = UIAlertAction(title: "OK",
                                                  style: UIAlertAction.Style.cancel, handler: nil)
-                alertController.addAction(allertButton)
+                alertController.addAction(alertButton)
                 self.present(alertController, animated: true, completion: nil)
                 return
             }
@@ -62,7 +73,6 @@ class RequestsViewController: UIViewController {
     }
 }
 
-
 // MARK: - UITableViewDataSource
 
 extension RequestsViewController: UITableViewDataSource {
@@ -78,8 +88,13 @@ extension RequestsViewController: UITableViewDataSource {
         cell.artist.text = item.artist
         cell.artwork.image = defaultArtwork
         
-        let fetchedImage = Artwork.fetch(url: item.artworkUrl)
-        cell.artwork.image = fetchedImage // 画像の取得に失敗していたらnilが入ることに注意
+        DispatchQueue.global().async {
+            let fetchedImage = Artwork.fetch(url: item.artworkUrl)
+            DispatchQueue.main.async {
+                cell.artwork.image = fetchedImage // 画像の取得に失敗していたらnilが入ることに注意
+                cell.artwork.setNeedsLayout()
+            }
+        }
         
         return cell
     }
