@@ -34,8 +34,12 @@ class SearchMusicTableViewCell: UITableViewCell {
     }
     //+ボタンを押したらRequestsViewControllerに曲を追加する
     @IBAction func sendRequest(_ sender: Any) {
+        //ボタンを連続で押させないようにする
+        button.isEnabled = false
         //artworkUrlがnilなら追加されない
         guard let artworkUrl = artworkUrl else { return }
         RequestQueue.shared.addRequest(musicDataModel: MusicDataModel(title: title.text ?? "", artist: artist.text ?? "", artworkUrl: artworkUrl))
+        //SearchViewControllerにボタンがタップされたことを通知
+        NotificationCenter.default.post(name: .searchCellToSearchVCName, object: nil, userInfo: ["title": self.title.text ?? "", "button": self.button as Any])
     }
 }

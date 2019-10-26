@@ -11,7 +11,8 @@ import UIKit
 
 //Notification.Nameをどこに書けばいいかまだ決まっていない
 extension Notification.Name {
-    static let sendRequestName = Notification.Name("sendRequestName")
+    static let searchCellToSearchVCName = Notification.Name("searchCellToSearchVcName")
+    static let requestQueueToRequestsVCName = Notification.Name("requestQueueToRequestsVCName")
 }
 
 class RequestQueue{
@@ -25,8 +26,8 @@ class RequestQueue{
     //requestsの中身を追加
     func addRequest(musicDataModel: MusicDataModel){
         requests.append(musicDataModel)
-        //送る相手を指定していないため要修正
-        NotificationCenter.default.post(name: .sendRequestName, object: nil)
+        //RequestViewControllerにRequestQueueを追加できたことを通知
+        NotificationCenter.default.post(name: .requestQueueToRequestsVCName, object: nil)
     }
     
     //requestsの中身を削除

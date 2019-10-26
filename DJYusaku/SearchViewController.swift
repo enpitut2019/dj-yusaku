@@ -51,6 +51,20 @@ class SearchViewController: UIViewController {
             }
             self.storefrontCountryCode = storefrontCountryCode
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(registerRequestAlert), name: .searchCellToSearchVCName, object: nil)
+    }
+    @objc func registerRequestAlert(notification: NSNotification){
+        guard let userInfo = notification.userInfo else { return }
+
+        let title = userInfo["title"] as? String ?? ""
+        let button: UIButton! = userInfo["button"] as? UIButton
+        let alert = UIAlertController(title: title, message: "をリクエストしました", preferredStyle: UIAlertController.Style.alert)
+
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+
+        present(alert, animated: true)
+        
+        button.isEnabled = true
     }
 }
 
