@@ -21,9 +21,10 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 検索バーの設定
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "曲名、アーティスト名、その他"
+        searchController.searchBar.placeholder = "Songs, Artists, Lyrics, and More"
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         
@@ -41,8 +42,8 @@ class SearchViewController: UIViewController {
         self.cloudServiceController.requestStorefrontCountryCode { (storefrontCountryCode, error) in
             if error != nil {
                 // アラートを表示
-                let alertController = UIAlertController(title: "Apple Musicの情報の取得に失敗しました",
-                                                        message: "iCloudのログインを確認してください",
+                let alertController = UIAlertController(title:   "Apple Music connection failed",
+                                                        message: "Please check your iCloud account status.",
                                                         preferredStyle: UIAlertController.Style.alert)
                 let alertButton = UIAlertAction(title: "OK",
                                                  style: UIAlertAction.Style.cancel, handler: nil)
