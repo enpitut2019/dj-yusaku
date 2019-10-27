@@ -53,12 +53,20 @@ class RequestsViewController: UIViewController {
         playingArtwork.layer.cornerRadius = playingArtwork.frame.size.width * 0.05
         playingArtwork.clipsToBounds = true
         
-        // 起動時にはモーダルを表示
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // 起動時にはWelcomeViewをモーダルを表示
+        // 画面遷移はviewDidAppearでする必要がある
         let storyboard: UIStoryboard = self.storyboard!
-        let welcomView = storyboard.instantiateViewController(withIdentifier: "WelcomeView")
-        self.present(welcomView, animated: true, completion: nil)
+        let welcomViewController = storyboard.instantiateViewController(withIdentifier: "WelcomeView")
+        self.present(welcomViewController, animated: true)
     }
 }
+
 
 // MARK: - UITableViewDataSource
 
