@@ -14,6 +14,8 @@ class RequestsViewController: UIViewController {
     @IBOutlet weak var playingArtwork: UIImageView!
     @IBOutlet weak var playingTitle: UILabel!
     
+    private var isViewAppearedAtLeastOnce: Bool = false;
+    
     // 表示確認用サンプルデータ
     private var requests = [
         MusicDataModel(title: "Happier", artist: "Marshmello", artworkUrl: Artwork.url(urlString: "https://img.discogs.com/osP7UHCvBmZDrdIlpDgW6ifpaXU=/fit-in/600x595/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-13426814-1553984554-3921.png.jpg", width: 256, height: 256)),
@@ -53,17 +55,20 @@ class RequestsViewController: UIViewController {
         playingArtwork.layer.cornerRadius = playingArtwork.frame.size.width * 0.05
         playingArtwork.clipsToBounds = true
         
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        // 起動時にはWelcomeViewをモーダルを表示
-        // 画面遷移はviewDidAppearでする必要がある
-        let storyboard: UIStoryboard = self.storyboard!
-        let welcomViewController = storyboard.instantiateViewController(withIdentifier: "WelcomeView")
-        self.present(welcomViewController, animated: true)
+        if !self.isViewAppearedAtLeastOnce {  // 初回だけ表示する画面遷移に使う
+            // 初回にはWelcomeViewをモーダルを表示
+            let storyboard: UIStoryboard = self.storyboard!
+            let welcomViewController = storyboard.instantiateViewController(withIdentifier: "WelcomeView")
+            self.present(welcomViewController, animated: true)
+            
+            // 2度目以降の表示はしない
+            self.isViewAppearedAtLeastOnce = true
+        }
     }
 }
 

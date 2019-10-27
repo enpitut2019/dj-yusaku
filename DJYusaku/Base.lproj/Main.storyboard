@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
-    <device id="ipad10_5" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -12,22 +12,22 @@
             <objects>
                 <viewController id="9pv-A4-QxB" customClass="RequestsViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1112"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="64" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2ub-dF-W8m">
-                                <rect key="frame" x="0.0" y="102" width="834" height="908"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="636"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RequestsMusicTableViewCell" id="T5J-aV-tbm" customClass="RequestsMusicTableViewCell" customModule="DJYusaku" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="834" height="64"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T5J-aV-tbm" id="Bkg-rZ-UB5">
-                                            <rect key="frame" x="0.0" y="0.0" width="834" height="64"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="music.note" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="4BI-ax-603">
-                                                    <rect key="frame" x="15" y="10.5" width="48" height="43.5"/>
+                                                    <rect key="frame" x="15" y="10.666666666666668" width="48" height="43.333333333333336"/>
                                                     <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="48" id="XMs-5I-DSO"/>
@@ -35,13 +35,13 @@
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Music Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yug-k8-ppk">
-                                                    <rect key="frame" x="71" y="11" width="747" height="20"/>
+                                                    <rect key="frame" x="71" y="11" width="288" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hw4-hv-Z0J">
-                                                    <rect key="frame" x="71" y="33" width="747" height="20"/>
+                                                    <rect key="frame" x="71" y="33" width="288" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -69,13 +69,13 @@
                                 </prototypes>
                             </tableView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1pJ-Iw-aHU">
-                                <rect key="frame" x="0.0" y="990" width="834" height="72"/>
+                                <rect key="frame" x="0.0" y="657" width="375" height="72"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="fET-Dx-yGV">
-                                    <rect key="frame" x="0.0" y="0.0" width="834" height="72"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="music.note" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Klr-Js-sjB">
-                                            <rect key="frame" x="15" y="14.5" width="48" height="43.5"/>
+                                            <rect key="frame" x="15" y="14.666666666666668" width="48" height="43.333333333333329"/>
                                             <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="48" id="WVt-yv-NOb"/>
@@ -83,7 +83,7 @@
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sYe-8j-hTb">
-                                            <rect key="frame" x="767" y="12" width="48" height="48"/>
+                                            <rect key="frame" x="308" y="12" width="48" height="48"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="48" id="i0p-CT-4s7"/>
                                             </constraints>
@@ -93,13 +93,13 @@
                                             </state>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Music Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XGN-5n-Oha">
-                                            <rect key="frame" x="71" y="38" width="688" height="17"/>
+                                            <rect key="frame" x="71" y="38" width="229" height="17"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Now Playing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5jw-Pl-Uub">
-                                            <rect key="frame" x="71" y="17.5" width="688" height="20.5"/>
+                                            <rect key="frame" x="71" y="17.666666666666629" width="229" height="20.333333333333329"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                             <color key="textColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -165,11 +165,11 @@
             <objects>
                 <viewController storyboardIdentifier="WelcomeView" title="Welcome" id="ypK-t8-Qz5" customClass="WelcomeViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zoG-Zx-5x5">
-                        <rect key="frame" x="0.0" y="0.0" width="712" height="1006.9200564096436"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DJYusaku" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Reu-FC-yfo">
-                                <rect key="frame" x="257.5" y="414.5" width="197" height="51"/>
+                                <rect key="frame" x="89" y="273" width="197" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="197" id="wTQ-Mb-K14"/>
                                     <constraint firstAttribute="height" constant="51" id="zZw-vM-6Rb"/>
@@ -179,7 +179,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dR8-x5-j8x">
-                                <rect key="frame" x="274.5" y="387.5" width="163" height="39"/>
+                                <rect key="frame" x="106" y="246" width="163" height="39"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="163" id="AxE-wQ-SGr"/>
                                     <constraint firstAttribute="height" constant="39" id="hit-fz-Dwm"/>
@@ -189,14 +189,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Temporary" translatesAutoresizingMaskIntoConstraints="NO" id="xNr-cQ-Ez8">
-                                <rect key="frame" x="308" y="279.5" width="96" height="96"/>
+                                <rect key="frame" x="139.66666666666666" y="138" width="96" height="96"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="96" id="gxc-hK-Pxf"/>
                                     <constraint firstAttribute="height" constant="96" id="pmc-KC-wEp"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="AppDescription" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T1E-kF-s34">
-                                <rect key="frame" x="173" y="467.5" width="366" height="72"/>
+                                <rect key="frame" x="24" y="326" width="327" height="72"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="366" id="08t-NW-r5R"/>
                                     <constraint firstAttribute="height" constant="72" id="F70-6m-b3s"/>
@@ -207,7 +207,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="90a-jE-PNH">
-                                <rect key="frame" x="260" y="563.5" width="192" height="40"/>
+                                <rect key="frame" x="91.666666666666686" y="422" width="192" height="40"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" priority="750" constant="192" id="0Xg-Nv-u2y"/>
@@ -228,7 +228,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RGD-qI-6Bt">
-                                <rect key="frame" x="260" y="650.5" width="192" height="40"/>
+                                <rect key="frame" x="91.666666666666686" y="509" width="192" height="40"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="H84-Zd-TC5"/>
@@ -249,7 +249,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="requires Apple Music contract" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QLv-BI-r7q">
-                                <rect key="frame" x="271" y="611.5" width="170" height="15"/>
+                                <rect key="frame" x="102.66666666666669" y="470" width="170" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="170" id="cCO-Td-nBq"/>
                                     <constraint firstAttribute="height" constant="15" id="cc6-Nq-aFY"/>
@@ -259,7 +259,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FGE-F2-uDn">
-                                <rect key="frame" x="650" y="20" width="42" height="33"/>
+                                <rect key="frame" x="313" y="20" width="42" height="33"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <state key="normal" title="Done"/>
                                 <connections>
@@ -267,13 +267,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="© 2019 Yusaku" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S0h-WO-K7i">
-                                <rect key="frame" x="313" y="744" width="86" height="14.5"/>
+                                <rect key="frame" x="144.66666666666666" y="603" width="85.666666666666657" height="14.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="connects with other DJ or listener friends" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yF5-8q-DJM">
-                                <rect key="frame" x="236" y="698.5" width="240" height="15"/>
+                                <rect key="frame" x="67.666666666666686" y="557" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="Lrv-Af-sUi"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="240" id="onw-Gr-SY3"/>
@@ -325,22 +325,22 @@
             <objects>
                 <viewController id="8rJ-Kc-sve" customClass="SearchViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1112"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="64" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wCp-R2-0r7">
-                                <rect key="frame" x="0.0" y="102" width="834" height="960"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchMusicTableViewCell" id="Uxy-eD-cUw" customClass="SearchMusicTableViewCell" customModule="DJYusaku" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="834" height="64"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Uxy-eD-cUw" id="jsM-e1-0mc">
-                                            <rect key="frame" x="0.0" y="0.0" width="834" height="64"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="music.note" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="rYB-jY-hDQ">
-                                                    <rect key="frame" x="15" y="10.5" width="48" height="43.5"/>
+                                                    <rect key="frame" x="15" y="10.666666666666668" width="48" height="43.333333333333336"/>
                                                     <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="48" id="Pry-Xv-Br7"/>
@@ -348,7 +348,7 @@
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sbi-3a-kYZ">
-                                                    <rect key="frame" x="786" y="3" width="33" height="58"/>
+                                                    <rect key="frame" x="327" y="3" width="33" height="58"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="33" id="ZFb-13-njc"/>
                                                     </constraints>
@@ -360,13 +360,13 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Music Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DxG-x9-Q3o">
-                                                    <rect key="frame" x="71" y="11" width="708" height="21"/>
+                                                    <rect key="frame" x="71" y="11" width="249" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UVM-Kb-uf9">
-                                                    <rect key="frame" x="71" y="32" width="708" height="21"/>
+                                                    <rect key="frame" x="71" y="32" width="249" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -441,7 +441,7 @@
                     <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="t5Y-gP-1Ll">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="102"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -460,7 +460,7 @@
                     <tabBarItem key="tabBarItem" title="Requests" image="music.note.list" catalog="system" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="NXp-M8-OkR">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="102"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
