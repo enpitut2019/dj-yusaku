@@ -23,6 +23,7 @@ class SearchViewController: UIViewController {
         
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "曲名、アーティスト名、その他"
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         
