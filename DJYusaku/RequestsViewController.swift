@@ -52,6 +52,11 @@ class RequestsViewController: UIViewController {
         
         playingArtwork.layer.cornerRadius = playingArtwork.frame.size.width * 0.05
         playingArtwork.clipsToBounds = true
+        
+        // 起動時にはモーダルを表示
+        let storyboard: UIStoryboard = self.storyboard!
+        let welcomView = storyboard.instantiateViewController(withIdentifier: "WelcomeView")
+        self.present(welcomView, animated: true, completion: nil)
     }
 }
 
