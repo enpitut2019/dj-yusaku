@@ -38,17 +38,15 @@ class RequestsViewController: UIViewController {
         playingArtwork.layer.cornerRadius = playingArtwork.frame.size.width * 0.05
         playingArtwork.clipsToBounds = true
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updateRequests), name: .requestQueueToRequestsVCName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleRequestUpdated), name: .requestQueueToRequestsVCName, object: nil)
     }
     
-    @objc func updateRequests(notification: NSNotification){
+    @objc func handleRequestUpdated(notification: NSNotification){
+        // リクエスト画面を更新
         DispatchQueue.main.async{
             self.tableView.reloadData()
         }
-        requestedAlert(notification: notification)
-    }
-    
-    func requestedAlert(notification: NSNotification){
+        // リクエストが完了したAlertを表示
         guard let title = notification.userInfo!["title"] as? String else { return }
         
         let alert = UIAlertController(title: title, message: "was Requested", preferredStyle: UIAlertController.Style.alert)
