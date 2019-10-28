@@ -46,11 +46,22 @@ class RequestsViewController: UIViewController {
         playingArtwork.layer.cornerRadius = playingArtwork.frame.size.width * 0.05
         playingArtwork.clipsToBounds = true
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updateRequests), name: .requestQueueToRequestsVCName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleRequestsUpdated), name: .requestQueueToRequestsVCName, object: nil)
     }
     
-    @objc func updateRequests(){
-        tableView.reloadData()
+    @objc func handleRequestsUpdated(notification: NSNotification){
+        // リクエスト画面を更新
+        DispatchQueue.main.async{
+            self.tableView.reloadData()
+        }
+        // リクエストが完了した旨のAlertを表示
+        guard let title = notification.userInfo!["title"] as? String else { return }
+        
+        let alert = UIAlertController(title: title, message: "was Requested", preferredStyle: UIAlertController.Style.alert)
+
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+
+        present(alert, animated: true)
     }
     
     
@@ -69,7 +80,7 @@ extension RequestsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RequestsMusicTableViewCell", for: indexPath) as! RequestsMusicTableViewCell
         
-        let item = RequestQueue.shared.getRequest(indexPath: indexPath.row)
+        let item = RequestQueue.shared.getRequest(index: indexPath.row)
         cell.title.text = item.title
         cell.artist.text = item.artist
         cell.artwork.image = defaultArtwork
@@ -92,7 +103,7 @@ extension RequestsViewController: UITableViewDelegate {
     // セルの編集時の挙動
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            RequestQueue.shared.deleteRequest(indexPath: indexPath.row)
+            RequestQueue.shared.removeRequest(index: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }

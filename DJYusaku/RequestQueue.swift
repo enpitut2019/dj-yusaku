@@ -9,9 +9,8 @@
 import Foundation
 import UIKit
 
-//Notification.Nameをどこに書けばいいかまだ決まっていない
+
 extension Notification.Name {
-    static let searchCellToSearchVCName = Notification.Name("searchCellToSearchVcName")
     static let requestQueueToRequestsVCName = Notification.Name("requestQueueToRequestsVCName")
 }
 
@@ -20,28 +19,35 @@ class RequestQueue{
     
     static let shared = RequestQueue()
     
-    private var requests : [MusicDataModel] = []
-    // TODO: requestsの中身を追加する関数と消去する関数
-    
-    //requestsの中身を追加
-    func addRequest(musicDataModel: MusicDataModel){
-        requests.append(musicDataModel)
-        //RequestViewControllerにRequestQueueを追加できたことを通知
-        NotificationCenter.default.post(name: .requestQueueToRequestsVCName, object: nil)
+    private var requests : [MusicDataModel] = [] {
+        // requestsを監視、変更後に実行する
+        didSet {
+            // requestsが追加されたらRequestsVCに通知する
+            if requests.count > oldValue.count {
+                let title = requests[requests.count - 1].title
+                NotificationCenter.default.post(name: .requestQueueToRequestsVCName, object: nil, userInfo: ["title": title])
+            }
+        }
     }
     
-    //requestsの中身を削除
-    func deleteRequest(indexPath: Int){
-        requests.remove(at: indexPath)
+    // requestsの中身を追加する
+    func addRequest(request: MusicDataModel){
+        requests.append(request)
     }
     
-    //requestsの中身をカウントする
+    // requestsの中身を削除する
+    func removeRequest(index: Int){
+        requests.remove(at: index)
+    }
+    
+    // requestsの中身をカウントする
     func countRequests() -> Int {
         return requests.count
     }
     
-    //requestsの中身を取得する
-    func getRequest(indexPath: Int) -> MusicDataModel {
-        return requests[indexPath]
+    // requestsの中身を取得する
+    func getRequest(index: Int) -> MusicDataModel {
+        return requests[index]
     }
+
 }
