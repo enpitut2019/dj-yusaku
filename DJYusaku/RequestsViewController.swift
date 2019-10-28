@@ -18,8 +18,9 @@ class RequestsViewController: UIViewController {
     private let cloudServiceController = SKCloudServiceController()
     private let defaultArtwork : UIImage = UIImage()
     private var storefrontCountryCode : String? = nil
+    private var mediaItems: [MPMediaItem] = []
     
-    private let musicPlayer : MPMusicPlayerController! = MPMusicPlayerController.systemMusicPlayer
+    private let musicPlayerApplicationController = MPMusicPlayerController.applicationQueuePlayer
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,13 +32,13 @@ class RequestsViewController: UIViewController {
         // Apple Musicライブラリへのアクセス許可の確認
         SKCloudServiceController.requestAuthorization { status in
             guard status == .authorized else { return }
-            // TODO: Apple Musicの契約確認処理
+            // Apple Musicの曲が再生可能か確認
+            self.cloudServiceController.requestCapabilities { (capabilities, error) in
+                guard error == nil && capabilities.contains(.musicCatalogPlayback) else { return }
+            }
+            
         }
-        // Apple Musicの曲が再生可能か確認（Apple Musicの契約確認処理と同義？）
-        self.cloudServiceController.requestCapabilities { (capabilities, error) in
-            guard capabilities.contains(.musicCatalogPlayback) else { return }
-        }
-        
+
         
         let footerView = UIView()
         footerView.frame.size.height = tableView.rowHeight
@@ -65,8 +66,20 @@ class RequestsViewController: UIViewController {
     }
     
     
-    func updateMusicPlayerControllerQueue(){
-        
+    func insertMusicPlayerControllerQueue(mediaItemCollection : MPMediaItemCollection){
+        musicPlayerApplicationController.perform(queueTransaction: { mutableQueue in
+            let predicate = MPMediaPropertyPredicate(value: mediaItemCollection.representativeItem!.persistentID,
+                                                     forProperty: MPMediaItemPropertyPersistentID)
+            
+            let query = MPMediaQuery(filterPredicates: [predicate])
+            let descripter = MPMusicPlayerMediaItemQueueDescriptor(query: query)
+            
+            mutableQueue.insert(descripter, after: mutableQueue.items.last)
+        }, completionHandler: { queue, error in
+            if (error != nil){
+                // TODO: キューへの追加ができなかった時の処理を記述
+            }
+        })
     }
 }
 
