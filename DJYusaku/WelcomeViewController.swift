@@ -9,11 +9,18 @@
 import UIKit
 
 class WelcomeViewController: UIViewController {
-
+    
+    @IBOutlet weak var doneButtonItem: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // TODO: ペアリング画面が完成したら次のコメントアウトを外す
+        /* self.doneButtonItem.isEnabled = self.isModalInPresentation */
     }
     
     /*
