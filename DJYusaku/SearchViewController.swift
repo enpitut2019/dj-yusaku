@@ -51,20 +51,6 @@ class SearchViewController: UIViewController {
             }
             self.storefrontCountryCode = storefrontCountryCode
         }
-        NotificationCenter.default.addObserver(self, selector: #selector(registerRequestAlert), name: .searchCellToSearchVCName, object: nil)
-    }
-    @objc func registerRequestAlert(notification: NSNotification){
-        guard let userInfo = notification.userInfo else { return }
-
-        let title = userInfo["title"] as? String ?? ""
-        let button: UIButton! = userInfo["button"] as? UIButton
-        let alert = UIAlertController(title: title, message: "をリクエストしました", preferredStyle: UIAlertController.Style.alert)
-
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-
-        present(alert, animated: true)
-        
-        button.isEnabled = true
     }
 }
 
@@ -79,10 +65,11 @@ extension SearchViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchMusicTableViewCell", for: indexPath) as! SearchMusicTableViewCell
         
         let item = results[indexPath.row]
-        cell.title.text    = item.title
-        cell.artist.text   = item.artist
-        cell.artworkUrl = item.artworkUrl
-        cell.artwork.image = defaultArtwork
+        cell.title.text       = item.title
+        cell.artist.text      = item.artist
+        cell.artworkUrl       = item.artworkUrl
+        cell.artwork.image    = defaultArtwork
+        cell.button.isEnabled = true
         
         DispatchQueue.global().async {
             let image = Artwork.fetch(url: item.artworkUrl)
