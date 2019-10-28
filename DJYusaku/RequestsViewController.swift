@@ -8,6 +8,7 @@
 
 import UIKit
 import StoreKit
+import MediaPlayer
 
 class RequestsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
@@ -17,6 +18,8 @@ class RequestsViewController: UIViewController {
     private let cloudServiceController = SKCloudServiceController()
     private let defaultArtwork : UIImage = UIImage()
     private var storefrontCountryCode : String? = nil
+    
+    private let musicPlayer : MPMusicPlayerController! = MPMusicPlayerController.systemMusicPlayer
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +33,11 @@ class RequestsViewController: UIViewController {
             guard status == .authorized else { return }
             // TODO: Apple Musicの契約確認処理
         }
+        // Apple Musicの曲が再生可能か確認（Apple Musicの契約確認処理と同義？）
+        self.cloudServiceController.requestCapabilities { (capabilities, error) in
+            guard capabilities.contains(.musicCatalogPlayback) else { return }
+        }
+        
         
         let footerView = UIView()
         footerView.frame.size.height = tableView.rowHeight
@@ -43,6 +51,11 @@ class RequestsViewController: UIViewController {
     
     @objc func updateRequests(){
         tableView.reloadData()
+    }
+    
+    
+    func updateMusicPlayerControllerQueue(){
+        
     }
 }
 
