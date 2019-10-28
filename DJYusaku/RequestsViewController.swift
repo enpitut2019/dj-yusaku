@@ -68,7 +68,7 @@ class RequestsViewController: UIViewController {
     
     func insertMusicPlayerControllerQueue(mediaItemCollection : MPMediaItemCollection){
         musicPlayerApplicationController.perform(queueTransaction: { mutableQueue in
-            let predicate = MPMediaPropertyPredicate(value: mediaItemCollection.representativeItem!.persistentID,
+            let predicate = MPMediaPropertyPredicate(value: mediaItemCollection.representativeItem!.persistentID, // persistentID = 
                                                      forProperty: MPMediaItemPropertyPersistentID)
             
             let query = MPMediaQuery(filterPredicates: [predicate])
