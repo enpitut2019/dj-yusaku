@@ -68,6 +68,7 @@ extension SearchViewController: UITableViewDataSource {
         cell.title.text       = item.title
         cell.artist.text      = item.artist
         cell.artworkUrl       = item.artworkUrl
+        cell.songID           = item.songID
         cell.artwork.image    = defaultArtwork
         cell.button.isEnabled = true
         

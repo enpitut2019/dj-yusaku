@@ -18,6 +18,8 @@ class SearchMusicTableViewCell: UITableViewCell {
     //sendRequestに必要なURL型の変数(プライベート変数にするかも)
     var artworkUrl: URL?
     
+    var songID : UInt64!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -38,6 +40,6 @@ class SearchMusicTableViewCell: UITableViewCell {
         button.isEnabled = false
         //artworkUrlがnilなら追加されない
         guard let artworkUrl = artworkUrl else { return }
-        RequestQueue.shared.addRequest(request: MusicDataModel(title: title.text ?? "", artist: artist.text ?? "", artworkUrl: artworkUrl))
+        RequestQueue.shared.addRequest(request: MusicDataModel(title: title.text ?? "", artist: artist.text ?? "", artworkUrl: artworkUrl, songID: songID))
     }
 }

@@ -26,6 +26,7 @@ class RequestQueue{
             if requests.count > oldValue.count {
                 let title = requests[requests.count - 1].title
                 NotificationCenter.default.post(name: .requestQueueToRequestsVCName, object: nil, userInfo: ["title": title])
+                // TODO: [amylase] RequestsViewControllerにsongIDを追加で渡す
             }
         }
     }

@@ -55,6 +55,7 @@ class RequestsViewController: UIViewController {
         DispatchQueue.main.async{
             self.tableView.reloadData()
         }
+        // TODO: [amylase] insertMusicPlayerControllerQueueを呼び出す
         // リクエストが完了した旨のAlertを表示
         guard let title = notification.userInfo!["title"] as? String else { return }
         
@@ -66,17 +67,24 @@ class RequestsViewController: UIViewController {
     }
     
     
-    func insertMusicPlayerControllerQueue(mediaItemCollection : MPMediaItemCollection){
+    func insertMusicPlayerControllerQueue(persistentID : UInt64){
         musicPlayerApplicationController.perform(queueTransaction: { mutableQueue in
-            let predicate = MPMediaPropertyPredicate(value: mediaItemCollection.representativeItem!.persistentID, // persistentID = 
+            let predicate = MPMediaPropertyPredicate(value: persistentID,
                                                      forProperty: MPMediaItemPropertyPersistentID)
             
             let query = MPMediaQuery(filterPredicates: [predicate])
             let descripter = MPMusicPlayerMediaItemQueueDescriptor(query: query)
             
             mutableQueue.insert(descripter, after: mutableQueue.items.last)
+            
+            //ボタンを追加するまで、queueに曲が追加されたら再生を始めるものとする
+            //エラーは考えない
+            if (self.musicPlayerApplicationController.playbackState != .playing){
+                self.musicPlayerApplicationController.play()
+            }
         }, completionHandler: { queue, error in
             if (error != nil){
+                print("insert error.")
                 // TODO: キューへの追加ができなかった時の処理を記述
             }
         })
@@ -118,6 +126,7 @@ extension RequestsViewController: UITableViewDelegate {
         if editingStyle == .delete {
             RequestQueue.shared.removeRequest(index: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            //TODO: playerのqueueの中も削除
         }
     }
 }
