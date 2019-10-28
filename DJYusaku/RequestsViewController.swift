@@ -63,8 +63,9 @@ class RequestsViewController: UIViewController {
         if !self.isViewAppearedAtLeastOnce {  // 初回だけ表示する画面遷移に使う
             // 初回にはWelcomeViewをモーダルを表示
             let storyboard: UIStoryboard = self.storyboard!
-            let welcomViewController = storyboard.instantiateViewController(withIdentifier: "WelcomeView")
-            self.present(welcomViewController, animated: true)
+            let welcomNavigationController = storyboard.instantiateViewController(withIdentifier: "WelcomeNavigation")
+            welcomNavigationController.isModalInPresentation = true
+            self.present(welcomNavigationController, animated: true)
             
             // 2度目以降の表示はしない
             self.isViewAppearedAtLeastOnce = true
