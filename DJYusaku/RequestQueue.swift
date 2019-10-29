@@ -24,9 +24,9 @@ class RequestQueue{
         didSet {
             // requestsが追加されたらRequestsVCに通知する
             if requests.count > oldValue.count {
-                let title = requests[requests.count - 1].title
-                NotificationCenter.default.post(name: .requestQueueToRequestsVCName, object: nil, userInfo: ["title": title])
-                // TODO: [amylase] RequestsViewControllerにsongIDを追加で渡す
+                let title  = requests[requests.count - 1].title
+                let songID = requests[requests.count - 1].songID
+                NotificationCenter.default.post(name: .requestQueueToRequestsVCName, object: nil, userInfo: ["title": title, "songID": songID])
             }
         }
     }

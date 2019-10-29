@@ -19,6 +19,7 @@ class RequestsViewController: UIViewController {
     private let defaultArtwork : UIImage = UIImage()
     private var storefrontCountryCode : String? = nil
     private var mediaItems: [MPMediaItem] = []
+    private var wasCreatedQueue = false
     
     private let musicPlayerApplicationController = MPMusicPlayerController.applicationQueuePlayer
     
@@ -55,7 +56,15 @@ class RequestsViewController: UIViewController {
         DispatchQueue.main.async{
             self.tableView.reloadData()
         }
-        // TODO: [amylase] insertMusicPlayerControllerQueueを呼び出す
+        guard let songID = notification.userInfo!["songID"] as? UInt64 else { return }
+        if (wasCreatedQueue){
+            //2回目以降
+            insertMusicPlayerControllerQueue(songID: songID)
+        }else{
+            //初回呼び出し時
+            applyMusicPlayerControllerQueue(songID: songID)
+        }
+
         // リクエストが完了した旨のAlertを表示
         guard let title = notification.userInfo!["title"] as? String else { return }
         
@@ -66,17 +75,39 @@ class RequestsViewController: UIViewController {
         present(alert, animated: true)
     }
     
+    func makeMediaItemQueueDescripter(persistentID: UInt64) -> MPMusicPlayerMediaItemQueueDescriptor{
+        let predicate = MPMediaPropertyPredicate(value: persistentID,
+                                                 forProperty: MPMediaItemPropertyPersistentID)
+        
+        let query = MPMediaQuery(filterPredicates: [predicate])
+        let descripter = MPMusicPlayerMediaItemQueueDescriptor(query: query)
+        
+        return descripter
+    }
     
-    func insertMusicPlayerControllerQueue(persistentID : UInt64){
+    func applyMusicPlayerControllerQueue(songID persistentID : UInt64){
+        let descripter = makeMediaItemQueueDescripter(persistentID: persistentID)
+        print("descripter: ", descripter)
+        
+        musicPlayerApplicationController.setQueue(with: descripter)
+//        musicPlayerApplicationController.nowPlayingItem() //必要かどうか微妙
+    }
+    
+    func insertMusicPlayerControllerQueue(songID persistentID : UInt64){
         musicPlayerApplicationController.perform(queueTransaction: { mutableQueue in
+            
+            print("mutableQueue.items.count:", mutableQueue.items.count)
+            print("persistentID: ", persistentID)
+            
             let predicate = MPMediaPropertyPredicate(value: persistentID,
                                                      forProperty: MPMediaItemPropertyPersistentID)
             
             let query = MPMediaQuery(filterPredicates: [predicate])
             let descripter = MPMusicPlayerMediaItemQueueDescriptor(query: query)
+            print("descripter: ", descripter)
             
             mutableQueue.insert(descripter, after: mutableQueue.items.last)
-            
+            print("mutableQueue.items.count:", mutableQueue.items.count)
             //ボタンを追加するまで、queueに曲が追加されたら再生を始めるものとする
             //エラーは考えない
             if (self.musicPlayerApplicationController.playbackState != .playing){
@@ -84,7 +115,7 @@ class RequestsViewController: UIViewController {
             }
         }, completionHandler: { queue, error in
             if (error != nil){
-                print("insert error.")
+                print("insert error: ", error)
                 // TODO: キューへの追加ができなかった時の処理を記述
             }
         })
