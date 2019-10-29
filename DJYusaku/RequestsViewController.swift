@@ -57,14 +57,6 @@ class RequestsViewController: UIViewController {
             self.tableView.reloadData()
         }
         guard let songID = notification.userInfo!["songID"] as? String else { return }
-        if (wasCreatedQueue){
-            //2回目以降
-            insertMusicPlayerControllerQueue(songID: songID)
-        }else{
-            //初回呼び出し時
-            applyMusicPlayerControllerQueue(songID: songID)
-        }
-
         // リクエストが完了した旨のAlertを表示
         guard let title = notification.userInfo!["title"] as? String else { return }
         
@@ -73,6 +65,16 @@ class RequestsViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
 
         present(alert, animated: true)
+        
+        // リクエストされた楽曲をキューに追加
+        if (wasCreatedQueue){
+            //2回目以降
+            insertMusicPlayerControllerQueue(songID: songID)
+        }else{
+            //初回呼び出し時
+            applyMusicPlayerControllerQueue(songID: songID)
+            wasCreatedQueue = true
+        }
     }
     
     // AppleMusic内の楽曲のdescripterを作成　ローカルライブラリ内の楽曲には使えないので注意
@@ -83,20 +85,15 @@ class RequestsViewController: UIViewController {
     
     func applyMusicPlayerControllerQueue(songID : String){
         let descripter = makePlayerStoreQueueDescriptor(songID: songID)
-        
-        
         musicPlayerApplicationController.setQueue(with: descripter)
         musicPlayerApplicationController.play()
-        
     }
     
     func insertMusicPlayerControllerQueue(songID : String){
         musicPlayerApplicationController.perform(queueTransaction: { mutableQueue in
-        let descripter = self.makePlayerStoreQueueDescriptor(songID: songID)
-        mutableQueue.insert(descripter, after: mutableQueue.items.last)
-        print("mutableQueue.items.count:", mutableQueue.items.count)
-        
-
+            let descripter = self.makePlayerStoreQueueDescriptor(songID: songID)
+            mutableQueue.insert(descripter, after: mutableQueue.items.last)
+            print("mutableQueue.items.count:", mutableQueue.items.count)
         }, completionHandler: { queue, error in
             if (error != nil){
                 // TODO: キューへの追加ができなかった時の処理を記述
