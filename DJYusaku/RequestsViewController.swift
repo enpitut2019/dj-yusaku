@@ -76,7 +76,10 @@ class RequestsViewController: UIViewController {
             wasCreatedQueue = true
         }
     }
-    
+}
+
+// MARK: - UIViewController
+extension RequestsViewController{
     // AppleMusic内の楽曲のdescripterを作成　ローカルライブラリ内の楽曲には使えないので注意
     func makePlayerStoreQueueDescriptor(songID: String) -> MPMusicPlayerStoreQueueDescriptor{
         let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [songID])
