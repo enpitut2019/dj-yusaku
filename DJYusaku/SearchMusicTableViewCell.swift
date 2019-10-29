@@ -18,7 +18,7 @@ class SearchMusicTableViewCell: UITableViewCell {
     //sendRequestに必要なURL型の変数(プライベート変数にするかも)
     var artworkUrl: URL?
     
-    var songID : UInt64!
+    var songID : String!
     
     override func awakeFromNib() {
         super.awakeFromNib()

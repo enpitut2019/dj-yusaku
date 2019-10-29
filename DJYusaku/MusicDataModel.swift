@@ -12,9 +12,9 @@ struct MusicDataModel {
     var title:  String      // 曲名
     var artist: String      // アーティスト名
     var artworkUrl: URL     // 画像アートワーク
-    var songID : UInt64     // 曲のID（曲のpersistentIDとして再生時に使用したい）
+    var songID : String    // 曲のID
 
-    init(title: String, artist: String, artworkUrl: URL, songID: UInt64){
+    init(title: String, artist: String, artworkUrl: URL, songID: String){
         self.title   = title
         self.artist  = artist
         self.artworkUrl = artworkUrl

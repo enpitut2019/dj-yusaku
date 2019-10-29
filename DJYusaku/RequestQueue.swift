@@ -30,7 +30,7 @@ class RequestQueue{
             }
         }
     }
-    
+    var nowPlayingIndex : Int = 0 
     // requestsの中身を追加する
     func addRequest(request: MusicDataModel){
         requests.append(request)

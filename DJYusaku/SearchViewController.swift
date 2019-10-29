@@ -155,7 +155,7 @@ extension SearchViewController: UISearchResultsUpdating {
                     let title            = song["attributes"]["name"].stringValue
                     let artist           = song["attributes"]["artistName"].stringValue
                     let artworkUrlString = song["attributes"]["artwork"]["url"].stringValue
-                    let songID           = song["attributes"]["playParams"]["id"].uInt64Value
+                    let songID           = song["attributes"]["playParams"]["id"].stringValue
                     let artworkUrl = Artwork.url(urlString: artworkUrlString, width: 256, height: 256)
                     self.results.append(MusicDataModel(title: title, artist: artist, artworkUrl: artworkUrl, songID: songID))
                 }
