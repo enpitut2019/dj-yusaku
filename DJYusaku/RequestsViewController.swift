@@ -90,6 +90,8 @@ class RequestsViewController: UIViewController {
         print("descripter: ", descripter)
         
         musicPlayerApplicationController.setQueue(with: descripter)
+        
+        self.musicPlayerApplicationController.play()
 //        musicPlayerApplicationController.nowPlayingItem() //必要かどうか微妙
     }
     
