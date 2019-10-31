@@ -76,27 +76,20 @@ class RequestsViewController: UIViewController {
             wasCreatedQueue = true
         }
     }
-}
 
-// MARK: - UIViewController
-extension RequestsViewController{
-    // AppleMusic内の楽曲のdescripterを作成　ローカルライブラリ内の楽曲には使えないので注意
-    func makePlayerStoreQueueDescriptor(songID: String) -> MPMusicPlayerStoreQueueDescriptor{
-        let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [songID])
-        return descripter
-    }
-    
     func applyMusicPlayerControllerQueue(songID : String){
-        let descripter = makePlayerStoreQueueDescriptor(songID: songID)
+        // AppleMusic内の楽曲のdescripterを作成　ローカルライブラリ内の楽曲には使えないので注意
+        let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [songID])
+        
         musicPlayerApplicationController.setQueue(with: descripter)
         musicPlayerApplicationController.play()
     }
     
     func insertMusicPlayerControllerQueue(songID : String){
         musicPlayerApplicationController.perform(queueTransaction: { mutableQueue in
-            let descripter = self.makePlayerStoreQueueDescriptor(songID: songID)
+            // AppleMusic内の楽曲のdescripterを作成　ローカルライブラリ内の楽曲には使えないので注意
+            let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [songID])
             mutableQueue.insert(descripter, after: mutableQueue.items.last)
-            print("mutableQueue.items.count:", mutableQueue.items.count)
         }, completionHandler: { queue, error in
             if (error != nil){
                 // TODO: キューへの追加ができなかった時の処理を記述
