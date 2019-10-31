@@ -19,7 +19,6 @@ class RequestsViewController: UIViewController {
     private let cloudServiceController = SKCloudServiceController()
     private let defaultArtwork : UIImage = UIImage()
     private var storefrontCountryCode : String? = nil
-    private var wasCreatedQueue = false
     
     private let musicPlayerApplicationController = MPMusicPlayerController.applicationQueuePlayer
     
@@ -30,6 +29,13 @@ class RequestsViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+        let footerView = UIView()
+        footerView.frame.size.height = tableView.rowHeight
+        tableView.tableFooterView = footerView // 空のセルの罫線を消す
+        
+        playingArtwork.layer.cornerRadius = playingArtwork.frame.size.width * 0.05
+        playingArtwork.clipsToBounds = true
+        
         // Apple Musicライブラリへのアクセス許可の確認
         SKCloudServiceController.requestAuthorization { status in
             guard status == .authorized else { return }
@@ -37,16 +43,7 @@ class RequestsViewController: UIViewController {
             self.cloudServiceController.requestCapabilities { (capabilities, error) in
                 guard error == nil && capabilities.contains(.musicCatalogPlayback) else { return }
             }
-            
         }
-
-        
-        let footerView = UIView()
-        footerView.frame.size.height = tableView.rowHeight
-        tableView.tableFooterView = footerView // 空のセルの罫線を消す
-        
-        playingArtwork.layer.cornerRadius = playingArtwork.frame.size.width * 0.05
-        playingArtwork.clipsToBounds = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleRequestsUpdated), name: .requestQueueToRequestsVCName, object: nil)
     }
@@ -56,41 +53,56 @@ class RequestsViewController: UIViewController {
         DispatchQueue.main.async{
             self.tableView.reloadData()
         }
-        // リクエストが完了した旨のAlertを表示
+        
         guard let songID = notification.userInfo!["songID"] as? String,
               let title  = notification.userInfo!["title"]  as? String else { return }
         
-        let alert = UIAlertController(title: title, message: "was Requested", preferredStyle: UIAlertController.Style.alert)
-
+        // リクエストが完了した旨のAlertを表示
+        let alert = UIAlertController(title: title, message: "was requested", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-
         present(alert, animated: true)
         
         insertMusicPlayerControllerQueue(songID: songID)
-    }    
+    }
+    
     func insertMusicPlayerControllerQueue(songID : String){
-        // リクエストされた楽曲をキューに追加
-        if (wasCreatedQueue){
-            //2回目以降
+        
+        if (self.musicPlayerApplicationController.nowPlayingItem != nil){ // FIXME: 一度キューを空にしたつもりでもnowPlayingItemはnilにならない
             musicPlayerApplicationController.perform(queueTransaction: { mutableQueue in
                 let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [songID])
+
                 mutableQueue.insert(descripter, after: mutableQueue.items.last)
             }, completionHandler: { queue, error in
                 if (error != nil){
                     // TODO: キューへの追加ができなかった時の処理を記述
                 }
             })
-        }else{
-            //初回呼び出し時
+        } else {
             let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [songID])
             musicPlayerApplicationController.setQueue(with: descripter)
             musicPlayerApplicationController.play()
-            wasCreatedQueue = true
+            RequestQueue.shared.removeRequest(index: 0) // TableViewには表示しない
+            DispatchQueue.main.async{
+                self.tableView.reloadData()
+            }
         }
     }
+    
     @IBAction func skip(_ sender: Any) {
-        musicPlayerApplicationController.skipToNextItem()
-        //FIXME: 再生キューに何もないと落ちる
+        // TODO: 暫定的な処理だしバグもあるからRequesrQueueの再設計後に直す
+        musicPlayerApplicationController.perform(queueTransaction: { [unowned self] mutableQueue in
+            guard self.musicPlayerApplicationController.nowPlayingItem != nil else { return }
+            // キューの先頭を削除する
+            self.musicPlayerApplicationController.skipToNextItem()
+            mutableQueue.remove(mutableQueue.items[0])
+        }, completionHandler: { [unowned self] queue, error in
+            guard self.musicPlayerApplicationController.nowPlayingItem != nil && error == nil else { return }
+            // RequestQueueと辻褄を合わせる
+            RequestQueue.shared.removeRequest(index: 0)
+            DispatchQueue.main.async{
+                self.tableView.reloadData()
+            }
+        })
     }
     
 }
