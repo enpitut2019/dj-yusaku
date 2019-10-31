@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="64" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2ub-dF-W8m">
-                                <rect key="frame" x="0.0" y="140" width="375" height="532"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="636"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RequestsMusicTableViewCell" id="T5J-aV-tbm" customClass="RequestsMusicTableViewCell" customModule="DJYusaku" customModuleProvider="target">
@@ -196,12 +196,12 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="AppDescription" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T1E-kF-s34">
-                                <rect key="frame" x="24" y="366" width="327" height="68"/>
+                                <rect key="frame" x="24.333333333333343" y="366" width="326.33333333333326" height="68"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="366" id="08t-NW-r5R"/>
                                     <constraint firstAttribute="height" constant="68" id="F70-6m-b3s"/>
                                 </constraints>
-                                <string key="text">DJYusaku is an application that allows you to share and play playlists by "requesting" songs as a "listener" to the "DJ" who subscribes to Apple Music.</string>
+                                <string key="text">DJYusaku is an app that allows you to share and play playlists by "requesting" songs as a "listener" to the "DJ" who subscribes to Apple Music.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -215,7 +215,7 @@
                                     <constraint firstAttribute="height" constant="40" id="dYB-oc-763"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                <state key="normal" title="I'm the DJ !">
+                                <state key="normal" title="Join as the DJ">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -236,7 +236,7 @@
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="192" id="y3c-Gf-kbb"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                <state key="normal" title="I'm a listener !">
+                                <state key="normal" title="Joins as a listener">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -357,7 +357,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="64" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wCp-R2-0r7">
-                                <rect key="frame" x="0.0" y="140" width="375" height="589"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchMusicTableViewCell" id="Uxy-eD-cUw" customClass="SearchMusicTableViewCell" customModule="DJYusaku" customModuleProvider="target">
