@@ -14,6 +14,7 @@ class RequestsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var playingArtwork: UIImageView!
     @IBOutlet weak var playingTitle: UILabel!
+    @IBOutlet weak var skipButton: UIButton!
     
     private let cloudServiceController = SKCloudServiceController()
     private let defaultArtwork : UIImage = UIImage()
@@ -76,6 +77,11 @@ class RequestsViewController: UIViewController {
             wasCreatedQueue = true
         }
     }
+    @IBAction func skip(_ sender: Any) {
+        musicPlayerApplicationController.skipToNextItem()
+        //FIXME: 再生キューに何もないと落ちる
+    }
+    
 }
 
 // MARK: - UIViewController
@@ -96,7 +102,6 @@ extension RequestsViewController{
         musicPlayerApplicationController.perform(queueTransaction: { mutableQueue in
             let descripter = self.makePlayerStoreQueueDescriptor(songID: songID)
             mutableQueue.insert(descripter, after: mutableQueue.items.last)
-            print("mutableQueue.items.count:", mutableQueue.items.count)
         }, completionHandler: { queue, error in
             if (error != nil){
                 // TODO: キューへの追加ができなかった時の処理を記述
