@@ -12,7 +12,7 @@ struct MusicDataModel {
     var title:  String      // 曲名
     var artist: String      // アーティスト名
     var artworkUrl: URL     // 画像アートワーク
-    var songID : String    // 曲のID
+    var songID : String     // 曲のID
 
     init(title: String, artist: String, artworkUrl: URL, songID: String){
         self.title   = title

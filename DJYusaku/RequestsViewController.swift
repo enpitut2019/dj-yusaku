@@ -65,36 +65,26 @@ class RequestsViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
 
         present(alert, animated: true)
-        
+    }    
+    func insertMusicPlayerControllerQueue(songID : String){
         // リクエストされた楽曲をキューに追加
         if (wasCreatedQueue){
             //2回目以降
-            insertMusicPlayerControllerQueue(songID: songID)
+            musicPlayerApplicationController.perform(queueTransaction: { mutableQueue in
+                let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [songID])
+                mutableQueue.insert(descripter, after: mutableQueue.items.last)
+            }, completionHandler: { queue, error in
+                if (error != nil){
+                    // TODO: キューへの追加ができなかった時の処理を記述
+                }
+            })
         }else{
             //初回呼び出し時
-            applyMusicPlayerControllerQueue(songID: songID)
+            let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [songID])
+            musicPlayerApplicationController.setQueue(with: descripter)
+            musicPlayerApplicationController.play()
             wasCreatedQueue = true
         }
-    }
-
-    func applyMusicPlayerControllerQueue(songID : String){
-        // AppleMusic内の楽曲のdescripterを作成　ローカルライブラリ内の楽曲には使えないので注意
-        let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [songID])
-        
-        musicPlayerApplicationController.setQueue(with: descripter)
-        musicPlayerApplicationController.play()
-    }
-    
-    func insertMusicPlayerControllerQueue(songID : String){
-        musicPlayerApplicationController.perform(queueTransaction: { mutableQueue in
-            // AppleMusic内の楽曲のdescripterを作成　ローカルライブラリ内の楽曲には使えないので注意
-            let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [songID])
-            mutableQueue.insert(descripter, after: mutableQueue.items.last)
-        }, completionHandler: { queue, error in
-            if (error != nil){
-                // TODO: キューへの追加ができなかった時の処理を記述
-            }
-        })
     }
 }
 
