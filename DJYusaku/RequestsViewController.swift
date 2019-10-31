@@ -18,7 +18,6 @@ class RequestsViewController: UIViewController {
     private let cloudServiceController = SKCloudServiceController()
     private let defaultArtwork : UIImage = UIImage()
     private var storefrontCountryCode : String? = nil
-    private var mediaItems: [MPMediaItem] = []
     private var wasCreatedQueue = false
     
     private let musicPlayerApplicationController = MPMusicPlayerController.applicationQueuePlayer
@@ -56,15 +55,17 @@ class RequestsViewController: UIViewController {
         DispatchQueue.main.async{
             self.tableView.reloadData()
         }
-        guard let songID = notification.userInfo!["songID"] as? String else { return }
         // リクエストが完了した旨のAlertを表示
-        guard let title = notification.userInfo!["title"] as? String else { return }
+        guard let songID = notification.userInfo!["songID"] as? String,
+              let title  = notification.userInfo!["title"]  as? String else { return }
         
         let alert = UIAlertController(title: title, message: "was Requested", preferredStyle: UIAlertController.Style.alert)
 
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
 
         present(alert, animated: true)
+        
+        insertMusicPlayerControllerQueue(songID: songID)
     }    
     func insertMusicPlayerControllerQueue(songID : String){
         // リクエストされた楽曲をキューに追加
