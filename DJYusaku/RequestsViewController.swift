@@ -14,6 +14,7 @@ class RequestsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var playingArtwork: UIImageView!
     @IBOutlet weak var playingTitle: UILabel!
+    @IBOutlet weak var skipButton: UIButton!
     
     private let cloudServiceController = SKCloudServiceController()
     private let defaultArtwork : UIImage = UIImage()
@@ -87,6 +88,11 @@ class RequestsViewController: UIViewController {
             wasCreatedQueue = true
         }
     }
+    @IBAction func skip(_ sender: Any) {
+        musicPlayerApplicationController.skipToNextItem()
+        //FIXME: 再生キューに何もないと落ちる
+    }
+    
 }
 
 // MARK: - UITableViewDataSource
