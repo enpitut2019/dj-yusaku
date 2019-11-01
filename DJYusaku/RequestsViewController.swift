@@ -47,6 +47,7 @@ class RequestsViewController: UIViewController {
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleRequestsUpdated), name: .requestQueueToRequestsVCName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePlayingItemChanged), name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -64,7 +65,23 @@ class RequestsViewController: UIViewController {
         }
     }
     
+    @objc func handlePlayingItemChanged(notification: NSNotification){
+        guard RequestQueue.shared.countRequests() > 0 else { return }
+        let nowPlayingMusicDataModel = RequestQueue.shared.getRequest(index: 0)
+        RequestQueue.shared.removeRequest(index: 0)
+        DispatchQueue.global().async {
+            let fetchedImage = Artwork.fetch(url: nowPlayingMusicDataModel.artworkUrl)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.playingTitle.text    = nowPlayingMusicDataModel.title
+                self.playingArtwork.image = fetchedImage
+
+            }
+        }
+    }
+    
     @objc func handleRequestsUpdated(notification: NSNotification){
+        print("handleRequestsUpdated")
         // リクエスト画面を更新
         DispatchQueue.main.async{
             self.tableView.reloadData()
@@ -97,10 +114,7 @@ class RequestsViewController: UIViewController {
             let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [songID])
             musicPlayerApplicationController.setQueue(with: descripter)
             musicPlayerApplicationController.play()
-            RequestQueue.shared.removeRequest(index: 0) // TableViewには表示しない
-            DispatchQueue.main.async{
-                self.tableView.reloadData()
-            }
+
         }
     }
     
@@ -114,11 +128,7 @@ class RequestsViewController: UIViewController {
             mutableQueue.remove(mutableQueue.items[0])
         }, completionHandler: { [unowned self] queue, error in
             guard self.musicPlayerApplicationController.nowPlayingItem != nil && error == nil else { return }
-            // RequestQueueと辻褄を合わせる
-            RequestQueue.shared.removeRequest(index: 0)
-            DispatchQueue.main.async{
-                self.tableView.reloadData()
-            }
+            // 何もしない
         })
     }
     
