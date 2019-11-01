@@ -67,9 +67,12 @@ extension SearchViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchMusicTableViewCell", for: indexPath) as! SearchMusicTableViewCell
         
         let item = results[indexPath.row]
-        cell.title.text    = item.title
-        cell.artist.text   = item.artist
-        cell.artwork.image = defaultArtwork
+        cell.title.text       = item.title
+        cell.artist.text      = item.artist
+        cell.artworkUrl       = item.artworkUrl
+        cell.songID           = item.songID
+        cell.artwork.image    = defaultArtwork
+        cell.button.isEnabled = true
         
         DispatchQueue.global().async {
             let image = Artwork.fetch(url: item.artworkUrl)
@@ -154,8 +157,9 @@ extension SearchViewController: UISearchResultsUpdating {
                     let title            = song["attributes"]["name"].stringValue
                     let artist           = song["attributes"]["artistName"].stringValue
                     let artworkUrlString = song["attributes"]["artwork"]["url"].stringValue
+                    let songID           = song["attributes"]["playParams"]["id"].stringValue
                     let artworkUrl = Artwork.url(urlString: artworkUrlString, width: 256, height: 256)
-                    self.results.append(MusicDataModel(title: title, artist: artist, artworkUrl: artworkUrl))
+                    self.results.append(MusicDataModel(title: title, artist: artist, artworkUrl: artworkUrl, songID: songID))
                 }
                 self.tableView.reloadData()
             }

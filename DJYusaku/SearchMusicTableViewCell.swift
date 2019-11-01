@@ -15,6 +15,11 @@ class SearchMusicTableViewCell: UITableViewCell {
     @IBOutlet weak var artwork: UIImageView!
     @IBOutlet weak var button: UIButton!
     
+    //sendRequestに必要なURL型の変数(プライベート変数にするかも)
+    var artworkUrl: URL?
+    
+    var songID : String!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -29,7 +34,12 @@ class SearchMusicTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    //+ボタンを押したらRequestsViewControllerに曲を追加する
     @IBAction func sendRequest(_ sender: Any) {
-//        requests.music.append(MusicDataModel(title: title.text, artist: artist.text, artworkUrl: artwork))
+        //ボタンを連続で押させないようにする
+        button.isEnabled = false
+        //artworkUrlがnilなら追加されない
+        guard let artworkUrl = artworkUrl else { return }
+        RequestQueue.shared.addRequest(request: MusicDataModel(title: title.text ?? "", artist: artist.text ?? "", artworkUrl: artworkUrl, songID: songID))
     }
 }
