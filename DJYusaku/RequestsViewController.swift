@@ -89,8 +89,8 @@ class RequestsViewController: UIViewController {
         }
     }
     @IBAction func skip(_ sender: Any) {
+        guard musicPlayerApplicationController.nowPlayingItem != nil else { return }
         musicPlayerApplicationController.skipToNextItem()
-        //FIXME: 再生キューに何もないと落ちる
     }
     
 }
