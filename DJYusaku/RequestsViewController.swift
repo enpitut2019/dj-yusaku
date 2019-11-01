@@ -15,6 +15,7 @@ class RequestsViewController: UIViewController {
     @IBOutlet weak var playingArtwork: UIImageView!
     @IBOutlet weak var playingTitle: UILabel!
     @IBOutlet weak var skipButton: UIButton!
+    private var isViewAppearedAtLeastOnce: Bool = false;
     
     private let cloudServiceController = SKCloudServiceController()
     private let defaultArtwork : UIImage = UIImage()
@@ -46,6 +47,21 @@ class RequestsViewController: UIViewController {
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleRequestsUpdated), name: .requestQueueToRequestsVCName, object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if !self.isViewAppearedAtLeastOnce {  // 初回だけ表示する画面遷移に使う
+            // 初回にはWelcomeViewをモーダルを表示
+            let storyboard: UIStoryboard = self.storyboard!
+            let welcomNavigationController = storyboard.instantiateViewController(withIdentifier: "WelcomeNavigation")
+            welcomNavigationController.isModalInPresentation = true
+            self.present(welcomNavigationController, animated: true)
+            
+            // 2度目以降の表示はしない
+            self.isViewAppearedAtLeastOnce = true
+        }
     }
     
     @objc func handleRequestsUpdated(notification: NSNotification){
@@ -90,6 +106,7 @@ class RequestsViewController: UIViewController {
     
     @IBAction func skip(_ sender: Any) {
         // TODO: 暫定的な処理だしバグもあるからRequesrQueueの再設計後に直す
+        guard RequestQueue.shared.countRequests() != 0 else { return }
         musicPlayerApplicationController.perform(queueTransaction: { [unowned self] mutableQueue in
             guard self.musicPlayerApplicationController.nowPlayingItem != nil else { return }
             // キューの先頭を削除する
@@ -106,6 +123,7 @@ class RequestsViewController: UIViewController {
     }
     
 }
+
 
 // MARK: - UITableViewDataSource
 
