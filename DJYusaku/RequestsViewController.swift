@@ -47,7 +47,7 @@ class RequestsViewController: UIViewController {
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleRequestsUpdated), name: .requestQueueToRequestsVCName, object: nil)
-         NotificationCenter.default.addObserver(self, selector: #selector(handlePlayingItemChanged), name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePlayingItemChanged), name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
