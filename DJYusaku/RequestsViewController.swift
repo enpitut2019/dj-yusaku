@@ -66,8 +66,8 @@ class RequestsViewController: UIViewController {
     }
     
     @objc func handlePlayingItemChanged(notification: NSNotification){
-        guard let nowPlayingSong = PlayerQueue.shared.get(at: 1) else { return }
-        PlayerQueue.shared.remove(at: 0)
+        guard let nowPlayingSong = PlayerQueue.shared.get(at: 0) else { return }
+        // PlayerQueue.shared.remove(at: 0)
         
         DispatchQueue.global().async {
             let fetchedImage = Artwork.fetch(url: nowPlayingSong.artworkUrl)
@@ -88,7 +88,7 @@ class RequestsViewController: UIViewController {
     @IBAction func playButton(_ sender: Any) {
         if PlayerQueue.shared.mpAppController.playbackState != .playing{
             PlayerQueue.shared.mpAppController.play()
-        
+            playButton.setImage(UIImage(systemName: "playpause.fill"), for: UIControl.State.normal)
         }
     }
     

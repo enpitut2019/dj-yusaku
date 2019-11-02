@@ -53,7 +53,7 @@ class PlayerQueue{
         
         if !isQueueCreated { // キューが初期化されていないとき
             self.mpAppController.setQueue(with: [song.songID])
-            self.mpAppController.play()
+            // self.mpAppController.play()
             self.requestItems.append(song)
             NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil, userInfo: ["title":song.title])
             isQueueCreated = true
