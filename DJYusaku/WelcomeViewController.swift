@@ -19,10 +19,14 @@ class WelcomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // TODO: ペアリング画面が完成したら次のコメントアウトを外す
-        /* self.doneButtonItem.isEnabled = self.isModalInPresentation */
+        self.doneButtonItem.isEnabled = self.isModalInPresentation
     }
     
+    @IBAction func joinAsDJ(_ sender: Any) {
+        MCConnecter.shared.initialize(isParent: true, displayName: UIDevice.current.name)
+        MCConnecter.shared.startAdvertise()
+        self.dismiss(animated: true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 
