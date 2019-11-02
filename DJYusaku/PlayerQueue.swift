@@ -39,10 +39,6 @@ class PlayerQueue{
         NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidNowPlayingSongDidChange, object: nil)
     }
     
-    func skip() {
-        // TODO: スキップの自前実装
-    }
-    
     private func create(with song : Song, completion: (() -> (Void))? = nil) {
         self.mpAppController.setQueue(with: [song.id])
         self.mpAppController.play()    // 自動再生にするときはself.mpAppController.play()を呼ぶ

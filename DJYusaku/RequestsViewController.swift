@@ -82,9 +82,15 @@ class RequestsViewController: UIViewController {
     }
     
     @IBAction func playButton(_ sender: Any) {
-        if PlayerQueue.shared.mpAppController.playbackState != .playing{
+        switch PlayerQueue.shared.mpAppController.playbackState {
+        case .paused, .stopped:
             PlayerQueue.shared.mpAppController.play()
-            playButton.setImage(UIImage(systemName: "playpause.fill"), for: UIControl.State.normal)
+            playButton.setImage(UIImage(systemName: "pause.fill"), for: UIControl.State.normal)
+        case .playing:
+            PlayerQueue.shared.mpAppController.pause()
+            playButton.setImage(UIImage(systemName: "play.fill"), for: UIControl.State.normal)
+        default:
+            break
         }
     }
     
