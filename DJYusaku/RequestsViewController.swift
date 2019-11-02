@@ -21,8 +21,6 @@ class RequestsViewController: UIViewController {
     private let defaultArtwork : UIImage = UIImage()
     private var storefrontCountryCode : String? = nil
     
-    private let musicPlayerApplicationController = MPMusicPlayerController.applicationQueuePlayer
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -100,8 +98,9 @@ class RequestsViewController: UIViewController {
     
     func insertMusicPlayerControllerQueue(songID : String){
         
-        if (self.musicPlayerApplicationController.nowPlayingItem != nil){ // FIXME: 一度キューを空にしたつもりでもnowPlayingItemはnilにならない
-            musicPlayerApplicationController.perform(queueTransaction: { mutableQueue in
+        if (RequestQueue.shared.mpAppController.nowPlayingItem != nil){
+            // FIXME: 一度キューを空にしたつもりでもnowPlayingItemはnilにならない
+            RequestQueue.shared.mpAppController.perform(queueTransaction: { mutableQueue in
                 let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [songID])
 
                 mutableQueue.insert(descripter, after: mutableQueue.items.last)
@@ -112,8 +111,8 @@ class RequestsViewController: UIViewController {
             })
         } else {
             let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [songID])
-            musicPlayerApplicationController.setQueue(with: descripter)
-            musicPlayerApplicationController.play()
+            RequestQueue.shared.mpAppController.setQueue(with: descripter)
+            RequestQueue.shared.mpAppController.play()
 
         }
     }
@@ -121,13 +120,13 @@ class RequestsViewController: UIViewController {
     @IBAction func skip(_ sender: Any) {
         // TODO: 暫定的な処理だしバグもあるからRequesrQueueの再設計後に直す
         guard RequestQueue.shared.countRequests() != 0 else { return }
-        musicPlayerApplicationController.perform(queueTransaction: { [unowned self] mutableQueue in
-            guard self.musicPlayerApplicationController.nowPlayingItem != nil else { return }
+        RequestQueue.shared.mpAppController.perform(queueTransaction: { mutableQueue in
+            guard RequestQueue.shared.mpAppController.nowPlayingItem != nil else { return }
             // キューの先頭を削除する
-            self.musicPlayerApplicationController.skipToNextItem()
+            RequestQueue.shared.mpAppController.skipToNextItem()
             mutableQueue.remove(mutableQueue.items[0])
-        }, completionHandler: { [unowned self] queue, error in
-            guard self.musicPlayerApplicationController.nowPlayingItem != nil && error == nil else { return }
+        }, completionHandler: { queue, error in
+            guard RequestQueue.shared.mpAppController.nowPlayingItem != nil && error == nil else { return }
             // 何もしない
         })
     }
