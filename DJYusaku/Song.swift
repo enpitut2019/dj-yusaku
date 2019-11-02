@@ -1,5 +1,5 @@
 //
-//  MusicDataModel.swift
+//  Song.swift
 //  DJYusaku
 //
 //  Created by Hayato Kohara on 2019/10/11.
@@ -8,16 +8,16 @@
 
 import UIKit
 
-struct MusicDataModel {
+struct Song {
     var title:  String      // 曲名
     var artist: String      // アーティスト名
     var artworkUrl: URL     // 画像アートワーク
-    var songID : String     // 曲のID
+    var id : String         // 曲の Store ID
 
-    init(title: String, artist: String, artworkUrl: URL, songID: String){
-        self.title   = title
-        self.artist  = artist
+    init(title: String, artist: String, artworkUrl: URL, id: String){
+        self.title      = title
+        self.artist     = artist
         self.artworkUrl = artworkUrl
-        self.songID = songID
+        self.id         = id
     }
 }

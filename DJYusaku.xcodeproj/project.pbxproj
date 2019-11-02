@@ -10,7 +10,7 @@
 		411F288B23616EEB00BA96C1 /* PlayerQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F288A23616EEB00BA96C1 /* PlayerQueue.swift */; };
 		B125D88D235F426C00D383E7 /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B125D88C235F426C00D383E7 /* Artwork.swift */; };
 		C40DC880236570DD00E80AB1 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */; };
-		C436A8562350B16B009F6498 /* MusicDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C436A8552350B16B009F6498 /* MusicDataModel.swift */; };
+		C436A8562350B16B009F6498 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = C436A8552350B16B009F6498 /* Song.swift */; };
 		C436A8582350D36F009F6498 /* SearchMusicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C436A8572350D36F009F6498 /* SearchMusicTableViewCell.swift */; };
 		C447ACA6234882F900D535EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447ACA5234882F900D535EB /* AppDelegate.swift */; };
 		C447ACA8234882F900D535EB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447ACA7234882F900D535EB /* SceneDelegate.swift */; };
@@ -48,7 +48,7 @@
 		411F288A23616EEB00BA96C1 /* PlayerQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerQueue.swift; sourceTree = "<group>"; };
 		B125D88C235F426C00D383E7 /* Artwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
 		C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
-		C436A8552350B16B009F6498 /* MusicDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicDataModel.swift; sourceTree = "<group>"; };
+		C436A8552350B16B009F6498 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		C436A8572350D36F009F6498 /* SearchMusicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicTableViewCell.swift; sourceTree = "<group>"; };
 		C447ACA2234882F900D535EB /* DJYusaku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DJYusaku.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C447ACA5234882F900D535EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -126,7 +126,7 @@
 				C447ACB0234882FB00D535EB /* Assets.xcassets */,
 				C447ACB2234882FB00D535EB /* LaunchScreen.storyboard */,
 				C447ACB5234882FB00D535EB /* Info.plist */,
-				C436A8552350B16B009F6498 /* MusicDataModel.swift */,
+				C436A8552350B16B009F6498 /* Song.swift */,
 				C4CF9724235163EF00C8A102 /* SearchViewController.swift */,
 				C436A8572350D36F009F6498 /* SearchMusicTableViewCell.swift */,
 				C4D25957235205D10066FCE0 /* Secrets.swift */,
@@ -298,7 +298,7 @@
 				C4CF9725235163EF00C8A102 /* SearchViewController.swift in Sources */,
 				411F288B23616EEB00BA96C1 /* PlayerQueue.swift in Sources */,
 				C4FDD0CC2356EA8F007569B1 /* RequestsMusicTableViewCell.swift in Sources */,
-				C436A8562350B16B009F6498 /* MusicDataModel.swift in Sources */,
+				C436A8562350B16B009F6498 /* Song.swift in Sources */,
 				C4D25958235205D10066FCE0 /* Secrets.swift in Sources */,
 				C447ACAA234882F900D535EB /* RequestsViewController.swift in Sources */,
 				C447ACA6234882F900D535EB /* AppDelegate.swift in Sources */,

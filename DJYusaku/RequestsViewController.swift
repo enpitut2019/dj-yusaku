@@ -47,7 +47,7 @@ class RequestsViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleRequestsUpdated), name:
             .DJYusakuPlayerQueueDidUpdate, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handlePlayingItemChanged), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePlayingItemDidChange), name: .DJYusakuPlayerQueueDidNowPlayingSongDidChange, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -65,17 +65,13 @@ class RequestsViewController: UIViewController {
         }
     }
     
-    @objc func handlePlayingItemChanged(notification: NSNotification){
-        let indexOfNowPlayingItem = PlayerQueue.shared.mpAppController.indexOfNowPlayingItem
-        guard let nowPlayingSong = PlayerQueue.shared.get(at: indexOfNowPlayingItem) else { return }
+    @objc func handlePlayingItemDidChange(notification: NSNotification){
+        guard let nowPlayingItem = PlayerQueue.shared.mpAppController.nowPlayingItem else { return }
         
-        DispatchQueue.global().async {
-            let fetchedImage = Artwork.fetch(url: nowPlayingSong.artworkUrl)
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.playingTitle.text    = nowPlayingSong.title
-                self.playingArtwork.image = fetchedImage
-            }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.playingTitle.text    = nowPlayingItem.title
+            self.playingArtwork.image = nowPlayingItem.artwork?.image(at: CGSize(width: 48, height: 48))
         }
     }
     
@@ -101,15 +97,16 @@ class RequestsViewController: UIViewController {
 // MARK: - UITableViewDataSource
 
 extension RequestsViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let count = PlayerQueue.shared.count() == 0 ? 0 : PlayerQueue.shared.count() - 1
-        return count - PlayerQueue.shared.mpAppController.indexOfNowPlayingItem
+        guard PlayerQueue.shared.count() != 0 else { return 0 }
+        return PlayerQueue.shared.count() - PlayerQueue.shared.indexOfNowPlayingSong - 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RequestsMusicTableViewCell", for: indexPath) as! RequestsMusicTableViewCell
-        let itemIndex = indexPath.row + PlayerQueue.shared.mpAppController.indexOfNowPlayingItem + 1
-        guard let item = PlayerQueue.shared.get(at:  itemIndex) else { return cell  }
+        let itemIndex = indexPath.row + PlayerQueue.shared.indexOfNowPlayingSong + 1
+        guard let item = PlayerQueue.shared.get(at: itemIndex) else { return cell }
         
         cell.title.text    = item.title
         cell.artist.text   = item.artist
@@ -133,9 +130,12 @@ extension RequestsViewController: UITableViewDelegate {
     // セルの編集時の挙動
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let itemIndex = indexPath.row + PlayerQueue.shared.mpAppController.indexOfNowPlayingItem + 1
-            PlayerQueue.shared.remove(at: itemIndex)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            let itemIndex = indexPath.row + PlayerQueue.shared.indexOfNowPlayingSong + 1
+            
+            PlayerQueue.shared.remove(at: itemIndex) {
+                tableView.deleteRows(at: [indexPath], with: .left)
+            }
+            
         }
     }
 }

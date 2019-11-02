@@ -15,9 +15,7 @@ class SearchMusicTableViewCell: UITableViewCell {
     @IBOutlet weak var artwork: UIImageView!
     @IBOutlet weak var button: UIButton!
     
-    var artworkUrl: URL?
-    var songID : String!
-    var song : MusicDataModel!
+    var song : Song!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,9 +33,9 @@ class SearchMusicTableViewCell: UITableViewCell {
     @IBAction func sendRequest(_ sender: Any) {
         //ボタンを連続で押させないようにする
         button.isEnabled = false
-        //artworkUrlがnilなら追加されない
-        // guard let artworkUrl = artworkUrl else { return }
         
-        PlayerQueue.shared.add(with: song)
+        PlayerQueue.shared.add(with: song) {
+            // TODO: リクエストが完了した旨をユーザーに通知する
+        }
     }
 }
