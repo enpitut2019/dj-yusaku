@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import MediaPlayer
 
 
 extension Notification.Name {
@@ -18,6 +19,8 @@ class RequestQueue{
     private init(){}
     
     static let shared = RequestQueue()
+    
+    let mpAppController = MPMusicPlayerController.applicationQueuePlayer
     
     private var requests : [MusicDataModel] = [] {
         // requestsを監視、変更後に実行する
