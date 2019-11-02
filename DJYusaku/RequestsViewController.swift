@@ -14,7 +14,8 @@ class RequestsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var playingArtwork: UIImageView!
     @IBOutlet weak var playingTitle: UILabel!
-    @IBOutlet weak var skipButton: UIButton!
+    @IBOutlet weak var playButton: UIButton!
+    
     private var isViewAppearedAtLeastOnce: Bool = false;
     
     private let cloudServiceController = SKCloudServiceController()
@@ -44,8 +45,9 @@ class RequestsViewController: UIViewController {
             }
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleRequestsUpdated), name: .requestQueueToRequestsVCName, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handlePlayingItemChanged), name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleRequestsUpdated), name:
+            .DJYusakuPlayerQueueDidUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePlayingItemChanged), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -64,68 +66,53 @@ class RequestsViewController: UIViewController {
     }
     
     @objc func handlePlayingItemChanged(notification: NSNotification){
-        guard RequestQueue.shared.countRequests() > 0 else { return }
-        let nowPlayingMusicDataModel = RequestQueue.shared.getRequest(index: 0)
-        RequestQueue.shared.removeRequest(index: 0)
+        guard let nowPlayingSong = PlayerQueue.shared.get(at: 1) else { return }
+        PlayerQueue.shared.remove(at: 0)
+        
         DispatchQueue.global().async {
-            let fetchedImage = Artwork.fetch(url: nowPlayingMusicDataModel.artworkUrl)
+            let fetchedImage = Artwork.fetch(url: nowPlayingSong.artworkUrl)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
-                self.playingTitle.text    = nowPlayingMusicDataModel.title
+                self.playingTitle.text    = nowPlayingSong.title
                 self.playingArtwork.image = fetchedImage
-
             }
         }
     }
     
     @objc func handleRequestsUpdated(notification: NSNotification){
-        print("handleRequestsUpdated")
-        // リクエスト画面を更新
         DispatchQueue.main.async{
             self.tableView.reloadData()
         }
-        
-        guard let songID = notification.userInfo!["songID"] as? String,
-              let title  = notification.userInfo!["title"]  as? String else { return }
-        
-        // リクエストが完了した旨のAlertを表示
-        let alert = UIAlertController(title: title, message: "was requested", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true)
-        
-        RequestQueue.shared.insertMusicPlayerControllerQueue(songID: songID)
     }
     
-    @IBAction func skip(_ sender: Any) {
-        // TODO: 暫定的な処理だしバグもあるからRequesrQueueの再設計後に直す
-        guard RequestQueue.shared.countRequests() != 0 else { return }
-        RequestQueue.shared.mpAppController.perform(queueTransaction: { mutableQueue in
-            guard RequestQueue.shared.mpAppController.nowPlayingItem != nil else { return }
-            // キューの先頭を削除する
-            RequestQueue.shared.mpAppController.skipToNextItem()
-            mutableQueue.remove(mutableQueue.items[0])
-        }, completionHandler: { queue, error in
-            guard RequestQueue.shared.mpAppController.nowPlayingItem != nil && error == nil else { return }
-            // 何もしない
-        })
+    @IBAction func playButton(_ sender: Any) {
+        if PlayerQueue.shared.mpAppController.playbackState != .playing{
+            PlayerQueue.shared.mpAppController.play()
+        
+        }
+    }
+    
+    @IBAction func skipButton(_ sender: Any) {
+        PlayerQueue.shared.mpAppController.skipToNextItem()
     }
     
 }
-
 
 // MARK: - UITableViewDataSource
 
 extension RequestsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return RequestQueue.shared.countRequests()
+        let count = PlayerQueue.shared.count() == 0 ? 0 : PlayerQueue.shared.count() - 1
+        return count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RequestsMusicTableViewCell", for: indexPath) as! RequestsMusicTableViewCell
         
-        let item = RequestQueue.shared.getRequest(index: indexPath.row)
-        cell.title.text = item.title
-        cell.artist.text = item.artist
+        guard let item = PlayerQueue.shared.get(at: indexPath.row + 1) else { return cell  }
+        
+        cell.title.text    = item.title
+        cell.artist.text   = item.artist
         cell.artwork.image = defaultArtwork
         
         DispatchQueue.global().async {
@@ -146,9 +133,8 @@ extension RequestsViewController: UITableViewDelegate {
     // セルの編集時の挙動
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            RequestQueue.shared.removeRequest(index: indexPath.row)
+            PlayerQueue.shared.remove(at: indexPath.row + 1)
             tableView.deleteRows(at: [indexPath], with: .fade)
-            //TODO: playerのqueueの中も削除
         }
     }
 }

@@ -67,10 +67,9 @@ extension SearchViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchMusicTableViewCell", for: indexPath) as! SearchMusicTableViewCell
         
         let item = results[indexPath.row]
+        cell.song             = item
         cell.title.text       = item.title
         cell.artist.text      = item.artist
-        cell.artworkUrl       = item.artworkUrl
-        cell.songID           = item.songID
         cell.artwork.image    = defaultArtwork
         cell.button.isEnabled = true
         
