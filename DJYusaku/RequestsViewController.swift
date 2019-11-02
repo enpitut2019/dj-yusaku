@@ -45,7 +45,7 @@ class RequestsViewController: UIViewController {
             }
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleRequestsUpdated), name:
+        NotificationCenter.default.addObserver(self, selector: #selector(handleRequestsDidUpdate), name:
             .DJYusakuPlayerQueueDidUpdate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlayingItemDidChange), name: .DJYusakuPlayerQueueDidNowPlayingSongDidChange, object: nil)
     }
@@ -65,6 +65,12 @@ class RequestsViewController: UIViewController {
         }
     }
     
+    @objc func handleRequestsDidUpdate(notification: NSNotification){
+        DispatchQueue.main.async{
+            self.tableView.reloadData()
+        }
+    }
+    
     @objc func handlePlayingItemDidChange(notification: NSNotification){
         guard let nowPlayingItem = PlayerQueue.shared.mpAppController.nowPlayingItem else { return }
         
@@ -75,11 +81,7 @@ class RequestsViewController: UIViewController {
         }
     }
     
-    @objc func handleRequestsUpdated(notification: NSNotification){
-        DispatchQueue.main.async{
-            self.tableView.reloadData()
-        }
-    }
+
     
     @IBAction func playButton(_ sender: Any) {
         if PlayerQueue.shared.mpAppController.playbackState != .playing{
@@ -131,11 +133,9 @@ extension RequestsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let itemIndex = indexPath.row + PlayerQueue.shared.indexOfNowPlayingSong + 1
-            
             PlayerQueue.shared.remove(at: itemIndex) {
-                tableView.deleteRows(at: [indexPath], with: .left)
+                tableView.deleteRows(at: [indexPath], with: .left)  // 必ずPlayerQueueの処理後にTableViewの更新を行う
             }
-            
         }
     }
 }

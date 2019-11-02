@@ -33,16 +33,20 @@ class PlayerQueue{
         if mpAppController.indexOfNowPlayingItem == 0 {
             indexOfNowPlayingSong = 0
         } else {
-            indexOfNowPlayingSong += 1
+            indexOfNowPlayingSong += 1  // FIXME: 連打するとバグる
         }
         
         NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidNowPlayingSongDidChange, object: nil)
     }
     
+    func skip() {
+        // TODO: スキップの自前実装
+    }
+    
     private func create(with song : Song, completion: (() -> (Void))? = nil) {
         self.mpAppController.setQueue(with: [song.id])
         self.requestSongs.append(song)
-        self.mpAppController.prepareToPlay()    // 自動再生にするときはself.mpAppController.play()を呼ぶ
+        self.mpAppController.play()    // 自動再生にするときはself.mpAppController.play()を呼ぶ
         self.isQueueCreated = true
         if let completion = completion { completion() }
         NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
