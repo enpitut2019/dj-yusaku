@@ -21,17 +21,28 @@ class PlayerQueue{
     private var isQueueCreated: Bool = false
     
     private init(){
-        // Queueに勝手にnowPlayingItemが積まれているので、Repeatを殺して対策
+        // Queueに新しい要素が追加されないようリピート再生を無効にしておく
         mpAppController.repeatMode = MPMusicRepeatMode.none
     }
+    
+    private func create(with song : MusicDataModel) {
+        self.mpAppController.setQueue(with: [song.songID])
+        self.requestItems.append(song)
+        self.mpAppController.prepareToPlay()
+        self.isQueueCreated = true
+        NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil, userInfo: ["title":song.title])
+    }
 
-    func insert(after index: Int, with song : MusicDataModel){
+    private func insert(after index: Int, with song : MusicDataModel){
+        
         mpAppController.perform(queueTransaction: { mutableQueue in
             let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [song.songID])
-            mutableQueue.insert(descripter, after: mutableQueue.items[index])
+            let insertItem = mutableQueue.items.count == 0 ? nil : mutableQueue.items[index]
+            mutableQueue.insert(descripter, after: insertItem)
         }, completionHandler: { [unowned self] queue, error in
-            guard (error == nil) else { return } // TODO: キューへの追加ができなかった時の処理を記述
+            guard (error == nil) else { return } // TODO: 追加ができなかった時の処理
             self.requestItems.insert(song, at: index+1)
+            print("YusakuTest", "After", self.requestItems[index].title, queue.items[index].title!)
             NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil, userInfo: ["title":song.title])
         })
     }
@@ -41,7 +52,7 @@ class PlayerQueue{
         mpAppController.perform(queueTransaction: { mutableQueue in
             mutableQueue.remove(mutableQueue.items[index])
         }, completionHandler: { [unowned self] queue, error in
-            guard (error == nil) else { return } // TODO: キューでの削除ができなかった時の処理を記述
+            guard (error == nil) else { return } // TODO: 削除ができなかった時の処理
             let removedItem = self.requestItems[index]
             NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil, userInfo: ["title":removedItem.title])
             self.requestItems.remove(at: index)
@@ -52,16 +63,12 @@ class PlayerQueue{
         // TODO: トランザクション処理
         
         if !isQueueCreated { // キューが初期化されていないとき
-            self.mpAppController.setQueue(with: [song.songID])
-            // self.mpAppController.play()
-            self.requestItems.append(song)
-            NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil, userInfo: ["title":song.title])
-            isQueueCreated = true
+            self.create(with: song)
         } else {            // 既にキューが作られているとき
             self.insert(after: requestItems.count - 1, with: song)
         }
         
-        // リクエストが完了した旨のAlertを表示
+        // TODO: リクエストが完了した旨のAlertを表示
         
     }
     

@@ -16,7 +16,6 @@ class RequestsMusicTableViewCell: UITableViewCell {
         
         override func awakeFromNib() {
             super.awakeFromNib()
-            // Initialization code
             
             // アートワーク画像を角丸にする
             artwork.layer.cornerRadius = artwork.frame.size.width * 0.05
@@ -25,8 +24,6 @@ class RequestsMusicTableViewCell: UITableViewCell {
 
         override func setSelected(_ selected: Bool, animated: Bool) {
             super.setSelected(selected, animated: animated)
-
-            // Configure the view for the selected state
         }
 
     }

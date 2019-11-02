@@ -66,8 +66,8 @@ class RequestsViewController: UIViewController {
     }
     
     @objc func handlePlayingItemChanged(notification: NSNotification){
-        guard let nowPlayingSong = PlayerQueue.shared.get(at: 0) else { return }
-        // PlayerQueue.shared.remove(at: 0)
+        let indexOfNowPlayingItem = PlayerQueue.shared.mpAppController.indexOfNowPlayingItem
+        guard let nowPlayingSong = PlayerQueue.shared.get(at: indexOfNowPlayingItem) else { return }
         
         DispatchQueue.global().async {
             let fetchedImage = Artwork.fetch(url: nowPlayingSong.artworkUrl)
@@ -103,13 +103,13 @@ class RequestsViewController: UIViewController {
 extension RequestsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let count = PlayerQueue.shared.count() == 0 ? 0 : PlayerQueue.shared.count() - 1
-        return count
+        return count - PlayerQueue.shared.mpAppController.indexOfNowPlayingItem
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RequestsMusicTableViewCell", for: indexPath) as! RequestsMusicTableViewCell
-        
-        guard let item = PlayerQueue.shared.get(at: indexPath.row + 1) else { return cell  }
+        let itemIndex = indexPath.row + PlayerQueue.shared.mpAppController.indexOfNowPlayingItem + 1
+        guard let item = PlayerQueue.shared.get(at:  itemIndex) else { return cell  }
         
         cell.title.text    = item.title
         cell.artist.text   = item.artist
@@ -133,7 +133,8 @@ extension RequestsViewController: UITableViewDelegate {
     // セルの編集時の挙動
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            PlayerQueue.shared.remove(at: indexPath.row + 1)
+            let itemIndex = indexPath.row + PlayerQueue.shared.mpAppController.indexOfNowPlayingItem + 1
+            PlayerQueue.shared.remove(at: itemIndex)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
