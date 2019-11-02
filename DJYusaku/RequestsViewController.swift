@@ -81,8 +81,6 @@ class RequestsViewController: UIViewController {
         }
     }
     
-
-    
     @IBAction func playButton(_ sender: Any) {
         if PlayerQueue.shared.mpAppController.playbackState != .playing{
             PlayerQueue.shared.mpAppController.play()
@@ -93,7 +91,6 @@ class RequestsViewController: UIViewController {
     @IBAction func skipButton(_ sender: Any) {
         PlayerQueue.shared.mpAppController.skipToNextItem()
     }
-    
 }
 
 // MARK: - UITableViewDataSource
@@ -112,15 +109,7 @@ extension RequestsViewController: UITableViewDataSource {
         
         cell.title.text    = item.title
         cell.artist.text   = item.artist
-        cell.artwork.image = defaultArtwork
-        
-        DispatchQueue.global().async {
-            let fetchedImage = Artwork.fetch(url: item.artworkUrl)
-            DispatchQueue.main.async {
-                cell.artwork.image = fetchedImage // 画像の取得に失敗していたらnilが入ることに注意
-                cell.artwork.setNeedsLayout()
-            }
-        }
+        cell.artwork.image = item.artwork?.image(at: CGSize(width: 48,height: 48))
         
         return cell
     }

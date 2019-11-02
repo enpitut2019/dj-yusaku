@@ -18,7 +18,7 @@ extension Notification.Name {
 class PlayerQueue{
     static let shared = PlayerQueue()
     let mpAppController = MPMusicPlayerController.applicationQueuePlayer
-    private var requestSongs: [Song] = []
+    private var items: [MPMediaItem] = []
     private var isQueueCreated: Bool = false
     
     // MPMusicPlayerApplicationController の indexOfNowPlayingItem の挙動が怪しいので自分で管理するための変数
@@ -45,9 +45,11 @@ class PlayerQueue{
     
     private func create(with song : Song, completion: (() -> (Void))? = nil) {
         self.mpAppController.setQueue(with: [song.id])
-        self.requestSongs.append(song)
         self.mpAppController.play()    // 自動再生にするときはself.mpAppController.play()を呼ぶ
         self.isQueueCreated = true
+        mpAppController.perform(queueTransaction: { _ in }, completionHandler: { [unowned self] queue, _ in
+            self.items = queue.items
+        })
         if let completion = completion { completion() }
         NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
     }
@@ -59,7 +61,7 @@ class PlayerQueue{
             mutableQueue.insert(descripter, after: insertItem)
         }, completionHandler: { [unowned self] queue, error in
             guard (error == nil) else { return } // TODO: 追加ができなかった時の処理
-            self.requestSongs.insert(song, at: index+1)
+            self.items = queue.items
             if let completion = completion { completion() }
             NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
         })
@@ -70,7 +72,7 @@ class PlayerQueue{
             mutableQueue.remove(mutableQueue.items[index])
         }, completionHandler: { [unowned self] queue, error in
             guard (error == nil) else { return } // TODO: 削除ができなかった時の処理
-            self.requestSongs.remove(at: index)
+            self.items = queue.items
             if let completion = completion { completion() }
             NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
         })
@@ -82,17 +84,17 @@ class PlayerQueue{
         if !isQueueCreated { // キューが初期化されていないとき
             self.create(with: song, completion: completion)
         } else {            // 既にキューが作られているとき
-            self.insert(after: requestSongs.count - 1, with: song, completion: completion)
+            self.insert(after: items.count - 1, with: song, completion: completion)
         }
     }
     
     func count() -> Int {
-        return requestSongs.count
+        return items.count
     }
     
-    func get(at index: Int) -> Song? {
+    func get(at index: Int) -> MPMediaItem? {
         guard self.count() != 0 && self.count() > index else { return nil }
-        return requestSongs[index]
+        return items[index]
     }
     
 }
