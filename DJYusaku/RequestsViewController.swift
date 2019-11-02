@@ -93,28 +93,7 @@ class RequestsViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true)
         
-        insertMusicPlayerControllerQueue(songID: songID)
-    }
-    
-    func insertMusicPlayerControllerQueue(songID : String){
-        
-        if (RequestQueue.shared.mpAppController.nowPlayingItem != nil){
-            // FIXME: 一度キューを空にしたつもりでもnowPlayingItemはnilにならない
-            RequestQueue.shared.mpAppController.perform(queueTransaction: { mutableQueue in
-                let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [songID])
-
-                mutableQueue.insert(descripter, after: mutableQueue.items.last)
-            }, completionHandler: { queue, error in
-                if (error != nil){
-                    // TODO: キューへの追加ができなかった時の処理を記述
-                }
-            })
-        } else {
-            let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [songID])
-            RequestQueue.shared.mpAppController.setQueue(with: descripter)
-            RequestQueue.shared.mpAppController.play()
-
-        }
+        RequestQueue.shared.insertMusicPlayerControllerQueue(songID: songID)
     }
     
     @IBAction func skip(_ sender: Any) {

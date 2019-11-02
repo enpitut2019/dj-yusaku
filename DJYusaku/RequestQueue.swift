@@ -17,10 +17,37 @@ extension Notification.Name {
 
 class RequestQueue{
     private init(){}
-    
     static let shared = RequestQueue()
     
+    // MARK: player関連の処理
+    
     let mpAppController = MPMusicPlayerController.applicationQueuePlayer
+    
+    func insertMusicPlayerControllerQueue(songID : String){
+
+        if (mpAppController.nowPlayingItem != nil){
+            // FIXME: 一度キューを空にしたつもりでもnowPlayingItemはnilにならない
+            mpAppController.perform(queueTransaction: { mutableQueue in
+                let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [songID])
+
+                mutableQueue.insert(descripter, after: mutableQueue.items.last)
+            }, completionHandler: { queue, error in
+                if (error != nil){
+                    // TODO: キューへの追加ができなかった時の処理を記述
+                }
+            })
+        } else {
+            let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [songID])
+            mpAppController.setQueue(with: descripter)
+            mpAppController.play()
+
+        }
+    }
+        
+    
+    
+
+   // MARK: requests関連の処理
     
     private var requests : [MusicDataModel] = [] {
         // requestsを監視、変更後に実行する
