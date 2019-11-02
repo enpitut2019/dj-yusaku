@@ -8,6 +8,10 @@
 
 import UIKit
 
+extension Notification.Name {
+    static let welcomeVCToListenerConnecterVCName = Notification.Name("welcomeVCToListenerConnecterVCName")
+}
+
 class WelcomeViewController: UIViewController {
     
     @IBOutlet weak var doneButtonItem: UIBarButtonItem!
@@ -26,6 +30,10 @@ class WelcomeViewController: UIViewController {
         MCConnecter.shared.initialize(isParent: true, displayName: UIDevice.current.name)
         MCConnecter.shared.startAdvertise()
         self.dismiss(animated: true, completion: nil)
+    }
+    @IBAction func joinAsListener(_ sender: Any) {
+        NotificationCenter.default.post(name: .welcomeVCToListenerConnecterVCName, object: nil, userInfo: nil)
+        print("pushed")
     }
     /*
     // MARK: - Navigation

@@ -259,7 +259,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="2ZU-rh-NCc" kind="show" id="C38-vy-ezJ"/>
+                                    <action selector="joinAsListener:" destination="ypK-t8-Qz5" eventType="touchUpInside" id="0Y6-WE-bx6"/>
+                                    <segue destination="OLS-yY-NwI" kind="show" id="OT6-D8-sjH"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="requires Apple Music contract" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QLv-BI-r7q">
@@ -330,28 +331,28 @@
             </objects>
             <point key="canvasLocation" x="3662" y="-677"/>
         </scene>
-        <!--Join as a listener-->
-        <scene sceneID="z8Z-ZC-zfs">
+        <!--Listener Connecter View Controller-->
+        <scene sceneID="vuj-ym-VGP">
             <objects>
-                <viewController id="2ZU-rh-NCc" customClass="ListenerConnecterViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="TEh-b3-bIb">
+                <viewController id="OLS-yY-NwI" customClass="ListenerConnecterViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pqb-b1-ZR8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="G0K-wU-9UD">
-                                <rect key="frame" x="67" y="160" width="240" height="410"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="35h-V4-ThQ">
+                                <rect key="frame" x="0.0" y="44" width="375" height="680"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="c2n-n3-QEE">
-                                        <rect key="frame" x="0.0" y="28" width="240" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ConnectableDJsTableViewCell" id="wx8-AK-cV7" customClass="ConnectableDJsTableViewCell" customModule="DJYusaku" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="c2n-n3-QEE" id="h9R-t6-nb1">
-                                            <rect key="frame" x="0.0" y="0.0" width="240" height="44"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wx8-AK-cV7" id="q36-v5-swO" customClass="ConnectableDJsTableViewCell" customModule="DJYusaku" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YrH-B5-bF3">
-                                                    <rect key="frame" x="15" y="11" width="210" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtx-az-HKZ">
+                                                    <rect key="frame" x="15" y="11" width="342" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -359,37 +360,24 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="djName" destination="dtx-az-HKZ" id="Z1w-Xw-ji3"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="Kt9-XD-t6e"/>
+                        <viewLayoutGuide key="safeArea" id="yWV-eC-iU0"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Join as a listener" id="dzb-SC-M7Y"/>
+                    <navigationItem key="navigationItem" id="jWx-fE-3TV"/>
                     <connections>
-                        <outlet property="tableView" destination="G0K-wU-9UD" id="6Sd-tz-0RV"/>
+                        <outlet property="tableView" destination="35h-V4-ThQ" id="CsF-DS-X6F"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x2a-pV-KQr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Ep-2e-wnc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4738.3999999999996" y="-321.42857142857144"/>
-        </scene>
-        <!--Join as the DJ-->
-        <scene sceneID="utz-Cr-c0P">
-            <objects>
-                <viewController id="np9-K9-Npw" customClass="DJConnecterViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="1eA-j5-7PN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="llR-Fx-3vG"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Join as the DJ" id="91p-ae-J31"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tEG-tD-Wkz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4738" y="-1034"/>
+            <point key="canvasLocation" x="4645.6000000000004" y="-676.10837438423653"/>
         </scene>
         <!--Search-->
         <scene sceneID="wg7-f3-ORb">

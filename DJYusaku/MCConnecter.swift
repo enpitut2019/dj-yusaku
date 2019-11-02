@@ -12,12 +12,15 @@ import MultipeerConnectivity
 class MCConnecter: NSObject {
     static let shared = MCConnecter()
     
+    public weak var delegate: MCConnecterDelegate?
+    
     let serviceType = "djyusaku"
     
     var peerID :MCPeerID!
     var session: MCSession!
     var advertiser: MCNearbyServiceAdvertiser!
     var browser: MCNearbyServiceBrowser!
+
     
     var connectableDJs: [MCPeerID] = []
     
@@ -95,12 +98,25 @@ extension MCConnecter: MCNearbyServiceBrowserDelegate {
 
     // 接続可能なピアが見つかったとき
     public func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String: String]?) {
-        connectableDJs.append(peerID)
+        DispatchQueue.global().async {
+            self.connectableDJs.append(peerID)
+            
+            print("browser found")
+            
+            DispatchQueue.main.async {
+                print("async")
+                self.delegate?.mcConnecter(connectableDevicesChanged: self.connectableDJs, browser: browser)
+            }
+        }
     }
 
     // 接続可能なピアが消えたとき
     public func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         connectableDJs = connectableDJs.filter { $0 != peerID }
+        
+        DispatchQueue.main.async {
+                self.delegate?.mcConnecter(connectableDevicesChanged: self.connectableDJs, browser: browser)
+        }
     }
 
     /// エラーが起こったとき

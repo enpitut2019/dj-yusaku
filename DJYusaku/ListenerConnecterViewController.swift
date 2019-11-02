@@ -7,28 +7,40 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
 class ListenerConnecterViewController: UIViewController {
-    
+        
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if (MCConnecter.shared.session != nil) { }
+        if (MCConnecter.shared.session != nil) {
+            print("aaaa")
+        }
         else {
-        MCConnecter.shared.initialize(isParent: false, displayName: UIDevice.current.name)
+            MCConnecter.shared.initialize(isParent: false, displayName: UIDevice.current.name)
+            MCConnecter.shared.startBrowse()
+            print("bbbbb")
         }
         
-        MCConnecter.shared.startBrowse()
         // tableViewのdelegate, dataSource設定
         tableView.delegate = self
         tableView.dataSource = self
         
         print("connectableDJs: ",MCConnecter.shared.connectableDJs)
+        
+        // NotificationCenter.default.addObserver(self, selector: #selector(handleDJUpdated), name: .welcomeVCToListenerConnecterVCName, object: nil)
     }
     
-    
+//    @objc func handleDJUpdated () {
+//        // リクエスト画面を更新
+//        DispatchQueue.main.async{
+//            self.tableView.reloadData()
+//        }
+//        print("update")
+//    }
 
     /*
     // MARK: - Navigation
@@ -46,15 +58,21 @@ class ListenerConnecterViewController: UIViewController {
 
 extension ListenerConnecterViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("vcccccc")
         return MCConnecter.shared.connectableDJs.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ConnectableDJsTableViewCell", for: indexPath) as! SearchMusicTableViewCell
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ConnectableDJsTableViewCell", for: indexPath) as! ConnectableDJsTableViewCell
         let item = MCConnecter.shared.connectableDJs[indexPath.row]
-        cell.title.text       = item.displayName
-        cell.button.isEnabled = true
+        cell.djName?.text = "DJ: " + item.displayName
+        print("DJ: " + item.displayName)
+        
+        // リクエスト画面を更新
+//        DispatchQueue.main.async {
+//            self.tableView.reloadData()
+//        }
+
         return cell
     }
 }
@@ -63,4 +81,21 @@ extension ListenerConnecterViewController: UITableViewDataSource {
 
 extension ListenerConnecterViewController: UITableViewDelegate {
     /* TODO: 未実装 */
+}
+
+// MARK: - MCConnecterDelegate
+extension ListenerConnecterViewController: MCConnecterDelegate {
+    func mcConnecter(didReceiveData data: Data, ofType type: UInt32) {
+        
+    }
+    
+    func mcConnecter(connectedDevicesChanged devices: [String]) {
+        
+    }
+    
+
+    func mcConnecter(connectableDevicesChanged devices: [MCPeerID], browser: MCNearbyServiceBrowser) {
+        print(devices)
+        self.tableView.reloadData()
+    }
 }

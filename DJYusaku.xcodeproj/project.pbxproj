@@ -10,6 +10,7 @@
 		1006887E236D3AC9004CAD5B /* MCConnecter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1006887D236D3AC9004CAD5B /* MCConnecter.swift */; };
 		10068882236D3F1F004CAD5B /* ListenerConnecterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10068881236D3F1F004CAD5B /* ListenerConnecterViewController.swift */; };
 		10068886236D5A60004CAD5B /* ConnectableDJsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10068885236D5A60004CAD5B /* ConnectableDJsTableViewCell.swift */; };
+		10068888236D7393004CAD5B /* MCConnecterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10068887236D7393004CAD5B /* MCConnecterDelegate.swift */; };
 		411F288B23616EEB00BA96C1 /* RequestQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F288A23616EEB00BA96C1 /* RequestQueue.swift */; };
 		B125D88D235F426C00D383E7 /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B125D88C235F426C00D383E7 /* Artwork.swift */; };
 		C40DC880236570DD00E80AB1 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */; };
@@ -51,6 +52,7 @@
 		1006887D236D3AC9004CAD5B /* MCConnecter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCConnecter.swift; sourceTree = "<group>"; };
 		10068881236D3F1F004CAD5B /* ListenerConnecterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListenerConnecterViewController.swift; sourceTree = "<group>"; };
 		10068885236D5A60004CAD5B /* ConnectableDJsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectableDJsTableViewCell.swift; sourceTree = "<group>"; };
+		10068887236D7393004CAD5B /* MCConnecterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCConnecterDelegate.swift; sourceTree = "<group>"; };
 		411F288A23616EEB00BA96C1 /* RequestQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestQueue.swift; sourceTree = "<group>"; };
 		B125D88C235F426C00D383E7 /* Artwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
 		C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				411F288A23616EEB00BA96C1 /* RequestQueue.swift */,
 				C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */,
 				1006887D236D3AC9004CAD5B /* MCConnecter.swift */,
+				10068887236D7393004CAD5B /* MCConnecterDelegate.swift */,
 				10068881236D3F1F004CAD5B /* ListenerConnecterViewController.swift */,
 				10068885236D5A60004CAD5B /* ConnectableDJsTableViewCell.swift */,
 			);
@@ -303,6 +306,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10068888236D7393004CAD5B /* MCConnecterDelegate.swift in Sources */,
 				B125D88D235F426C00D383E7 /* Artwork.swift in Sources */,
 				C4CF9725235163EF00C8A102 /* SearchViewController.swift in Sources */,
 				411F288B23616EEB00BA96C1 /* RequestQueue.swift in Sources */,

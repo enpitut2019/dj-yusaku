@@ -8,5 +8,5 @@
 
 import UIKit
 class ConnectableDJsTableViewCell: UITableViewCell {
-    
+    @IBOutlet weak var djName: UILabel!
 }
