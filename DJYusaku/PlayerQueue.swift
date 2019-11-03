@@ -18,8 +18,10 @@ extension Notification.Name {
 class PlayerQueue{
     static let shared = PlayerQueue()
     let mpAppController = MPMusicPlayerController.applicationQueuePlayer
+    
     private var items: [MPMediaItem] = []
     private var isQueueCreated: Bool = false
+    private let playerDispatchQueue = DispatchQueue(label: "jp.yaplus.DJYusaku.PlayerQueue")
     
     // MPMusicPlayerApplicationController の indexOfNowPlayingItem の挙動が怪しいので自分で管理するための変数
     private(set) var indexOfNowPlayingSong: Int = 0
@@ -40,38 +42,47 @@ class PlayerQueue{
     }
     
     private func create(with song : Song, completion: (() -> (Void))? = nil) {
-        self.mpAppController.setQueue(with: [song.id])
-        self.mpAppController.play()    // 自動再生にするときはself.mpAppController.play()を呼ぶ
-        self.isQueueCreated = true
-        mpAppController.perform(queueTransaction: { _ in }, completionHandler: { [unowned self] queue, _ in
-            self.items = queue.items
-        })
-        if let completion = completion { completion() }
-        NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
+        playerDispatchQueue.sync { // 再生キューは同時に操作してはいけないため、同期処理を強制する
+            self.mpAppController.setQueue(with: [song.id])
+            self.mpAppController.prepareToPlay() { [unowned self] error in
+                guard error == nil else { return }
+                self.mpAppController.play() // 自動再生する
+                self.mpAppController.perform(queueTransaction: { _ in }, completionHandler: { [unowned self] queue, _ in
+                    self.items = queue.items
+                })
+            }
+            self.isQueueCreated = true
+            if let completion = completion { completion() }
+            NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
+        }
     }
 
     private func insert(after index: Int, with song : Song, completion: (() -> (Void))? = nil){
-        mpAppController.perform(queueTransaction: { mutableQueue in
-            let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [song.id])
-            let insertItem = mutableQueue.items.count == 0 ? nil : mutableQueue.items[index]
-            mutableQueue.insert(descripter, after: insertItem)
-        }, completionHandler: { [unowned self] queue, error in
-            guard (error == nil) else { return } // TODO: 追加ができなかった時の処理
-            self.items = queue.items
-            if let completion = completion { completion() }
-            NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
-        })
+        playerDispatchQueue.sync { // 再生キューは同時に操作してはいけないため、同期処理を強制する
+            mpAppController.perform(queueTransaction: { mutableQueue in
+                let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [song.id])
+                let insertItem = mutableQueue.items.count == 0 ? nil : mutableQueue.items[index]
+                mutableQueue.insert(descripter, after: insertItem)
+            }, completionHandler: { [unowned self] queue, error in
+                guard (error == nil) else { return } // TODO: 追加ができなかった時の処理
+                self.items = queue.items
+                if let completion = completion { completion() }
+                NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
+            })
+        }
     }
     
     func remove(at index: Int, completion: (() -> (Void))? = nil) {
-        mpAppController.perform(queueTransaction: {mutableQueue in
-            mutableQueue.remove(mutableQueue.items[index])
-        }, completionHandler: { [unowned self] queue, error in
-            guard (error == nil) else { return } // TODO: 削除ができなかった時の処理
-            self.items = queue.items
-            if let completion = completion { completion() }
-            NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
-        })
+        playerDispatchQueue.sync { // 再生キューは同時に操作してはいけないため、同期処理を強制する
+            mpAppController.perform(queueTransaction: {mutableQueue in
+                mutableQueue.remove(mutableQueue.items[index])
+            }, completionHandler: { [unowned self] queue, error in
+                guard (error == nil) else { return } // TODO: 削除ができなかった時の処理
+                self.items = queue.items
+                if let completion = completion { completion() }
+                NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
+            })
+        }
     }
     
     func add(with song : Song, completion: (() -> (Void))? = nil) {
@@ -89,7 +100,7 @@ class PlayerQueue{
     }
     
     func get(at index: Int) -> MPMediaItem? {
-        guard self.count() != 0 && self.count() > index else { return nil }
+        guard index >= 0 && self.count() > index else { return nil }
         return items[index]
     }
     
