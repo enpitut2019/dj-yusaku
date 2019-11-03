@@ -35,7 +35,10 @@ class SearchMusicTableViewCell: UITableViewCell {
         button.isEnabled = false
         
         PlayerQueue.shared.add(with: song) {
-            // TODO: リクエストが完了した旨をユーザーに通知する
+            // リクエストが完了した旨をユーザーに通知する
+            let alert = UIAlertController(title: self.song.title, message: "was requested", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.window?.rootViewController?.present(alert, animated: true)
         }
     }
 }

@@ -164,6 +164,7 @@
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
                     <navigationItem key="navigationItem" title="Requests" id="K0B-Hq-EiT">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="9eT-eG-bit"/>
                         <barButtonItem key="rightBarButtonItem" image="person.2.fill" catalog="system" id="u2n-sH-Den">
                             <connections>
                                 <segue destination="dBJ-r9-osw" kind="presentation" id="W7c-YK-Za5"/>

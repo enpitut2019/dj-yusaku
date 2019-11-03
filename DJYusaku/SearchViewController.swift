@@ -33,11 +33,6 @@ class SearchViewController: UIViewController {
         tableView.dataSource = self
         tableView.tableFooterView = UIView() // 空のセルの罫線を消す
         
-        // Apple Musicライブラリへのアクセス許可の確認
-        SKCloudServiceController.requestAuthorization { status in
-            guard status == .authorized else { return }
-            // TODO: Apple Musicの契約確認処理
-        }
         // Apple Musicのロケール設定
         self.cloudServiceController.requestStorefrontCountryCode { (storefrontCountryCode, error) in
             if error != nil {

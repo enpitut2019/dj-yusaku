@@ -20,7 +20,6 @@ class RequestsViewController: UIViewController {
     
     private let cloudServiceController = SKCloudServiceController()
     private let defaultArtwork : UIImage = UIImage()
-    private var storefrontCountryCode : String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,12 +114,12 @@ extension RequestsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard PlayerQueue.shared.count() != 0 else { return 0 }
-        return PlayerQueue.shared.count() - PlayerQueue.shared.indexOfNowPlayingSong - 1
+        return PlayerQueue.shared.count()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RequestsMusicTableViewCell", for: indexPath) as! RequestsMusicTableViewCell
-        let itemIndex = indexPath.row + PlayerQueue.shared.indexOfNowPlayingSong + 1
+        let itemIndex = indexPath.row
         guard let item = PlayerQueue.shared.get(at: itemIndex) else { return cell }
         
         cell.title.text    = item.title
@@ -137,7 +136,7 @@ extension RequestsViewController: UITableViewDelegate {
     // セルの編集時の挙動
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let itemIndex = indexPath.row + PlayerQueue.shared.indexOfNowPlayingSong + 1
+            let itemIndex = indexPath.row
             PlayerQueue.shared.remove(at: itemIndex) {
                 tableView.deleteRows(at: [indexPath], with: .left)  // 必ずPlayerQueueの処理後にTableViewの更新を行う
             }
