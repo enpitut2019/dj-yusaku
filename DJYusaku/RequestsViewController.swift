@@ -47,7 +47,8 @@ class RequestsViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleRequestsDidUpdate), name:
             .DJYusakuPlayerQueueDidUpdate, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handlePlayingItemDidChange), name: .DJYusakuPlayerQueueDidNowPlayingSongDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChange), name: .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePlaybackStateDidChange), name: .DJYusakuPlayerQueuePlaybackStateDidChange, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -71,7 +72,7 @@ class RequestsViewController: UIViewController {
         }
     }
     
-    @objc func handlePlayingItemDidChange(notification: NSNotification){
+    @objc func handleNowPlayingItemDidChange(notification: NSNotification){
         guard let nowPlayingItem = PlayerQueue.shared.mpAppController.nowPlayingItem else { return }
         
         DispatchQueue.main.async {
@@ -81,14 +82,23 @@ class RequestsViewController: UIViewController {
         }
     }
     
+    @objc func handlePlaybackStateDidChange(notification: NSNotification) {
+        switch PlayerQueue.shared.mpAppController.playbackState {
+        case .playing:
+            playButton.setImage(UIImage(systemName: "pause.fill"), for: UIControl.State.normal)
+        case .paused, .stopped:
+            playButton.setImage(UIImage(systemName: "play.fill"), for: UIControl.State.normal)
+        default:
+            break
+        }
+    }
+    
     @IBAction func playButton(_ sender: Any) {
         switch PlayerQueue.shared.mpAppController.playbackState {
-        case .paused, .stopped:
-            PlayerQueue.shared.mpAppController.play()
-            playButton.setImage(UIImage(systemName: "pause.fill"), for: UIControl.State.normal)
-        case .playing:
+        case .playing:          // 再生中なら停止する
             PlayerQueue.shared.mpAppController.pause()
-            playButton.setImage(UIImage(systemName: "play.fill"), for: UIControl.State.normal)
+        case .paused, .stopped: // 停止中なら再生する
+            PlayerQueue.shared.mpAppController.play()
         default:
             break
         }

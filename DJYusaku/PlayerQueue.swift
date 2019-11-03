@@ -11,8 +11,10 @@ import UIKit
 import MediaPlayer
 
 extension Notification.Name {
+    // MPMusicPlayerControllerによる通知をこちらで一旦引き受けることでタイミングを制御できるようにする
     static let DJYusakuPlayerQueueDidUpdate = Notification.Name("DJYusakuPlayerQueueDidUpdate")
-    static let DJYusakuPlayerQueueDidNowPlayingSongDidChange = Notification.Name("DJYusakuPlayerQueueDidNowPlayingSongDidChange")
+    static let DJYusakuPlayerQueueNowPlayingSongDidChange = Notification.Name("DJYusakuPlayerQueueNowPlayingSongDidChange")
+    static let DJYusakuPlayerQueuePlaybackStateDidChange = Notification.Name("DJYusakuPlayerQueuePlaybackStateDidChange")
 }
 
 class PlayerQueue{
@@ -28,17 +30,22 @@ class PlayerQueue{
     
     private init(){
         mpAppController.repeatMode = MPMusicRepeatMode.all
-        NotificationCenter.default.addObserver(self, selector: #selector(handlePlayingItemDidChange), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChange), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePlaybackStateDidChange), name: .MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
     }
     
-    @objc func handlePlayingItemDidChange(notification: NSNotification){
+    @objc func handleNowPlayingItemDidChange(notification: NSNotification){
         if mpAppController.indexOfNowPlayingItem == 0 {
             indexOfNowPlayingSong = 0
         } else {
             indexOfNowPlayingSong += 1  // FIXME: 連打するとバグる
         }
         
-        NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidNowPlayingSongDidChange, object: nil)
+        NotificationCenter.default.post(name: .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
+    }
+    
+    @objc func handlePlaybackStateDidChange(notification: NSNotification){
+        NotificationCenter.default.post(name: .DJYusakuPlayerQueuePlaybackStateDidChange, object: nil)
     }
     
     private func create(with song : Song, completion: (() -> (Void))? = nil) {
