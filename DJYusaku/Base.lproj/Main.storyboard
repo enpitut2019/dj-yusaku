@@ -259,7 +259,6 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="joinAsListener:" destination="ypK-t8-Qz5" eventType="touchUpInside" id="0Y6-WE-bx6"/>
                                     <segue destination="OLS-yY-NwI" kind="show" id="OT6-D8-sjH"/>
                                 </connections>
                             </button>

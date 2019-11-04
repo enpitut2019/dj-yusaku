@@ -27,14 +27,13 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func joinAsDJ(_ sender: Any) {
-        MCConnecter.shared.initialize(isParent: true, displayName: UIDevice.current.name)
+        if (!MCConnecter.shared.initialized) {
+            MCConnecter.shared.initialize(isParent: true, displayName: UIDevice.current.name)
+        }
         MCConnecter.shared.startAdvertise()
         self.dismiss(animated: true, completion: nil)
     }
-    @IBAction func joinAsListener(_ sender: Any) {
-        NotificationCenter.default.post(name: .welcomeVCToListenerConnecterVCName, object: nil, userInfo: nil)
-        print("pushed")
-    }
+
     /*
     // MARK: - Navigation
 

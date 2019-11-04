@@ -16,31 +16,17 @@ class ListenerConnecterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if (MCConnecter.shared.session != nil) {
-            print("aaaa")
-        }
-        else {
+        if (!MCConnecter.shared.initialized) {
             MCConnecter.shared.initialize(isParent: false, displayName: UIDevice.current.name)
-            MCConnecter.shared.startBrowse()
-            print("bbbbb")
         }
+        MCConnecter.shared.delegate = self
+        MCConnecter.shared.startBrowse()
         
         // tableViewのdelegate, dataSource設定
         tableView.delegate = self
         tableView.dataSource = self
         
-        print("connectableDJs: ",MCConnecter.shared.connectableDJs)
-        
-        // NotificationCenter.default.addObserver(self, selector: #selector(handleDJUpdated), name: .welcomeVCToListenerConnecterVCName, object: nil)
     }
-    
-//    @objc func handleDJUpdated () {
-//        // リクエスト画面を更新
-//        DispatchQueue.main.async{
-//            self.tableView.reloadData()
-//        }
-//        print("update")
-//    }
 
     /*
     // MARK: - Navigation
@@ -58,7 +44,6 @@ class ListenerConnecterViewController: UIViewController {
 
 extension ListenerConnecterViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("vcccccc")
         return MCConnecter.shared.connectableDJs.count
     }
     
@@ -66,12 +51,7 @@ extension ListenerConnecterViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ConnectableDJsTableViewCell", for: indexPath) as! ConnectableDJsTableViewCell
         let item = MCConnecter.shared.connectableDJs[indexPath.row]
         cell.djName?.text = "DJ: " + item.displayName
-        print("DJ: " + item.displayName)
-        
-        // リクエスト画面を更新
-//        DispatchQueue.main.async {
-//            self.tableView.reloadData()
-//        }
+        print("DJ: [" + item.displayName + "]")
 
         return cell
     }
@@ -92,10 +72,9 @@ extension ListenerConnecterViewController: MCConnecterDelegate {
     func mcConnecter(connectedDevicesChanged devices: [String]) {
         
     }
-    
 
-    func mcConnecter(connectableDevicesChanged devices: [MCPeerID], browser: MCNearbyServiceBrowser) {
-        print(devices)
+    func mcConnecter(connectableDevicesChanged devices: [MCPeerID]) {
+        print("changed")
         self.tableView.reloadData()
     }
 }

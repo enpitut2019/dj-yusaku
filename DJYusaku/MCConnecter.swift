@@ -21,12 +21,13 @@ class MCConnecter: NSObject {
     var advertiser: MCNearbyServiceAdvertiser!
     var browser: MCNearbyServiceBrowser!
 
-    
+    var initialized = false
     var connectableDJs: [MCPeerID] = []
     
     var isParent: Bool!
     
     func initialize(isParent: Bool, displayName: String) {
+        self.initialized = true
         self.isParent = isParent
         
         self.peerID = MCPeerID(displayName: displayName)
@@ -64,6 +65,9 @@ extension MCConnecter: MCSessionDelegate {
     // 他のピアによる send を受け取ったとき呼ばれる
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         print(#function)
+        DispatchQueue.main.async {
+            self.delegate?.mcConnecter(didReceiveData: data, from: peerID)
+        }
     }
     
     // 他のピアによる sendStream を受け取ったとき呼ばれる
@@ -98,15 +102,12 @@ extension MCConnecter: MCNearbyServiceBrowserDelegate {
 
     // 接続可能なピアが見つかったとき
     public func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String: String]?) {
-        DispatchQueue.global().async {
-            self.connectableDJs.append(peerID)
+        self.connectableDJs.append(peerID)
             
-            print("browser found")
+        print("browser: found")
             
-            DispatchQueue.main.async {
-                print("async")
-                self.delegate?.mcConnecter(connectableDevicesChanged: self.connectableDJs, browser: browser)
-            }
+        DispatchQueue.main.async {
+            self.delegate?.mcConnecter(connectableDevicesChanged: self.connectableDJs)
         }
     }
 
@@ -115,7 +116,7 @@ extension MCConnecter: MCNearbyServiceBrowserDelegate {
         connectableDJs = connectableDJs.filter { $0 != peerID }
         
         DispatchQueue.main.async {
-                self.delegate?.mcConnecter(connectableDevicesChanged: self.connectableDJs, browser: browser)
+                self.delegate?.mcConnecter(connectableDevicesChanged: self.connectableDJs)
         }
     }
 
