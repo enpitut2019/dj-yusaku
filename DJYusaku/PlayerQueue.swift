@@ -30,11 +30,11 @@ class PlayerQueue{
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlaybackStateDidChange), name: .MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
     }
     
-    @objc func handleNowPlayingItemDidChange(notification: NSNotification){
+    @objc func handleNowPlayingItemDidChange(){
         NotificationCenter.default.post(name: .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
     }
     
-    @objc func handlePlaybackStateDidChange(notification: NSNotification){
+    @objc func handlePlaybackStateDidChange(){
         NotificationCenter.default.post(name: .DJYusakuPlayerQueuePlaybackStateDidChange, object: nil)
     }
     
@@ -47,10 +47,10 @@ class PlayerQueue{
             self.mpAppController.perform(queueTransaction: { _ in }, completionHandler: { [unowned self] queue, _ in
                 self.items = queue.items
             })
+            self.isQueueCreated = true
+            if let completion = completion { completion() }
+            NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
         }
-        self.isQueueCreated = true
-        if let completion = completion { completion() }
-        NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
     }
 
     private func insert(after index: Int, with song : Song, completion: (() -> (Void))? = nil){

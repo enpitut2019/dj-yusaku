@@ -44,8 +44,7 @@ class RequestsViewController: UIViewController {
             }
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleRequestsDidUpdate), name:
-            .DJYusakuPlayerQueueDidUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleRequestsDidUpdate), name: .DJYusakuPlayerQueueDidUpdate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChange), name: .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlaybackStateDidChange), name: .DJYusakuPlayerQueuePlaybackStateDidChange, object: nil)
     }
@@ -65,13 +64,13 @@ class RequestsViewController: UIViewController {
         }
     }
     
-    @objc func handleRequestsDidUpdate(notification: NSNotification){
+    @objc func handleRequestsDidUpdate(){
         DispatchQueue.main.async{
             self.tableView.reloadData()
         }
     }
     
-    @objc func handleNowPlayingItemDidChange(notification: NSNotification){
+    @objc func handleNowPlayingItemDidChange(){
         guard let nowPlayingItem = PlayerQueue.shared.mpAppController.nowPlayingItem else { return }
         
         DispatchQueue.main.async {
