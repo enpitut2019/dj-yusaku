@@ -8,16 +8,22 @@
 
 import UIKit
 
-extension Notification.Name {
-    static let welcomeVCToListenerConnecterVCName = Notification.Name("welcomeVCToListenerConnecterVCName")
-}
-
 class WelcomeViewController: UIViewController {
     
     @IBOutlet weak var doneButtonItem: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if (MCConnecter.shared.initialized) {
+            print(MCConnecter.shared.session.connectedPeers)
+            do {
+                let debugData = Data([0x44, 0x4A])
+                print(debugData)
+                try MCConnecter.shared.session.send(debugData, toPeers: MCConnecter.shared.session.connectedPeers, with: .unreliable)
+            } catch {
+                print(error)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,6 +36,7 @@ class WelcomeViewController: UIViewController {
         if (!MCConnecter.shared.initialized) {
             MCConnecter.shared.initialize(isParent: true, displayName: UIDevice.current.name)
         }
+        // MCConnecter.shared.delegate = self
         MCConnecter.shared.startAdvertise()
         self.dismiss(animated: true, completion: nil)
     }

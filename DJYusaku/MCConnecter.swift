@@ -53,18 +53,26 @@ class MCConnecter: NSObject {
         browser.startBrowsingForPeers()
     }
     
+    func stopBrowse() {
+        browser.stopBrowsingForPeers()
+    }
+    
 }
 
 // MARK: - MCSessionDelegate
 extension MCConnecter: MCSessionDelegate {
     // 接続ピアの状態が変化したとき呼ばれる
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        print(#function)
+        if state == .connected {
+            print("Peer \(peerID.displayName) is connected.")
+        } else {
+            print("Peer \(peerID.displayName) is not connected.")
+        }
     }
     
     // 他のピアによる send を受け取ったとき呼ばれる
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        print(#function)
+        print("recieved Data: \(String(data: data, encoding: .utf8)!)")
         DispatchQueue.main.async {
             self.delegate?.mcConnecter(didReceiveData: data, from: peerID)
         }
@@ -104,7 +112,7 @@ extension MCConnecter: MCNearbyServiceBrowserDelegate {
     public func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String: String]?) {
         self.connectableDJs.append(peerID)
             
-        print("browser: found")
+        print("browser: connectable  DJ is found")
             
         DispatchQueue.main.async {
             self.delegate?.mcConnecter(connectableDevicesChanged: self.connectableDJs)
@@ -113,6 +121,8 @@ extension MCConnecter: MCNearbyServiceBrowserDelegate {
 
     // 接続可能なピアが消えたとき
     public func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
+        print("browser: connectable  DJ is lost")
+        
         connectableDJs = connectableDJs.filter { $0 != peerID }
         
         DispatchQueue.main.async {

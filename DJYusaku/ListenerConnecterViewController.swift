@@ -55,6 +55,12 @@ extension ListenerConnecterViewController: UITableViewDataSource {
 
         return cell
     }
+    
+     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        MCConnecter.shared.browser.invitePeer(MCConnecter.shared.connectableDJs[indexPath.row], to: MCConnecter.shared.session, withContext: nil, timeout: 10.0)
+        MCConnecter.shared.stopBrowse()
+        self.dismiss(animated: true, completion: nil)
+    }
 }
 
 // MARK: - UITableViewDelegate
@@ -65,11 +71,7 @@ extension ListenerConnecterViewController: UITableViewDelegate {
 
 // MARK: - MCConnecterDelegate
 extension ListenerConnecterViewController: MCConnecterDelegate {
-    func mcConnecter(didReceiveData data: Data, ofType type: UInt32) {
-        
-    }
-    
-    func mcConnecter(connectedDevicesChanged devices: [String]) {
+    func mcConnecter(didReceiveData data: Data, from peerID: MCPeerID) {
         
     }
 
