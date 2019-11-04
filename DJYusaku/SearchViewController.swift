@@ -15,7 +15,7 @@ class SearchViewController: UIViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     private let cloudServiceController = SKCloudServiceController()
     private var storefrontCountryCode : String? = nil
-    private var results : [MusicDataModel] = []
+    private var results : [Song] = []
     private let defaultArtwork : UIImage = UIImage()
     
     override func viewDidLoad() {
@@ -33,11 +33,6 @@ class SearchViewController: UIViewController {
         tableView.dataSource = self
         tableView.tableFooterView = UIView() // 空のセルの罫線を消す
         
-        // Apple Musicライブラリへのアクセス許可の確認
-        SKCloudServiceController.requestAuthorization { status in
-            guard status == .authorized else { return }
-            // TODO: Apple Musicの契約確認処理
-        }
         // Apple Musicのロケール設定
         self.cloudServiceController.requestStorefrontCountryCode { (storefrontCountryCode, error) in
             if error != nil {
@@ -67,10 +62,9 @@ extension SearchViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchMusicTableViewCell", for: indexPath) as! SearchMusicTableViewCell
         
         let item = results[indexPath.row]
+        cell.song             = item
         cell.title.text       = item.title
         cell.artist.text      = item.artist
-        cell.artworkUrl       = item.artworkUrl
-        cell.songID           = item.songID
         cell.artwork.image    = defaultArtwork
         cell.button.isEnabled = true
         
@@ -159,7 +153,7 @@ extension SearchViewController: UISearchResultsUpdating {
                     let artworkUrlString = song["attributes"]["artwork"]["url"].stringValue
                     let songID           = song["attributes"]["playParams"]["id"].stringValue
                     let artworkUrl = Artwork.url(urlString: artworkUrlString, width: 256, height: 256)
-                    self.results.append(MusicDataModel(title: title, artist: artist, artworkUrl: artworkUrl, songID: songID))
+                    self.results.append(Song(title: title, artist: artist, artworkUrl: artworkUrl, id: songID))
                 }
                 self.tableView.reloadData()
             }

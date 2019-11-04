@@ -15,14 +15,10 @@ class SearchMusicTableViewCell: UITableViewCell {
     @IBOutlet weak var artwork: UIImageView!
     @IBOutlet weak var button: UIButton!
     
-    //sendRequestに必要なURL型の変数(プライベート変数にするかも)
-    var artworkUrl: URL?
-    
-    var songID : String!
+    var song : Song!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         
         // アートワーク画像を角丸にする
         artwork.layer.cornerRadius = artwork.frame.size.width * 0.05
@@ -31,15 +27,18 @@ class SearchMusicTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
+    
     //+ボタンを押したらRequestsViewControllerに曲を追加する
     @IBAction func sendRequest(_ sender: Any) {
         //ボタンを連続で押させないようにする
         button.isEnabled = false
-        //artworkUrlがnilなら追加されない
-        guard let artworkUrl = artworkUrl else { return }
-        RequestQueue.shared.addRequest(request: MusicDataModel(title: title.text ?? "", artist: artist.text ?? "", artworkUrl: artworkUrl, songID: songID))
+        
+        PlayerQueue.shared.add(with: song) {
+            // リクエストが完了した旨をユーザーに通知する
+            let alert = UIAlertController(title: self.song.title, message: "was requested", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.window?.rootViewController?.present(alert, animated: true)
+        }
     }
 }

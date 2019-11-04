@@ -14,14 +14,12 @@ class RequestsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var playingArtwork: UIImageView!
     @IBOutlet weak var playingTitle: UILabel!
-    @IBOutlet weak var skipButton: UIButton!
+    @IBOutlet weak var playButton: UIButton!
+    
     private var isViewAppearedAtLeastOnce: Bool = false;
     
     private let cloudServiceController = SKCloudServiceController()
     private let defaultArtwork : UIImage = UIImage()
-    private var storefrontCountryCode : String? = nil
-    
-    private let musicPlayerApplicationController = MPMusicPlayerController.applicationQueuePlayer
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,8 +44,9 @@ class RequestsViewController: UIViewController {
             }
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleRequestsUpdated), name: .requestQueueToRequestsVCName, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handlePlayingItemChanged), name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleRequestsDidUpdate), name: .DJYusakuPlayerQueueDidUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChange), name: .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePlaybackStateDidChange), name: .DJYusakuPlayerQueuePlaybackStateDidChange, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -65,98 +64,64 @@ class RequestsViewController: UIViewController {
         }
     }
     
-    @objc func handlePlayingItemChanged(notification: NSNotification){
-        guard RequestQueue.shared.countRequests() > 0 else { return }
-        let nowPlayingMusicDataModel = RequestQueue.shared.getRequest(index: 0)
-        RequestQueue.shared.removeRequest(index: 0)
-        DispatchQueue.global().async {
-            let fetchedImage = Artwork.fetch(url: nowPlayingMusicDataModel.artworkUrl)
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.playingTitle.text    = nowPlayingMusicDataModel.title
-                self.playingArtwork.image = fetchedImage
-
-            }
-        }
-    }
-    
-    @objc func handleRequestsUpdated(notification: NSNotification){
-        print("handleRequestsUpdated")
-        // リクエスト画面を更新
+    @objc func handleRequestsDidUpdate(){
         DispatchQueue.main.async{
             self.tableView.reloadData()
         }
-        
-        guard let songID = notification.userInfo!["songID"] as? String,
-              let title  = notification.userInfo!["title"]  as? String else { return }
-        
-        // リクエストが完了した旨のAlertを表示
-        let alert = UIAlertController(title: title, message: "was requested", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true)
-        
-        insertMusicPlayerControllerQueue(songID: songID)
     }
     
-    func insertMusicPlayerControllerQueue(songID : String){
+    @objc func handleNowPlayingItemDidChange(){
+        guard let nowPlayingItem = PlayerQueue.shared.mpAppController.nowPlayingItem else { return }
         
-        if (self.musicPlayerApplicationController.nowPlayingItem != nil){ // FIXME: 一度キューを空にしたつもりでもnowPlayingItemはnilにならない
-            musicPlayerApplicationController.perform(queueTransaction: { mutableQueue in
-                let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [songID])
-
-                mutableQueue.insert(descripter, after: mutableQueue.items.last)
-            }, completionHandler: { queue, error in
-                if (error != nil){
-                    // TODO: キューへの追加ができなかった時の処理を記述
-                }
-            })
-        } else {
-            let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [songID])
-            musicPlayerApplicationController.setQueue(with: descripter)
-            musicPlayerApplicationController.play()
-
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.playingTitle.text    = nowPlayingItem.title
+            self.playingArtwork.image = nowPlayingItem.artwork?.image(at: CGSize(width: 48, height: 48))
         }
     }
     
-    @IBAction func skip(_ sender: Any) {
-        // TODO: 暫定的な処理だしバグもあるからRequesrQueueの再設計後に直す
-        guard RequestQueue.shared.countRequests() != 0 else { return }
-        musicPlayerApplicationController.perform(queueTransaction: { [unowned self] mutableQueue in
-            guard self.musicPlayerApplicationController.nowPlayingItem != nil else { return }
-            // キューの先頭を削除する
-            self.musicPlayerApplicationController.skipToNextItem()
-            mutableQueue.remove(mutableQueue.items[0])
-        }, completionHandler: { [unowned self] queue, error in
-            guard self.musicPlayerApplicationController.nowPlayingItem != nil && error == nil else { return }
-            // 何もしない
-        })
+    @objc func handlePlaybackStateDidChange(notification: NSNotification) {
+        switch PlayerQueue.shared.mpAppController.playbackState {
+        case .playing:
+            playButton.setImage(UIImage(systemName: "pause.fill"), for: UIControl.State.normal)
+        case .paused, .stopped:
+            playButton.setImage(UIImage(systemName: "play.fill"), for: UIControl.State.normal)
+        default:
+            break
+        }
     }
     
+    @IBAction func playButton(_ sender: Any) {
+        switch PlayerQueue.shared.mpAppController.playbackState {
+        case .playing:          // 再生中なら停止する
+            PlayerQueue.shared.mpAppController.pause()
+        case .paused, .stopped: // 停止中なら再生する
+            PlayerQueue.shared.mpAppController.play()
+        default:
+            break
+        }
+    }
+    
+    @IBAction func skipButton(_ sender: Any) {
+        PlayerQueue.shared.mpAppController.skipToNextItem()
+    }
 }
-
 
 // MARK: - UITableViewDataSource
 
 extension RequestsViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return RequestQueue.shared.countRequests()
+        return PlayerQueue.shared.count()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RequestsMusicTableViewCell", for: indexPath) as! RequestsMusicTableViewCell
+        guard let item = PlayerQueue.shared.get(at: indexPath.row) else { return cell }
         
-        let item = RequestQueue.shared.getRequest(index: indexPath.row)
-        cell.title.text = item.title
-        cell.artist.text = item.artist
-        cell.artwork.image = defaultArtwork
-        
-        DispatchQueue.global().async {
-            let fetchedImage = Artwork.fetch(url: item.artworkUrl)
-            DispatchQueue.main.async {
-                cell.artwork.image = fetchedImage // 画像の取得に失敗していたらnilが入ることに注意
-                cell.artwork.setNeedsLayout()
-            }
-        }
+        cell.title.text    = item.title
+        cell.artist.text   = item.artist
+        cell.artwork.image = item.artwork?.image(at: CGSize(width: 48,height: 48))
         
         return cell
     }
@@ -168,9 +133,9 @@ extension RequestsViewController: UITableViewDelegate {
     // セルの編集時の挙動
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            RequestQueue.shared.removeRequest(index: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            //TODO: playerのqueueの中も削除
+            PlayerQueue.shared.remove(at: indexPath.row) {
+                tableView.deleteRows(at: [indexPath], with: .left)  // 必ずPlayerQueueの処理後にTableViewの更新を行う
+            }
         }
     }
 }
