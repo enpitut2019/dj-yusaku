@@ -15,6 +15,8 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Debug用
         if (MCConnecter.shared.initialized && !MCConnecter.shared.isParent) {
             print(MCConnecter.shared.session.connectedPeers)
             do {
@@ -37,7 +39,6 @@ class WelcomeViewController: UIViewController {
         if (!MCConnecter.shared.initialized) {
             MCConnecter.shared.initialize(isParent: true, displayName: UIDevice.current.name)
         }
-        // MCConnecter.shared.delegate = self
         MCConnecter.shared.startAdvertise()
         self.dismiss(animated: true, completion: nil)
     }
@@ -58,9 +59,10 @@ class WelcomeViewController: UIViewController {
     
 }
 
+// MARK: - MCConnecterDelegate
 extension WelcomeViewController: MCConnecterDelegate {
+    // データが送られてきたときに実行される関数
     func mcConnecter(didReceiveData data: Data, from peerID: MCPeerID) {
-        // 受け取った
         print("\(peerID)から \(String(data: data, encoding: .utf8)!)を受け取りました")
     }
     

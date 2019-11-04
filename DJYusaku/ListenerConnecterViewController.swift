@@ -78,7 +78,7 @@ extension ListenerConnecterViewController: MCConnecterDelegate {
     }
 
     func mcConnecter(connectableDevicesChanged devices: [MCPeerID]) {
-        print("changed")
+        // browserがピアを見つけたらリロード
         self.tableView.reloadData()
     }
 }

@@ -43,10 +43,6 @@ class MCConnecter: NSObject {
         browser.delegate = self
     }
     
-    func parent() -> Bool {
-        return self.isParent
-    }
-    
     func startAdvertise() {
         advertiser.startAdvertisingPeer()
     }
@@ -75,6 +71,7 @@ extension MCConnecter: MCSessionDelegate {
     // 他のピアによる send を受け取ったとき呼ばれる
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         print("recieved Data: \(String(data: data, encoding: .utf8)!)")
+        print(self.delegate) // なぜかnilが返ってくる...
         DispatchQueue.main.async {
             self.delegate?.mcConnecter(didReceiveData: data, from: peerID)
         }
@@ -114,8 +111,8 @@ extension MCConnecter: MCNearbyServiceBrowserDelegate {
     public func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String: String]?) {
         self.connectableDJs.append(peerID)
             
-        print("browser: connectable  DJ is found")
-            
+        print("browser: connectable DJ is found")
+        print(self.delegate)
         DispatchQueue.main.async {
             self.delegate?.mcConnecter(connectableDevicesChanged: self.connectableDJs)
         }
@@ -123,12 +120,12 @@ extension MCConnecter: MCNearbyServiceBrowserDelegate {
 
     // 接続可能なピアが消えたとき
     public func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
-        print("browser: connectable  DJ is lost")
+        print("browser: connectable DJ is lost")
         
-        connectableDJs = connectableDJs.filter { $0 != peerID }
+        self.connectableDJs = connectableDJs.filter { $0 != peerID }
         
         DispatchQueue.main.async {
-                self.delegate?.mcConnecter(connectableDevicesChanged: self.connectableDJs)
+            self.delegate?.mcConnecter(connectableDevicesChanged: self.connectableDJs)
         }
     }
 
