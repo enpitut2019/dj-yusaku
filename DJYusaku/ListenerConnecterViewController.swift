@@ -57,7 +57,9 @@ extension ListenerConnecterViewController: UITableViewDataSource {
     }
     
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        MCConnecter.shared.browser.invitePeer(MCConnecter.shared.connectableDJs[indexPath.row], to: MCConnecter.shared.session, withContext: nil, timeout: 10.0)
+        let selectedDJ = MCConnecter.shared.connectableDJs[indexPath.row]
+        MCConnecter.shared.browser.invitePeer(selectedDJ, to: MCConnecter.shared.session, withContext: nil, timeout: 10.0)
+        MCConnecter.shared.connectedDJ = selectedDJ
         MCConnecter.shared.stopBrowse()
         self.dismiss(animated: true, completion: nil)
     }

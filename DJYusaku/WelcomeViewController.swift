@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
 class WelcomeViewController: UIViewController {
     
@@ -14,12 +15,12 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if (MCConnecter.shared.initialized) {
+        if (MCConnecter.shared.initialized && !MCConnecter.shared.isParent) {
             print(MCConnecter.shared.session.connectedPeers)
             do {
                 let debugData = Data([0x44, 0x4A])
                 print(debugData)
-                try MCConnecter.shared.session.send(debugData, toPeers: MCConnecter.shared.session.connectedPeers, with: .unreliable)
+                try MCConnecter.shared.session.send(debugData, toPeers: [MCConnecter.shared.connectedDJ], with: .unreliable)
             } catch {
                 print(error)
             }
@@ -55,4 +56,15 @@ class WelcomeViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+}
+
+extension WelcomeViewController: MCConnecterDelegate {
+    func mcConnecter(didReceiveData data: Data, from peerID: MCPeerID) {
+        // 受け取った
+        print("\(peerID)から \(String(data: data, encoding: .utf8)!)を受け取りました")
+    }
+    
+    func mcConnecter(connectableDevicesChanged devices: [MCPeerID]) {
+        
+    }
 }

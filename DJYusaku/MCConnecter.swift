@@ -22,7 +22,9 @@ class MCConnecter: NSObject {
     var browser: MCNearbyServiceBrowser!
 
     var initialized = false
+    
     var connectableDJs: [MCPeerID] = []
+    var connectedDJ: MCPeerID!
     
     var isParent: Bool!
     
