@@ -244,7 +244,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="np9-K9-Npw" kind="show" id="03f-GL-4oG"/>
+                                    <action selector="joinAsDJ:" destination="ypK-t8-Qz5" eventType="touchUpInside" id="Cvb-jF-sgk"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RGD-qI-6Bt">
@@ -349,23 +349,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x2a-pV-KQr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4739" y="-321"/>
-        </scene>
-        <!--Join as the DJ-->
-        <scene sceneID="utz-Cr-c0P">
-            <objects>
-                <viewController id="np9-K9-Npw" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="1eA-j5-7PN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="llR-Fx-3vG"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Join as the DJ" id="91p-ae-J31"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tEG-tD-Wkz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4738" y="-1034"/>
+            <point key="canvasLocation" x="4646" y="-678"/>
         </scene>
         <!--Search-->
         <scene sceneID="wg7-f3-ORb">

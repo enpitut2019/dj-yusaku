@@ -37,4 +37,7 @@ class WelcomeViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func joinAsDJ(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
 }
