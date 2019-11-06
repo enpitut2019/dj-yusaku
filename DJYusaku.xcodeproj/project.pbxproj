@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		106B1C2B2372BCA8008684EB /* ListenerConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106B1C2A2372BCA8008684EB /* ListenerConnectionViewController.swift */; };
+		106B1C2D2372BE1F008684EB /* ListenerConnectableDJsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106B1C2C2372BE1F008684EB /* ListenerConnectableDJsTableViewCell.swift */; };
 		411F288B23616EEB00BA96C1 /* PlayerQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F288A23616EEB00BA96C1 /* PlayerQueue.swift */; };
 		B125D88D235F426C00D383E7 /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B125D88C235F426C00D383E7 /* Artwork.swift */; };
 		C40DC880236570DD00E80AB1 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */; };
@@ -45,6 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		106B1C2A2372BCA8008684EB /* ListenerConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListenerConnectionViewController.swift; sourceTree = "<group>"; };
+		106B1C2C2372BE1F008684EB /* ListenerConnectableDJsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListenerConnectableDJsTableViewCell.swift; sourceTree = "<group>"; };
 		411F288A23616EEB00BA96C1 /* PlayerQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerQueue.swift; sourceTree = "<group>"; };
 		B125D88C235F426C00D383E7 /* Artwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
 		C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +139,8 @@
 				B125D88C235F426C00D383E7 /* Artwork.swift */,
 				411F288A23616EEB00BA96C1 /* PlayerQueue.swift */,
 				C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */,
+				106B1C2A2372BCA8008684EB /* ListenerConnectionViewController.swift */,
+				106B1C2C2372BE1F008684EB /* ListenerConnectableDJsTableViewCell.swift */,
 			);
 			path = DJYusaku;
 			sourceTree = "<group>";
@@ -296,12 +302,14 @@
 			files = (
 				B125D88D235F426C00D383E7 /* Artwork.swift in Sources */,
 				C4CF9725235163EF00C8A102 /* SearchViewController.swift in Sources */,
+				106B1C2D2372BE1F008684EB /* ListenerConnectableDJsTableViewCell.swift in Sources */,
 				411F288B23616EEB00BA96C1 /* PlayerQueue.swift in Sources */,
 				C4FDD0CC2356EA8F007569B1 /* RequestsMusicTableViewCell.swift in Sources */,
 				C436A8562350B16B009F6498 /* Song.swift in Sources */,
 				C4D25958235205D10066FCE0 /* Secrets.swift in Sources */,
 				C447ACAA234882F900D535EB /* RequestsViewController.swift in Sources */,
 				C447ACA6234882F900D535EB /* AppDelegate.swift in Sources */,
+				106B1C2B2372BCA8008684EB /* ListenerConnectionViewController.swift in Sources */,
 				C4D2595A235205EC0066FCE0 /* Secrets+Local.swift in Sources */,
 				C40DC880236570DD00E80AB1 /* WelcomeViewController.swift in Sources */,
 				C447ACA8234882F900D535EB /* SceneDelegate.swift in Sources */,

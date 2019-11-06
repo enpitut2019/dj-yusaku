@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="64" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2ub-dF-W8m">
-                                <rect key="frame" x="0.0" y="88" width="375" height="636"/>
+                                <rect key="frame" x="0.0" y="140" width="375" height="532"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RequestsMusicTableViewCell" id="T5J-aV-tbm" customClass="RequestsMusicTableViewCell" customModule="DJYusaku" customModuleProvider="target">
@@ -338,18 +338,59 @@
         <!--Join as a listener-->
         <scene sceneID="z8Z-ZC-zfs">
             <objects>
-                <viewController id="2ZU-rh-NCc" sceneMemberID="viewController">
+                <viewController id="2ZU-rh-NCc" customClass="ListenerConnectionViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TEh-b3-bIb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BXT-Va-ZlK">
+                                <rect key="frame" x="0.0" y="108" width="375" height="616"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ListenerConnectableDJsTableViewCell" id="Hmp-1P-PDK" customClass="ListenerConnectableDJsTableViewCell" customModule="DJYusaku" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Hmp-1P-PDK" id="mhw-qc-RfJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KK9-dh-Qaa">
+                                                    <rect key="frame" x="11" y="11.333333333333336" width="352" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="KK9-dh-Qaa" secondAttribute="trailing" constant="12" id="6jQ-1j-Ifz"/>
+                                                <constraint firstItem="KK9-dh-Qaa" firstAttribute="centerY" secondItem="mhw-qc-RfJ" secondAttribute="centerY" id="9AF-nk-HgV"/>
+                                                <constraint firstItem="KK9-dh-Qaa" firstAttribute="leading" secondItem="mhw-qc-RfJ" secondAttribute="leading" constant="11" id="bMW-KF-4b4"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="djName" destination="KK9-dh-Qaa" id="M6H-OO-qg6"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="BXT-Va-ZlK" firstAttribute="top" secondItem="Kt9-XD-t6e" secondAttribute="top" id="3dl-Mo-DJP"/>
+                            <constraint firstItem="BXT-Va-ZlK" firstAttribute="bottom" secondItem="Kt9-XD-t6e" secondAttribute="bottom" id="DyI-76-mVh"/>
+                            <constraint firstItem="Kt9-XD-t6e" firstAttribute="trailing" secondItem="BXT-Va-ZlK" secondAttribute="trailing" id="LD7-ZK-2AV"/>
+                            <constraint firstItem="BXT-Va-ZlK" firstAttribute="leading" secondItem="Kt9-XD-t6e" secondAttribute="leading" id="NJo-4t-4Lf"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Kt9-XD-t6e"/>
                     </view>
                     <navigationItem key="navigationItem" title="Join as a listener" id="dzb-SC-M7Y"/>
+                    <connections>
+                        <outlet property="tableView" destination="BXT-Va-ZlK" id="6jB-hE-X0Q"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x2a-pV-KQr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4646" y="-678"/>
+            <point key="canvasLocation" x="4645.6000000000004" y="-678.32512315270935"/>
         </scene>
         <!--Search-->
         <scene sceneID="wg7-f3-ORb">
@@ -360,7 +401,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="64" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wCp-R2-0r7">
-                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
+                                <rect key="frame" x="0.0" y="140" width="375" height="589"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchMusicTableViewCell" id="Uxy-eD-cUw" customClass="SearchMusicTableViewCell" customModule="DJYusaku" customModuleProvider="target">
@@ -392,7 +433,7 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Music Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DxG-x9-Q3o">
-                                                    <rect key="frame" x="71" y="11.999999999999998" width="233" height="20.333333333333329"/>
+                                                    <rect key="frame" x="71" y="12" width="233" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
