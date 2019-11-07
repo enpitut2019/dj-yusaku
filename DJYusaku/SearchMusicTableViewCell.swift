@@ -40,7 +40,7 @@ class SearchMusicTableViewCell: UITableViewCell {
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.window?.rootViewController?.present(alert, animated: true)
             }
-        } else {
+        } else { // リスナーなら
             let songData = try! JSONEncoder().encode(song)
             ConnectionController.shared.session.sendRequest(songData, toPeers: ConnectionController.shared.session.connectedPeers, with: .unreliable)
             { // FIXME: sendが通ったらの実行なのでPlayerQueueに追加されたとは限らない
