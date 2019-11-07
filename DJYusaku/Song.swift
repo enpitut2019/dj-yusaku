@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct Song {
+struct Song : Codable {
     var title:  String      // 曲名
     var artist: String      // アーティスト名
     var artworkUrl: URL     // 画像アートワーク

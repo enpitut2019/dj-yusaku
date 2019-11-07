@@ -70,10 +70,18 @@ extension ConnectionController: MCSessionDelegate {
     // 他のピアによる send を受け取ったとき呼ばれる
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         print("\(peerID)から \(String(data: data, encoding: .utf8)!)を受け取りました")
-        // TODO: bldsky が送られてき時の動作を書く
-        DispatchQueue.main.async {
-            self.delegate?.connectionController(didReceiveData: data, from: peerID)
+        
+        let song = try! JSONDecoder().decode(Song.self, from: data)
+        
+        if ConnectionController.shared.isParent {   // DJが受け取るなら
+            PlayerQueue.shared.add(with: song) {
+                // TODO: ここにリスナーへのsendを書く
+            }
+        } else {                                    // リスナーが受け取るなら
+            // TODO: ここにDJからsendされたときの処理を書く
         }
+        
+        self.delegate?.connectionController(didReceiveData: data, from: peerID)
     }
     
     // 他のピアによる sendStream を受け取ったとき呼ばれる
