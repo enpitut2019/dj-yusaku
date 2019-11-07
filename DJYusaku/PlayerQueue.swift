@@ -24,6 +24,9 @@ class PlayerQueue{
     private var items: [MPMediaItem] = []
     private var isQueueCreated: Bool = false
     
+    //同時にPlayerQueueにアクセスできるのは1スレッドのみ
+    private let semaphore = DispatchSemaphore(value: 1)
+    
     private init(){
         mpAppController.repeatMode = MPMusicRepeatMode.all
         NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChange), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
@@ -54,11 +57,16 @@ class PlayerQueue{
     }
 
     private func insert(after index: Int, with song : Song, completion: (() -> (Void))? = nil){
-        // TODO: 再生キューは同時に操作してはいけないため、同期処理を強制する
-        self.mpAppController.perform(queueTransaction: { mutableQueue in
+        self.mpAppController.perform(queueTransaction: { [unowned self] mutableQueue in
             let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [song.id])
             let insertItem = mutableQueue.items.count == 0 ? nil : mutableQueue.items[index]
-            mutableQueue.insert(descripter, after: insertItem)
+            // 再生キューは同時に操作してはいけないため、semaphoreの中で操作を行う
+            DispatchQueue.global().async {
+                self.semaphore.wait()
+                mutableQueue.insert(descripter, after: insertItem)
+                self.semaphore.signal()
+            }
+            
         }, completionHandler: { [unowned self] queue, error in
             guard (error == nil) else { return } // TODO: 追加ができなかった時の処理
             self.items = queue.items
@@ -68,9 +76,14 @@ class PlayerQueue{
     }
     
     func remove(at index: Int, completion: (() -> (Void))? = nil) {
-        // TODO: 再生キューは同時に操作してはいけないため、同期処理を強制する
         self.mpAppController.perform(queueTransaction: {mutableQueue in
-            mutableQueue.remove(mutableQueue.items[index])
+            // 再生キューは同時に操作してはいけないため、semaphoreの中で操作を行う
+            DispatchQueue.global().async {
+                self.semaphore.wait()
+                mutableQueue.remove(mutableQueue.items[index])
+                self.semaphore.signal()
+            }
+            
         }, completionHandler: { [unowned self] queue, error in
             guard (error == nil) else { return } // TODO: 削除ができなかった時の処理
             self.items = queue.items
