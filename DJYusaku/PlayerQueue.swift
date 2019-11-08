@@ -25,7 +25,8 @@ class PlayerQueue{
     private var isQueueCreated: Bool = false
     
     //同時にPlayerQueueにアクセスできるのは1スレッドのみ
-    private let semaphore = DispatchSemaphore(value: 1)
+    private let internalSemaphore = DispatchSemaphore(value: 1) //内部で呼び出す関数(insert/create/remove)のためのセマフォ
+    private let externalSemaphore = DispatchSemaphore(value: 1) //外部から呼び出される関数(add)のためのセマフォ
     
     private init(){
         mpAppController.repeatMode = MPMusicRepeatMode.all
@@ -42,64 +43,71 @@ class PlayerQueue{
     }
     
     private func create(with song : Song, completion: (() -> (Void))? = nil) {
+        DispatchQueue.global().async {
+            self.internalSemaphore.wait()
+            self.mpAppController.setQueue(with: [song.id])
+            self.mpAppController.prepareToPlay() { [unowned self] error in
+                guard error == nil else { return }
+                self.mpAppController.play() // 自動再生する
+                self.mpAppController.perform(queueTransaction: { _ in }, completionHandler: { [unowned self] queue, _ in
+                    self.items = queue.items
+                })
+                self.isQueueCreated = true
+                if let completion = completion { completion() }
+                NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
+                self.internalSemaphore.signal()
+        }
+        
         // TODO: 再生キューは同時に操作してはいけないため、同期処理を強制する
-        self.mpAppController.setQueue(with: [song.id])
-        self.mpAppController.prepareToPlay() { [unowned self] error in
-            guard error == nil else { return }
-            self.mpAppController.play() // 自動再生する
-            self.mpAppController.perform(queueTransaction: { _ in }, completionHandler: { [unowned self] queue, _ in
-                self.items = queue.items
-            })
-            self.isQueueCreated = true
-            if let completion = completion { completion() }
-            NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
+        
         }
     }
 
     private func insert(after index: Int, with song : Song, completion: (() -> (Void))? = nil){
-        self.mpAppController.perform(queueTransaction: { [unowned self] mutableQueue in
-            let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [song.id])
-            let insertItem = mutableQueue.items.count == 0 ? nil : mutableQueue.items[index]
-            // 再生キューは同時に操作してはいけないため、semaphoreの中で操作を行う
-            DispatchQueue.global().async {
-                self.semaphore.wait()
+        DispatchQueue.global().async {
+            self.internalSemaphore.wait() // 再生キューは同時に操作してはいけないため、semaphoreの中で操作を行う
+            self.mpAppController.perform(queueTransaction: { mutableQueue in
+                let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [song.id])
+                let insertItem = mutableQueue.items.count == 0 ? nil : mutableQueue.items[index]
                 mutableQueue.insert(descripter, after: insertItem)
-                self.semaphore.signal()
-            }
-            
-        }, completionHandler: { [unowned self] queue, error in
-            guard (error == nil) else { return } // TODO: 追加ができなかった時の処理
-            self.items = queue.items
-            if let completion = completion { completion() }
-            NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
-        })
+            }, completionHandler: { [unowned self] queue, error in
+                guard (error == nil) else { return } // TODO: 追加ができなかった時の処理
+                self.items = queue.items
+                if let completion = completion { completion() }
+                NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
+            })
+            self.internalSemaphore.signal()
+        }
     }
     
     func remove(at index: Int, completion: (() -> (Void))? = nil) {
-        self.mpAppController.perform(queueTransaction: {mutableQueue in
-            // 再生キューは同時に操作してはいけないため、semaphoreの中で操作を行う
-            DispatchQueue.global().async {
-                self.semaphore.wait()
-                mutableQueue.remove(mutableQueue.items[index])
-                self.semaphore.signal()
-            }
-            
-        }, completionHandler: { [unowned self] queue, error in
-            guard (error == nil) else { return } // TODO: 削除ができなかった時の処理
-            self.items = queue.items
-            if let completion = completion { completion() }
-            NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
-        })
+        DispatchQueue.global().async {
+            self.internalSemaphore.wait()
+            self.mpAppController.perform(queueTransaction: {mutableQueue in
+                // 再生キューは同時に操作してはいけないため、semaphoreの中で操作を行う
+                    mutableQueue.remove(mutableQueue.items[index])
+            }, completionHandler: { [unowned self] queue, error in
+                guard (error == nil) else { return } // TODO: 削除ができなかった時の処理
+                self.items = queue.items
+                if let completion = completion { completion() }
+                NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
+            })
+            self.internalSemaphore.signal()
+        }
     }
     
     func add(with song : Song, completion: (() -> (Void))? = nil) {
         // TODO: トランザクション処理
-        
-        if !isQueueCreated { // キューが初期化されていないとき
-            self.create(with: song, completion: completion)
-        } else {            // 既にキューが作られているとき
-            self.insert(after: items.count - 1, with: song, completion: completion)
+        DispatchQueue.global().async {
+            self.externalSemaphore.wait()
+            if !self.isQueueCreated { // キューが初期化されていないとき
+                self.create(with: song, completion: completion)
+            } else {            // 既にキューが作られているとき
+                self.insert(after: self.items.count - 1, with: song, completion: completion)
+            }
+            self.externalSemaphore.signal()
         }
+            
     }
     
     func count() -> Int {
