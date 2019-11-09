@@ -27,6 +27,7 @@ class PlayerQueue{
     //同時にPlayerQueueにアクセスできるのは1スレッドのみ
     private let internalSemaphore = DispatchSemaphore(value: 1) //内部で呼び出す関数(insert/create/remove)のためのセマフォ
     private let externalSemaphore = DispatchSemaphore(value: 1) //外部から呼び出される関数(add)のためのセマフォ
+    private let dispatchQueue = DispatchQueue.global(qos: .default)
     
     private init(){
         mpAppController.repeatMode = MPMusicRepeatMode.all
@@ -43,8 +44,9 @@ class PlayerQueue{
     }
     
     private func create(with song : Song, completion: (() -> (Void))? = nil) {
-        DispatchQueue.global().async {
+        dispatchQueue.async {
             self.internalSemaphore.wait()
+            
             self.mpAppController.setQueue(with: [song.id])
             self.mpAppController.prepareToPlay() { [unowned self] error in
                 guard error == nil else { return }
@@ -55,6 +57,7 @@ class PlayerQueue{
                 self.isQueueCreated = true
                 if let completion = completion { completion() }
                 NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
+                
                 self.internalSemaphore.signal()
         }
         
@@ -64,7 +67,7 @@ class PlayerQueue{
     }
 
     private func insert(after index: Int, with song : Song, completion: (() -> (Void))? = nil){
-        DispatchQueue.global().async {
+        dispatchQueue.async {
             self.internalSemaphore.wait() // 再生キューは同時に操作してはいけないため、semaphoreの中で操作を行う
             self.mpAppController.perform(queueTransaction: { mutableQueue in
                 let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [song.id])
@@ -81,7 +84,7 @@ class PlayerQueue{
     }
     
     func remove(at index: Int, completion: (() -> (Void))? = nil) {
-        DispatchQueue.global().async {
+        dispatchQueue.async {
             self.internalSemaphore.wait()
             self.mpAppController.perform(queueTransaction: {mutableQueue in
                 // 再生キューは同時に操作してはいけないため、semaphoreの中で操作を行う
@@ -98,7 +101,7 @@ class PlayerQueue{
     
     func add(with song : Song, completion: (() -> (Void))? = nil) {
         // TODO: トランザクション処理
-        DispatchQueue.global().async {
+        dispatchQueue.async {
             self.externalSemaphore.wait()
             if !self.isQueueCreated { // キューが初期化されていないとき
                 self.create(with: song, completion: completion)
