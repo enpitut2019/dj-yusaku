@@ -8,13 +8,12 @@
 
 import MultipeerConnectivity
 
-extension MCSession{
+extension MCSession {
     func sendRequest(_ data: Data, toPeers peerIDs: [MCPeerID], with mode: MCSessionSendDataMode, completion: (() -> (Void))? = nil) {
         do {
             try self.send(data, toPeers: peerIDs, with: mode)
             if let completion = completion { completion() }
-        }
-        catch {
+        } catch {
             print(error)
         }
     }

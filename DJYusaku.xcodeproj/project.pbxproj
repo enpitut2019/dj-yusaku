@@ -109,7 +109,6 @@
 		C447AC99234882F900D535EB = {
 			isa = PBXGroup;
 			children = (
-				B10A9E112373F46E00209871 /* MCSession+sendRequest.swift */,
 				C447ACA4234882F900D535EB /* DJYusaku */,
 				C447ACBD234882FB00D535EB /* DJYusakuTests */,
 				C447ACC8234882FB00D535EB /* DJYusakuUITests */,
@@ -150,6 +149,7 @@
 				106B1C2C2372BE1F008684EB /* ListenerConnectableDJsTableViewCell.swift */,
 				106B1C2E2372C696008684EB /* ConnectionController.swift */,
 				106B1C302372C83F008684EB /* ConnectionControllerDelegate.swift */,
+				B10A9E112373F46E00209871 /* MCSession+sendRequest.swift */,
 			);
 			path = DJYusaku;
 			sourceTree = "<group>";
