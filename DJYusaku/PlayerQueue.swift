@@ -24,6 +24,8 @@ class PlayerQueue{
     private var items: [MPMediaItem] = []
     private var isQueueCreated: Bool = false
     
+    private let dispatchSemaphore = DispatchSemaphore(value: 1)
+    
     private init(){
         mpAppController.repeatMode = MPMusicRepeatMode.all
         NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChange), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
@@ -39,10 +41,23 @@ class PlayerQueue{
     }
     
     private func create(with song : Song, completion: (() -> (Void))? = nil) {
-        // TODO: 再生キューは同時に操作してはいけないため、同期処理を強制する
+        guard self.dispatchSemaphore.wait(timeout: .now() + 4.0) != .timedOut else {
+            // 前のキューへの追加処理が時間内に終わっていなければとりあえずリクエストを捨てる
+            DispatchQueue.main.async {
+                guard let rootViewController = (UIApplication.shared.windows.filter{$0.isKeyWindow}.first)?.rootViewController else { return }
+                let alert = UIAlertController(title: "Request failed", message: "Queue insertion failed. Try again.", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                rootViewController.present(alert, animated: true)
+            }
+            return
+        }
+        
         self.mpAppController.setQueue(with: [song.id])
         self.mpAppController.prepareToPlay() { [unowned self] error in
-            guard error == nil else { return }
+            defer {
+                self.dispatchSemaphore.signal()
+            }
+            guard error == nil else { return } // TODO: キューの作成ができなかった時の処理
             self.mpAppController.play() // 自動再生する
             self.mpAppController.perform(queueTransaction: { _ in }, completionHandler: { [unowned self] queue, _ in
                 self.items = queue.items
@@ -54,13 +69,26 @@ class PlayerQueue{
     }
 
     private func insert(after index: Int, with song : Song, completion: (() -> (Void))? = nil){
-        // TODO: 再生キューは同時に操作してはいけないため、同期処理を強制する
+        guard self.dispatchSemaphore.wait(timeout: .now() + 4.0) != .timedOut else {
+            // 前のキューへの追加処理が時間内に終わっていなければとりあえずリクエストを捨てる
+            DispatchQueue.main.async {
+                guard let rootViewController = (UIApplication.shared.windows.filter{$0.isKeyWindow}.first)?.rootViewController else { return }
+                let alert = UIAlertController(title: "Request failed", message: "Queue insertion failed. Try again.", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                rootViewController.present(alert, animated: true)
+            }
+            return
+        }
+        
         self.mpAppController.perform(queueTransaction: { mutableQueue in
             let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [song.id])
             let insertItem = mutableQueue.items.count == 0 ? nil : mutableQueue.items[index]
             mutableQueue.insert(descripter, after: insertItem)
         }, completionHandler: { [unowned self] queue, error in
-            guard (error == nil) else { return } // TODO: 追加ができなかった時の処理
+            defer {
+                self.dispatchSemaphore.signal()
+            }
+            guard (error == nil) else { return } // TODO: 挿入ができなかった時の処理
             self.items = queue.items
             if let completion = completion { completion() }
             NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
@@ -68,10 +96,23 @@ class PlayerQueue{
     }
     
     func remove(at index: Int, completion: (() -> (Void))? = nil) {
-        // TODO: 再生キューは同時に操作してはいけないため、同期処理を強制する
+        guard self.dispatchSemaphore.wait(timeout: .now() + 4.0) != .timedOut else {
+            // 前のキューへの追加処理が時間内に終わっていなければとりあえずリクエストを捨てる
+            DispatchQueue.main.async {
+                guard let rootViewController = (UIApplication.shared.windows.filter{$0.isKeyWindow}.first)?.rootViewController else { return }
+                let alert = UIAlertController(title: "Deletion failed", message: "Queue deletion failed. Try again.", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                rootViewController.present(alert, animated: true)
+            }
+            return
+        }
+        
         self.mpAppController.perform(queueTransaction: {mutableQueue in
             mutableQueue.remove(mutableQueue.items[index])
         }, completionHandler: { [unowned self] queue, error in
+            defer {
+                self.dispatchSemaphore.signal()
+            }
             guard (error == nil) else { return } // TODO: 削除ができなかった時の処理
             self.items = queue.items
             if let completion = completion { completion() }
@@ -80,8 +121,6 @@ class PlayerQueue{
     }
     
     func add(with song : Song, completion: (() -> (Void))? = nil) {
-        // TODO: トランザクション処理
-        
         if !isQueueCreated { // キューが初期化されていないとき
             self.create(with: song, completion: completion)
         } else {            // 既にキューが作られているとき

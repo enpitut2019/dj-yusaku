@@ -401,7 +401,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="64" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wCp-R2-0r7">
-                                <rect key="frame" x="0.0" y="140" width="375" height="589"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchMusicTableViewCell" id="Uxy-eD-cUw" customClass="SearchMusicTableViewCell" customModule="DJYusaku" customModuleProvider="target">
@@ -420,26 +420,26 @@
                                                     </constraints>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sbi-3a-kYZ">
-                                                    <rect key="frame" x="312" y="8" width="48" height="48"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sbi-3a-kYZ">
+                                                    <rect key="frame" x="320" y="8" width="48" height="48"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="48" id="ZFb-13-njc"/>
                                                     </constraints>
-                                                    <state key="normal" image="plus.circle" catalog="system">
-                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                                    <state key="normal" image="plus" catalog="system">
+                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="medium"/>
                                                     </state>
                                                     <connections>
                                                         <action selector="sendRequest:" destination="Uxy-eD-cUw" eventType="touchDown" id="PEm-TH-knO"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Music Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DxG-x9-Q3o">
-                                                    <rect key="frame" x="71" y="12" width="233" height="20"/>
+                                                    <rect key="frame" x="71" y="12" width="241" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UVM-Kb-uf9">
-                                                    <rect key="frame" x="71" y="31.666666666666671" width="233" height="21"/>
+                                                    <rect key="frame" x="71" y="31.666666666666671" width="241" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -450,7 +450,7 @@
                                                 <constraint firstItem="rYB-jY-hDQ" firstAttribute="centerY" secondItem="jsM-e1-0mc" secondAttribute="centerY" id="BYx-nN-xn8"/>
                                                 <constraint firstItem="rYB-jY-hDQ" firstAttribute="leading" secondItem="jsM-e1-0mc" secondAttribute="leadingMargin" id="CUA-OW-yaP"/>
                                                 <constraint firstItem="Sbi-3a-kYZ" firstAttribute="leading" secondItem="DxG-x9-Q3o" secondAttribute="trailing" constant="8" id="MEX-Sv-bcC"/>
-                                                <constraint firstItem="Sbi-3a-kYZ" firstAttribute="trailing" secondItem="jsM-e1-0mc" secondAttribute="trailingMargin" id="Zjr-Yp-xkB"/>
+                                                <constraint firstItem="Sbi-3a-kYZ" firstAttribute="trailing" secondItem="jsM-e1-0mc" secondAttribute="trailingMargin" constant="8" id="Zjr-Yp-xkB"/>
                                                 <constraint firstItem="DxG-x9-Q3o" firstAttribute="centerY" secondItem="jsM-e1-0mc" secondAttribute="centerY" constant="-10" id="gpo-1Z-rGr"/>
                                                 <constraint firstItem="UVM-Kb-uf9" firstAttribute="centerY" secondItem="jsM-e1-0mc" secondAttribute="centerY" constant="10" id="mvt-gl-S98"/>
                                                 <constraint firstItem="rYB-jY-hDQ" firstAttribute="centerY" secondItem="Sbi-3a-kYZ" secondAttribute="centerY" id="n1E-rm-pWC"/>
@@ -571,6 +571,6 @@
         <image name="music.note.list" catalog="system" width="64" height="56"/>
         <image name="person.2.fill" catalog="system" width="64" height="40"/>
         <image name="play.fill" catalog="system" width="58" height="64"/>
-        <image name="plus.circle" catalog="system" width="64" height="60"/>
+        <image name="plus" catalog="system" width="64" height="56"/>
     </resources>
 </document>
