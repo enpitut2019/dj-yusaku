@@ -54,6 +54,9 @@ class PlayerQueue{
         
         self.mpAppController.setQueue(with: [song.id])
         self.mpAppController.prepareToPlay() { [unowned self] error in
+            defer {
+                self.dispatchSemaphore.signal()
+            }
             guard error == nil else { return }
             self.mpAppController.play() // 自動再生する
             self.mpAppController.perform(queueTransaction: { _ in }, completionHandler: { [unowned self] queue, _ in
@@ -62,7 +65,6 @@ class PlayerQueue{
             self.isQueueCreated = true
             if let completion = completion { completion() }
             NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
-            self.dispatchSemaphore.signal()
         }
     }
 
@@ -83,11 +85,13 @@ class PlayerQueue{
             let insertItem = mutableQueue.items.count == 0 ? nil : mutableQueue.items[index]
             mutableQueue.insert(descripter, after: insertItem)
         }, completionHandler: { [unowned self] queue, error in
-            guard (error == nil) else { return } // TODO: 追加ができなかった時の処理
+            defer {
+                self.dispatchSemaphore.signal()
+            }
+            guard (error == nil) else { return }
             self.items = queue.items
             if let completion = completion { completion() }
             NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
-            self.dispatchSemaphore.signal()
         })
     }
     
@@ -106,11 +110,13 @@ class PlayerQueue{
         self.mpAppController.perform(queueTransaction: {mutableQueue in
             mutableQueue.remove(mutableQueue.items[index])
         }, completionHandler: { [unowned self] queue, error in
+            defer {
+                self.dispatchSemaphore.signal()
+            }
             guard (error == nil) else { return } // TODO: 削除ができなかった時の処理
             self.items = queue.items
             if let completion = completion { completion() }
             NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
-            self.dispatchSemaphore.signal()
         })
     }
     
