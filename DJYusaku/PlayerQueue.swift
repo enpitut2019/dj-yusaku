@@ -25,8 +25,8 @@ class PlayerQueue{
     private var isQueueCreated: Bool = false
     
     //同時にPlayerQueueにアクセスできるのは1スレッドのみ
-    private let internalSemaphore = DispatchSemaphore(value: 1) //内部で呼び出す関数(insert/create/remove)のためのセマフォ
-    private let externalSemaphore = DispatchSemaphore(value: 1) //外部から呼び出される関数(add)のためのセマフォ
+    private let innerFunctionSemaphore = DispatchSemaphore(value: 1) //内部で呼び出す関数(insert/create/remove)のためのセマフォ
+    private let externalCalledFunctionSemaphore = DispatchSemaphore(value: 1) //外部から呼び出される関数(add)のためのセマフォ
     private let dispatchQueue = DispatchQueue.global(qos: .default)
     
     private init(){
@@ -45,7 +45,7 @@ class PlayerQueue{
     
     private func create(with song : Song, completion: (() -> (Void))? = nil) {
         dispatchQueue.async {
-            self.internalSemaphore.wait()
+            self.innerFunctionSemaphore.wait()
             
             self.mpAppController.setQueue(with: [song.id])
             self.mpAppController.prepareToPlay() { [unowned self] error in
@@ -58,7 +58,7 @@ class PlayerQueue{
                 if let completion = completion { completion() }
                 NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
                 
-                self.internalSemaphore.signal()
+                self.innerFunctionSemaphore.signal()
         }
         
         // TODO: 再生キューは同時に操作してはいけないため、同期処理を強制する
@@ -68,7 +68,7 @@ class PlayerQueue{
 
     private func insert(after index: Int, with song : Song, completion: (() -> (Void))? = nil){
         dispatchQueue.async {
-            self.internalSemaphore.wait() // 再生キューは同時に操作してはいけないため、semaphoreの中で操作を行う
+            self.innerFunctionSemaphore.wait() // 再生キューは同時に操作してはいけないため、semaphoreの中で操作を行う
             self.mpAppController.perform(queueTransaction: { mutableQueue in
                 let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [song.id])
                 let insertItem = mutableQueue.items.count == 0 ? nil : mutableQueue.items[index]
@@ -79,13 +79,13 @@ class PlayerQueue{
                 if let completion = completion { completion() }
                 NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
             })
-            self.internalSemaphore.signal()
+            self.innerFunctionSemaphore.signal()
         }
     }
     
     func remove(at index: Int, completion: (() -> (Void))? = nil) {
         dispatchQueue.async {
-            self.internalSemaphore.wait()
+            self.innerFunctionSemaphore.wait()
             self.mpAppController.perform(queueTransaction: {mutableQueue in
                 // 再生キューは同時に操作してはいけないため、semaphoreの中で操作を行う
                     mutableQueue.remove(mutableQueue.items[index])
@@ -95,20 +95,20 @@ class PlayerQueue{
                 if let completion = completion { completion() }
                 NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
             })
-            self.internalSemaphore.signal()
+            self.innerFunctionSemaphore.signal()
         }
     }
     
     func add(with song : Song, completion: (() -> (Void))? = nil) {
         // TODO: トランザクション処理
         dispatchQueue.async {
-            self.externalSemaphore.wait()
+            self.externalCalledFunctionSemaphore.wait()
             if !self.isQueueCreated { // キューが初期化されていないとき
                 self.create(with: song, completion: completion)
             } else {            // 既にキューが作られているとき
                 self.insert(after: self.items.count - 1, with: song, completion: completion)
             }
-            self.externalSemaphore.signal()
+            self.externalCalledFunctionSemaphore.signal()
         }
             
     }
