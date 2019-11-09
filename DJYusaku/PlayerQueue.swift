@@ -57,7 +57,7 @@ class PlayerQueue{
             defer {
                 self.dispatchSemaphore.signal()
             }
-            guard error == nil else { return }
+            guard error == nil else { return } // TODO: キューの作成ができなかった時の処理
             self.mpAppController.play() // 自動再生する
             self.mpAppController.perform(queueTransaction: { _ in }, completionHandler: { [unowned self] queue, _ in
                 self.items = queue.items
@@ -88,7 +88,7 @@ class PlayerQueue{
             defer {
                 self.dispatchSemaphore.signal()
             }
-            guard (error == nil) else { return }
+            guard (error == nil) else { return } // TODO: 挿入ができなかった時の処理
             self.items = queue.items
             if let completion = completion { completion() }
             NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
