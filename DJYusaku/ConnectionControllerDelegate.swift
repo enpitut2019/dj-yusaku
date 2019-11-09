@@ -14,5 +14,5 @@ protocol ConnectionControllerDelegate: class {
     func connectionController(didReceiveData data: Data, from peerID: MCPeerID)
 
     // 接続可能なピアが見つかったとき
-    func connectionController(connectableDevicesChanged devices: [MCPeerID])
+    func connectionController(didChangeConnectableDevices devices: [MCPeerID])
 }

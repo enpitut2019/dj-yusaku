@@ -123,7 +123,7 @@ extension ConnectionController: MCNearbyServiceBrowserDelegate {
             
         print("browser: connectable DJ is found")
         // print(self.delegate)
-        self.delegate?.connectionController(connectableDevicesChanged: self.connectableDJs)
+        self.delegate?.connectionController(didChangeConnectableDevices: self.connectableDJs)
     }
 
     // 接続可能なピアが消えたとき
@@ -132,7 +132,7 @@ extension ConnectionController: MCNearbyServiceBrowserDelegate {
         
         self.connectableDJs = connectableDJs.filter { $0 != peerID }
         
-        self.delegate?.connectionController(connectableDevicesChanged: self.connectableDJs)
+        self.delegate?.connectionController(didChangeConnectableDevices: self.connectableDJs)
     }
     /// エラーが起こったとき
     public func browser(_ browser: MCNearbyServiceBrowser, didNotStartBrowsingForPeers error: Error) {

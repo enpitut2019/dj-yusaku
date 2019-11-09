@@ -75,7 +75,7 @@ extension ListenerConnectionViewController: ConnectionControllerDelegate {
         
     }
 
-    func connectionController(connectableDevicesChanged devices: [MCPeerID]) {
+    func connectionController(didChangeConnectableDevices devices: [MCPeerID]) {
         // browserがピアを見つけたらリロード
         DispatchQueue.main.async {
             self.tableView.reloadData()
