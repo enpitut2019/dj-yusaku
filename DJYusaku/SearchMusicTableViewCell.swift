@@ -33,17 +33,17 @@ class SearchMusicTableViewCell: UITableViewCell {
     @IBAction func sendRequest(_ sender: Any) {
         //ボタンを連続で押させないようにする
         button.isEnabled = false
-        if ConnectionController.shared.isParent { // DJなら
+        if ConnectionController.shared.isParent {   // 自分がDJのとき
             PlayerQueue.shared.add(with: song) {
                 // リクエストが完了した旨をユーザーに通知する
                 let alert = UIAlertController(title: self.song.title, message: "was requested", preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.window?.rootViewController?.present(alert, animated: true)
             }
-        } else { // リスナーなら
+        } else {                                    // 自分がリスナーのとき
             let songData = try! JSONEncoder().encode(song)
-            ConnectionController.shared.session.sendRequest(songData, toPeers: [ConnectionController.shared.connectedDJ], with: .unreliable)
-            { // FIXME: sendが通ったらの実行なのでPlayerQueueに追加されたとは限らない
+            ConnectionController.shared.session.sendRequest(songData, toPeers: [ConnectionController.shared.connectedDJ], with: .unreliable) {
+                // FIXME: sendが通ったらの実行なのでPlayerQueueに追加されたとは限らない
                 let alert = UIAlertController(title: self.song.title, message: "was requested", preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.window?.rootViewController?.present(alert, animated: true)

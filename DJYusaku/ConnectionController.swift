@@ -76,7 +76,7 @@ extension ConnectionController: MCSessionDelegate {
         if ConnectionController.shared.isParent {   // DJが受け取るなら
             PlayerQueue.shared.add(with: song) {
                 // TODO: ここにリスナーへのsendを書く
-//                ConnectionController.shared.session.sendRequest(data, toPeers: [peerID], with: .unreliable)
+                // ConnectionController.shared.session.sendRequest(data, toPeers: [peerID], with: .unreliable)
             }
         } else {                                    // リスナーが受け取るなら
             // TODO: ここにDJからsendされたときの処理を書く
