@@ -47,6 +47,8 @@ class RequestsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleRequestsDidUpdate), name: .DJYusakuPlayerQueueDidUpdate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChange), name: .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlaybackStateDidChange), name: .DJYusakuPlayerQueuePlaybackStateDidChange, object: nil)
+        
+        navigationItem.leftBarButtonItem = editButtonItem
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -108,6 +110,7 @@ class RequestsViewController: UIViewController {
     
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: true)
+        tableView.isEditing = editing
     }
 }
 
@@ -149,12 +152,6 @@ extension RequestsViewController: UITableViewDataSource {
         }else{
             // TODO: リスナー側の動作
         }
-        
-        
-        
-        
-        
-        
     }
 }
 
