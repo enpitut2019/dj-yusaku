@@ -5,7 +5,7 @@
 「DJ YUSAKU」はその場のみんなで簡単にプレイリストを作って再生できる革新的なアプリケーションです。  
 
 ## インストール
-**TestFlightを使ってDJ YUSAKU Appを一足先に試用することができます🎉**
+**TestFlightを使ってDJ YUSAKU Appを一足先に試用することができます✈️**
 1. 自分の学籍番号（あるいは受信可能なメールアドレス）をenPiTの [#team_優作](https://app.slack.com/client/THHKFQY3H/CM236RA8G) の **[この投稿](https://enpit2019tkb.slack.com/archives/CM236RA8G/p1573648358002600)** に書き込んでください。  
 [@yaplus](https://github.com/yaplus) が確認して、 s(自分の学籍番号)@s.tsukuba.ac.jp （あるいは教えていただいたメールアドレス）をテスターとしてApp Store Connectに登録します。
 2. App Storeから [TestFlight](https://apps.apple.com/jp/app/testflight/id899247664) をインストールします。TestFlight にApple IDでログインを行ってください。
