@@ -105,6 +105,10 @@ class RequestsViewController: UIViewController {
     @IBAction func skipButton(_ sender: Any) {
         PlayerQueue.shared.mpAppController.skipToNextItem()
     }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: true)
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -124,6 +128,33 @@ extension RequestsViewController: UITableViewDataSource {
         cell.artwork.image = item.artwork?.image(at: CGSize(width: 48,height: 48))
         
         return cell
+    }
+    
+    // 全セルが削除不可能（削除機能はスワイプで実装されているため）
+    private func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return false
+    }
+    
+    // 全セルが編集可能
+    private func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    // 編集時の動作
+    private func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+
+            // TODO: 実装途中　remove(at: sourceIndexPath.row) -> insert(song: Song, destinationIndexPath)で実装できないのでPlayerQueue.swiftにswap()を作る
+        if(ConnectionController.shared.isParent){ //自分がDJのとき
+//            PlayerQueue.shared.swap(from: sourceIndexPath, to: destinationIndexPath)
+        }else{
+            // TODO: リスナー側の動作
+        }
+        
+        
+        
+        
+        
+        
     }
 }
 
