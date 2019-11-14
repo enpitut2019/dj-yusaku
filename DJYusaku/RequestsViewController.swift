@@ -133,22 +133,21 @@ extension RequestsViewController: UITableViewDataSource {
         return cell
     }
     
-    // 全セルが削除不可能（削除機能はスワイプで実装されているため）
-    private func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
+    // 全セルが削除可能
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
     
     // 全セルが編集可能
-    private func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
     // 編集時の動作
-    private func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+    private func tableView(tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
 
-            // TODO: 実装途中　remove(at: sourceIndexPath.row) -> insert(song: Song, destinationIndexPath)で実装できないのでPlayerQueue.swiftにswap()を作る
         if(ConnectionController.shared.isParent){ //自分がDJのとき
-//            PlayerQueue.shared.swap(from: sourceIndexPath, to: destinationIndexPath)
+            PlayerQueue.shared.swap(from: sourceIndexPath.row, to: destinationIndexPath.row)
         }else{
             // TODO: リスナー側の動作
         }
