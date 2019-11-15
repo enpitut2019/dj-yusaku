@@ -16,7 +16,7 @@ class ConnectionController: NSObject {
     
     let serviceType = "djyusaku"
     
-    var peerID :MCPeerID!
+    var peerID = MCPeerID(displayName: UIDevice.current.name)
     var session: MCSession!
     var advertiser: MCNearbyServiceAdvertiser!
     var browser: MCNearbyServiceBrowser!
@@ -29,8 +29,7 @@ class ConnectionController: NSObject {
     func initialize(isParent: Bool, displayName: String) {
         self.isParent = isParent
         self.connectableDJs.removeAll()
-        
-        self.peerID = MCPeerID(displayName: displayName)
+
         self.session = MCSession(peer: self.peerID)
         session.delegate = self
 
@@ -129,9 +128,6 @@ extension ConnectionController: MCNearbyServiceBrowserDelegate {
 
     // 接続可能なピアが見つかったとき
     public func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String: String]?) {
-        // 自分を見つけた場合何もしない
-        guard peerID.displayName != self.peerID.displayName else { return }
-
         self.connectableDJs.append(peerID)
             
         print("browser: connectable DJ (\(peerID)) is found")
