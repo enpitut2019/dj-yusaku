@@ -127,7 +127,7 @@ class PlayerQueue{
             // 前のキューへの追加処理が時間内に終わっていなければとりあえずリクエストを捨てる
             DispatchQueue.main.async {
                 guard let rootViewController = (UIApplication.shared.windows.filter{$0.isKeyWindow}.first)?.rootViewController else { return }
-                let alert = UIAlertController(title: "Swap failed", message: "Queue deletion failed. Try again.", preferredStyle: UIAlertController.Style.alert)
+                let alert = UIAlertController(title: "Swap failed", message: "Swap failed. Try again.", preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 rootViewController.present(alert, animated: true)
             }
@@ -138,40 +138,34 @@ class PlayerQueue{
         self.mpAppController.perform(queueTransaction: {mutableQueue in
             mutableQueue.remove(swappedItem)
         }, completionHandler: { [unowned self] queue, error in
-            defer {
+            guard (error == nil) else {
                 self.dispatchSemaphore.signal()
-            }
-            guard (error == nil) else { return } // TODO: 削除ができなかった時の処理
-            self.items = queue.items
+                print("Delete Failed")
+                return
+            } // TODO: 削除ができなかった時の処理
             if let completion = completion { completion() }
             NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
+    
+            //対象リクエストの再挿入
+            self.mpAppController.perform(queueTransaction: { mutableQueue in
+                let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [String(swappedItem.persistentID)])
+                let insertItem = mutableQueue.items.count == 0 ? nil : mutableQueue.items[to]
+                mutableQueue.insert(descripter, after: insertItem)
+            }, completionHandler: { [unowned self] queue, error in
+                defer {
+                    self.dispatchSemaphore.signal()
+                }
+                guard (error == nil) else {
+                    print("Re-Insert Failed")
+                    return
+                } // TODO: 挿入ができなかった時の処理
+                self.items = queue.items
+                if let completion = completion { completion() }
+                NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
+            })
         })
   
-        guard self.dispatchSemaphore.wait(timeout: .now() + 4.0) != .timedOut else {
-            // 前のキューへの追加処理が時間内に終わっていなければとりあえずリクエストを捨てる
-            DispatchQueue.main.async {
-                guard let rootViewController = (UIApplication.shared.windows.filter{$0.isKeyWindow}.first)?.rootViewController else { return }
-                let alert = UIAlertController(title: "Swap failed", message: "Queue re-insertion failed. Try again.", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                rootViewController.present(alert, animated: true)
-            }
-            return
-        }
-        //対象リクエストの再挿入
-        self.mpAppController.perform(queueTransaction: { mutableQueue in
-            let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [String(swappedItem.persistentID)])
-            let insertItem = mutableQueue.items.count == 0 ? nil : mutableQueue.items[to]
-            mutableQueue.insert(descripter, after: insertItem)
-        }, completionHandler: { [unowned self] queue, error in
-            defer {
-                self.dispatchSemaphore.signal()
-            }
-            guard (error == nil) else { return } // TODO: 挿入ができなかった時の処理
-            self.items = queue.items
-            if let completion = completion { completion() }
-            NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
-        })
-        
+
     }
     
     func add(with song : Song, completion: (() -> (Void))? = nil) {
