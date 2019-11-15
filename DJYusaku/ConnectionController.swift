@@ -28,15 +28,21 @@ class ConnectionController: NSObject {
     
     func initialize(isParent: Bool, displayName: String) {
         self.isParent = isParent
-        self.connectableDJs = []
+        self.connectableDJs.removeAll()
         
         self.peerID = MCPeerID(displayName: displayName)
         self.session = MCSession(peer: self.peerID)
         session.delegate = self
-        
+
+        if advertiser != nil {
+            self.stopAdvertise()
+        }
         advertiser = MCNearbyServiceAdvertiser(peer: self.peerID, discoveryInfo: nil, serviceType: self.serviceType)
         advertiser.delegate = self
 
+        if browser != nil {
+            self.stopBrowse()
+        }
         browser = MCNearbyServiceBrowser(peer: self.peerID, serviceType: self.serviceType)
         browser.delegate = self
     }
@@ -45,6 +51,10 @@ class ConnectionController: NSObject {
         advertiser.startAdvertisingPeer()
     }
     
+    func stopAdvertise() {
+        advertiser.stopAdvertisingPeer()
+    }
+
     func startBrowse() {
         browser.startBrowsingForPeers()
     }
