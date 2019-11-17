@@ -135,17 +135,21 @@ class PlayerQueue{
         }
         
         // 対象リクエストの削除->再挿入
-        self.mpAppController.perform(queueTransaction: {mutableQueue in
-            
-            mutableQueue.remove(swappedItem)
-            let mediaItemCollection = MPMediaItemCollection(items: [swappedItem])
-            let descriptor = MPMusicPlayerMediaItemQueueDescriptor(itemCollection: mediaItemCollection)
-            
-            // FIXME: リクエストの先頭へ移動すると落ちる
-            let insertItem = to - 1 < 0 ? nil : mutableQueue.items[to - 1]
-            print("insert after: " ,to-1)
-            mutableQueue.insert(descriptor, after: insertItem)
-            
+        self.mpAppController.perform(queueTransaction: {[unowned self] mutableQueue in
+            if(to - 1 < 0){ //キューの先頭にはいれないようにしてもらう
+                guard let rootViewController = (UIApplication.shared.windows.filter{$0.isKeyWindow}.first)?.rootViewController else { return }
+                let alert = UIAlertController(title: "Swap failed", message: "Cannot move item to head of queue.", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                rootViewController.present(alert, animated: true)
+            }else{
+                mutableQueue.remove(swappedItem)
+                let mediaItemCollection = MPMediaItemCollection(items: [swappedItem])
+                let descriptor = MPMusicPlayerMediaItemQueueDescriptor(itemCollection: mediaItemCollection)
+                let insertItem = mutableQueue.items[to - 1]
+                print("insert after: " ,to-1)
+                mutableQueue.insert(descriptor, after: insertItem)
+            }
+
         }, completionHandler: { [unowned self] queue, error in
             defer {
                 self.dispatchSemaphore.signal()
@@ -155,8 +159,6 @@ class PlayerQueue{
                 if let completion = completion { completion() }
                 NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
         })
-  
-
     }
     
     func add(with song : Song, completion: (() -> (Void))? = nil) {
