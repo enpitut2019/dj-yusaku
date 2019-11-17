@@ -134,35 +134,26 @@ class PlayerQueue{
             return
         }
         
-        // 対象リクエストの削除
+        // 対象リクエストの削除->再挿入
         self.mpAppController.perform(queueTransaction: {mutableQueue in
+            
             mutableQueue.remove(swappedItem)
+            let mediaItemCollection = MPMediaItemCollection(items: [swappedItem])
+            let descriptor = MPMusicPlayerMediaItemQueueDescriptor(itemCollection: mediaItemCollection)
+            
+            // FIXME: リクエストの先頭へ移動すると落ちる
+            let insertItem = to - 1 < 0 ? nil : mutableQueue.items[to - 1]
+            print("insert after: " ,to-1)
+            mutableQueue.insert(descriptor, after: insertItem)
+            
         }, completionHandler: { [unowned self] queue, error in
-            guard (error == nil) else {
+            defer {
                 self.dispatchSemaphore.signal()
-                print("Delete Failed")
-                return
-            } // TODO: 削除ができなかった時の処理
-            if let completion = completion { completion() }
-            NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
-    
-            //対象リクエストの再挿入
-            self.mpAppController.perform(queueTransaction: { mutableQueue in
-                let descripter = MPMusicPlayerStoreQueueDescriptor(storeIDs: [String(swappedItem.persistentID)])
-                let insertItem = mutableQueue.items.count == 0 ? nil : mutableQueue.items[to]
-                mutableQueue.insert(descripter, after: insertItem)
-            }, completionHandler: { [unowned self] queue, error in
-                defer {
-                    self.dispatchSemaphore.signal()
-                }
-                guard (error == nil) else {
-                    print("Re-Insert Failed")
-                    return
-                } // TODO: 挿入ができなかった時の処理
+            }
+            guard (error == nil) else { return } // TODO: 挿入ができなかった時の処理
                 self.items = queue.items
                 if let completion = completion { completion() }
                 NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
-            })
         })
   
 

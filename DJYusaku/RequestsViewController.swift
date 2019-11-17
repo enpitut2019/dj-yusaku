@@ -145,7 +145,6 @@ extension RequestsViewController: UITableViewDataSource {
     
     // 編集時の動作
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        print("Swapping...")
         if(ConnectionController.shared.isParent){ //自分がDJのとき
             PlayerQueue.shared.swap(from: sourceIndexPath.row, to: destinationIndexPath.row)
         }else{
