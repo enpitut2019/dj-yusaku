@@ -48,7 +48,7 @@ class RequestsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChange), name: .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlaybackStateDidChange), name: .DJYusakuPlayerQueuePlaybackStateDidChange, object: nil)
         
-        navigationItem.leftBarButtonItem = editButtonItem
+        navigationItem.rightBarButtonItem = editButtonItem
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -146,7 +146,7 @@ extension RequestsViewController: UITableViewDataSource {
     // 編集時の動作
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         if(ConnectionController.shared.isParent){ //自分がDJのとき
-            PlayerQueue.shared.swap(from: sourceIndexPath.row, to: destinationIndexPath.row)
+            PlayerQueue.shared.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
         }else{
             // TODO: リスナー側の動作
         }

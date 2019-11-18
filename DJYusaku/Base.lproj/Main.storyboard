@@ -164,12 +164,12 @@
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
                     <navigationItem key="navigationItem" title="Requests" id="K0B-Hq-EiT">
-                        <barButtonItem key="leftBarButtonItem" title="Edit" id="9eT-eG-bit"/>
-                        <barButtonItem key="rightBarButtonItem" image="person.2.fill" catalog="system" id="u2n-sH-Den">
+                        <barButtonItem key="leftBarButtonItem" title="Session" id="u2n-sH-Den">
                             <connections>
-                                <segue destination="dBJ-r9-osw" kind="presentation" id="W7c-YK-Za5"/>
+                                <segue destination="dBJ-r9-osw" kind="presentation" id="Khf-ow-Fm0"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="9eT-eG-bit"/>
                     </navigationItem>
                     <connections>
                         <outlet property="playButton" destination="0xl-kp-iyr" id="bMD-w6-8IJ"/>
@@ -569,7 +569,6 @@
         <image name="forward.fill" catalog="system" width="64" height="38"/>
         <image name="magnifyingglass" catalog="system" width="64" height="56"/>
         <image name="music.note.list" catalog="system" width="64" height="56"/>
-        <image name="person.2.fill" catalog="system" width="64" height="40"/>
         <image name="play.fill" catalog="system" width="58" height="64"/>
         <image name="plus" catalog="system" width="64" height="56"/>
     </resources>
