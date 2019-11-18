@@ -47,6 +47,8 @@ class RequestsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleRequestsDidUpdate), name: .DJYusakuPlayerQueueDidUpdate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChange), name: .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlaybackStateDidChange), name: .DJYusakuPlayerQueuePlaybackStateDidChange, object: nil)
+        
+        navigationItem.leftBarButtonItem = editButtonItem
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -105,6 +107,11 @@ class RequestsViewController: UIViewController {
     @IBAction func skipButton(_ sender: Any) {
         PlayerQueue.shared.mpAppController.skipToNextItem()
     }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: true)
+        tableView.isEditing = editing
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -124,6 +131,25 @@ extension RequestsViewController: UITableViewDataSource {
         cell.artwork.image = item.artwork?.image(at: CGSize(width: 48,height: 48))
         
         return cell
+    }
+    
+    // 全セルが削除可能
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    // 全セルが編集可能
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    // 編集時の動作
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        if(ConnectionController.shared.isParent){ //自分がDJのとき
+            PlayerQueue.shared.swap(from: sourceIndexPath.row, to: destinationIndexPath.row)
+        }else{
+            // TODO: リスナー側の動作
+        }
     }
 }
 

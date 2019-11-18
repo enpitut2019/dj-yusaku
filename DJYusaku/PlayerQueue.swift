@@ -120,6 +120,47 @@ class PlayerQueue{
         })
     }
     
+    func swap(from: Int, to: Int, completion: (() -> (Void))? = nil){
+        
+        let swappedItem = items[from]
+        guard self.dispatchSemaphore.wait(timeout: .now() + 4.0) != .timedOut else {
+            // 前のキューへの追加処理が時間内に終わっていなければとりあえずリクエストを捨てる
+            DispatchQueue.main.async {
+                guard let rootViewController = (UIApplication.shared.windows.filter{$0.isKeyWindow}.first)?.rootViewController else { return }
+                let alert = UIAlertController(title: "Swap failed", message: "Swap failed. Try again.", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                rootViewController.present(alert, animated: true)
+            }
+            return
+        }
+        
+        // 対象リクエストの削除->再挿入
+        self.mpAppController.perform(queueTransaction: {[unowned self] mutableQueue in
+            if(to - 1 < 0){ //キューの先頭にはいれないようにしてもらう
+                guard let rootViewController = (UIApplication.shared.windows.filter{$0.isKeyWindow}.first)?.rootViewController else { return }
+                let alert = UIAlertController(title: "Swap failed", message: "Cannot move item to head of queue.", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                rootViewController.present(alert, animated: true)
+            }else{
+                mutableQueue.remove(swappedItem)
+                let mediaItemCollection = MPMediaItemCollection(items: [swappedItem])
+                let descriptor = MPMusicPlayerMediaItemQueueDescriptor(itemCollection: mediaItemCollection)
+                let insertItem = mutableQueue.items[to - 1]
+                print("insert after: " ,to-1)
+                mutableQueue.insert(descriptor, after: insertItem)
+            }
+
+        }, completionHandler: { [unowned self] queue, error in
+            defer {
+                self.dispatchSemaphore.signal()
+            }
+            guard (error == nil) else { return } // TODO: 挿入ができなかった時の処理
+                self.items = queue.items
+                if let completion = completion { completion() }
+                NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
+        })
+    }
+    
     func add(with song : Song, completion: (() -> (Void))? = nil) {
         if !isQueueCreated { // キューが初期化されていないとき
             self.create(with: song, completion: completion)
