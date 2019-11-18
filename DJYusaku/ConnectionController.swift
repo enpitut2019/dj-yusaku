@@ -130,15 +130,11 @@ extension ConnectionController: MCNearbyServiceBrowserDelegate {
     public func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String: String]?) {
         self.connectableDJs.append(peerID)
             
-        print("browser: connectable DJ (\(peerID)) is found")
-        // print(self.delegate)
         self.delegate?.connectionController(didChangeConnectableDevices: self.connectableDJs)
     }
 
     // 接続可能なピアが消えたとき
     public func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
-        print("browser: connectable DJ (\(peerID)) is lost")
-        
         self.connectableDJs = connectableDJs.filter { $0 != peerID }
         
         self.delegate?.connectionController(didChangeConnectableDevices: self.connectableDJs)
