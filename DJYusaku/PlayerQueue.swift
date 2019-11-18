@@ -25,6 +25,7 @@ class PlayerQueue{
     private var isQueueCreated: Bool = false
     
     private let dispatchSemaphore = DispatchSemaphore(value: 1)
+    private let SEMAPHORE_TIMEOUT = 2.0
     
     private init(){
         mpAppController.repeatMode = MPMusicRepeatMode.all
@@ -41,7 +42,7 @@ class PlayerQueue{
     }
     
     private func create(with song : Song, completion: (() -> (Void))? = nil) {
-        guard self.dispatchSemaphore.wait(timeout: .now() + 4.0) != .timedOut else {
+        guard self.dispatchSemaphore.wait(timeout: .now() + SEMAPHORE_TIMEOUT) != .timedOut else {
             // 前のキューへの追加処理が時間内に終わっていなければとりあえずリクエストを捨てる
             DispatchQueue.main.async {
                 guard let rootViewController = (UIApplication.shared.windows.filter{$0.isKeyWindow}.first)?.rootViewController else { return }
@@ -69,7 +70,7 @@ class PlayerQueue{
     }
 
     private func insert(after index: Int, with song : Song, completion: (() -> (Void))? = nil){
-        guard self.dispatchSemaphore.wait(timeout: .now() + 4.0) != .timedOut else {
+        guard self.dispatchSemaphore.wait(timeout: .now() + SEMAPHORE_TIMEOUT) != .timedOut else {
             // 前のキューへの追加処理が時間内に終わっていなければとりあえずリクエストを捨てる
             DispatchQueue.main.async {
                 guard let rootViewController = (UIApplication.shared.windows.filter{$0.isKeyWindow}.first)?.rootViewController else { return }
@@ -96,7 +97,7 @@ class PlayerQueue{
     }
     
     func remove(at index: Int, completion: (() -> (Void))? = nil) {
-        guard self.dispatchSemaphore.wait(timeout: .now() + 4.0) != .timedOut else {
+        guard self.dispatchSemaphore.wait(timeout: .now() + SEMAPHORE_TIMEOUT) != .timedOut else {
             // 前のキューへの追加処理が時間内に終わっていなければとりあえずリクエストを捨てる
             DispatchQueue.main.async {
                 guard let rootViewController = (UIApplication.shared.windows.filter{$0.isKeyWindow}.first)?.rootViewController else { return }
@@ -114,6 +115,37 @@ class PlayerQueue{
                 self.dispatchSemaphore.signal()
             }
             guard (error == nil) else { return } // TODO: 削除ができなかった時の処理
+            self.items = queue.items
+            if let completion = completion { completion() }
+            NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
+        })
+    }
+    
+    func move(from srcIndex: Int, to dstIndex: Int, completion: (() -> (Void))? = nil){
+        
+        guard self.dispatchSemaphore.wait(timeout: .now() + SEMAPHORE_TIMEOUT) != .timedOut else {
+            // 前のキューへの追加処理が時間内に終わっていなければとりあえずリクエストを捨てる
+            DispatchQueue.main.async {
+                guard let rootViewController = (UIApplication.shared.windows.filter{$0.isKeyWindow}.first)?.rootViewController else { return }
+                let alert = UIAlertController(title: "Move failed", message: "Swap failed. Try again.", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                rootViewController.present(alert, animated: true)
+            }
+            return
+        }
+        
+        self.mpAppController.perform(queueTransaction: {[unowned self] mutableQueue in
+            // キュー中のアイテムを挿入->削除
+            let descriptor = MPMusicPlayerStoreQueueDescriptor(storeIDs: [self.items[srcIndex].playbackStoreID])
+            let afterIndex = dstIndex   > srcIndex ? dstIndex : dstIndex-1
+            let afterItem  = afterIndex < 0        ? nil      : mutableQueue.items[afterIndex]
+            mutableQueue.insert(descriptor, after: afterItem)
+            mutableQueue.remove(mutableQueue.items[srcIndex])
+        }, completionHandler: { [unowned self] queue, error in
+            defer {
+                self.dispatchSemaphore.signal()
+            }
+            guard (error == nil) else { return } // TODO: 挿入ができなかった時の処理
             self.items = queue.items
             if let completion = completion { completion() }
             NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
