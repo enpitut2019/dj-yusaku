@@ -138,7 +138,7 @@ class PlayerQueue{
             // キュー中のアイテムを挿入->削除
             let descriptor = MPMusicPlayerStoreQueueDescriptor(storeIDs: [self.items[srcIndex].playbackStoreID])
             let afterIndex = dstIndex > srcIndex ? dstIndex : dstIndex-1
-            let afterItem  = afterIndex < 0      ? nil     : mutableQueue.items[afterIndex]
+            let afterItem  = afterIndex < 0      ? nil      : mutableQueue.items[afterIndex]
             mutableQueue.insert(descriptor, after: afterItem)
             mutableQueue.remove(mutableQueue.items[srcIndex])
         }, completionHandler: { [unowned self] queue, error in
