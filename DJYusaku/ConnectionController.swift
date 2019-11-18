@@ -16,7 +16,7 @@ class ConnectionController: NSObject {
     
     let serviceType = "djyusaku"
     
-    var peerID :MCPeerID!
+    var peerID = MCPeerID(displayName: UIDevice.current.name)
     var session: MCSession!
     var advertiser: MCNearbyServiceAdvertiser!
     var browser: MCNearbyServiceBrowser!
@@ -28,15 +28,20 @@ class ConnectionController: NSObject {
     
     func initialize(isParent: Bool, displayName: String) {
         self.isParent = isParent
-        self.connectableDJs = []
-        
-        self.peerID = MCPeerID(displayName: displayName)
+        self.connectableDJs.removeAll()
+
         self.session = MCSession(peer: self.peerID)
         session.delegate = self
-        
+
+        if advertiser != nil {
+            self.stopAdvertise()
+        }
         advertiser = MCNearbyServiceAdvertiser(peer: self.peerID, discoveryInfo: nil, serviceType: self.serviceType)
         advertiser.delegate = self
 
+        if browser != nil {
+            self.stopBrowse()
+        }
         browser = MCNearbyServiceBrowser(peer: self.peerID, serviceType: self.serviceType)
         browser.delegate = self
     }
@@ -45,6 +50,10 @@ class ConnectionController: NSObject {
         advertiser.startAdvertisingPeer()
     }
     
+    func stopAdvertise() {
+        advertiser.stopAdvertisingPeer()
+    }
+
     func startBrowse() {
         browser.startBrowsingForPeers()
     }
@@ -121,15 +130,11 @@ extension ConnectionController: MCNearbyServiceBrowserDelegate {
     public func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String: String]?) {
         self.connectableDJs.append(peerID)
             
-        print("browser: connectable DJ is found")
-        // print(self.delegate)
         self.delegate?.connectionController(didChangeConnectableDevices: self.connectableDJs)
     }
 
     // 接続可能なピアが消えたとき
     public func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
-        print("browser: connectable DJ is lost")
-        
         self.connectableDJs = connectableDJs.filter { $0 != peerID }
         
         self.delegate?.connectionController(didChangeConnectableDevices: self.connectableDJs)
