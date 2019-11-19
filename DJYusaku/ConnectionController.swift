@@ -26,6 +26,8 @@ class ConnectionController: NSObject {
     
     var isParent: Bool!
     
+    var receivedSongs: [Song] = []
+    
     func initialize(isParent: Bool, displayName: String) {
         self.isParent = isParent
         self.connectableDJs.removeAll()
@@ -71,6 +73,15 @@ extension ConnectionController: MCSessionDelegate {
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         if state == .connected {
             print("Peer \(peerID.displayName) is connected.")
+            if ConnectionController.shared.isParent {   // DJが新しい子機と接続したとき
+                var songs: [Song] = []
+                for i in 0..<PlayerQueue.shared.count() {
+                    songs.append(PlayerQueue.shared.get(at: i)!)
+                }
+                let songsData = try! JSONEncoder().encode(songs)
+                print(songsData)
+                try! ConnectionController.shared.session.send(songsData, toPeers: [peerID], with: .unreliable)
+            }
         } else {
             print("Peer \(peerID.displayName) is not connected.")
         }
@@ -80,16 +91,17 @@ extension ConnectionController: MCSessionDelegate {
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         print("\(peerID)から \(String(data: data, encoding: .utf8)!)を受け取りました")
         
-        let song = try! JSONDecoder().decode(Song.self, from: data)
-        
         if ConnectionController.shared.isParent {   // DJが受け取るなら
+            let song = try! JSONDecoder().decode(Song.self, from: data)
             PlayerQueue.shared.add(with: song) {
                 // TODO: ここにリスナーへのsendを書く
                 // ConnectionController.shared.session.sendRequest(data, toPeers: [peerID], with: .unreliable)
             }
         } else {                                    // リスナーが受け取るなら
             // TODO: ここにDJからsendされたときの処理を書く
-            
+            let songs = try! JSONDecoder().decode([Song].self, from: data)
+            receivedSongs = songs
+            NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
         }
         
         self.delegate?.connectionController(didReceiveData: data, from: peerID)

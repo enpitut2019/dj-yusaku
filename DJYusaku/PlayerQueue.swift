@@ -164,9 +164,10 @@ class PlayerQueue{
         return items.count
     }
     
-    func get(at index: Int) -> MPMediaItem? {
+    func get(at index: Int) -> Song? {
         guard index >= 0 && self.count() > index else { return nil }
-        return items[index]
+        let item = items[index]
+        return Song(title: item.title!, artist: item.artist!, artworkUrl: URL(fileURLWithPath: ""), id: item.playbackStoreID)
     }
     
 }
