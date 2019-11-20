@@ -34,18 +34,16 @@ class BatterySaverViewController: UIViewController {
                                                 preferredStyle: UIAlertController.Style.alert)
         let alertButton = UIAlertAction(title: "OK",
                                         style: UIAlertAction.Style.cancel,
-                                        handler: { [unowned self] (action: UIAlertAction!) -> Void in
-                                            // 自動スリープをOFFにする
-                                            UIApplication.shared.isIdleTimerDisabled = true
-                                            
-                                            // 画面の明るさを最低にする
-                                            self.previousScreenBrightness = UIScreen.main.brightness
-                                            UIScreen.main.brightness = 0.0
-                                        })
+                                        handler: nil)
         alertController.addAction(alertButton)
         self.present(alertController, animated: true, completion: nil)
         
-
+        // 自動スリープをOFFにする
+        UIApplication.shared.isIdleTimerDisabled = true
+        
+        // 画面の明るさを最低にする
+        self.previousScreenBrightness = UIScreen.main.brightness
+        UIScreen.main.brightness = 0.0
     }
     
     override func viewWillDisappear(_ animated: Bool) {
