@@ -134,6 +134,7 @@
 				C447ACB5234882FB00D535EB /* Info.plist */,
 				C447ACA5234882F900D535EB /* AppDelegate.swift */,
 				B125D88C235F426C00D383E7 /* Artwork.swift */,
+				C46CE2072383EBC000492AC3 /* BatterySaverViewController.swift */,
 				106B1C2E2372C696008684EB /* ConnectionController.swift */,
 				106B1C302372C83F008684EB /* ConnectionControllerDelegate.swift */,
 				106B1C2C2372BE1F008684EB /* ListenerConnectableDJsTableViewCell.swift */,
@@ -152,7 +153,6 @@
 				C447ACB0234882FB00D535EB /* Assets.xcassets */,
 				C447ACB2234882FB00D535EB /* LaunchScreen.storyboard */,
 				C447ACAD234882F900D535EB /* Main.storyboard */,
-				C46CE2072383EBC000492AC3 /* BatterySaverViewController.swift */,
 			);
 			path = DJYusaku;
 			sourceTree = "<group>";

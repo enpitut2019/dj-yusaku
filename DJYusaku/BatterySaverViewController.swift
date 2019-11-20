@@ -14,20 +14,64 @@ class BatterySaverViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        // ダブルタップジェスチャを追加
+        let doubleTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
+                                                                              action: #selector(handleDoubleTapeed(_:)))
+        doubleTapGesture.numberOfTapsRequired = 2
+        self.view.addGestureRecognizer(doubleTapGesture)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleWillResignActiveNotification), name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDidBecomeActiveNotification), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // アラートを表示
+        let alertController = UIAlertController(title:   "Battery Saver Mode",
+                                                message: "To exit battery saver mode, double-tap the screen.",
+                                                preferredStyle: UIAlertController.Style.alert)
+        let alertButton = UIAlertAction(title: "OK",
+                                        style: UIAlertAction.Style.cancel,
+                                        handler: nil)
+        alertController.addAction(alertButton)
+        self.present(alertController, animated: true, completion: nil)
+        
         // 自動スリープをOFFにする
         UIApplication.shared.isIdleTimerDisabled = true
         
         // 画面の明るさを最低にする
-        previousScreenBrightness = UIScreen.main.brightness
+        self.previousScreenBrightness = UIScreen.main.brightness
         UIScreen.main.brightness = 0.0
     }
-
-    // 画面のどこかしらがタッチされたら
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
         UIApplication.shared.isIdleTimerDisabled = false    // 自動スリープをONにする
         UIScreen.main.brightness = previousScreenBrightness // 画面の明るさを復元する
-        self.dismiss(animated: true)                        // Viewを閉じる
+    }
+
+    // 画面のどこかしらがダブルタップされたら
+    @objc func handleDoubleTapeed(_ gesture: UITapGestureRecognizer) -> Void {
+        self.dismiss(animated: true)  // Viewを閉じる
+    }
+    
+    // アプリがアクティブになる（例：アプリが他のタスクから復帰する）とき
+    @objc func handleDidBecomeActiveNotification() {
+        // 自動スリープをOFFにする
+        UIApplication.shared.isIdleTimerDisabled = true
+        
+        // 画面の明るさを最低にする
+        self.previousScreenBrightness = UIScreen.main.brightness
+        UIScreen.main.brightness = 0.0
+    }
+    
+    // アプリがアクティブじゃなくなる（例：ホーム画面に戻る）とき
+    @objc func handleWillResignActiveNotification() {
+        UIApplication.shared.isIdleTimerDisabled = false    // 自動スリープをONにする
+        UIScreen.main.brightness = previousScreenBrightness // 画面の明るさを復元する
     }
     
     // ホームインジケータ(iPhone X以降)を非表示にする
