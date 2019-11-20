@@ -29,7 +29,7 @@ class BatterySaverViewController: UIViewController {
         super.viewDidAppear(animated)
         
         // アラートを表示
-        let alertController = UIAlertController(title:   "Batter Saver Mode",
+        let alertController = UIAlertController(title:   "Battery Saver Mode",
                                                 message: "To exit battery saver mode, double-tap the screen.",
                                                 preferredStyle: UIAlertController.Style.alert)
         let alertButton = UIAlertAction(title: "OK",
