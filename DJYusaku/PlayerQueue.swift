@@ -34,6 +34,8 @@ class PlayerQueue{
             }
         }
     }
+    private var urlCorrespondence : [String:URL] = [:] // storeIDとURLの対応表
+    
     private var isQueueCreated: Bool = false
     
     private let dispatchSemaphore = DispatchSemaphore(value: 1)
@@ -72,6 +74,8 @@ class PlayerQueue{
             }
             guard error == nil else { return } // TODO: キューの作成ができなかった時の処理
             self.mpAppController.play() // 自動再生する
+            self.urlCorrespondence = [:]
+            self.urlCorrespondence[song.id] = song.artworkUrl
             self.mpAppController.perform(queueTransaction: { _ in }, completionHandler: { [unowned self] queue, _ in
                 self.items = queue.items
             })
@@ -102,6 +106,7 @@ class PlayerQueue{
                 self.dispatchSemaphore.signal()
             }
             guard (error == nil) else { return } // TODO: 挿入ができなかった時の処理
+            self.urlCorrespondence[song.id] = song.artworkUrl
             self.items = queue.items
             if let completion = completion { completion() }
             NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
@@ -127,6 +132,7 @@ class PlayerQueue{
                 self.dispatchSemaphore.signal()
             }
             guard (error == nil) else { return } // TODO: 削除ができなかった時の処理
+            self.urlCorrespondence.removeValue(forKey: self.items[index].playbackStoreID)
             self.items = queue.items
             if let completion = completion { completion() }
             NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
@@ -179,8 +185,10 @@ class PlayerQueue{
     func get(at index: Int) -> Song? {
         guard index >= 0 && self.count() > index else { return nil }
         let item = items[index]
-        
-        return Song(title: item.title ?? "Loading...", artist: item.artist ?? "Loading...", artworkUrl: URL(fileURLWithPath: ""), id: item.playbackStoreID)
+        return Song(title:      item.title ?? "Loading...",
+                    artist:     item.artist ?? "Loading...",
+                    artworkUrl: self.urlCorrespondence[item.playbackStoreID] ?? URL(fileURLWithPath: ""),
+                    id:         item.playbackStoreID)
     }
     
 }

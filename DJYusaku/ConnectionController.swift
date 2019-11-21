@@ -91,14 +91,10 @@ extension ConnectionController: MCSessionDelegate {
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         print("\(peerID)から \(String(data: data, encoding: .utf8)!)を受け取りました")
         
-        if ConnectionController.shared.isParent {   // DJが受け取るなら
+        if ConnectionController.shared.isParent {   // DJがデータを受け取ったとき
             let song = try! JSONDecoder().decode(Song.self, from: data)
-            PlayerQueue.shared.add(with: song) {
-                // TODO: ここにリスナーへのsendを書く
-                // ConnectionController.shared.session.sendRequest(data, toPeers: [peerID], with: .unreliable)
-            }
-        } else {                                    // リスナーが受け取るなら
-            // TODO: ここにDJからsendされたときの処理を書く
+            PlayerQueue.shared.add(with: song)
+        } else {                                    // リスナーがデータを受け取ったとき
             let songs = try! JSONDecoder().decode([Song].self, from: data)
             receivedSongs = songs
             NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
