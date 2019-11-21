@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import MediaPlayer
-import MultipeerConnectivity
 
 extension Notification.Name {
     // MPMusicPlayerControllerによる通知をこちらで一旦引き受けることでタイミングを制御できるようにする
