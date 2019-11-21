@@ -164,9 +164,9 @@
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
                     <navigationItem key="navigationItem" title="Requests" id="K0B-Hq-EiT">
-                        <barButtonItem key="leftBarButtonItem" title="Session" id="u2n-sH-Den">
+                        <barButtonItem key="leftBarButtonItem" image="sun.min" catalog="system" id="u2n-sH-Den">
                             <connections>
-                                <segue destination="dBJ-r9-osw" kind="presentation" id="Khf-ow-Fm0"/>
+                                <segue destination="oZn-cn-RSW" kind="presentation" modalPresentationStyle="fullScreen" id="2aB-me-eAW"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="9eT-eG-bit"/>
@@ -187,11 +187,11 @@
             <objects>
                 <viewController title="Welcome" id="ypK-t8-Qz5" customClass="WelcomeViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zoG-Zx-5x5">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DJYusaku" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Reu-FC-yfo">
-                                <rect key="frame" x="89" y="319" width="197" height="48"/>
+                                <rect key="frame" x="89" y="362" width="197" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="197" id="wTQ-Mb-K14"/>
                                     <constraint firstAttribute="height" constant="48" id="zZw-vM-6Rb"/>
@@ -201,7 +201,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dR8-x5-j8x">
-                                <rect key="frame" x="106" y="292" width="163" height="39"/>
+                                <rect key="frame" x="106" y="335" width="163" height="39"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="163" id="AxE-wQ-SGr"/>
                                     <constraint firstAttribute="height" constant="39" id="hit-fz-Dwm"/>
@@ -211,14 +211,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Temporary" translatesAutoresizingMaskIntoConstraints="NO" id="xNr-cQ-Ez8">
-                                <rect key="frame" x="155.66666666666666" y="224" width="64" height="64"/>
+                                <rect key="frame" x="155.66666666666666" y="267" width="64" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="64" id="gxc-hK-Pxf"/>
                                     <constraint firstAttribute="height" constant="64" id="pmc-KC-wEp"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="AppDescription" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T1E-kF-s34">
-                                <rect key="frame" x="24.333333333333343" y="366" width="326.33333333333326" height="68"/>
+                                <rect key="frame" x="24.333333333333343" y="409" width="326.33333333333326" height="68"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="68" id="F70-6m-b3s"/>
                                 </constraints>
@@ -228,7 +228,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="90a-jE-PNH">
-                                <rect key="frame" x="91.666666666666686" y="446" width="192" height="40"/>
+                                <rect key="frame" x="91.666666666666686" y="489" width="192" height="40"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="192" id="G9t-OP-ct4"/>
@@ -248,7 +248,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RGD-qI-6Bt">
-                                <rect key="frame" x="91.666666666666686" y="521" width="192" height="40"/>
+                                <rect key="frame" x="91.666666666666686" y="564" width="192" height="40"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="H84-Zd-TC5"/>
@@ -268,7 +268,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="requires Apple Music contract" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QLv-BI-r7q">
-                                <rect key="frame" x="102.66666666666669" y="490" width="170" height="15"/>
+                                <rect key="frame" x="102.66666666666669" y="533" width="170" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="170" id="cCO-Td-nBq"/>
                                     <constraint firstAttribute="height" constant="15" id="cc6-Nq-aFY"/>
@@ -278,13 +278,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="© 2019 Yusaku" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S0h-WO-K7i">
-                                <rect key="frame" x="144.66666666666666" y="601" width="85.666666666666657" height="14.333333333333371"/>
+                                <rect key="frame" x="144.66666666666666" y="644" width="85.666666666666657" height="14.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="connects with other DJ or listener friends" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yF5-8q-DJM">
-                                <rect key="frame" x="67.666666666666686" y="565" width="240" height="15"/>
+                                <rect key="frame" x="67.666666666666686" y="608" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="Lrv-Af-sUi"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="240" id="onw-Gr-SY3"/>
@@ -333,18 +333,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TWJ-oW-tme" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3662" y="-677"/>
+            <point key="canvasLocation" x="980" y="1142"/>
         </scene>
         <!--Join as a listener-->
         <scene sceneID="z8Z-ZC-zfs">
             <objects>
                 <viewController id="2ZU-rh-NCc" customClass="ListenerConnectionViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TEh-b3-bIb">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BXT-Va-ZlK">
-                                <rect key="frame" x="0.0" y="108" width="375" height="616"/>
+                                <rect key="frame" x="0.0" y="140" width="375" height="638"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ListenerConnectableDJsTableViewCell" id="Hmp-1P-PDK" customClass="ListenerConnectableDJsTableViewCell" customModule="DJYusaku" customModuleProvider="target">
@@ -390,7 +390,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x2a-pV-KQr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4645.6000000000004" y="-678.32512315270935"/>
+            <point key="canvasLocation" x="1964" y="1141"/>
         </scene>
         <!--Search-->
         <scene sceneID="wg7-f3-ORb">
@@ -488,6 +488,21 @@
             </objects>
             <point key="canvasLocation" x="1690.4000000000001" y="358.37438423645324"/>
         </scene>
+        <!--Battery Saver View Controller-->
+        <scene sceneID="piP-6K-uOh">
+            <objects>
+                <viewController id="oZn-cn-RSW" customClass="BatterySaverViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JaV-wB-E59">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="ioa-To-8ez"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IbK-vi-r2D" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2676" y="-661"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
@@ -550,7 +565,7 @@
                 <navigationController storyboardIdentifier="WelcomeNavigation" automaticallyAdjustsScrollViewInsets="NO" id="dBJ-r9-osw" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="AAD-aP-xyu">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="108"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -560,7 +575,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nSc-bC-te5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2680" y="-676"/>
+            <point key="canvasLocation" x="-1" y="1143"/>
         </scene>
     </scenes>
     <resources>
@@ -571,5 +586,6 @@
         <image name="music.note.list" catalog="system" width="64" height="56"/>
         <image name="play.fill" catalog="system" width="58" height="64"/>
         <image name="plus" catalog="system" width="64" height="56"/>
+        <image name="sun.min" catalog="system" width="64" height="60"/>
     </resources>
 </document>

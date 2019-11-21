@@ -25,6 +25,7 @@
 		C447ACB4234882FB00D535EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C447ACB2234882FB00D535EB /* LaunchScreen.storyboard */; };
 		C447ACBF234882FB00D535EB /* DJYusakuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447ACBE234882FB00D535EB /* DJYusakuTests.swift */; };
 		C447ACCA234882FB00D535EB /* DJYusakuUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447ACC9234882FB00D535EB /* DJYusakuUITests.swift */; };
+		C46CE2082383EBC000492AC3 /* BatterySaverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46CE2072383EBC000492AC3 /* BatterySaverViewController.swift */; };
 		C4A3C95A2357E908005304AA /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = C4A3C9592357E908005304AA /* SwiftyJSON */; };
 		C4CF9725235163EF00C8A102 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CF9724235163EF00C8A102 /* SearchViewController.swift */; };
 		C4D25958235205D10066FCE0 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D25957235205D10066FCE0 /* Secrets.swift */; };
@@ -74,6 +75,7 @@
 		C447ACC5234882FB00D535EB /* DJYusakuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DJYusakuUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C447ACC9234882FB00D535EB /* DJYusakuUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJYusakuUITests.swift; sourceTree = "<group>"; };
 		C447ACCB234882FB00D535EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C46CE2072383EBC000492AC3 /* BatterySaverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatterySaverViewController.swift; sourceTree = "<group>"; };
 		C4CF9724235163EF00C8A102 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C4D25957235205D10066FCE0 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		C4D25959235205EC0066FCE0 /* Secrets+Local.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Secrets+Local.swift"; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				C447ACB5234882FB00D535EB /* Info.plist */,
 				C447ACA5234882F900D535EB /* AppDelegate.swift */,
 				B125D88C235F426C00D383E7 /* Artwork.swift */,
+				C46CE2072383EBC000492AC3 /* BatterySaverViewController.swift */,
 				106B1C2E2372C696008684EB /* ConnectionController.swift */,
 				106B1C302372C83F008684EB /* ConnectionControllerDelegate.swift */,
 				106B1C2C2372BE1F008684EB /* ListenerConnectableDJsTableViewCell.swift */,
@@ -309,6 +312,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C46CE2082383EBC000492AC3 /* BatterySaverViewController.swift in Sources */,
 				B125D88D235F426C00D383E7 /* Artwork.swift in Sources */,
 				C4CF9725235163EF00C8A102 /* SearchViewController.swift in Sources */,
 				106B1C2D2372BE1F008684EB /* ListenerConnectableDJsTableViewCell.swift in Sources */,

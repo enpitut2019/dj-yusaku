@@ -131,15 +131,22 @@ extension RequestsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RequestsMusicTableViewCell", for: indexPath) as! RequestsMusicTableViewCell
         var song: Song
         if ConnectionController.shared.isParent {
-            guard let s = PlayerQueue.shared.get(at: indexPath.row) else { return cell }
-            song = s
+            guard let queueSong = PlayerQueue.shared.get(at: indexPath.row) else { return cell }
+            song = queueSong
         } else {
             song = ConnectionController.shared.receivedSongs[indexPath.row]
         }
         
         cell.title.text    = song.title
         cell.artist.text   = song.artist
-        // cell.artwork.image = item.artwork?.image(at: CGSize(width: 48,height: 48))
+        
+        DispatchQueue.global().async {
+            let image = Artwork.fetch(url: song.artworkUrl)
+            DispatchQueue.main.async {
+                cell.artwork.image = image  // 画像の取得に失敗していたらnilが入ることに注意
+                cell.artwork.setNeedsLayout()
+            }
+        }
         
         return cell
     }
