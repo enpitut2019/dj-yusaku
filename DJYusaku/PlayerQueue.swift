@@ -167,7 +167,11 @@ class PlayerQueue{
     func get(at index: Int) -> Song? {
         guard index >= 0 && self.count() > index else { return nil }
         let item = items[index]
-        return Song(title: item.title!, artist: item.artist!, artworkUrl: URL(fileURLWithPath: ""), id: item.playbackStoreID)
+        
+        let title = item.title ?? "Loading..."
+        let artist = item.artist ?? "Loading..."
+        
+        return Song(title: title, artist: artist, artworkUrl: URL(fileURLWithPath: ""), id: item.playbackStoreID)
     }
     
 }
