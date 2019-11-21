@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import MediaPlayer
+import MultipeerConnectivity
 
 extension Notification.Name {
     // MPMusicPlayerControllerによる通知をこちらで一旦引き受けることでタイミングを制御できるようにする
@@ -21,7 +22,19 @@ class PlayerQueue{
     static let shared = PlayerQueue()
     let mpAppController = MPMusicPlayerController.applicationQueuePlayer
     
-    private var items: [MPMediaItem] = []
+    private var items: [MPMediaItem] = [] {
+        didSet {
+            if ConnectionController.shared.isParent {   // DJのリクエストが更新されたとき
+                guard ConnectionController.shared.session.connectedPeers.count != 0 else { return }
+                var songs: [Song] = []
+                for i in 0..<PlayerQueue.shared.count() {
+                    songs.append(PlayerQueue.shared.get(at: i)!)
+                }
+                let songsData = try! JSONEncoder().encode(songs)
+                try! ConnectionController.shared.session.send(songsData, toPeers: ConnectionController.shared.session.connectedPeers, with: .unreliable)
+            }
+        }
+    }
     private var isQueueCreated: Bool = false
     
     private let dispatchSemaphore = DispatchSemaphore(value: 1)
