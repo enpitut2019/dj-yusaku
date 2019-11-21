@@ -21,7 +21,19 @@ class PlayerQueue{
     static let shared = PlayerQueue()
     let mpAppController = MPMusicPlayerController.applicationQueuePlayer
     
-    private var items: [MPMediaItem] = []
+    private var items: [MPMediaItem] = [] {
+        didSet {
+            if ConnectionController.shared.isParent {   // DJのリクエストが更新されたとき
+                guard ConnectionController.shared.session.connectedPeers.count != 0 else { return }
+                var songs: [Song] = []
+                for i in 0..<PlayerQueue.shared.count() {
+                    songs.append(PlayerQueue.shared.get(at: i)!)
+                }
+                let songsData = try! JSONEncoder().encode(songs)
+                try! ConnectionController.shared.session.send(songsData, toPeers: ConnectionController.shared.session.connectedPeers, with: .unreliable)
+            }
+        }
+    }
     private var isQueueCreated: Bool = false
     
     private let dispatchSemaphore = DispatchSemaphore(value: 1)
@@ -164,9 +176,11 @@ class PlayerQueue{
         return items.count
     }
     
-    func get(at index: Int) -> MPMediaItem? {
+    func get(at index: Int) -> Song? {
         guard index >= 0 && self.count() > index else { return nil }
-        return items[index]
+        let item = items[index]
+        
+        return Song(title: item.title ?? "Loading...", artist: item.artist ?? "Loading...", artworkUrl: URL(fileURLWithPath: ""), id: item.playbackStoreID)
     }
     
 }

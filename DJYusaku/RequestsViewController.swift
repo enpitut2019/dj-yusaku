@@ -119,16 +119,27 @@ class RequestsViewController: UIViewController {
 extension RequestsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return PlayerQueue.shared.count()
+        guard ConnectionController.shared.isParent != nil else { return 0 }
+        if ConnectionController.shared.isParent {
+            return PlayerQueue.shared.count()
+        } else {
+            return ConnectionController.shared.receivedSongs.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RequestsMusicTableViewCell", for: indexPath) as! RequestsMusicTableViewCell
-        guard let item = PlayerQueue.shared.get(at: indexPath.row) else { return cell }
+        var song: Song
+        if ConnectionController.shared.isParent {
+            guard let s = PlayerQueue.shared.get(at: indexPath.row) else { return cell }
+            song = s
+        } else {
+            song = ConnectionController.shared.receivedSongs[indexPath.row]
+        }
         
-        cell.title.text    = item.title
-        cell.artist.text   = item.artist
-        cell.artwork.image = item.artwork?.image(at: CGSize(width: 48,height: 48))
+        cell.title.text    = song.title
+        cell.artist.text   = song.artist
+        // cell.artwork.image = item.artwork?.image(at: CGSize(width: 48,height: 48))
         
         return cell
     }
