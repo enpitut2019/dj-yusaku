@@ -9,9 +9,11 @@
 import UIKit
 
 struct MessageData : Codable {
-    var desc: String // 説明
+    var desc : MessageData.Name // 説明
     var value: Data   // JOSNデータ
     
-    static let nowPlaying = "nowPlaying"
-    static let requestSongs = "requestSongs"
+    enum Name: Int, Codable {
+        case nowPlaying
+        case requestSongs
+    }
 }

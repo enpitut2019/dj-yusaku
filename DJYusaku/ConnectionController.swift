@@ -84,7 +84,7 @@ extension ConnectionController: MCSessionDelegate {
                     songs.append(PlayerQueue.shared.get(at: i)!)
                 }
                 let songsData = try! JSONEncoder().encode(songs)
-                let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.requestSongs, value: songsData))
+                let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.Name.requestSongs, value: songsData))
                 try! ConnectionController.shared.session.send(messageData, toPeers: [peerID], with: .unreliable)
             }
         } else {
@@ -102,16 +102,14 @@ extension ConnectionController: MCSessionDelegate {
         } else {                                    // リスナーがデータを受け取ったとき
             let messageData = try! JSONDecoder().decode(MessageData.self, from: data)
             switch messageData.desc {
-                case MessageData.requestSongs:
+                case MessageData.Name.requestSongs:
                     let songs = try! JSONDecoder().decode([Song].self, from: messageData.value)
                     receivedSongs = songs
                     NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
-                case MessageData.nowPlaying:
+                case MessageData.Name.nowPlaying:
                     let nowPlaying = try! JSONDecoder().decode(Song.self, from: messageData.value)
                     receivedNowPlaying = nowPlaying
                     NotificationCenter.default.post(name: .DJYusakuConnectionControllerNowPlayingSongDidChange, object: nil, userInfo: ["song": receivedNowPlaying as Any])
-                default:
-                    print("予期しないデータを受け取りました")
             }
         }
         
