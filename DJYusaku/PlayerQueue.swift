@@ -30,7 +30,7 @@ class PlayerQueue{
                     songs.append(PlayerQueue.shared.get(at: i)!)
                 }
                 let songsData = try! JSONEncoder().encode(songs)
-                let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.requestSongs, value: songsData))
+                let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.Name.requestSongs, value: songsData))
                 
                 try! ConnectionController.shared.session.send(messageData, toPeers: ConnectionController.shared.session.connectedPeers, with: .unreliable)
             }
