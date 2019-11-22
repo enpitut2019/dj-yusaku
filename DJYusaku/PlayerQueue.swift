@@ -30,7 +30,7 @@ class PlayerQueue{
                     songs.append(PlayerQueue.shared.get(at: i)!)
                 }
                 let songsData = try! JSONEncoder().encode(songs)
-                let messageData = try! JSONEncoder().encode(MessageData(desc: "requestSongs", value: songsData))
+                let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.requestSongs, value: songsData))
                 
                 try! ConnectionController.shared.session.send(messageData, toPeers: ConnectionController.shared.session.connectedPeers, with: .unreliable)
             }
@@ -191,6 +191,11 @@ class PlayerQueue{
                     artist:     item.artist ?? "Loading...",
                     artworkUrl: self.urlCorrespondence[item.playbackStoreID] ?? URL(fileURLWithPath: ""),
                     id:         item.playbackStoreID)
+    }
+    
+    func getArtworkURL(storeID: String) -> URL? {
+        print(self.urlCorrespondence)
+        return self.urlCorrespondence[storeID]
     }
     
 }

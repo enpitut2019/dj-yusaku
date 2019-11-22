@@ -47,6 +47,7 @@ class RequestsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleRequestsDidUpdate), name: .DJYusakuPlayerQueueDidUpdate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChange), name: .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlaybackStateDidChange), name: .DJYusakuPlayerQueuePlaybackStateDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ChangeListenerNowPlaying), name: .DJYusakuConnectionControllerNowPlayingSongDidChange, object: nil)
         
         navigationItem.rightBarButtonItem = editButtonItem
     }
@@ -81,9 +82,16 @@ class RequestsViewController: UIViewController {
             self.playingArtwork.image = nowPlayingItem.artwork?.image(at: CGSize(width: 48, height: 48))
         }
         
-        let nowPlaying = Song(title: nowPlayingItem.title!, artist: "", artworkUrl: URL(fileURLWithPath: ""), id: "")
+        guard ConnectionController.shared.session.connectedPeers.count != 0 else { return }
+        
+        let nowPlaying = Song(
+            title      : nowPlayingItem.title ?? "Loding...",
+            artist     : "",
+            artworkUrl : PlayerQueue.shared.getArtworkURL(storeID: nowPlayingItem.playbackStoreID) ?? URL(fileURLWithPath: ""),
+            id         : ""
+        )
         let nowPlayingData = try! JSONEncoder().encode(nowPlaying)
-        let messageData = try! JSONEncoder().encode(MessageData(desc: "nowPlaing", value: nowPlayingData))
+        let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.nowPlaying, value: nowPlayingData))
         try! ConnectionController.shared.session.send(messageData, toPeers: ConnectionController.shared.session.connectedPeers, with: .unreliable)
     }
     
@@ -95,6 +103,16 @@ class RequestsViewController: UIViewController {
             playButton.setImage(UIImage(systemName: "play.fill"), for: UIControl.State.normal)
         default:
             break
+        }
+    }
+    
+    @objc func ChangeListenerNowPlaying(notification: NSNotification){
+        guard let song = notification.userInfo!["song"] as? Song else { return }
+        let image = Artwork.fetch(url: song.artworkUrl)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.playingTitle.text    = song.title
+            self.playingArtwork.image = image
         }
     }
     
