@@ -80,6 +80,11 @@ class RequestsViewController: UIViewController {
             self.playingTitle.text    = nowPlayingItem.title
             self.playingArtwork.image = nowPlayingItem.artwork?.image(at: CGSize(width: 48, height: 48))
         }
+        
+        let nowPlaying = Song(title: nowPlayingItem.title!, artist: "", artworkUrl: URL(fileURLWithPath: ""), id: "")
+        let nowPlayingData = try! JSONEncoder().encode(nowPlaying)
+        let messageData = try! JSONEncoder().encode(MessageData(desc: "nowPlaing", value: nowPlayingData))
+        try! ConnectionController.shared.session.send(messageData, toPeers: ConnectionController.shared.session.connectedPeers, with: .unreliable)
     }
     
     @objc func handlePlaybackStateDidChange(notification: NSNotification) {

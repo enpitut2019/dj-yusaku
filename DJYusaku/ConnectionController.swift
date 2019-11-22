@@ -27,6 +27,7 @@ class ConnectionController: NSObject {
     var isParent: Bool!
     
     var receivedSongs: [Song] = []
+    var receivedNowPlaying: Song!
     
     func initialize(isParent: Bool, displayName: String) {
         self.isParent = isParent
@@ -79,8 +80,8 @@ extension ConnectionController: MCSessionDelegate {
                     songs.append(PlayerQueue.shared.get(at: i)!)
                 }
                 let songsData = try! JSONEncoder().encode(songs)
-                print(songsData)
-                try! ConnectionController.shared.session.send(songsData, toPeers: [peerID], with: .unreliable)
+                let messageData = try! JSONEncoder().encode(MessageData(desc: "requestSongs", value: songsData))
+                try! ConnectionController.shared.session.send(messageData, toPeers: [peerID], with: .unreliable)
             }
         } else {
             print("Peer \(peerID.displayName) is not connected.")
@@ -95,9 +96,16 @@ extension ConnectionController: MCSessionDelegate {
             let song = try! JSONDecoder().decode(Song.self, from: data)
             PlayerQueue.shared.add(with: song)
         } else {                                    // リスナーがデータを受け取ったとき
-            let songs = try! JSONDecoder().decode([Song].self, from: data)
-            receivedSongs = songs
-            NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
+            let messageData = try! JSONDecoder().decode(MessageData.self, from: data)
+            if messageData.desc == "requestSongs" {
+                let songs = try! JSONDecoder().decode([Song].self, from: messageData.value)
+                receivedSongs = songs
+                NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
+            } else if messageData.desc == "nowPlaying" {
+                let nowPlaying = try! JSONDecoder().decode(Song.self, from: messageData.value)
+                receivedNowPlaying = nowPlaying
+                NotificationCenter.default.post(name: .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
+            }
         }
         
         self.delegate?.connectionController(didReceiveData: data, from: peerID)
