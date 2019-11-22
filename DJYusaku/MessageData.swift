@@ -9,7 +9,9 @@
 import UIKit
 
 struct MessageData : Codable {
-    var desc:  String // 説明
+    var desc: String // 説明
     var value: Data   // JOSNデータ
+    
+    static let nowPlaying = "nowPlaying"
+    static let requestSongs = "requestSongs"
 }
-
