@@ -125,6 +125,7 @@ class RequestsViewController: UIViewController {
     }
     
     @objc func viewWillEnterForeground() {
+        guard ConnectionController.shared.isParent != nil else { return }
         if !ConnectionController.shared.isParent {
             NotificationCenter.default.post(
                 name: .DJYusakuRequestVCWillEnterForeground,
