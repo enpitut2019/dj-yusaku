@@ -180,20 +180,20 @@ extension RequestsViewController: UITableViewDataSource {
     
     // 全セルが削除可能
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+        guard ConnectionController.shared.isParent != nil else { return false }
+        return ConnectionController.shared.isParent
     }
     
     // 全セルが編集可能
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
+        guard ConnectionController.shared.isParent != nil else { return false }
+        return ConnectionController.shared.isParent
     }
     
     // 編集時の動作
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        if(ConnectionController.shared.isParent){ //自分がDJのとき
+        if ConnectionController.shared.isParent { //自分がDJのとき
             PlayerQueue.shared.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
-        }else{
-            // TODO: リスナー側の動作
         }
     }
 }
