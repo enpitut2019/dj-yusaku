@@ -198,7 +198,6 @@ class PlayerQueue{
     }
     
     func getArtworkURL(storeID: String) -> URL? {
-        print(self.urlCorrespondence)
         return self.urlCorrespondence[storeID]
     }
     
