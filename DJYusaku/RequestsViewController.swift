@@ -92,7 +92,11 @@ class RequestsViewController: UIViewController {
         )
         let nowPlayingData = try! JSONEncoder().encode(nowPlaying)
         let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.Name.nowPlaying, value: nowPlayingData))
-        try! ConnectionController.shared.session.send(messageData, toPeers: ConnectionController.shared.session.connectedPeers, with: .unreliable)
+        do {
+            try ConnectionController.shared.session.send(messageData, toPeers: ConnectionController.shared.session.connectedPeers, with: .unreliable)
+        } catch let error {
+            print(error)
+        }
     }
     
     @objc func handlePlaybackStateDidChange(notification: NSNotification) {

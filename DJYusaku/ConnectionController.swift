@@ -85,7 +85,11 @@ extension ConnectionController: MCSessionDelegate {
                 }
                 let songsData = try! JSONEncoder().encode(songs)
                 let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.Name.requestSongs, value: songsData))
-                try! ConnectionController.shared.session.send(messageData, toPeers: [peerID], with: .unreliable)
+                do {
+                try ConnectionController.shared.session.send(messageData, toPeers: [peerID], with: .unreliable)
+                } catch let error {
+                    print(error)
+                }
             }
         } else {
             print("Peer \(peerID.displayName) is not connected.")
