@@ -56,6 +56,7 @@ class ConnectionController: NSObject {
     }
     
     @objc func viewWillEnterForeground() {
+        guard connectedDJ != nil else { return }
         ConnectionController.shared.browser.invitePeer(connectedDJ, to: ConnectionController.shared.session, withContext: nil, timeout: 10.0)
     }
     
