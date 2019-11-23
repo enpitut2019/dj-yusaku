@@ -72,7 +72,7 @@ extension ConnectionController: MCSessionDelegate {
     // 接続ピアの状態が変化したとき呼ばれる
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         if state == .connected {
-            print("Peer \(peerID.displayName) is connected.")
+//            print("Peer \(peerID.displayName) is connected.")
             if ConnectionController.shared.isParent {   // DJが新しい子機と接続したとき
                 var songs: [Song] = []
                 for i in 0..<PlayerQueue.shared.count() {
@@ -83,7 +83,7 @@ extension ConnectionController: MCSessionDelegate {
                 try! ConnectionController.shared.session.send(songsData, toPeers: [peerID], with: .unreliable)
             }
         } else {
-            print("Peer \(peerID.displayName) is not connected.")
+//            print("Peer \(peerID.displayName) is not connected.")
         }
     }
     
