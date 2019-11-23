@@ -10,6 +10,9 @@ import UIKit
 import StoreKit
 import MediaPlayer
 
+extension Notification.Name {
+    static let DJYusakuRequestVCWillEnterForeground = Notification.Name("DJYusakuRequestVCWillEnterForeground")
+}
 class RequestsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var playingArtwork: UIImageView!
@@ -47,6 +50,8 @@ class RequestsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleRequestsDidUpdate), name: .DJYusakuPlayerQueueDidUpdate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChange), name: .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlaybackStateDidChange), name: .DJYusakuPlayerQueuePlaybackStateDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeListenerNowPlaying), name: .DJYusakuConnectionControllerNowPlayingSongDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(viewWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         
         navigationItem.rightBarButtonItem = editButtonItem
     }
@@ -80,6 +85,22 @@ class RequestsViewController: UIViewController {
             self.playingTitle.text    = nowPlayingItem.title
             self.playingArtwork.image = nowPlayingItem.artwork?.image(at: CGSize(width: 48, height: 48))
         }
+        
+        guard ConnectionController.shared.session.connectedPeers.count != 0 else { return }
+        
+        let nowPlaying = Song(
+            title      : nowPlayingItem.title ?? "Loding...",
+            artist     : "",
+            artworkUrl : PlayerQueue.shared.getArtworkURL(storeID: nowPlayingItem.playbackStoreID) ?? URL(fileURLWithPath: ""),
+            id         : ""
+        )
+        let nowPlayingData = try! JSONEncoder().encode(nowPlaying)
+        let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.Name.nowPlaying, value: nowPlayingData))
+        do {
+            try ConnectionController.shared.session.send(messageData, toPeers: ConnectionController.shared.session.connectedPeers, with: .unreliable)
+        } catch let error {
+            print(error)
+        }
     }
     
     @objc func handlePlaybackStateDidChange(notification: NSNotification) {
@@ -90,6 +111,25 @@ class RequestsViewController: UIViewController {
             playButton.setImage(UIImage(systemName: "play.fill"), for: UIControl.State.normal)
         default:
             break
+        }
+    }
+    
+    @objc func changeListenerNowPlaying(notification: NSNotification){
+        guard let song = notification.userInfo!["song"] as? Song else { return }
+        let image = Artwork.fetch(url: song.artworkUrl)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.playingTitle.text    = song.title
+            self.playingArtwork.image = image
+        }
+    }
+    
+    @objc func viewWillEnterForeground() {
+        if !ConnectionController.shared.isParent {
+            NotificationCenter.default.post(
+                name: .DJYusakuRequestVCWillEnterForeground,
+                object: nil
+            )
         }
     }
     
@@ -153,20 +193,20 @@ extension RequestsViewController: UITableViewDataSource {
     
     // 全セルが削除可能
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+        guard ConnectionController.shared.isParent != nil else { return false }
+        return ConnectionController.shared.isParent
     }
     
     // 全セルが編集可能
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
+        guard ConnectionController.shared.isParent != nil else { return false }
+        return ConnectionController.shared.isParent
     }
     
     // 編集時の動作
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        if(ConnectionController.shared.isParent){ //自分がDJのとき
+        if ConnectionController.shared.isParent { //自分がDJのとき
             PlayerQueue.shared.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
-        }else{
-            // TODO: リスナー側の動作
         }
     }
 }
