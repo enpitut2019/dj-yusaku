@@ -125,7 +125,12 @@ class RequestsViewController: UIViewController {
     }
     
     @objc func viewWillEnterForeground() {
-        NotificationCenter.default.post(name: .DJYusakuRequestVCWillEnterForeground, object: nil)
+        if !ConnectionController.shared.isParent {
+            NotificationCenter.default.post(
+                name: .DJYusakuRequestVCWillEnterForeground,
+                object: nil
+            )
+        }
     }
     
     @IBAction func playButton(_ sender: Any) {
