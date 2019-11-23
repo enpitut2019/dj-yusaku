@@ -31,7 +31,6 @@ class ConnectionController: NSObject {
     var isParent: Bool!
     
     var receivedSongs: [Song] = []
-    var receivedNowPlaying: Song!
     
     func initialize(isParent: Bool, displayName: String) {
         self.isParent = isParent
@@ -119,8 +118,7 @@ extension ConnectionController: MCSessionDelegate {
                     NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
                 case MessageData.Name.nowPlaying:
                     let nowPlaying = try! JSONDecoder().decode(Song.self, from: messageData.value)
-                    receivedNowPlaying = nowPlaying
-                    NotificationCenter.default.post(name: .DJYusakuConnectionControllerNowPlayingSongDidChange, object: nil, userInfo: ["song": receivedNowPlaying as Any])
+                    NotificationCenter.default.post(name: .DJYusakuConnectionControllerNowPlayingSongDidChange, object: nil, userInfo: ["song": nowPlaying as Any])
             }
         }
         
