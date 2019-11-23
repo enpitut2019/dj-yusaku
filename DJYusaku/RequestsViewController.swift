@@ -10,6 +10,9 @@ import UIKit
 import StoreKit
 import MediaPlayer
 
+extension Notification.Name {
+    static let DJYusakuRequestVCWillEnterForeground = Notification.Name("DJYusakuRequestVCWillEnterForeground")
+}
 class RequestsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var playingArtwork: UIImageView!
@@ -48,6 +51,7 @@ class RequestsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChange), name: .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlaybackStateDidChange), name: .DJYusakuPlayerQueuePlaybackStateDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ChangeListenerNowPlaying), name: .DJYusakuConnectionControllerNowPlayingSongDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(viewWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         
         navigationItem.rightBarButtonItem = editButtonItem
     }
@@ -118,6 +122,10 @@ class RequestsViewController: UIViewController {
             self.playingTitle.text    = song.title
             self.playingArtwork.image = image
         }
+    }
+    
+    @objc func viewWillEnterForeground() {
+        NotificationCenter.default.post(name: .DJYusakuRequestVCWillEnterForeground, object: nil)
     }
     
     @IBAction func playButton(_ sender: Any) {

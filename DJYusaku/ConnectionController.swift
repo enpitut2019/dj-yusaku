@@ -51,6 +51,12 @@ class ConnectionController: NSObject {
         }
         browser = MCNearbyServiceBrowser(peer: self.peerID, serviceType: self.serviceType)
         browser.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(viewWillEnterForeground), name: .DJYusakuRequestVCWillEnterForeground, object: nil)
+    }
+    
+    @objc func viewWillEnterForeground() {
+        ConnectionController.shared.browser.invitePeer(connectedDJ, to: ConnectionController.shared.session, withContext: nil, timeout: 10.0)
     }
     
     func startAdvertise() {
