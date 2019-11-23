@@ -50,7 +50,7 @@ class RequestsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleRequestsDidUpdate), name: .DJYusakuPlayerQueueDidUpdate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChange), name: .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlaybackStateDidChange), name: .DJYusakuPlayerQueuePlaybackStateDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ChangeListenerNowPlaying), name: .DJYusakuConnectionControllerNowPlayingSongDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeListenerNowPlaying), name: .DJYusakuConnectionControllerNowPlayingSongDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(viewWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         
         navigationItem.rightBarButtonItem = editButtonItem
@@ -114,7 +114,7 @@ class RequestsViewController: UIViewController {
         }
     }
     
-    @objc func ChangeListenerNowPlaying(notification: NSNotification){
+    @objc func changeListenerNowPlaying(notification: NSNotification){
         guard let song = notification.userInfo!["song"] as? Song else { return }
         let image = Artwork.fetch(url: song.artworkUrl)
         DispatchQueue.main.async {
