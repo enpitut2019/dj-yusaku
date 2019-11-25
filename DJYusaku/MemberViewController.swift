@@ -10,23 +10,41 @@ import UIKit
 import MultipeerConnectivity
 
 class MemberViewController: UIViewController {
+    
+    private var childPeers : [MCPeerID] = []
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var parentNameLabel: UILabel!
+    @IBOutlet weak var parentImageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // tableViewのdelegate, dataSource設定
-//        tableView.delegate = self
+        // tableViewのdataSource設定
         tableView.dataSource = self
         
-        // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(handlePeerConnectionStateDidUpdate), name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
+        
+        
+        if (ConnectionController.shared.isParent){ //親機ならば、自分の端末名を表示する
+            self.parentNameLabel.text = ConnectionController.shared.peerID.displayName
+        }else{                                     //子機ならば、接続している端末名＝親機を表示する
+            self.parentNameLabel.text = ConnectionController.shared.connectedDJ.displayName
+        }
         
     }
     
     @objc func handlePeerConnectionStateDidUpdate() {
-        print("Notification: ", ConnectionController.shared.session.connectedPeers)
+        // 接続している端末＝親機はtableViewには表示しないので弾く
+        childPeers = ConnectionController.shared.session.connectedPeers.filter({ $0 != ConnectionController.shared.connectedDJ})
+        
         DispatchQueue.main.async{
+            //親が変わったときに上部のLabelを更新
+            if (ConnectionController.shared.isParent){  //親機ならば、自分の端末名を表示する
+                self.parentNameLabel.text = ConnectionController.shared.peerID.displayName
+            }else{                                      //子機ならば、接続している端末名＝親機を表示する
+                self.parentNameLabel.text = ConnectionController.shared.connectedDJ.displayName
+            }
             self.tableView.reloadData()
         }
     }
@@ -37,15 +55,12 @@ class MemberViewController: UIViewController {
 
 extension MemberViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(ConnectionController.shared.session.connectedPeers.count)
-        return ConnectionController.shared.session.connectedPeers.count
+        return childPeers.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("Update TableView")
         let cell  = tableView.dequeueReusableCell(withIdentifier: "MemberTableViewCell", for: indexPath) as! MemberTableViewCell
-
-        cell.peerName.text = ConnectionController.shared.session.connectedPeers[indexPath.row].displayName
+        cell.peerName.text = childPeers[indexPath.row].displayName
         return cell
     }
  }

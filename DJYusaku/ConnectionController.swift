@@ -77,7 +77,7 @@ extension ConnectionController: MCSessionDelegate {
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
         if state == .connected {
-//            print("Peer \(peerID.displayName) is connected.")
+            print("Peer \(peerID.displayName) is connected.")
             if ConnectionController.shared.isParent {   // DJが新しい子機と接続したとき
                 var songs: [Song] = []
                 for i in 0..<PlayerQueue.shared.count() {
@@ -88,7 +88,7 @@ extension ConnectionController: MCSessionDelegate {
                 try! ConnectionController.shared.session.send(songsData, toPeers: [peerID], with: .unreliable)
             }
         } else {
-//            print("Peer \(peerID.displayName) is not connected.")
+            print("Peer \(peerID.displayName) is not connected.")
         }
     }
     
