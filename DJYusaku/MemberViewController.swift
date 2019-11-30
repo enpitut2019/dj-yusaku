@@ -25,21 +25,25 @@ class MemberViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(handlePeerConnectionStateDidUpdate), name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
         
-        
-        if (ConnectionController.shared.isParent){ //親機ならば、自分の端末名を表示する
-            self.parentNameLabel.text = ConnectionController.shared.peerID.displayName
-        }else{                                     //子機ならば、接続している端末名＝親機を表示する
-            self.parentNameLabel.text = ConnectionController.shared.connectedDJ.displayName
+        childPeers = ConnectionController.shared.session.connectedPeers.filter({ $0 != ConnectionController.shared.connectedDJ})
+        print(ConnectionController.shared.session.connectedPeers)
+       
+        DispatchQueue.main.async{
+            if (ConnectionController.shared.isParent){  //親機ならば、自分の端末名を表示する
+                self.parentNameLabel.text = ConnectionController.shared.peerID.displayName
+            }else{                                      //子機ならば、接続している端末名＝親機を表示する
+                self.parentNameLabel.text = ConnectionController.shared.connectedDJ.displayName
+            }
+            self.tableView.reloadData()
         }
-        
     }
     
     @objc func handlePeerConnectionStateDidUpdate() {
         // 接続している端末＝親機はtableViewには表示しないので弾く
         childPeers = ConnectionController.shared.session.connectedPeers.filter({ $0 != ConnectionController.shared.connectedDJ})
         
+        //親が変わったときに上部のLabelを更新
         DispatchQueue.main.async{
-            //親が変わったときに上部のLabelを更新
             if (ConnectionController.shared.isParent){  //親機ならば、自分の端末名を表示する
                 self.parentNameLabel.text = ConnectionController.shared.peerID.displayName
             }else{                                      //子機ならば、接続している端末名＝親機を表示する
