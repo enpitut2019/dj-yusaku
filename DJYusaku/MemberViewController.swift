@@ -26,7 +26,6 @@ class MemberViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handlePeerConnectionStateDidUpdate), name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
         
         childPeers = ConnectionController.shared.session.connectedPeers.filter({ $0 != ConnectionController.shared.connectedDJ})
-        print(ConnectionController.shared.session.connectedPeers)
        
         DispatchQueue.main.async{
             if (ConnectionController.shared.isParent){  //親機ならば、自分の端末名を表示する
