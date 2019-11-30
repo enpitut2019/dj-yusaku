@@ -9,8 +9,8 @@
 import Foundation
 import MultipeerConnectivity
 
-extension Notification.Name {
-    static let DJYusakuConnectionControllerNowPlayingSongDidChange = Notification.Name("DJYusakuConnectionControllerNowPlayingSongDidChange")
+extension Notification.Name{
+    static let DJYusakuPeerConnectionStateDidUpdate = Notification.Name("DJYusakuPeerConnectionStateDidUpdate")
 }
 
 class ConnectionController: NSObject {
@@ -83,6 +83,7 @@ extension ConnectionController: MCSessionDelegate {
     // 接続ピアの状態が変化したとき呼ばれる
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         if state == .connected {
+            NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
             print("Peer \(peerID.displayName) is connected.")
             if ConnectionController.shared.isParent {   // DJが新しい子機と接続したとき
                 var songs: [Song] = []
