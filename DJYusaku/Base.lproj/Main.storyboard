@@ -482,7 +482,7 @@
                     <navigationItem key="navigationItem" title="Request Song" id="KdW-M4-Iev">
                         <barButtonItem key="rightBarButtonItem" title="Close" id="0pZ-kI-uKF">
                             <connections>
-                                <action selector="cancelButton:" destination="8rJ-Kc-sve" id="tg6-Zz-Y6t"/>
+                                <action selector="closeButton:" destination="8rJ-Kc-sve" id="tg6-Zz-Y6t"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

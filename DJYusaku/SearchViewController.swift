@@ -51,7 +51,7 @@ class SearchViewController: UIViewController {
         }
     }
     
-    @IBAction func cancelButton(_ sender: Any) {
+    @IBAction func closeButton(_ sender: Any) {
         self.dismiss(animated: true)
     }
     
