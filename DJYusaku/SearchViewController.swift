@@ -50,6 +50,11 @@ class SearchViewController: UIViewController {
             self.storefrontCountryCode = storefrontCountryCode
         }
     }
+    
+    @IBAction func cancelButton(_ sender: Any) {
+        self.dismiss(animated: true)
+    }
+    
 }
 
 // MARK: - UITableViewDataSource

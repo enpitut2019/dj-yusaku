@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="64" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2ub-dF-W8m">
-                                <rect key="frame" x="0.0" y="140" width="375" height="532"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="636"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RequestsMusicTableViewCell" id="T5J-aV-tbm" customClass="RequestsMusicTableViewCell" customModule="DJYusaku" customModuleProvider="target">
@@ -392,7 +392,7 @@
             </objects>
             <point key="canvasLocation" x="1729" y="1727"/>
         </scene>
-        <!--Search-->
+        <!--Add Request-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
                 <viewController id="8rJ-Kc-sve" customClass="SearchViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
@@ -401,7 +401,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="64" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wCp-R2-0r7">
-                                <rect key="frame" x="0.0" y="140" width="375" height="589"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchMusicTableViewCell" id="Uxy-eD-cUw" customClass="SearchMusicTableViewCell" customModule="DJYusaku" customModuleProvider="target">
@@ -479,14 +479,36 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Search" id="KdW-M4-Iev"/>
+                    <navigationItem key="navigationItem" title="Add Request" id="KdW-M4-Iev">
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="0pZ-kI-uKF">
+                            <connections>
+                                <action selector="cancelButton:" destination="8rJ-Kc-sve" id="tg6-Zz-Y6t"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="wCp-R2-0r7" id="6hg-Je-h4F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1689" y="146"/>
+            <point key="canvasLocation" x="2626" y="146"/>
+        </scene>
+        <!--Dummy View Controller-->
+        <scene sceneID="9np-iI-gcW">
+            <objects>
+                <viewController id="4uZ-Wj-ld5" customClass="DummyViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lsb-Hs-IUt">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="pi3-Sl-LuS"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" id="e6F-GQ-N3B"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="24G-CH-p3I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="745" y="146"/>
         </scene>
         <!--Battery Saver View Controller-->
         <scene sceneID="piP-6K-uOh">
@@ -506,7 +528,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController id="49e-Tb-3d3" customClass="TabBarController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -514,8 +536,8 @@
                     </tabBar>
                     <connections>
                         <segue destination="SUy-sJ-FBC" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
-                        <segue destination="qzH-DJ-E1R" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
-                        <segue destination="Hcp-5O-p0T" kind="relationship" relationship="viewControllers" id="k5P-r7-AyN"/>
+                        <segue destination="4uZ-Wj-ld5" kind="relationship" relationship="viewControllers" id="xBv-5K-jFi"/>
+                        <segue destination="Hcp-5O-p0T" kind="relationship" relationship="viewControllers" id="94q-ft-dMV"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -525,7 +547,7 @@
         <!--Search-->
         <scene sceneID="Ov1-zg-rtg">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qzH-DJ-E1R" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SearchNavigation" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qzH-DJ-E1R" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="t5Y-gP-1Ll">
@@ -539,7 +561,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6rt-Bd-lJp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="746" y="146"/>
+            <point key="canvasLocation" x="1682" y="146"/>
         </scene>
         <!--Requests-->
         <scene sceneID="u4k-oI-Zxm">
@@ -578,10 +600,10 @@
             </objects>
             <point key="canvasLocation" x="-239" y="1729"/>
         </scene>
-        <!--Member View Controller-->
+        <!--Member-->
         <scene sceneID="m4A-BZ-CU1">
             <objects>
-                <viewController id="ODD-3q-aMv" customClass="MemberViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Member" id="ODD-3q-aMv" customClass="MemberViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4UC-dV-YyJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -631,14 +653,16 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="KmF-kX-f76" userLabel="PeerImage">
-                                <rect key="frame" x="16" y="150" width="40" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="KmF-kX-f76" userLabel="PeerImage">
+                                <rect key="frame" x="-968" y="-342" width="1024" height="1024"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yP3-9N-fvb" userLabel="ParentName">
-                                <rect key="frame" x="64" y="144" width="311" height="52"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="42"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yP3-9N-fvb" userLabel="ParentName">
+                                <rect key="frame" x="64" y="144" width="295" height="52"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="JPV-Nv-l2n"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="295" id="edg-Vp-wwC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="42"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -646,8 +670,12 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="ljm-v3-8g9" firstAttribute="centerX" secondItem="4UC-dV-YyJ" secondAttribute="centerX" id="5Yf-Wz-uDz"/>
+                            <constraint firstItem="yP3-9N-fvb" firstAttribute="trailing" secondItem="4UC-dV-YyJ" secondAttribute="trailingMargin" id="7W0-10-auJ"/>
                             <constraint firstItem="ljm-v3-8g9" firstAttribute="bottom" secondItem="6Vp-Xo-GvN" secondAttribute="bottom" id="Gb2-3l-YPA"/>
+                            <constraint firstItem="yP3-9N-fvb" firstAttribute="top" secondItem="6Vp-Xo-GvN" secondAttribute="top" constant="56" id="MNr-IF-rCp"/>
                             <constraint firstItem="ljm-v3-8g9" firstAttribute="top" secondItem="6Vp-Xo-GvN" secondAttribute="top" constant="254" id="QQ1-3r-fBT"/>
+                            <constraint firstItem="yP3-9N-fvb" firstAttribute="centerY" secondItem="KmF-kX-f76" secondAttribute="centerY" id="bed-dN-XIr"/>
+                            <constraint firstItem="yP3-9N-fvb" firstAttribute="leading" secondItem="KmF-kX-f76" secondAttribute="trailing" constant="8" id="t8u-Va-Ke8"/>
                             <constraint firstItem="ljm-v3-8g9" firstAttribute="width" secondItem="6Vp-Xo-GvN" secondAttribute="width" id="tQo-XF-Lfe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Vp-Xo-GvN"/>
@@ -669,11 +697,11 @@
             </objects>
             <point key="canvasLocation" x="1682.4000000000001" y="925.86206896551732"/>
         </scene>
-        <!--Item-->
+        <!--Member-->
         <scene sceneID="kd9-9M-IfG">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Hcp-5O-p0T" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="person.2.fill" catalog="system" id="TBi-Pu-CWv"/>
+                    <tabBarItem key="tabBarItem" title="Member" image="person.2.fill" catalog="system" id="TBi-Pu-CWv" userLabel="Member"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8QL-15-Dut">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>

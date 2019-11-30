@@ -18,6 +18,9 @@
 		B10A9E122373F46E00209871 /* MCSession+sendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10A9E112373F46E00209871 /* MCSession+sendRequest.swift */; };
 		B125D88D235F426C00D383E7 /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B125D88C235F426C00D383E7 /* Artwork.swift */; };
 		C40DC880236570DD00E80AB1 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */; };
+		C43634CE23922708000CE58F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43634CD23922708000CE58F /* TabBarController.swift */; };
+		C43634D1239227F6000CE58F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C43634D0239227F6000CE58F /* SnapKit */; };
+		C43634D323923485000CE58F /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43634D223923485000CE58F /* DummyViewController.swift */; };
 		C436A8562350B16B009F6498 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = C436A8552350B16B009F6498 /* Song.swift */; };
 		C436A8582350D36F009F6498 /* SearchMusicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C436A8572350D36F009F6498 /* SearchMusicTableViewCell.swift */; };
 		C447ACA6234882F900D535EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447ACA5234882F900D535EB /* AppDelegate.swift */; };
@@ -65,6 +68,8 @@
 		B10A9E112373F46E00209871 /* MCSession+sendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MCSession+sendRequest.swift"; sourceTree = "<group>"; };
 		B125D88C235F426C00D383E7 /* Artwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
 		C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		C43634CD23922708000CE58F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		C43634D223923485000CE58F /* DummyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
 		C436A8552350B16B009F6498 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		C436A8572350D36F009F6498 /* SearchMusicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicTableViewCell.swift; sourceTree = "<group>"; };
 		C447ACA2234882F900D535EB /* DJYusaku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DJYusaku.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,6 +99,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4A3C95A2357E908005304AA /* SwiftyJSON in Frameworks */,
+				C43634D1239227F6000CE58F /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,10 +148,13 @@
 				B125D88C235F426C00D383E7 /* Artwork.swift */,
 				C46CE2072383EBC000492AC3 /* BatterySaverViewController.swift */,
 				106B1C2E2372C696008684EB /* ConnectionController.swift */,
+				106B1C302372C83F008684EB /* ConnectionControllerDelegate.swift */,
+				C43634D223923485000CE58F /* DummyViewController.swift */,
 				106B1C2C2372BE1F008684EB /* ListenerConnectableDJsTableViewCell.swift */,
 				106B1C2A2372BCA8008684EB /* ListenerConnectionViewController.swift */,
 				B10A9E112373F46E00209871 /* MCSession+sendRequest.swift */,
-				106B1C302372C83F008684EB /* ConnectionControllerDelegate.swift */,
+				418177812388EEF300A7B02A /* MemberTableViewCell.swift */,
+				4181777B2388DC5E00A7B02A /* MemberViewController.swift */,
 				1049BAF723877093001DCFD8 /* MessageData.swift */,
 				411F288A23616EEB00BA96C1 /* PlayerQueue.swift */,
 				C4FDD0CB2356EA8F007569B1 /* RequestsMusicTableViewCell.swift */,
@@ -156,12 +165,11 @@
 				C4D25957235205D10066FCE0 /* Secrets.swift */,
 				C4D25959235205EC0066FCE0 /* Secrets+Local.swift */,
 				C436A8552350B16B009F6498 /* Song.swift */,
+				C43634CD23922708000CE58F /* TabBarController.swift */,
 				C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */,
 				C447ACB0234882FB00D535EB /* Assets.xcassets */,
 				C447ACB2234882FB00D535EB /* LaunchScreen.storyboard */,
 				C447ACAD234882F900D535EB /* Main.storyboard */,
-				4181777B2388DC5E00A7B02A /* MemberViewController.swift */,
-				418177812388EEF300A7B02A /* MemberTableViewCell.swift */,
 			);
 			path = DJYusaku;
 			sourceTree = "<group>";
@@ -202,6 +210,7 @@
 			name = DJYusaku;
 			packageProductDependencies = (
 				C4A3C9592357E908005304AA /* SwiftyJSON */,
+				C43634D0239227F6000CE58F /* SnapKit */,
 			);
 			productName = DJYusaku;
 			productReference = C447ACA2234882F900D535EB /* DJYusaku.app */;
@@ -277,6 +286,7 @@
 			mainGroup = C447AC99234882F900D535EB;
 			packageReferences = (
 				C4A3C9582357E908005304AA /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				C43634CF239227F6000CE58F /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = C447ACA3234882F900D535EB /* Products */;
 			projectDirPath = "";
@@ -326,6 +336,7 @@
 				C4CF9725235163EF00C8A102 /* SearchViewController.swift in Sources */,
 				4181777C2388DC5E00A7B02A /* MemberViewController.swift in Sources */,
 				106B1C2D2372BE1F008684EB /* ListenerConnectableDJsTableViewCell.swift in Sources */,
+				C43634D323923485000CE58F /* DummyViewController.swift in Sources */,
 				1049BAF823877093001DCFD8 /* MessageData.swift in Sources */,
 				411F288B23616EEB00BA96C1 /* PlayerQueue.swift in Sources */,
 				C4FDD0CC2356EA8F007569B1 /* RequestsMusicTableViewCell.swift in Sources */,
@@ -334,6 +345,7 @@
 				106B1C2F2372C696008684EB /* ConnectionController.swift in Sources */,
 				C447ACAA234882F900D535EB /* RequestsViewController.swift in Sources */,
 				C447ACA6234882F900D535EB /* AppDelegate.swift in Sources */,
+				C43634CE23922708000CE58F /* TabBarController.swift in Sources */,
 				106B1C2B2372BCA8008684EB /* ListenerConnectionViewController.swift in Sources */,
 				C4D2595A235205EC0066FCE0 /* Secrets+Local.swift in Sources */,
 				B10A9E122373F46E00209871 /* MCSession+sendRequest.swift in Sources */,
@@ -680,6 +692,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		C43634CF239227F6000CE58F /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
 		C4A3C9582357E908005304AA /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
@@ -691,6 +711,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C43634D0239227F6000CE58F /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C43634CF239227F6000CE58F /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
 		C4A3C9592357E908005304AA /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C4A3C9582357E908005304AA /* XCRemoteSwiftPackageReference "SwiftyJSON" */;

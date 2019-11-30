@@ -49,5 +49,6 @@ class SearchMusicTableViewCell: UITableViewCell {
                 self.window?.rootViewController?.present(alert, animated: true)
             }
         }
+        self.window?.rootViewController?.dismiss(animated: true)    // 1曲追加するごとにSearchViewを閉じる
     }
 }
