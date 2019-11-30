@@ -50,6 +50,13 @@ class ConnectionController: NSObject {
         }
         browser = MCNearbyServiceBrowser(peer: self.peerID, serviceType: self.serviceType)
         browser.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(viewWillEnterForeground), name: .DJYusakuRequestVCWillEnterForeground, object: nil)
+    }
+    
+    @objc func viewWillEnterForeground() {
+        guard connectedDJ != nil else { return }
+        ConnectionController.shared.browser.invitePeer(connectedDJ, to: ConnectionController.shared.session, withContext: nil, timeout: 10.0)
     }
     
     func startAdvertise() {
@@ -84,8 +91,12 @@ extension ConnectionController: MCSessionDelegate {
                     songs.append(PlayerQueue.shared.get(at: i)!)
                 }
                 let songsData = try! JSONEncoder().encode(songs)
-                print(songsData)
-                try! ConnectionController.shared.session.send(songsData, toPeers: [peerID], with: .unreliable)
+                let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.Name.requestSongs, value: songsData))
+                do {
+                    try ConnectionController.shared.session.send(messageData, toPeers: [peerID], with: .unreliable)
+                } catch let error {
+                    print(error)
+                }
             }
         } else {
             print("Peer \(peerID.displayName) is not connected.")
@@ -100,9 +111,16 @@ extension ConnectionController: MCSessionDelegate {
             let song = try! JSONDecoder().decode(Song.self, from: data)
             PlayerQueue.shared.add(with: song)
         } else {                                    // リスナーがデータを受け取ったとき
-            let songs = try! JSONDecoder().decode([Song].self, from: data)
-            receivedSongs = songs
-            NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
+            let messageData = try! JSONDecoder().decode(MessageData.self, from: data)
+            switch messageData.desc {
+                case MessageData.Name.requestSongs:
+                    let songs = try! JSONDecoder().decode([Song].self, from: messageData.value)
+                    receivedSongs = songs
+                    NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
+                case MessageData.Name.nowPlaying:
+                    let nowPlaying = try! JSONDecoder().decode(Song.self, from: messageData.value)
+                    NotificationCenter.default.post(name: .DJYusakuConnectionControllerNowPlayingSongDidChange, object: nil, userInfo: ["song": nowPlaying as Any])
+            }
         }
         
         self.delegate?.connectionController(didReceiveData: data, from: peerID)
