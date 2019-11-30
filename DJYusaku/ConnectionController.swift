@@ -10,6 +10,7 @@ import Foundation
 import MultipeerConnectivity
 
 extension Notification.Name{
+    static let DJYusakuConnectionControllerNowPlayingSongDidChange = Notification.Name("DJYusakuConnectionControllerNowPlayingSongDidChange")
     static let DJYusakuPeerConnectionStateDidUpdate = Notification.Name("DJYusakuPeerConnectionStateDidUpdate")
 }
 
