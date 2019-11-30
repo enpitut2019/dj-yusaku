@@ -9,6 +9,7 @@
 import UIKit
 
 class DummyViewController: UIViewController {
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -16,4 +17,5 @@ class DummyViewController: UIViewController {
         let vc = storyboard.instantiateViewController(withIdentifier: "SearchNavigation")
         self.present(vc, animated: true)
     }
+    
 }
