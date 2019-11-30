@@ -392,7 +392,7 @@
             </objects>
             <point key="canvasLocation" x="1729" y="1727"/>
         </scene>
-        <!--Add Request-->
+        <!--Request Song-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
                 <viewController id="8rJ-Kc-sve" customClass="SearchViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
@@ -479,7 +479,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Add Request" id="KdW-M4-Iev">
+                    <navigationItem key="navigationItem" title="Request Song" id="KdW-M4-Iev">
                         <barButtonItem key="rightBarButtonItem" title="Close" id="0pZ-kI-uKF">
                             <connections>
                                 <action selector="cancelButton:" destination="8rJ-Kc-sve" id="tg6-Zz-Y6t"/>
@@ -713,8 +713,8 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Hcp-5O-p0T" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Session" image="person.3.fill" catalog="system" id="TBi-Pu-CWv" userLabel="Member"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8QL-15-Dut">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="8QL-15-Dut">
+                        <rect key="frame" x="0.0" y="44" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
