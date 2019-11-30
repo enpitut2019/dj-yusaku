@@ -19,7 +19,7 @@ class RequestsViewController: UIViewController {
     @IBOutlet weak var playingTitle: UILabel!
     @IBOutlet weak var playButton: UIButton!
     
-    private var isViewAppearedAtLeastOnce: Bool = false;
+    static private var isViewAppearedAtLeastOnce: Bool = false;
     
     private let cloudServiceController = SKCloudServiceController()
     private let defaultArtwork : UIImage = UIImage()
@@ -59,16 +59,14 @@ class RequestsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if !self.isViewAppearedAtLeastOnce {  // 初回だけ表示する画面遷移に使う
+        if !RequestsViewController.isViewAppearedAtLeastOnce {  // 初回だけ表示する画面遷移に使う
             // 初回にはWelcomeViewをモーダルを表示
             let storyboard: UIStoryboard = self.storyboard!
             let welcomNavigationController = storyboard.instantiateViewController(withIdentifier: "WelcomeNavigation")
             welcomNavigationController.isModalInPresentation = true
             self.present(welcomNavigationController, animated: true)
-            
-            // 2度目以降の表示はしない
-            self.isViewAppearedAtLeastOnce = true
         }
+        RequestsViewController.isViewAppearedAtLeastOnce = true
     }
     
     @objc func handleRequestsDidUpdate(){
