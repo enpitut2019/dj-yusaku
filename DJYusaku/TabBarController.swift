@@ -14,7 +14,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.delegate = self
         
         let centerView = UIView()
         self.tabBar.addSubview(centerView)
