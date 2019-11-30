@@ -392,7 +392,7 @@
             </objects>
             <point key="canvasLocation" x="1729" y="1727"/>
         </scene>
-        <!--Request Song-->
+        <!--New Request-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
                 <viewController id="8rJ-Kc-sve" customClass="SearchViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
@@ -463,7 +463,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Request Song" id="KdW-M4-Iev">
+                    <navigationItem key="navigationItem" title="New Request" id="KdW-M4-Iev">
                         <barButtonItem key="rightBarButtonItem" title="Close" id="0pZ-kI-uKF">
                             <connections>
                                 <action selector="closeButton:" destination="8rJ-Kc-sve" id="tg6-Zz-Y6t"/>
