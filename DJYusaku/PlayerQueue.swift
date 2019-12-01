@@ -201,4 +201,12 @@ class PlayerQueue{
         return self.urlCorrespondence[storeID]
     }
     
+    func getNowPlaying() -> Song? {
+        guard let item = self.mpAppController.nowPlayingItem else { return nil }
+        return Song(title:      item.title ?? "Loading...",
+                    artist:     item.artist ?? "Loading...",
+                    artworkUrl: self.urlCorrespondence[item.playbackStoreID] ?? URL(fileURLWithPath: ""),
+                    id:         item.playbackStoreID)
+    }
+    
 }
