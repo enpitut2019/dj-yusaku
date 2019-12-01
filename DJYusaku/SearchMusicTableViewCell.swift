@@ -13,9 +13,6 @@ class SearchMusicTableViewCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var artist: UILabel!
     @IBOutlet weak var artwork: UIImageView!
-    @IBOutlet weak var button: UIButton!
-    
-    var song : Song!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,30 +21,5 @@ class SearchMusicTableViewCell: UITableViewCell {
         artwork.layer.cornerRadius = artwork.frame.size.width * 0.05
         artwork.clipsToBounds = true
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
     
-    //+ボタンを押したらRequestsViewControllerに曲を追加する
-    @IBAction func sendRequest(_ sender: Any) {
-        //ボタンを連続で押させないようにする
-        button.isEnabled = false
-        if ConnectionController.shared.isParent {   // 自分がDJのとき
-            PlayerQueue.shared.add(with: song) {
-                // リクエストが完了した旨をユーザーに通知する
-                let alert = UIAlertController(title: self.song.title, message: "was requested", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.window?.rootViewController?.present(alert, animated: true)
-            }
-        } else {                                    // 自分がリスナーのとき
-            let songData = try! JSONEncoder().encode(song)
-            ConnectionController.shared.session.sendRequest(songData, toPeers: [ConnectionController.shared.connectedDJ], with: .unreliable) {
-                // FIXME: sendが通ったらの実行なのでPlayerQueueに追加されたとは限らない
-                let alert = UIAlertController(title: self.song.title, message: "was requested", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.window?.rootViewController?.present(alert, animated: true)
-            }
-        }
-    }
 }

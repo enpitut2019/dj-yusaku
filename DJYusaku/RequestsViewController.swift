@@ -19,7 +19,7 @@ class RequestsViewController: UIViewController {
     @IBOutlet weak var playingTitle: UILabel!
     @IBOutlet weak var playButton: UIButton!
     
-    private var isViewAppearedAtLeastOnce: Bool = false;
+    static private var isViewAppearedAtLeastOnce: Bool = false;
     
     private let cloudServiceController = SKCloudServiceController()
     private let defaultArtwork : UIImage = UIImage()
@@ -59,15 +59,24 @@ class RequestsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if !self.isViewAppearedAtLeastOnce {  // 初回だけ表示する画面遷移に使う
+        if !RequestsViewController.isViewAppearedAtLeastOnce {  // 初回だけ表示する画面遷移に使う
             // 初回にはWelcomeViewをモーダルを表示
             let storyboard: UIStoryboard = self.storyboard!
-            let welcomNavigationController = storyboard.instantiateViewController(withIdentifier: "WelcomeNavigation")
-            welcomNavigationController.isModalInPresentation = true
-            self.present(welcomNavigationController, animated: true)
-            
-            // 2度目以降の表示はしない
-            self.isViewAppearedAtLeastOnce = true
+            let welcomeNavigationController = storyboard.instantiateViewController(withIdentifier: "WelcomeNavigation")
+            welcomeNavigationController.isModalInPresentation = true
+            self.present(welcomeNavigationController, animated: true)
+        }
+        RequestsViewController.isViewAppearedAtLeastOnce = true
+        
+        // NowPlayingとTableViewの表示を更新する
+        guard let nowPlayingSong = PlayerQueue.shared.getNowPlaying() else {return}
+        DispatchQueue.global().async {
+            let image = Artwork.fetch(url: nowPlayingSong.artworkUrl)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.playingTitle.text    = nowPlayingSong.title
+                self.playingArtwork.image = image
+            }
         }
     }
     
@@ -78,23 +87,20 @@ class RequestsViewController: UIViewController {
     }
     
     @objc func handleNowPlayingItemDidChange(){
-        guard let nowPlayingItem = PlayerQueue.shared.mpAppController.nowPlayingItem else { return }
+        guard let nowPlayingSong = PlayerQueue.shared.getNowPlaying() else {return}
         
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-            self.playingTitle.text    = nowPlayingItem.title
-            self.playingArtwork.image = nowPlayingItem.artwork?.image(at: CGSize(width: 48, height: 48))
+        DispatchQueue.global().async {
+            let image = Artwork.fetch(url: nowPlayingSong.artworkUrl)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.playingTitle.text    = nowPlayingSong.title
+                self.playingArtwork.image = image
+            }
         }
         
         guard ConnectionController.shared.session.connectedPeers.count != 0 else { return }
         
-        let nowPlaying = Song(
-            title      : nowPlayingItem.title ?? "Loding...",
-            artist     : "",
-            artworkUrl : PlayerQueue.shared.getArtworkURL(storeID: nowPlayingItem.playbackStoreID) ?? URL(fileURLWithPath: ""),
-            id         : ""
-        )
-        let nowPlayingData = try! JSONEncoder().encode(nowPlaying)
+        let nowPlayingData = try! JSONEncoder().encode(nowPlayingSong)
         let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.Name.nowPlaying, value: nowPlayingData))
         do {
             try ConnectionController.shared.session.send(messageData, toPeers: ConnectionController.shared.session.connectedPeers, with: .unreliable)

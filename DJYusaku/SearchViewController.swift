@@ -50,6 +50,11 @@ class SearchViewController: UIViewController {
             self.storefrontCountryCode = storefrontCountryCode
         }
     }
+    
+    @IBAction func closeButton(_ sender: Any) {
+        self.dismiss(animated: true)
+    }
+    
 }
 
 // MARK: - UITableViewDataSource
@@ -63,11 +68,9 @@ extension SearchViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchMusicTableViewCell", for: indexPath) as! SearchMusicTableViewCell
         
         let item = results[indexPath.row]
-        cell.song             = item
         cell.title.text       = item.title
         cell.artist.text      = item.artist
         cell.artwork.image    = defaultArtwork
-        cell.button.isEnabled = true
         
         DispatchQueue.global().async {
             let image = Artwork.fetch(url: item.artworkUrl)
@@ -83,7 +86,24 @@ extension SearchViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension SearchViewController: UITableViewDelegate {
-    /* TODO: 未実装 */
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: false)  // セルの選択を解除
+        
+        let song = results[indexPath.row]
+        let viewController = self.presentingViewController ?? self   // 閉じる対象のViewController
+        if ConnectionController.shared.isParent {   // 自分がDJのとき
+            PlayerQueue.shared.add(with: song) { [unowned viewController] in
+                viewController.dismiss(animated: true)    // 1曲追加するごとにViewを閉じる
+            }
+        } else {                                    // 自分がリスナーのとき
+            let songData = try! JSONEncoder().encode(song)
+            ConnectionController.shared.session.sendRequest(songData, toPeers: [ConnectionController.shared.connectedDJ], with: .unreliable) { [unowned viewController] in
+                viewController.dismiss(animated: true)    // 1曲追加するごとにViewを閉じる
+            }
+        }
+    }
+    
 }
     
 // MARK: - UISearchResultsUpdating

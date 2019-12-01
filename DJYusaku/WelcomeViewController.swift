@@ -13,6 +13,8 @@ class WelcomeViewController: UIViewController {
     
     @IBOutlet weak var doneButtonItem: UIBarButtonItem!
     
+    static private var isViewAppearedAtLeastOnce: Bool = false;
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -20,7 +22,8 @@ class WelcomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.doneButtonItem.isEnabled = self.isModalInPresentation
+        self.doneButtonItem.isEnabled = WelcomeViewController.isViewAppearedAtLeastOnce
+        WelcomeViewController.isViewAppearedAtLeastOnce = true
     }
     
     /*
