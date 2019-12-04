@@ -198,13 +198,13 @@ extension RequestsViewController: UITableViewDataSource {
         return cell
     }
     
-    // 全セルが削除可能
+    // 先頭を除く全セルが削除可能
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         guard ConnectionController.shared.isParent != nil else { return false }
         return ConnectionController.shared.isParent && indexPath.row != 0
     }
     
-    // 全セルが編集可能
+    // 先頭を除く全セルが編集可能
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         guard ConnectionController.shared.isParent != nil else { return false }
         return ConnectionController.shared.isParent && indexPath.row != 0
