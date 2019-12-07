@@ -198,13 +198,13 @@ extension RequestsViewController: UITableViewDataSource {
         return cell
     }
     
-    // 全セルが削除可能
+    // 編集・削除機能を有効にする
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         guard ConnectionController.shared.isParent != nil else { return false }
         return ConnectionController.shared.isParent
     }
     
-    // 全セルが編集可能
+    // 編集機能を有効にする
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         guard ConnectionController.shared.isParent != nil else { return false }
         return ConnectionController.shared.isParent
@@ -221,6 +221,15 @@ extension RequestsViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension RequestsViewController: UITableViewDelegate {
+    //編集だけ有効
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .none
+    }
+   //編集モード時のインデントを詰める（ないとセルの左側に空白が生まれる）
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
     // セルの編集時の挙動
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
