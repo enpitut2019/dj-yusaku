@@ -588,7 +588,7 @@
         <scene sceneID="m4A-BZ-CU1">
             <objects>
                 <viewController title="Member" id="ODD-3q-aMv" customClass="MemberViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="4UC-dV-YyJ">
+                    <view key="view" tag="3" contentMode="scaleToFill" id="4UC-dV-YyJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

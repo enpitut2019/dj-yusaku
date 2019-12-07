@@ -10,6 +10,9 @@ import UIKit
 import SnapKit
 
 class TabBarController: UITabBarController {
+    
+    var requestTabImageView: UIImageView!
+    var sessionTabImageView: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +37,25 @@ class TabBarController: UITabBarController {
         plusButtonView.snp.makeConstraints { (make) -> Void in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
+        }
+        
+        self.sessionTabImageView = self.tabBar.subviews[0].subviews.first as? UIImageView
+        self.sessionTabImageView.contentMode = .center
+    }
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        switch item.tag {
+        case 3:
+            self.sessionTabImageView.transform = CGAffineTransform.identity
+            UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseInOut, animations: { () -> Void in
+                
+                let rotation = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2))
+                self.sessionTabImageView.transform = rotation
+                
+            }, completion: nil)
+
+        default:
+            break
         }
     }
     
