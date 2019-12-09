@@ -39,7 +39,7 @@ class TabBarController: UITabBarController {
             make.centerY.equalToSuperview()
         }
         
-        self.sessionTabImageView = self.tabBar.subviews[0].subviews.first as? UIImageView
+        self.sessionTabImageView = self.tabBar.subviews[2].subviews.first as? UIImageView
         self.sessionTabImageView.contentMode = .center
     }
     
@@ -48,11 +48,14 @@ class TabBarController: UITabBarController {
         case 3:
             self.sessionTabImageView.transform = CGAffineTransform.identity
             UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseInOut, animations: { () -> Void in
-                
-                let rotation = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2))
-                self.sessionTabImageView.transform = rotation
-                
-            }, completion: nil)
+                self.sessionTabImageView.transform = CGAffineTransform(scaleX: CGFloat(1.05), y: CGFloat(1.05))
+            }, completion: {(_) in
+//                UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseInOut, animations: { () -> Void in
+//                    self.sessionTabImageView.transform = CGAffineTransform(scaleX: CGFloat(1/1.2), y: CGFloat(1/1.2))
+//                }, completion: nil)
+            })
+
+            break
 
         default:
             break

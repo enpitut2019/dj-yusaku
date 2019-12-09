@@ -588,7 +588,7 @@
         <scene sceneID="m4A-BZ-CU1">
             <objects>
                 <viewController title="Member" id="ODD-3q-aMv" customClass="MemberViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" tag="3" contentMode="scaleToFill" id="4UC-dV-YyJ">
+                    <view key="view" contentMode="scaleToFill" id="4UC-dV-YyJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -695,7 +695,7 @@
         <scene sceneID="kd9-9M-IfG">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Hcp-5O-p0T" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Session" image="person.3.fill" catalog="system" id="TBi-Pu-CWv" userLabel="Member"/>
+                    <tabBarItem key="tabBarItem" tag="3" title="Session" image="person.3.fill" catalog="system" id="TBi-Pu-CWv" userLabel="Member"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="8QL-15-Dut">
                         <rect key="frame" x="0.0" y="44" width="375" height="96"/>
