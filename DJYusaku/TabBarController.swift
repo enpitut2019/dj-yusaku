@@ -47,13 +47,14 @@ class TabBarController: UITabBarController {
         switch item.tag {
         case 3:
             self.sessionTabImageView.transform = CGAffineTransform.identity
-            UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseInOut, animations: { () -> Void in
-                self.sessionTabImageView.transform = CGAffineTransform(scaleX: CGFloat(1.05), y: CGFloat(1.05))
-            }, completion: {(_) in
-//                UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseInOut, animations: { () -> Void in
-//                    self.sessionTabImageView.transform = CGAffineTransform(scaleX: CGFloat(1/1.2), y: CGFloat(1/1.2))
-//                }, completion: nil)
-            })
+            UIView.animateKeyframes(withDuration: 0.4, delay: 0, options: [], animations: {() -> Void in
+                UIView.addKeyframe(withRelativeStartTime: 0.05, relativeDuration: 0.3, animations: {() -> Void in
+                    self.sessionTabImageView.transform = CGAffineTransform(scaleX: CGFloat(0.8), y: CGFloat(0.8))
+                })
+                UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.3, animations: {() -> Void in
+                    self.sessionTabImageView.transform = CGAffineTransform.identity
+                })
+            }, completion: nil)
 
             break
 
