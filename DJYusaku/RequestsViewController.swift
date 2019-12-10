@@ -52,6 +52,8 @@ class RequestsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlaybackStateDidChange), name: .DJYusakuPlayerQueuePlaybackStateDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(changeListenerNowPlaying), name: .DJYusakuConnectionControllerNowPlayingSongDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(viewWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(alertDisconnectedFromDJ), name:
+            .DJYusakuDisconnectedFromDJ, object: nil)
         
         navigationItem.rightBarButtonItem = editButtonItem
     }
@@ -138,6 +140,18 @@ class RequestsViewController: UIViewController {
                 object: nil
             )
         }
+    }
+    
+    @objc func alertDisconnectedFromDJ() {
+        let alertController = UIAlertController(title:   "Disconnected",
+                                                message: "Your device disconnected from DJ device.",
+                                                preferredStyle: UIAlertController.Style.alert)
+        let alertButton = UIAlertAction(title: "OK",
+                                        style: UIAlertAction.Style.cancel,
+                                        handler: nil)
+        alertController.addAction(alertButton)
+        
+        self.present(alertController, animated: true, completion: nil)
     }
     
     @IBAction func playButton(_ sender: Any) {

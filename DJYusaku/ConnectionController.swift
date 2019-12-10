@@ -12,6 +12,8 @@ import MultipeerConnectivity
 extension Notification.Name{
     static let DJYusakuConnectionControllerNowPlayingSongDidChange = Notification.Name("DJYusakuConnectionControllerNowPlayingSongDidChange")
     static let DJYusakuPeerConnectionStateDidUpdate = Notification.Name("DJYusakuPeerConnectionStateDidUpdate")
+    static let DJYusakuDisconnectedFromDJ =
+        Notification.Name("DJYusakuDisconnectedFromDJ")
 }
 
 class ConnectionController: NSObject {
@@ -99,8 +101,19 @@ extension ConnectionController: MCSessionDelegate {
                     print(error)
                 }
             }
-        } else {
+        } else if state == .notConnected { //接続が切れたとき
             print("Peer \(peerID.displayName) is not connected.")
+            print(peerID)
+            print(ConnectionController.shared.connectedDJ ?? "fuck")
+            print(peerID == ConnectionController.shared.connectedDJ)
+            if !ConnectionController.shared.isParent {
+                if peerID == ConnectionController.shared.connectedDJ {
+                    NotificationCenter.default.post(
+                        name: .DJYusakuDisconnectedFromDJ,
+                        object: nil
+                    )
+                }
+            }
         }
     }
     
