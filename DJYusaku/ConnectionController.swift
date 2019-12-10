@@ -104,7 +104,7 @@ extension ConnectionController: MCSessionDelegate {
         } else if state == .notConnected { //接続が切れたとき
             print("Peer \(peerID.displayName) is not connected.")
             print(peerID)
-            print(ConnectionController.shared.connectedDJ ?? "fuck")
+            print(ConnectionController.shared.connectedDJ ?? "none")
             print(peerID == ConnectionController.shared.connectedDJ)
             if !ConnectionController.shared.isParent {
                 if peerID == ConnectionController.shared.connectedDJ {
