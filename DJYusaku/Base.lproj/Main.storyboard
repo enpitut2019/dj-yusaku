@@ -488,7 +488,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="pi3-Sl-LuS"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" id="e6F-GQ-N3B"/>
+                    <tabBarItem key="tabBarItem" tag="1" title="" id="e6F-GQ-N3B"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="24G-CH-p3I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -695,7 +695,7 @@
         <scene sceneID="kd9-9M-IfG">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Hcp-5O-p0T" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="3" title="Session" image="person.3.fill" catalog="system" id="TBi-Pu-CWv" userLabel="Member"/>
+                    <tabBarItem key="tabBarItem" tag="2" title="Session" image="person.3.fill" catalog="system" id="TBi-Pu-CWv" userLabel="Member"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="8QL-15-Dut">
                         <rect key="frame" x="0.0" y="44" width="375" height="96"/>

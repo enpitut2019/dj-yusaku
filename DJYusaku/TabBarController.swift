@@ -11,6 +11,7 @@ import SnapKit
 
 class TabBarController: UITabBarController {
     
+    // FIXME: 変数名
     var requestTabImageView: UIImageView!
     var sessionTabImageView: UIImageView!
 
@@ -39,25 +40,35 @@ class TabBarController: UITabBarController {
             make.centerY.equalToSuperview()
         }
         
+        self.requestTabImageView = self.tabBar.subviews[0].subviews.first as? UIImageView
+        self.requestTabImageView.contentMode = .center
+        
         self.sessionTabImageView = self.tabBar.subviews[2].subviews.first as? UIImageView
         self.sessionTabImageView.contentMode = .center
+        
+    }
+    
+    //tabBarを押した時のバウンドしているアニメーション
+    func bounceAnimation(tabImageView: UIImageView){ //FIXME: 関数名
+        tabImageView.transform = CGAffineTransform.identity
+        UIView.animateKeyframes(withDuration: 0.4, delay: 0, options: [], animations: {() -> Void in
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3, animations: {() -> Void in
+                tabImageView.transform = CGAffineTransform(scaleX: CGFloat(0.8), y: CGFloat(0.8))
+            })
+            UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.3, animations: {() -> Void in
+                tabImageView.transform = CGAffineTransform.identity
+            })
+        }, completion: nil)
     }
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         switch item.tag {
-        case 3:
-            self.sessionTabImageView.transform = CGAffineTransform.identity
-            UIView.animateKeyframes(withDuration: 0.4, delay: 0, options: [], animations: {() -> Void in
-                UIView.addKeyframe(withRelativeStartTime: 0.05, relativeDuration: 0.3, animations: {() -> Void in
-                    self.sessionTabImageView.transform = CGAffineTransform(scaleX: CGFloat(0.8), y: CGFloat(0.8))
-                })
-                UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.3, animations: {() -> Void in
-                    self.sessionTabImageView.transform = CGAffineTransform.identity
-                })
-            }, completion: nil)
-
+        case 0:
+            bounceAnimation(tabImageView: self.requestTabImageView)
             break
-
+        case 2:
+            bounceAnimation(tabImageView: self.sessionTabImageView)
+            break
         default:
             break
         }
