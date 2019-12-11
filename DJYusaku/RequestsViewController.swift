@@ -200,6 +200,7 @@ extension RequestsViewController: UITableViewDataSource {
         
         cell.title.text    = song.title
         cell.artist.text   = song.artist
+        cell.nowPlayingIndicator.isHidden = PlayerQueue.shared.mpAppController.indexOfNowPlayingItem != indexPath.row
         
         DispatchQueue.global().async {
             let image = Artwork.fetch(url: song.artworkUrl)
