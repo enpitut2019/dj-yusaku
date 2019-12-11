@@ -38,6 +38,19 @@ class MemberViewController: UIViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        UIView.animateKeyframes(withDuration: 0.4, delay: 0, options: [], animations: {() -> Void in
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3, animations: {() -> Void in
+                self.parentImageView.transform = CGAffineTransform(scaleX: CGFloat(0.5), y: CGFloat(0.5))
+            })
+            UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.3, animations: {() -> Void in
+                self.parentImageView.transform = CGAffineTransform.identity
+            })
+        }, completion: nil)
+    }
+    
     @objc func handlePeerConnectionStateDidUpdate() {
         // 接続している端末＝親機はtableViewには表示しないので除去
         childPeers = ConnectionController.shared.session.connectedPeers.filter({ $0 != ConnectionController.shared.connectedDJ })

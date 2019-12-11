@@ -12,8 +12,9 @@ import SnapKit
 class TabBarController: UITabBarController {
     
     // FIXME: 変数名
-    var requestTabImageView: UIImageView!
-    var sessionTabImageView: UIImageView!
+    var requestTabImageView:  UIImageView!
+    var sessionTabImageView:  UIImageView!
+    var plusButtonView: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,12 +31,12 @@ class TabBarController: UITabBarController {
         }
         
         // プラスボタンを中央のエリアに配置
-        let plusButtonView = UIButton()
-        plusButtonView.setBackgroundImage(UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration.init(pointSize: 20, weight: UIImage.SymbolWeight.bold, scale: UIImage.SymbolScale.large)),
+        self.plusButtonView = UIButton()
+        self.plusButtonView.setBackgroundImage(UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration.init(pointSize: 20, weight: UIImage.SymbolWeight.bold, scale: UIImage.SymbolScale.large)),
                                           for: UIControl.State.normal)
-        plusButtonView.addTarget(self, action: #selector(plusButton), for: UIControl.Event.touchUpInside)
-        centerView.addSubview(plusButtonView)
-        plusButtonView.snp.makeConstraints { (make) -> Void in
+        self.plusButtonView.addTarget(self, action: #selector(plusButton), for: UIControl.Event.touchUpInside)
+        centerView.addSubview(self.plusButtonView)
+        self.plusButtonView.snp.makeConstraints { (make) -> Void in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
         }
@@ -45,6 +46,8 @@ class TabBarController: UITabBarController {
         
         self.sessionTabImageView = self.tabBar.subviews[2].subviews.first as? UIImageView
         self.sessionTabImageView.contentMode = .center
+        
+        
         
     }
     
@@ -75,7 +78,7 @@ class TabBarController: UITabBarController {
     }
     
     // 中央のプラスボタンが押されたとき
-    @objc func plusButton() {
+    @objc func plusButton() {        
         // SearchView(実際にはそのコンテナであるNavigation)を表示する
         let storyboard: UIStoryboard = self.storyboard!
         let vc = storyboard.instantiateViewController(withIdentifier: "SearchNavigation")
