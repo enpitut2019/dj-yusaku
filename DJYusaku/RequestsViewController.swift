@@ -198,44 +198,10 @@ extension RequestsViewController: UITableViewDataSource {
         return cell
     }
     
-    // 編集・削除機能を有効にする
+    // 編集・削除機能を無効にする
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        guard ConnectionController.shared.isParent != nil else { return false }
-        return ConnectionController.shared.isParent
-    }
-    
-    // 編集機能を有効にする
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        guard ConnectionController.shared.isParent != nil else { return false }
-        return ConnectionController.shared.isParent
-    }
-    
-    // 編集時の動作
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        if ConnectionController.shared.isParent { //自分がDJのとき
-            PlayerQueue.shared.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
-        }
-    }
-}
-
-// MARK: - UITableViewDelegate
-
-extension RequestsViewController: UITableViewDelegate {
-    //編集だけ有効
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .none
-    }
-   //編集モード時のインデントを詰める（ないとセルの左側に空白が生まれる）
-    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
     }
-    
-    // セルの編集時の挙動
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            PlayerQueue.shared.remove(at: indexPath.row) {
-                tableView.deleteRows(at: [indexPath], with: .left)  // 必ずPlayerQueueの処理後にTableViewの更新を行う
-            }
-        }
-    }
 }
+
+
