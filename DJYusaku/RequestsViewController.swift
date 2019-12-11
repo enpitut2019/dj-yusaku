@@ -52,7 +52,6 @@ class RequestsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(changeListenerNowPlaying), name: .DJYusakuConnectionControllerNowPlayingSongDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(viewWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         
-        navigationItem.rightBarButtonItem = editButtonItem
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -192,6 +191,15 @@ extension RequestsViewController: UITableViewDataSource {
                 cell.artwork.image = image  // 画像の取得に失敗していたらnilが入ることに注意
                 cell.artwork.setNeedsLayout()
             }
+        }
+        if(indexPath.row < PlayerQueue.shared.mpAppController.indexOfNowPlayingItem){
+            cell.title.alpha    = 0.3
+            cell.artist.alpha   = 0.3
+            cell.artwork.alpha  = 0.3
+        }else{
+            cell.title.alpha    = 1.0
+            cell.artist.alpha   = 1.0
+            cell.artwork.alpha  = 1.0
         }
         
         return cell
