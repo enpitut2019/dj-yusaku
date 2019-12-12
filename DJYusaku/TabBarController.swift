@@ -9,6 +9,12 @@
 import UIKit
 import SnapKit
 
+enum tabButtonTagNumber: Int{
+    case requests = 0
+    case plusEmptyView = 1
+    case session = 2
+}
+
 class TabBarController: UITabBarController {
     
     // FIXME: 変数名
@@ -66,10 +72,10 @@ class TabBarController: UITabBarController {
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         switch item.tag {
-        case 0:
+        case tabButtonTagNumber.requests.rawValue:
             bounceAnimation(tabImageView: self.requestTabImageView)
             break
-        case 2:
+        case tabButtonTagNumber.session.rawValue:
             bounceAnimation(tabImageView: self.sessionTabImageView)
             break
         default:
@@ -78,7 +84,7 @@ class TabBarController: UITabBarController {
     }
     
     // 中央のプラスボタンが押されたとき
-    @objc func plusButton() {        
+    @objc func plusButton() {
         // SearchView(実際にはそのコンテナであるNavigation)を表示する
         let storyboard: UIStoryboard = self.storyboard!
         let vc = storyboard.instantiateViewController(withIdentifier: "SearchNavigation")
