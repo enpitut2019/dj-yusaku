@@ -9,15 +9,14 @@
 import UIKit
 import SnapKit
 
-enum tabButtonTagNumber: Int{
-    case requests = 0
-    case plusEmptyView = 1
-    case session = 2
+enum TabButtonTagNumber: Int{
+    case requests   = 0
+    case plusButton = 1
+    case session    = 2
 }
 
 class TabBarController: UITabBarController {
     
-    // FIXME: 変数名
     var requestTabImageView:  UIImageView!
     var sessionTabImageView:  UIImageView!
     var plusButtonView: UIButton!
@@ -52,15 +51,12 @@ class TabBarController: UITabBarController {
         
         self.sessionTabImageView = self.tabBar.subviews[2].subviews.first as? UIImageView
         self.sessionTabImageView.contentMode = .center
-        
-        
-        
     }
     
     //tabBarを押した時のバウンドしているアニメーション
     func bounceAnimation(tabImageView: UIImageView){ //FIXME: 関数名
         tabImageView.transform = CGAffineTransform.identity
-        UIView.animateKeyframes(withDuration: 0.4, delay: 0, options: [], animations: {() -> Void in
+        UIView.animateKeyframes(withDuration: 0.2, delay: 0, options: [], animations: {() -> Void in
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3, animations: {() -> Void in
                 tabImageView.transform = CGAffineTransform(scaleX: CGFloat(0.8), y: CGFloat(0.8))
             })
@@ -71,11 +67,12 @@ class TabBarController: UITabBarController {
     }
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        switch item.tag {
-        case tabButtonTagNumber.requests.rawValue:
+        let tagNumber = TabButtonTagNumber(rawValue: item.tag)
+        switch tagNumber {
+        case .requests:
             bounceAnimation(tabImageView: self.requestTabImageView)
             break
-        case tabButtonTagNumber.session.rawValue:
+        case .session:
             bounceAnimation(tabImageView: self.sessionTabImageView)
             break
         default:
@@ -90,7 +87,6 @@ class TabBarController: UITabBarController {
         let vc = storyboard.instantiateViewController(withIdentifier: "SearchNavigation")
         self.present(vc, animated: true)
     }
-
 }
 
 // MARK: - UITabBarControllerDelegate

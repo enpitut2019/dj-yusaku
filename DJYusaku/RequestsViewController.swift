@@ -18,8 +18,10 @@ class RequestsViewController: UIViewController {
     @IBOutlet weak var playingArtwork: UIImageView!
     @IBOutlet weak var playingTitle: UILabel!
     @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var skipButton: UIButton!
     
-    static private var isViewAppearedAtLeastOnce: Bool = false;
+    static private var isViewAppearedAtLeastOnce: Bool = false
+    static private var indexOfNowPlayingItemOnListener: Int = 0
     
     private let cloudServiceController = SKCloudServiceController()
     private let defaultArtwork : UIImage = UIImage()
@@ -27,10 +29,8 @@ class RequestsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // tableViewのdelegate, dataSource設定
         tableView.dataSource = self
 
-        
         let footerView = UIView()
         footerView.frame.size.height = tableView.rowHeight
         tableView.tableFooterView = footerView // 空のセルの罫線を消す
@@ -48,10 +48,10 @@ class RequestsViewController: UIViewController {
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleRequestsDidUpdate), name: .DJYusakuPlayerQueueDidUpdate, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChange), name: .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChangeOnDJ), name: .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlaybackStateDidChange), name: .DJYusakuPlayerQueuePlaybackStateDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(changeListenerNowPlaying), name: .DJYusakuConnectionControllerNowPlayingSongDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(viewWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChangeOnListener), name: .DJYusakuConnectionControllerNowPlayingSongDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleViewWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         
     }
     
@@ -85,7 +85,7 @@ class RequestsViewController: UIViewController {
         }
     }
     
-    @objc func handleNowPlayingItemDidChange(){
+    @objc func handleNowPlayingItemDidChangeOnDJ(){
         guard let nowPlayingSong = PlayerQueue.shared.getNowPlaying() else {return}
         
         DispatchQueue.global().async {
@@ -108,6 +108,18 @@ class RequestsViewController: UIViewController {
         }
     }
     
+    // （リスナーのとき）NowPlayingItemが変わったとき呼ばれる
+    @objc func handleNowPlayingItemDidChangeOnListener(notification: NSNotification){
+        guard let song = notification.userInfo!["song"] as? Song else { return }
+        RequestsViewController.self.indexOfNowPlayingItemOnListener = song.index ?? 0
+        let image = Artwork.fetch(url: song.artworkUrl)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.playingTitle.text    = song.title
+            self.playingArtwork.image = image
+        }
+    }
+    
     @objc func handlePlaybackStateDidChange(notification: NSNotification) {
         switch PlayerQueue.shared.mpAppController.playbackState {
         case .playing:
@@ -119,17 +131,7 @@ class RequestsViewController: UIViewController {
         }
     }
     
-    @objc func changeListenerNowPlaying(notification: NSNotification){
-        guard let song = notification.userInfo!["song"] as? Song else { return }
-        let image = Artwork.fetch(url: song.artworkUrl)
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-            self.playingTitle.text    = song.title
-            self.playingArtwork.image = image
-        }
-    }
-    
-    @objc func viewWillEnterForeground() {
+    @objc func handleViewWillEnterForeground() {
         guard ConnectionController.shared.isParent != nil else { return }
         if !ConnectionController.shared.isParent {
             NotificationCenter.default.post(
@@ -183,9 +185,12 @@ extension RequestsViewController: UITableViewDataSource {
             song = ConnectionController.shared.receivedSongs[indexPath.row]
         }
         
+        let indexOfNowPlayingItem = ConnectionController.shared.isParent
+                                  ? PlayerQueue.shared.mpAppController.indexOfNowPlayingItem
+                                  : RequestsViewController.self.indexOfNowPlayingItemOnListener
         cell.title.text    = song.title
         cell.artist.text   = song.artist
-        cell.nowPlayingIndicator.isHidden = PlayerQueue.shared.mpAppController.indexOfNowPlayingItem != indexPath.row
+        cell.nowPlayingIndicator.isHidden = indexOfNowPlayingItem != indexPath.row
         
         DispatchQueue.global().async {
             let image = Artwork.fetch(url: song.artworkUrl)
@@ -194,11 +199,11 @@ extension RequestsViewController: UITableViewDataSource {
                 cell.artwork.setNeedsLayout()
             }
         }
-        if(indexPath.row < PlayerQueue.shared.mpAppController.indexOfNowPlayingItem){
+        if (indexPath.row < indexOfNowPlayingItem) {
             cell.title.alpha    = 0.3
             cell.artist.alpha   = 0.3
             cell.artwork.alpha  = 0.3
-        }else{
+        } else {
             cell.title.alpha    = 1.0
             cell.artist.alpha   = 1.0
             cell.artwork.alpha  = 1.0
