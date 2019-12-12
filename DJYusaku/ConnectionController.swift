@@ -85,7 +85,14 @@ class ConnectionController: NSObject {
 extension ConnectionController: MCSessionDelegate {
     // 接続ピアの状態が変化したとき呼ばれる
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        if state == .connected {
+        switch state {
+        case .notConnected:
+            print("Peer \(peerID.displayName) is not connected.")
+            break
+        case .connecting:
+            print("Peer \(peerID.displayName) is connecting...")
+            break
+        case .connected:
             NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
             print("Peer \(peerID.displayName) is connected.")
             if ConnectionController.shared.isParent {   // DJが新しい子機と接続したとき
@@ -101,19 +108,9 @@ extension ConnectionController: MCSessionDelegate {
                     print(error)
                 }
             }
-        } else if state == .notConnected { //接続が切れたとき
-            print("Peer \(peerID.displayName) is not connected.")
-            print(peerID)
-            print(ConnectionController.shared.connectedDJ ?? "none")
-            print(peerID == ConnectionController.shared.connectedDJ)
-            if !ConnectionController.shared.isParent {
-                if peerID == ConnectionController.shared.connectedDJ {
-                    NotificationCenter.default.post(
-                        name: .DJYusakuDisconnectedFromDJ,
-                        object: nil
-                    )
-                }
-            }
+            break
+        default:
+            break
         }
     }
     
