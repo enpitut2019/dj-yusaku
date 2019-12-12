@@ -27,6 +27,8 @@ class RequestsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // tableViewのdelegate, dataSource設定
+        tableView.dataSource = self
 
         
         let footerView = UIView()
