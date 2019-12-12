@@ -13,7 +13,9 @@ class RequestsMusicTableViewCell: UITableViewCell {
         @IBOutlet weak var title: UILabel!
         @IBOutlet weak var artist: UILabel!
         @IBOutlet weak var artwork: UIImageView!
-        
+        @IBOutlet weak var nowPlayingIndicator: UIImageView!
+    
+    
         override func awakeFromNib() {
             super.awakeFromNib()
             
