@@ -184,6 +184,7 @@
                         <outlet property="playButton" destination="0xl-kp-iyr" id="RvD-UI-h3b"/>
                         <outlet property="playingArtwork" destination="Klr-Js-sjB" id="pUO-iG-wKn"/>
                         <outlet property="playingTitle" destination="XGN-5n-Oha" id="bFZ-4V-axr"/>
+                        <outlet property="skipButton" destination="sYe-8j-hTb" id="179-Hw-Xv1"/>
                         <outlet property="tableView" destination="2ub-dF-W8m" id="Bwj-iS-B5T"/>
                     </connections>
                 </viewController>

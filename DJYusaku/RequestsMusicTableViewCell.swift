@@ -15,13 +15,28 @@ class RequestsMusicTableViewCell: UITableViewCell {
         @IBOutlet weak var artwork: UIImageView!
         @IBOutlet weak var nowPlayingIndicator: UIImageView!
     
-    
-        override func awakeFromNib() {
-            super.awakeFromNib()
-            
-            // アートワーク画像を角丸にする
-            artwork.layer.cornerRadius = artwork.frame.size.width * 0.05
-            artwork.clipsToBounds = true
-        }
-
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        // アートワーク画像を角丸にする
+        artwork.layer.cornerRadius = artwork.frame.size.width * 0.05
+        artwork.clipsToBounds = true
+        
+        self.animateNowPlayingIndicatior()
     }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.animateNowPlayingIndicatior()
+    }
+    
+    // インジケータを点滅させる
+    func animateNowPlayingIndicatior() {
+        UIView.transition(with: self.nowPlayingIndicator, duration: 1.0, options: [.repeat, .autoreverse, .beginFromCurrentState], animations: {
+            self.nowPlayingIndicator.alpha = 0.2
+        }) { _ in
+            self.nowPlayingIndicator.alpha = 1.0
+        }
+    }
+}

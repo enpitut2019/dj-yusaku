@@ -194,7 +194,8 @@ class PlayerQueue{
         return Song(title:      item.title ?? "Loading...",
                     artist:     item.artist ?? "Loading...",
                     artworkUrl: self.urlCorrespondence[item.playbackStoreID] ?? URL(fileURLWithPath: ""),
-                    id:         item.playbackStoreID)
+                    id:         item.playbackStoreID,
+                    index:      index)
     }
     
     func getArtworkURL(storeID: String) -> URL? {
@@ -206,7 +207,8 @@ class PlayerQueue{
         return Song(title:      item.title ?? "Loading...",
                     artist:     item.artist ?? "Loading...",
                     artworkUrl: self.urlCorrespondence[item.playbackStoreID] ?? URL(fileURLWithPath: ""),
-                    id:         item.playbackStoreID)
+                    id:         item.playbackStoreID,
+                    index:      self.mpAppController.indexOfNowPlayingItem)
     }
     
 }
