@@ -28,8 +28,8 @@ class RequestsViewController: UIViewController {
         super.viewDidLoad()
         
         // tableViewのdelegate, dataSource設定
-        tableView.delegate = self
         tableView.dataSource = self
+
         
         let footerView = UIView()
         footerView.frame.size.height = tableView.rowHeight
@@ -53,7 +53,6 @@ class RequestsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(changeListenerNowPlaying), name: .DJYusakuConnectionControllerNowPlayingSongDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(viewWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         
-        navigationItem.rightBarButtonItem = editButtonItem
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -195,39 +194,23 @@ extension RequestsViewController: UITableViewDataSource {
                 cell.artwork.setNeedsLayout()
             }
         }
+        if(indexPath.row < PlayerQueue.shared.mpAppController.indexOfNowPlayingItem){
+            cell.title.alpha    = 0.3
+            cell.artist.alpha   = 0.3
+            cell.artwork.alpha  = 0.3
+        }else{
+            cell.title.alpha    = 1.0
+            cell.artist.alpha   = 1.0
+            cell.artwork.alpha  = 1.0
+        }
         
         return cell
     }
     
-    // 全セルが削除可能
+    // 編集・削除機能を無効にする
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        guard ConnectionController.shared.isParent != nil else { return false }
-        return ConnectionController.shared.isParent
-    }
-    
-    // 全セルが編集可能
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        guard ConnectionController.shared.isParent != nil else { return false }
-        return ConnectionController.shared.isParent
-    }
-    
-    // 編集時の動作
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        if ConnectionController.shared.isParent { //自分がDJのとき
-            PlayerQueue.shared.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
-        }
+        return false
     }
 }
 
-// MARK: - UITableViewDelegate
 
-extension RequestsViewController: UITableViewDelegate {
-    // セルの編集時の挙動
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            PlayerQueue.shared.remove(at: indexPath.row) {
-                tableView.deleteRows(at: [indexPath], with: .left)  // 必ずPlayerQueueの処理後にTableViewの更新を行う
-            }
-        }
-    }
-}

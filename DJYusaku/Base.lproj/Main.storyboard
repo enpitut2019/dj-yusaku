@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -179,7 +179,6 @@
                                 <segue destination="oZn-cn-RSW" kind="presentation" modalPresentationStyle="fullScreen" id="2aB-me-eAW"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Edit" id="9eT-eG-bit"/>
                     </navigationItem>
                     <connections>
                         <outlet property="playButton" destination="0xl-kp-iyr" id="RvD-UI-h3b"/>
@@ -498,7 +497,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="pi3-Sl-LuS"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" id="e6F-GQ-N3B"/>
+                    <tabBarItem key="tabBarItem" tag="1" title="" id="e6F-GQ-N3B"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="24G-CH-p3I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -705,7 +704,7 @@
         <scene sceneID="kd9-9M-IfG">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Hcp-5O-p0T" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Session" image="person.3.fill" catalog="system" id="TBi-Pu-CWv" userLabel="Member"/>
+                    <tabBarItem key="tabBarItem" tag="2" title="Session" image="person.3.fill" catalog="system" id="TBi-Pu-CWv" userLabel="Member"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="8QL-15-Dut">
                         <rect key="frame" x="0.0" y="44" width="375" height="96"/>
