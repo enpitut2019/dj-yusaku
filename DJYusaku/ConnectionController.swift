@@ -107,6 +107,9 @@ extension ConnectionController: MCSessionDelegate {
                 } catch let error {
                     print(error)
                 }
+                //注意: これはPlayerQueueで実装しているNotification.Nameです
+                NotificationCenter.default.post(name:
+                    .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
             }
             break
         default:
