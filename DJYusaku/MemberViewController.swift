@@ -26,12 +26,15 @@ class MemberViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handlePeerConnectionStateDidUpdate), name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
         
         childPeers = ConnectionController.shared.session.connectedPeers.filter({ $0 != ConnectionController.shared.connectedDJ })
+        
+        if !ConnectionController.shared.isParent {
+            self.childPeers.insert(ConnectionController.shared.peerID, at: 0) //自分の端末を子機群の先頭に挿入
+        }
        
         DispatchQueue.main.async{
-            if (ConnectionController.shared.isParent){  //親機ならば、自分の端末名を表示する
+            if ConnectionController.shared.isParent {  //親機ならば、自分の端末名を表示する
                 self.parentNameLabel.text = ConnectionController.shared.peerID.displayName
             }else{                                      //子機ならば、
-                self.childPeers.insert(ConnectionController.shared.peerID, at: 0) //自分の端末を子機群の先頭に挿入
                 self.parentNameLabel.text = ConnectionController.shared.connectedDJ.displayName //接続している端末名＝親機を表示する
             }
             self.tableView.reloadData()
@@ -53,6 +56,9 @@ class MemberViewController: UIViewController {
         // 接続している端末＝親機はtableViewには表示しないので除去
         childPeers = ConnectionController.shared.session.connectedPeers.filter({ $0 != ConnectionController.shared.connectedDJ })
         
+        if !ConnectionController.shared.isParent {
+            self.childPeers.insert(ConnectionController.shared.peerID, at: 0) //自分の端末を子機群の先頭に挿入
+        }
         //親が変わったときに親機表示部分のLabelを更新
         DispatchQueue.main.async{
             if (ConnectionController.shared.isParent){  //親機ならば、自分の端末名を表示する
