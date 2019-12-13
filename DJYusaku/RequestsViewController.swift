@@ -132,8 +132,8 @@ class RequestsViewController: UIViewController {
     }
     
     @objc func handleViewWillEnterForeground() {
-        guard ConnectionController.shared.isParent != nil else { return }
-        if !ConnectionController.shared.isParent {
+        guard ConnectionController.shared.isDJ != nil else { return }
+        if !ConnectionController.shared.isDJ {
             NotificationCenter.default.post(
                 name: .DJYusakuRequestVCWillEnterForeground,
                 object: nil
@@ -167,8 +167,8 @@ class RequestsViewController: UIViewController {
 extension RequestsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard ConnectionController.shared.isParent != nil else { return 0 }
-        if ConnectionController.shared.isParent {
+        guard ConnectionController.shared.isDJ != nil else { return 0 }
+        if ConnectionController.shared.isDJ {
             return PlayerQueue.shared.count()
         } else {
             return ConnectionController.shared.receivedSongs.count
@@ -178,14 +178,14 @@ extension RequestsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RequestsMusicTableViewCell", for: indexPath) as! RequestsMusicTableViewCell
         var song: Song
-        if ConnectionController.shared.isParent {
+        if ConnectionController.shared.isDJ {
             guard let queueSong = PlayerQueue.shared.get(at: indexPath.row) else { return cell }
             song = queueSong
         } else {
             song = ConnectionController.shared.receivedSongs[indexPath.row]
         }
         
-        let indexOfNowPlayingItem = ConnectionController.shared.isParent
+        let indexOfNowPlayingItem = ConnectionController.shared.isDJ
                                   ? PlayerQueue.shared.mpAppController.indexOfNowPlayingItem
                                   : RequestsViewController.self.indexOfNowPlayingItemOnListener
         cell.title.text    = song.title

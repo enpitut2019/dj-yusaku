@@ -11,11 +11,11 @@ import MultipeerConnectivity
 
 class MemberViewController: UIViewController {
     
-    private var childPeers : [MCPeerID] = []
+    private var listeners : [MCPeerID] = []
 
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var parentNameLabel: UILabel!
-    @IBOutlet weak var parentImageView: UIImageView!
+    @IBOutlet weak var djNameLabel: UILabel!
+    @IBOutlet weak var djImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,40 +25,40 @@ class MemberViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(handlePeerConnectionStateDidUpdate), name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
         
-        setupChildPeers()
+        setupListeners()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.1, initialSpringVelocity: 0.0, animations: { [unowned self] in
-            self.parentImageView.frame.size.width  -= 20
-            self.parentImageView.frame.size.height -= 20
-            self.parentImageView.center.x += 10
-            self.parentImageView.center.y += 10
+            self.djImageView.frame.size.width  -= 20
+            self.djImageView.frame.size.height -= 20
+            self.djImageView.center.x += 10
+            self.djImageView.center.y += 10
         })
     }
     
-    func setupChildPeers() {
+    func setupListeners() {
         // 接続している端末＝親機はtableViewには表示しないので除去
-          childPeers = ConnectionController.shared.session.connectedPeers.filter({ $0 != ConnectionController.shared.connectedDJ })
+          listeners = ConnectionController.shared.session.connectedPeers.filter({ $0 != ConnectionController.shared.connectedDJ })
           
-          if !ConnectionController.shared.isParent {
-              self.childPeers.insert(ConnectionController.shared.peerID, at: 0) //自分の端末を子機群の先頭に挿入
+          if !ConnectionController.shared.isDJ {
+              self.listeners.insert(ConnectionController.shared.peerID, at: 0) //自分の端末を子機群の先頭に挿入
           }
           //親が変わったときに親機表示部分のLabelを更新
           DispatchQueue.main.async{
-              if (ConnectionController.shared.isParent){  //親機ならば、自分の端末名を表示する
-                  self.parentNameLabel.text = ConnectionController.shared.peerID.displayName
+              if (ConnectionController.shared.isDJ){  //親機ならば、自分の端末名を表示する
+                  self.djNameLabel.text = ConnectionController.shared.peerID.displayName
               }else{                                      //子機ならば、接続している端末名＝親機を表示する
-                  self.parentNameLabel.text = ConnectionController.shared.connectedDJ.displayName
+                  self.djNameLabel.text = ConnectionController.shared.connectedDJ.displayName
               }
               self.tableView.reloadData()
           }
     }
     
     @objc func handlePeerConnectionStateDidUpdate() {
-        setupChildPeers()
+        setupListeners()
     }
     
 }
@@ -67,12 +67,12 @@ class MemberViewController: UIViewController {
 
 extension MemberViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return childPeers.count
+        return listeners.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell  = tableView.dequeueReusableCell(withIdentifier: "MemberTableViewCell", for: indexPath) as! MemberTableViewCell
-        cell.peerName.text = childPeers[indexPath.row].displayName
+        cell.peerName.text = listeners[indexPath.row].displayName
         return cell
     }
  }

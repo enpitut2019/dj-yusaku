@@ -654,7 +654,7 @@
                                     <constraint firstAttribute="width" constant="128" id="iTt-bB-YCZ"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yP3-9N-fvb" userLabel="ParentName">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yP3-9N-fvb" userLabel="DJName">
                                 <rect key="frame" x="40" y="246.99999999999997" width="295" height="33.666666666666657"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="28"/>
                                 <nil key="textColor"/>
@@ -692,8 +692,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="parentImageView" destination="KmF-kX-f76" id="oZ7-ES-pcW"/>
-                        <outlet property="parentNameLabel" destination="yP3-9N-fvb" id="0H7-1v-B4C"/>
+                        <outlet property="djImageView" destination="KmF-kX-f76" id="oZ7-ES-pcW"/>
+                        <outlet property="djNameLabel" destination="yP3-9N-fvb" id="0H7-1v-B4C"/>
                         <outlet property="tableView" destination="ljm-v3-8g9" id="Wfb-fc-RgC"/>
                     </connections>
                 </viewController>

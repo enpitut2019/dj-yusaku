@@ -92,7 +92,7 @@ extension SearchViewController: UITableViewDelegate {
         
         let song = results[indexPath.row]
         let viewController = self.presentingViewController ?? self   // 閉じる対象のViewController
-        if ConnectionController.shared.isParent {   // 自分がDJのとき
+        if ConnectionController.shared.isDJ {   // 自分がDJのとき
             PlayerQueue.shared.add(with: song) { [unowned viewController] in
                 viewController.dismiss(animated: true)    // 1曲追加するごとにViewを閉じる
             }

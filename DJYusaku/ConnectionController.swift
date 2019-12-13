@@ -31,12 +31,12 @@ class ConnectionController: NSObject {
     var connectableDJs: [MCPeerID] = []
     var connectedDJ: MCPeerID!
     
-    var isParent: Bool!
+    var isDJ: Bool!
     
     var receivedSongs: [Song] = []
     
-    func initialize(isParent: Bool, displayName: String) {
-        self.isParent = isParent
+    func initialize(isDJ: Bool, displayName: String) {
+        self.isDJ = isDJ
         self.connectableDJs.removeAll()
 
         self.session = MCSession(peer: self.peerID)
@@ -95,7 +95,7 @@ extension ConnectionController: MCSessionDelegate {
         case .connected:
             NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
             print("Peer \(peerID.displayName) is connected.")
-            if ConnectionController.shared.isParent {   // DJが新しい子機と接続したとき
+            if ConnectionController.shared.isDJ {   // DJが新しい子機と接続したとき
                 var songs: [Song] = []
                 for i in 0..<PlayerQueue.shared.count() {
                     songs.append(PlayerQueue.shared.get(at: i)!)
@@ -121,7 +121,7 @@ extension ConnectionController: MCSessionDelegate {
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         print("\(peerID)から \(String(data: data, encoding: .utf8)!)を受け取りました")
         
-        if ConnectionController.shared.isParent {   // DJがデータを受け取ったとき
+        if ConnectionController.shared.isDJ {   // DJがデータを受け取ったとき
             let song = try! JSONDecoder().decode(Song.self, from: data)
             PlayerQueue.shared.add(with: song)
         } else {                                    // リスナーがデータを受け取ったとき
