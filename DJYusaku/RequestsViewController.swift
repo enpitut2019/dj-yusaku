@@ -17,7 +17,8 @@ class RequestsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var skipButton: UIButton!
-    @IBOutlet weak var playerControllerView: UIVisualEffectView!
+    @IBOutlet weak var playerControllerView: UIView!
+    @IBOutlet weak var playButtonBackgroundView: UIView!
     
     static private var isViewAppearedAtLeastOnce: Bool = false
     static private var indexOfNowPlayingItemOnListener: Int = 0
@@ -31,8 +32,15 @@ class RequestsViewController: UIViewController {
         tableView.dataSource = self
         
         // コントローラの角を丸くする
-        playerControllerView.layer.cornerRadius = playerControllerView.frame.size.width * 0.05
-        playerControllerView.clipsToBounds = true
+        playerControllerView.layer.cornerRadius = playerControllerView.frame.size.height * 0.5
+        playerControllerView.layer.shadowColor   = CGColor(srgbRed: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
+        playerControllerView.layer.shadowOffset  = .zero
+        playerControllerView.layer.shadowOpacity = 0.4
+        playerControllerView.layer.shadowRadius  = 4
+        playerControllerView.layer.borderColor = CGColor(srgbRed: 0.5, green: 0.5, blue: 0.5, alpha: 0.3)
+        playerControllerView.layer.borderWidth = 1
+
+        playButtonBackgroundView.layer.cornerRadius = playButtonBackgroundView.frame.size.height * 0.5
 
         let footerView = UIView()
         footerView.frame.size.height = 100
@@ -109,9 +117,9 @@ class RequestsViewController: UIViewController {
     @objc func handlePlaybackStateDidChange(notification: NSNotification) {
         switch PlayerQueue.shared.mpAppController.playbackState {
         case .playing:
-            playButton.setImage(UIImage(systemName: "pause"), for: UIControl.State.normal)
+            playButton.setImage(UIImage(systemName: "pause.fill"), for: UIControl.State.normal)
         case .paused, .stopped:
-            playButton.setImage(UIImage(systemName: "play"), for: UIControl.State.normal)
+            playButton.setImage(UIImage(systemName: "play.fill"), for: UIControl.State.normal)
         default:
             break
         }
