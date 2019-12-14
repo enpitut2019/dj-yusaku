@@ -16,7 +16,7 @@ class ListenerConnectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        ConnectionController.shared.initialize(isParent: false, displayName: UIDevice.current.name)
+        ConnectionController.shared.initialize(isDJ: false, displayName: UIDevice.current.name)
         ConnectionController.shared.delegate = self
         ConnectionController.shared.startBrowse()
         

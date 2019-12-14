@@ -41,7 +41,7 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func joinAsDJ(_ sender: Any) {
-        ConnectionController.shared.initialize(isParent: true, displayName: UIDevice.current.name)
+        ConnectionController.shared.initialize(isDJ: true, displayName: UIDevice.current.name)
         
         ConnectionController.shared.startAdvertise()
         
