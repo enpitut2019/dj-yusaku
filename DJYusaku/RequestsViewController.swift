@@ -15,10 +15,9 @@ extension Notification.Name {
 }
 class RequestsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var playingArtwork: UIImageView!
-    @IBOutlet weak var playingTitle: UILabel!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var skipButton: UIButton!
+    @IBOutlet weak var playerControllerView: UIVisualEffectView!
     
     static private var isViewAppearedAtLeastOnce: Bool = false
     static private var indexOfNowPlayingItemOnListener: Int = 0
@@ -30,13 +29,14 @@ class RequestsViewController: UIViewController {
         super.viewDidLoad()
         
         tableView.dataSource = self
+        
+        // コントローラの角を丸くする
+        playerControllerView.layer.cornerRadius = playerControllerView.frame.size.width * 0.05
+        playerControllerView.clipsToBounds = true
 
         let footerView = UIView()
-        footerView.frame.size.height = tableView.rowHeight
+        footerView.frame.size.height = 100
         tableView.tableFooterView = footerView // 空のセルの罫線を消す
-        
-        playingArtwork.layer.cornerRadius = playingArtwork.frame.size.width * 0.05
-        playingArtwork.clipsToBounds = true
         
         // Apple Musicライブラリへのアクセス許可の確認
         SKCloudServiceController.requestAuthorization { status in
@@ -67,15 +67,9 @@ class RequestsViewController: UIViewController {
         }
         RequestsViewController.isViewAppearedAtLeastOnce = true
         
-        // NowPlayingとTableViewの表示を更新する
-        guard let nowPlayingSong = PlayerQueue.shared.getNowPlaying() else {return}
-        DispatchQueue.global().async {
-            let image = Artwork.fetch(url: nowPlayingSong.artworkUrl)
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.playingTitle.text    = nowPlayingSong.title
-                self.playingArtwork.image = image
-            }
+        // TableViewの表示を更新する
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
     }
     
@@ -88,13 +82,8 @@ class RequestsViewController: UIViewController {
     @objc func handleNowPlayingItemDidChangeOnDJ(){
         guard let nowPlayingSong = PlayerQueue.shared.getNowPlaying() else {return}
         
-        DispatchQueue.global().async {
-            let image = Artwork.fetch(url: nowPlayingSong.artworkUrl)
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.playingTitle.text    = nowPlayingSong.title
-                self.playingArtwork.image = image
-            }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
         
         guard ConnectionController.shared.session.connectedPeers.count != 0 else { return }
@@ -112,20 +101,17 @@ class RequestsViewController: UIViewController {
     @objc func handleNowPlayingItemDidChangeOnListener(notification: NSNotification){
         guard let song = notification.userInfo!["song"] as? Song else { return }
         RequestsViewController.self.indexOfNowPlayingItemOnListener = song.index ?? 0
-        let image = Artwork.fetch(url: song.artworkUrl)
         DispatchQueue.main.async {
             self.tableView.reloadData()
-            self.playingTitle.text    = song.title
-            self.playingArtwork.image = image
         }
     }
     
     @objc func handlePlaybackStateDidChange(notification: NSNotification) {
         switch PlayerQueue.shared.mpAppController.playbackState {
         case .playing:
-            playButton.setImage(UIImage(systemName: "pause.fill"), for: UIControl.State.normal)
+            playButton.setImage(UIImage(systemName: "pause"), for: UIControl.State.normal)
         case .paused, .stopped:
-            playButton.setImage(UIImage(systemName: "play.fill"), for: UIControl.State.normal)
+            playButton.setImage(UIImage(systemName: "play"), for: UIControl.State.normal)
         default:
             break
         }
