@@ -17,6 +17,8 @@ class RequestsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var skipButton: UIButton!
+    @IBOutlet weak var batterySaverButton: UIButton!
+
     @IBOutlet weak var playerControllerView: UIView!
     @IBOutlet weak var playButtonBackgroundView: UIView!
     
@@ -31,12 +33,11 @@ class RequestsViewController: UIViewController {
         
         tableView.dataSource = self
         
-        // コントローラの角を丸くする
+        // 再生コントロールの見た目を設定（角丸・影・境界線など）
         playerControllerView.layer.cornerRadius = playerControllerView.frame.size.height * 0.5
         playerControllerView.layer.shadowColor   = CGColor(srgbRed: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
         playerControllerView.layer.shadowOffset  = .zero
         playerControllerView.layer.shadowOpacity = 0.4
-        playerControllerView.layer.shadowRadius  = 4
         playerControllerView.layer.borderColor = CGColor(srgbRed: 0.5, green: 0.5, blue: 0.5, alpha: 0.3)
         playerControllerView.layer.borderWidth = 1
 
@@ -135,7 +136,32 @@ class RequestsViewController: UIViewController {
         }
     }
     
-    @IBAction func playButton(_ sender: Any) {
+    func animateShrinkDown(view: UIView, scale: CGFloat) {
+        UIView.animate(withDuration: 0.05, delay: 0.0, animations: {
+            view.transform = CGAffineTransform(scaleX: scale, y: scale);
+        }, completion: { _ in
+            view.transform = CGAffineTransform(scaleX: scale, y: scale);
+        })
+    }
+    
+    func animateGrowUp(view: UIView) {
+        UIView.animate(withDuration: 0.05, delay: 0.0, animations: {
+            view.transform = CGAffineTransform.identity;
+        }, completion: { _ in
+            view.transform = CGAffineTransform.identity;
+        })
+    }
+    
+    @IBAction func playButtonTouchDown(_ sender: Any) {
+        // アニメーション
+        animateShrinkDown(view: self.playButtonBackgroundView, scale: 0.9)
+    }
+    
+    @IBAction func playButtonTouchUp(_ sender: Any) {
+        // アニメーション
+        animateGrowUp(view: self.playButtonBackgroundView)
+        
+        // 曲の再生・停止
         switch PlayerQueue.shared.mpAppController.playbackState {
         case .playing:          // 再生中なら停止する
             PlayerQueue.shared.mpAppController.pause()
@@ -146,14 +172,29 @@ class RequestsViewController: UIViewController {
         }
     }
     
-    @IBAction func skipButton(_ sender: Any) {
+    @IBAction func skipButtonTouchDown(_ sender: Any) {
+        // アニメーション
+        animateShrinkDown(view: self.skipButton, scale: 0.75)
+    }
+    
+    @IBAction func skipButtonTouchUp(_ sender: Any) {
+        // アニメーション
+        animateGrowUp(view: self.skipButton)
+        
+        // 曲のスキップ
         PlayerQueue.shared.mpAppController.skipToNextItem()
     }
     
-    override func setEditing(_ editing: Bool, animated: Bool) {
-        super.setEditing(editing, animated: true)
-        tableView.isEditing = editing
+    @IBAction func batterySaverButtonTouchDown(_ sender: Any) {
+        // アニメーション
+        animateShrinkDown(view: self.batterySaverButton, scale: 0.75)
     }
+    
+    @IBAction func batterySaverButtonTouchUp(_ sender: Any) {
+        // アニメーション
+        animateGrowUp(view: self.batterySaverButton)
+    }
+    
 }
 
 // MARK: - UITableViewDataSource

@@ -34,7 +34,7 @@ class RequestsMusicTableViewCell: UITableViewCell {
     // インジケータを点滅させる
     func animateNowPlayingIndicatior() {
         UIView.transition(with: self.nowPlayingIndicator, duration: 1.0, options: [.repeat, .autoreverse, .beginFromCurrentState], animations: {
-            self.nowPlayingIndicator.alpha = 0.2
+            self.nowPlayingIndicator.alpha = 0.05
         }) { _ in
             self.nowPlayingIndicator.alpha = 1.0
         }
