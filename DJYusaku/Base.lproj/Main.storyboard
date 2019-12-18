@@ -129,6 +129,12 @@
                                                     <action selector="playButtonTouchUp:" destination="9pv-A4-QxB" eventType="touchUpInside" id="p8J-aZ-wwX"/>
                                                 </connections>
                                             </button>
+                                            <view alpha="0.59999999999999998" contentMode="scaleToFill" id="Br2-F8-8JD">
+                                                <rect key="frame" x="-175" y="-726" width="415" height="901"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <viewLayoutGuide key="safeArea" id="4zD-Bx-sau"/>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -158,10 +164,12 @@
                         <constraints>
                             <constraint firstItem="9aA-O6-Z64" firstAttribute="centerX" secondItem="PQr-Ze-W5v" secondAttribute="centerX" id="6JY-Sd-elh"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="9aA-O6-Z64" secondAttribute="bottom" constant="16" id="8PQ-hp-m4Q"/>
+                            <constraint firstItem="2ub-dF-W8m" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="M8e-kI-47d"/>
                             <constraint firstItem="2ub-dF-W8m" firstAttribute="width" secondItem="PQr-Ze-W5v" secondAttribute="width" id="QLn-7Y-0sz"/>
                             <constraint firstItem="2ub-dF-W8m" firstAttribute="bottom" secondItem="PQr-Ze-W5v" secondAttribute="bottom" id="RVA-ta-QTO"/>
                             <constraint firstItem="2ub-dF-W8m" firstAttribute="centerX" secondItem="PQr-Ze-W5v" secondAttribute="centerX" id="Rux-56-S3e"/>
                             <constraint firstItem="2ub-dF-W8m" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="hDZ-6w-0xn"/>
+                            <constraint firstItem="2ub-dF-W8m" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" id="jUk-0R-Fp4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
@@ -171,13 +179,15 @@
                         <outlet property="playButton" destination="0xl-kp-iyr" id="RvD-UI-h3b"/>
                         <outlet property="playButtonBackgroundView" destination="2h6-e1-QnV" id="Kn5-5Y-QZx"/>
                         <outlet property="playerControllerView" destination="9aA-O6-Z64" id="aI6-QH-R2d"/>
+                        <outlet property="requestTutorialView" destination="Br2-F8-8JD" id="lqG-39-XIC"/>
+                        <outlet property="requestView" destination="tsR-hK-woN" id="TwX-j2-Eyb"/>
                         <outlet property="skipButton" destination="sYe-8j-hTb" id="179-Hw-Xv1"/>
                         <outlet property="tableView" destination="2ub-dF-W8m" id="Bwj-iS-B5T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1680.8" y="-583.00492610837443"/>
+            <point key="canvasLocation" x="1679.7101449275362" y="-583.25892857142856"/>
         </scene>
         <!--Welcome-->
         <scene sceneID="EK0-NK-Ha9">
