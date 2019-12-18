@@ -15,10 +15,12 @@ extension Notification.Name {
 }
 class RequestsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var playingArtwork: UIImageView!
-    @IBOutlet weak var playingTitle: UILabel!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var skipButton: UIButton!
+    @IBOutlet weak var batterySaverButton: UIButton!
+
+    @IBOutlet weak var playerControllerView: UIView!
+    @IBOutlet weak var playButtonBackgroundView: UIView!
     
     static private var isViewAppearedAtLeastOnce: Bool = false
     static private var indexOfNowPlayingItemOnListener: Int = 0
@@ -30,13 +32,21 @@ class RequestsViewController: UIViewController {
         super.viewDidLoad()
         
         tableView.dataSource = self
+        tableView.delegate   = self
+        
+        // 再生コントロールの見た目を設定（角丸・影・境界線など）
+        playerControllerView.layer.cornerRadius = playerControllerView.frame.size.height * 0.5
+        playerControllerView.layer.shadowColor   = CGColor(srgbRed: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
+        playerControllerView.layer.shadowOffset  = .zero
+        playerControllerView.layer.shadowOpacity = 0.4
+        playerControllerView.layer.borderColor = CGColor(srgbRed: 0.5, green: 0.5, blue: 0.5, alpha: 0.3)
+        playerControllerView.layer.borderWidth = 1
+
+        playButtonBackgroundView.layer.cornerRadius = playButtonBackgroundView.frame.size.height * 0.5
 
         let footerView = UIView()
-        footerView.frame.size.height = tableView.rowHeight
+        footerView.frame.size.height = 100
         tableView.tableFooterView = footerView // 空のセルの罫線を消す
-        
-        playingArtwork.layer.cornerRadius = playingArtwork.frame.size.width * 0.05
-        playingArtwork.clipsToBounds = true
         
         // Apple Musicライブラリへのアクセス許可の確認
         SKCloudServiceController.requestAuthorization { status in
@@ -67,15 +77,9 @@ class RequestsViewController: UIViewController {
         }
         RequestsViewController.isViewAppearedAtLeastOnce = true
         
-        // NowPlayingとTableViewの表示を更新する
-        guard let nowPlayingSong = PlayerQueue.shared.getNowPlaying() else {return}
-        DispatchQueue.global().async {
-            let image = Artwork.fetch(url: nowPlayingSong.artworkUrl)
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.playingTitle.text    = nowPlayingSong.title
-                self.playingArtwork.image = image
-            }
+        // TableViewの表示を更新する
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
     }
     
@@ -88,13 +92,8 @@ class RequestsViewController: UIViewController {
     @objc func handleNowPlayingItemDidChangeOnDJ(){
         guard let nowPlayingSong = PlayerQueue.shared.getNowPlaying() else {return}
         
-        DispatchQueue.global().async {
-            let image = Artwork.fetch(url: nowPlayingSong.artworkUrl)
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.playingTitle.text    = nowPlayingSong.title
-                self.playingArtwork.image = image
-            }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
         
         guard ConnectionController.shared.session.connectedPeers.count != 0 else { return }
@@ -112,11 +111,8 @@ class RequestsViewController: UIViewController {
     @objc func handleNowPlayingItemDidChangeOnListener(notification: NSNotification){
         guard let song = notification.userInfo!["song"] as? Song else { return }
         RequestsViewController.self.indexOfNowPlayingItemOnListener = song.index ?? 0
-        let image = Artwork.fetch(url: song.artworkUrl)
         DispatchQueue.main.async {
             self.tableView.reloadData()
-            self.playingTitle.text    = song.title
-            self.playingArtwork.image = image
         }
     }
     
@@ -141,7 +137,32 @@ class RequestsViewController: UIViewController {
         }
     }
     
-    @IBAction func playButton(_ sender: Any) {
+    func animateShrinkDown(view: UIView, scale: CGFloat) {
+        UIView.animate(withDuration: 0.05, delay: 0.0, animations: {
+            view.transform = CGAffineTransform(scaleX: scale, y: scale);
+        }, completion: { _ in
+            view.transform = CGAffineTransform(scaleX: scale, y: scale);
+        })
+    }
+    
+    func animateGrowUp(view: UIView) {
+        UIView.animate(withDuration: 0.05, delay: 0.0, animations: {
+            view.transform = CGAffineTransform.identity;
+        }, completion: { _ in
+            view.transform = CGAffineTransform.identity;
+        })
+    }
+    
+    @IBAction func playButtonTouchDown(_ sender: Any) {
+        // アニメーション
+        animateShrinkDown(view: self.playButtonBackgroundView, scale: 0.9)
+    }
+    
+    @IBAction func playButtonTouchUp(_ sender: Any) {
+        // アニメーション
+        animateGrowUp(view: self.playButtonBackgroundView)
+        
+        // 曲の再生・停止
         switch PlayerQueue.shared.mpAppController.playbackState {
         case .playing:          // 再生中なら停止する
             PlayerQueue.shared.mpAppController.pause()
@@ -152,14 +173,29 @@ class RequestsViewController: UIViewController {
         }
     }
     
-    @IBAction func skipButton(_ sender: Any) {
+    @IBAction func skipButtonTouchDown(_ sender: Any) {
+        // アニメーション
+        animateShrinkDown(view: self.skipButton, scale: 0.75)
+    }
+    
+    @IBAction func skipButtonTouchUp(_ sender: Any) {
+        // アニメーション
+        animateGrowUp(view: self.skipButton)
+        
+        // 曲のスキップ
         PlayerQueue.shared.mpAppController.skipToNextItem()
     }
     
-    override func setEditing(_ editing: Bool, animated: Bool) {
-        super.setEditing(editing, animated: true)
-        tableView.isEditing = editing
+    @IBAction func batterySaverButtonTouchDown(_ sender: Any) {
+        // アニメーション
+        animateShrinkDown(view: self.batterySaverButton, scale: 0.75)
     }
+    
+    @IBAction func batterySaverButtonTouchUp(_ sender: Any) {
+        // アニメーション
+        animateGrowUp(view: self.batterySaverButton)
+    }
+    
 }
 
 // MARK: - UITableViewDataSource
@@ -224,7 +260,6 @@ extension RequestsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: false)  // セルの選択を解除
-        
         if ConnectionController.shared.isDJ {   // 自分がDJのとき
             // 曲を再生する
             guard let selectedItem = PlayerQueue.shared.getMediaItem(at: indexPath.row) else { return }

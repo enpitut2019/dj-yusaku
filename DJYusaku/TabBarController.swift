@@ -53,15 +53,15 @@ class TabBarController: UITabBarController {
         self.sessionTabImageView.contentMode = .center
     }
     
-    //tabBarを押した時のバウンドしているアニメーション
-    func bounceAnimation(tabImageView: UIImageView){ //FIXME: 関数名
-        tabImageView.transform = CGAffineTransform.identity
+    // tabBarを押した時のバウンドしているアニメーション
+    func animateBounce(imageView: UIImageView){ //FIXME: 関数名
+        imageView.transform = CGAffineTransform.identity
         UIView.animateKeyframes(withDuration: 0.2, delay: 0, options: [], animations: {() -> Void in
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3, animations: {() -> Void in
-                tabImageView.transform = CGAffineTransform(scaleX: CGFloat(0.8), y: CGFloat(0.8))
+                imageView.transform = CGAffineTransform(scaleX: CGFloat(0.8), y: CGFloat(0.8))
             })
             UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.3, animations: {() -> Void in
-                tabImageView.transform = CGAffineTransform.identity
+                imageView.transform = CGAffineTransform.identity
             })
         }, completion: nil)
     }
@@ -70,10 +70,10 @@ class TabBarController: UITabBarController {
         let tagNumber = TabButtonTagNumber(rawValue: item.tag)
         switch tagNumber {
         case .requests:
-            bounceAnimation(tabImageView: self.requestTabImageView)
+            animateBounce(imageView: self.requestTabImageView)
             break
         case .session:
-            bounceAnimation(tabImageView: self.sessionTabImageView)
+            animateBounce(imageView: self.sessionTabImageView)
             break
         default:
             break
