@@ -165,7 +165,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Requested Songs" id="K0B-Hq-EiT"/>
+                    <navigationItem key="navigationItem" title="Requested Songs" id="K0B-Hq-EiT">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="BQP-ZY-7bH">
+                            <connections>
+                                <action selector="reloadButton:" destination="9pv-A4-QxB" id="FB3-mg-enV"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="batterySaverButton" destination="VTg-nf-1br" id="VTh-hh-FOK"/>
                         <outlet property="playButton" destination="0xl-kp-iyr" id="RvD-UI-h3b"/>
