@@ -177,7 +177,7 @@ extension SearchViewController: UISearchResultsUpdating {
                     let artworkUrlString = song["attributes"]["artwork"]["url"].stringValue
                     let songID           = song["attributes"]["playParams"]["id"].stringValue
                     let artworkUrl = Artwork.url(urlString: artworkUrlString, width: 256, height: 256)
-                    self.results.append(Song(title: title, artist: artist, artworkUrl: artworkUrl, id: songID))
+                    self.results.append(Song(title: title, artist: artist, artworkUrl: artworkUrl, id: songID, iconURL: ConnectionController.shared.iconURL))
                 }
                 self.tableView.reloadData()
             }
