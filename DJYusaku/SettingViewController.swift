@@ -44,7 +44,9 @@ class SettingViewController: UIViewController, SFSafariViewControllerDelegate {
         }
         
         swifter.showUser(.screenName(self.screenName!), success: { json in
-            print(json["profile_image_url_https"].string!)
+            print(json["profile_image_url_https"])
+            ConnectionController.shared.setIconURL(iconURL: URL(string: json["profile_image_url_https"].string!))
+            print(ConnectionController.shared.iconURL!)
         }, failure: failureHandler)
     }
     
