@@ -81,6 +81,8 @@ class RequestsViewController: UIViewController {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+        // スクロールを現在再生中の曲に移動する
+        scrollToNowPlayingItem(animated: false)
     }
     
     @objc func handleRequestsDidUpdate(){
@@ -194,6 +196,24 @@ class RequestsViewController: UIViewController {
     @IBAction func batterySaverButtonTouchUp(_ sender: Any) {
         // アニメーション
         animateGrowUp(view: self.batterySaverButton)
+    }
+    
+    @IBAction func reloadButton(_ sender: Any) {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        scrollToNowPlayingItem()
+    }
+    
+    func scrollToNowPlayingItem(animated: Bool = true) {
+        guard ConnectionController.shared.isDJ != nil else { return }
+        let indexOfNowPlayingItem = ConnectionController.shared.isDJ
+                                  ? PlayerQueue.shared.mpAppController.indexOfNowPlayingItem
+                                  : RequestsViewController.self.indexOfNowPlayingItemOnListener
+        DispatchQueue.main.async {
+          let indexPath = IndexPath(row: indexOfNowPlayingItem, section: 0)
+            self.tableView.scrollToRow(at: indexPath, at: UITableView.ScrollPosition.top, animated: animated)
+        }
     }
     
 }
