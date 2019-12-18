@@ -218,4 +218,18 @@ extension RequestsViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
 
+extension RequestsViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: false)  // セルの選択を解除
+        
+        if ConnectionController.shared.isDJ {   // 自分がDJのとき
+            // 曲を再生する
+            guard let selectedItem = PlayerQueue.shared.getMediaItem(at: indexPath.row) else { return }
+            PlayerQueue.shared.mpAppController.nowPlayingItem = selectedItem
+        }
+    }
+    
+}

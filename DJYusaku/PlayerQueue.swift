@@ -198,6 +198,11 @@ class PlayerQueue{
                     index:      index)
     }
     
+    func getMediaItem(at index: Int) -> MPMediaItem? {
+        guard index >= 0 && self.count() > index else { return nil }
+        return items[index]
+    }
+    
     func getArtworkURL(storeID: String) -> URL? {
         return self.urlCorrespondence[storeID]
     }
