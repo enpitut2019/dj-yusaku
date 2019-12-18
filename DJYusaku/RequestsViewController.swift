@@ -207,9 +207,15 @@ class RequestsViewController: UIViewController {
     
     func scrollToNowPlayingItem(animated: Bool = true) {
         guard ConnectionController.shared.isDJ != nil else { return }
-        let indexOfNowPlayingItem = ConnectionController.shared.isDJ
-                                  ? PlayerQueue.shared.mpAppController.indexOfNowPlayingItem
-                                  : RequestsViewController.self.indexOfNowPlayingItemOnListener
+        
+        let numberOfRequestedSongs = ConnectionController.shared.isDJ
+                                   ? PlayerQueue.shared.count()
+                                   : ConnectionController.shared.receivedSongs.count
+        guard numberOfRequestedSongs != 0 else { return }
+        
+        let indexOfNowPlayingItem  = ConnectionController.shared.isDJ
+                                   ? PlayerQueue.shared.mpAppController.indexOfNowPlayingItem
+                                   : RequestsViewController.self.indexOfNowPlayingItemOnListener
         DispatchQueue.main.async {
           let indexPath = IndexPath(row: indexOfNowPlayingItem, section: 0)
             self.tableView.scrollToRow(at: indexPath, at: UITableView.ScrollPosition.top, animated: animated)
