@@ -683,6 +683,11 @@
                                 <segue destination="dBJ-r9-osw" kind="presentation" id="sLR-Cu-szO"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Settings" id="Vfj-8P-xLO">
+                            <connections>
+                                <segue destination="qtf-Dc-n8Z" kind="show" id="ec4-G5-3H0"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="djImageView" destination="KmF-kX-f76" id="oZ7-ES-pcW"/>
@@ -693,6 +698,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PXn-HL-BvO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1682.4000000000001" y="925.86206896551732"/>
+        </scene>
+        <!--Setting View Controller-->
+        <scene sceneID="xtl-ka-RU8">
+            <objects>
+                <viewController id="qtf-Dc-n8Z" customClass="SettingViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hC5-aW-GQe">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXo-5K-OL8">
+                                <rect key="frame" x="72" y="190" width="270" height="30"/>
+                                <state key="normal" title="Login with Twitter"/>
+                                <connections>
+                                    <action selector="loginTwitter:" destination="qtf-Dc-n8Z" eventType="touchUpInside" id="Ht7-Fv-ih3"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="lXo-5K-OL8" firstAttribute="top" secondItem="zeU-r7-wFK" secondAttribute="top" constant="50" id="abd-wv-f9f"/>
+                            <constraint firstItem="zeU-r7-wFK" firstAttribute="trailing" secondItem="lXo-5K-OL8" secondAttribute="trailing" constant="72" id="hP7-C3-bCa"/>
+                            <constraint firstItem="lXo-5K-OL8" firstAttribute="leading" secondItem="zeU-r7-wFK" secondAttribute="leading" constant="72" id="xSy-6u-qp6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="zeU-r7-wFK"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="cFg-xY-cRJ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h9I-13-eTs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2624.6376811594205" y="924.77678571428567"/>
         </scene>
         <!--Session-->
         <scene sceneID="kd9-9M-IfG">

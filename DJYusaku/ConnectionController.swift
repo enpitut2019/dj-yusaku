@@ -35,6 +35,10 @@ class ConnectionController: NSObject {
     
     var receivedSongs: [Song] = []
     
+    var iconURL: URL?
+    
+    var iconURLCorrespondence: [MCPeerID:URL] = [:]
+    
     func initialize(isDJ: Bool, displayName: String) {
         self.isDJ = isDJ
         self.connectableDJs.removeAll()
@@ -78,6 +82,9 @@ class ConnectionController: NSObject {
         browser.stopBrowsingForPeers()
     }
     
+    func setIconURL(iconURL url: URL?){
+        self.iconURL = url
+    }
 }
 
 // MARK: - MCSessionDelegate
@@ -121,11 +128,16 @@ extension ConnectionController: MCSessionDelegate {
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         print("\(peerID)から \(String(data: data, encoding: .utf8)!)を受け取りました")
         
+        let messageData = try! JSONDecoder().decode(MessageData.self, from: data)
         if ConnectionController.shared.isDJ {   // DJがデータを受け取ったとき
-            let song = try! JSONDecoder().decode(Song.self, from: data)
-            PlayerQueue.shared.add(with: song)
+            switch messageData.desc {
+            case MessageData.Name.requestSong:
+                let song = try! JSONDecoder().decode(Song.self, from: data)
+                PlayerQueue.shared.add(with: song)
+            default:
+                break
+            }
         } else {                                    // リスナーがデータを受け取ったとき
-            let messageData = try! JSONDecoder().decode(MessageData.self, from: data)
             switch messageData.desc {
                 case MessageData.Name.requestSongs:
                     let songs = try! JSONDecoder().decode([Song].self, from: messageData.value)
@@ -134,6 +146,8 @@ extension ConnectionController: MCSessionDelegate {
                 case MessageData.Name.nowPlaying:
                     let nowPlaying = try! JSONDecoder().decode(Song.self, from: messageData.value)
                     NotificationCenter.default.post(name: .DJYusakuConnectionControllerNowPlayingSongDidChange, object: nil, userInfo: ["song": nowPlaying as Any])
+                default:
+                    break
             }
         }
         

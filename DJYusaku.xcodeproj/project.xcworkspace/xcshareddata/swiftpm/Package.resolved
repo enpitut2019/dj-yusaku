@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "Swifter",
+        "repositoryURL": "https://github.com/mattdonnelly/Swifter.git",
+        "state": {
+          "branch": "master",
+          "revision": "e02a4657e059a652c1effd9e22910a532d458d8e",
+          "version": null
+        }
+      },
+      {
         "package": "SwiftyJSON",
         "repositoryURL": "https://github.com/SwiftyJSON/SwiftyJSON.git",
         "state": {

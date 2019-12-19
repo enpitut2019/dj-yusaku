@@ -98,7 +98,10 @@ extension SearchViewController: UITableViewDelegate {
             }
         } else {                                    // 自分がリスナーのとき
             let songData = try! JSONEncoder().encode(song)
-            ConnectionController.shared.session.sendRequest(songData, toPeers: [ConnectionController.shared.connectedDJ], with: .unreliable) { [unowned viewController] in
+            
+            let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.Name.requestSong, value: songData))
+            
+            ConnectionController.shared.session.sendRequest(messageData, toPeers: [ConnectionController.shared.connectedDJ], with: .unreliable) { [unowned viewController] in
                 viewController.dismiss(animated: true)    // 1曲追加するごとにViewを閉じる
             }
         }
@@ -174,7 +177,7 @@ extension SearchViewController: UISearchResultsUpdating {
                     let artworkUrlString = song["attributes"]["artwork"]["url"].stringValue
                     let songID           = song["attributes"]["playParams"]["id"].stringValue
                     let artworkUrl = Artwork.url(urlString: artworkUrlString, width: 256, height: 256)
-                    self.results.append(Song(title: title, artist: artist, artworkUrl: artworkUrl, id: songID))
+                    self.results.append(Song(title: title, artist: artist, artworkUrl: artworkUrl, id: songID, iconURL: ConnectionController.shared.iconURL))
                 }
                 self.tableView.reloadData()
             }

@@ -14,6 +14,7 @@ struct MessageData : Codable {
     
     enum Name: Int, Codable {
         case nowPlaying
+        case requestSong
         case requestSongs
     }
 }

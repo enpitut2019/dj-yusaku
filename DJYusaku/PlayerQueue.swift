@@ -42,6 +42,8 @@ class PlayerQueue{
     }
     private var urlCorrespondence : [String:URL] = [:] // storeIDとURLの対応表
     
+    private var iconURLCorrespondence :  [URL?] = [] //indexとiconURLの対応表
+    
     private var isQueueCreated: Bool = false
     
     private let dispatchSemaphore = DispatchSemaphore(value: 1)
@@ -82,6 +84,8 @@ class PlayerQueue{
             self.mpAppController.play() // 自動再生する
             self.urlCorrespondence = [:]
             self.urlCorrespondence[song.id] = song.artworkUrl
+            self.iconURLCorrespondence = []
+            self.iconURLCorrespondence.append(song.iconURL)
             self.mpAppController.perform(queueTransaction: { _ in }, completionHandler: { [unowned self] queue, _ in
                 self.items = queue.items
             })
@@ -113,6 +117,7 @@ class PlayerQueue{
             }
             guard (error == nil) else { return } // TODO: 挿入ができなかった時の処理
             self.urlCorrespondence[song.id] = song.artworkUrl
+            self.iconURLCorrespondence.append(song.iconURL)
             self.items = queue.items
             if let completion = completion { completion() }
             NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
@@ -195,7 +200,8 @@ class PlayerQueue{
                     artist:     item.artist ?? "Loading...",
                     artworkUrl: self.urlCorrespondence[item.playbackStoreID] ?? URL(fileURLWithPath: ""),
                     id:         item.playbackStoreID,
-                    index:      index)
+                    index:      index,
+                    iconURL:    self.iconURLCorrespondence[index] ?? URL(fileURLWithPath: ""))
     }
     
     func getMediaItem(at index: Int) -> MPMediaItem? {
