@@ -35,9 +35,8 @@ class ConnectionController: NSObject {
     
     var receivedSongs: [Song] = []
     
-    var iconURL: URL?
-    
-    var iconURLCorrespondence: [MCPeerID:URL] = [:]
+    var profile: PeerProfile? = nil
+    var peerProfileCorrespondence: [MCPeerID:PeerProfile] = [:]
     
     func initialize(isDJ: Bool, displayName: String) {
         self.isDJ = isDJ
@@ -82,8 +81,8 @@ class ConnectionController: NSObject {
         browser.stopBrowsingForPeers()
     }
     
-    func setIconURL(iconURL url: URL?){
-        self.iconURL = url
+    func setProfile(profile: PeerProfile){
+        self.profile = profile
     }
 }
 
@@ -101,12 +100,11 @@ extension ConnectionController: MCSessionDelegate {
             break
         case .connected:
             NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
-            //接続時にアイコンを持っているならピアに配る
-            if let iconURL = ConnectionController.shared.iconURL {
-                let urlData = try! JSONEncoder().encode(iconURL)
-                
-                let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.Name.iconURL, value: urlData))
-                
+            
+            // プロフィールが設定されていれば他のピアに送信する
+            if let profile = self.profile {
+                let data = try! JSONEncoder().encode(profile)
+                let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.peerProfile, value: data))
                 ConnectionController.shared.session.sendRequest(messageData, toPeers: [peerID], with: .unreliable)
             }
             
@@ -117,7 +115,7 @@ extension ConnectionController: MCSessionDelegate {
                     songs.append(PlayerQueue.shared.get(at: i)!)
                 }
                 let songsData = try! JSONEncoder().encode(songs)
-                let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.Name.requestSongs, value: songsData))
+                let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.requestSongs, value: songsData))
                 do {
                     try ConnectionController.shared.session.send(messageData, toPeers: [peerID], with: .unreliable)
                 } catch let error {
@@ -138,32 +136,30 @@ extension ConnectionController: MCSessionDelegate {
         print("\(peerID)から \(String(data: data, encoding: .utf8)!)を受け取りました")
         
         let messageData = try! JSONDecoder().decode(MessageData.self, from: data)
-        if ConnectionController.shared.isDJ {   // DJがデータを受け取ったとき
+        if ConnectionController.shared.isDJ { // DJがデータを受け取ったとき
             switch messageData.desc {
-            case MessageData.Name.requestSong:
+            case MessageData.DataType.requestSong:
                 let song = try! JSONDecoder().decode(Song.self, from: messageData.value)
                 PlayerQueue.shared.add(with: song)
-            case MessageData.Name.iconURL:
-                let iconURL = try! JSONDecoder().decode(URL?.self, from: messageData.value)
-                ConnectionController.shared.iconURLCorrespondence[peerID] = iconURL
-                
+            case MessageData.DataType.peerProfile:
+                let profile = try! JSONDecoder().decode(PeerProfile?.self, from: messageData.value)
+                self.peerProfileCorrespondence[peerID] = profile
                 NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
             default:
                 break
             }
-        } else {                                    // リスナーがデータを受け取ったとき
+        } else { // リスナーがデータを受け取ったとき
             switch messageData.desc {
-                case MessageData.Name.requestSongs:
+                case MessageData.DataType.requestSongs:
                     let songs = try! JSONDecoder().decode([Song].self, from: messageData.value)
                     receivedSongs = songs
                     NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
-                case MessageData.Name.nowPlaying:
+                case MessageData.DataType.nowPlaying:
                     let nowPlaying = try! JSONDecoder().decode(Song.self, from: messageData.value)
                     NotificationCenter.default.post(name: .DJYusakuConnectionControllerNowPlayingSongDidChange, object: nil, userInfo: ["song": nowPlaying as Any])
-                case MessageData.Name.iconURL:
-                    let iconURL = try! JSONDecoder().decode(URL?.self, from: messageData.value)
-                    ConnectionController.shared.iconURLCorrespondence[peerID] = iconURL
-                    
+                case MessageData.DataType.peerProfile:
+                    let profile = try! JSONDecoder().decode(PeerProfile?.self, from: messageData.value)
+                    self.peerProfileCorrespondence[peerID] = profile
                     NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
                 default:
                     break

@@ -14,7 +14,7 @@ class RequestsMusicTableViewCell: UITableViewCell {
     @IBOutlet weak var artist: UILabel!
     @IBOutlet weak var artwork: UIImageView!
     @IBOutlet weak var nowPlayingIndicator: UIImageView!
-    @IBOutlet weak var userIcon: UIImageView!
+    @IBOutlet weak var profileImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,8 +24,8 @@ class RequestsMusicTableViewCell: UITableViewCell {
         artwork.clipsToBounds = true
         
         // アイコン画像を円形にする
-        userIcon.layer.cornerRadius = userIcon.frame.size.height * 0.5
-        userIcon.clipsToBounds = true
+        profileImageView.layer.cornerRadius = profileImageView.frame.size.height * 0.5
+        profileImageView.clipsToBounds = true
         
         self.animateNowPlayingIndicatior()
     }

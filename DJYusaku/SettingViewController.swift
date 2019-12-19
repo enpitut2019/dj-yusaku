@@ -20,40 +20,31 @@ class SettingViewController: UIViewController, SFSafariViewControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func loginTwitter(_ sender: Any) {
-        let failureHandler: (Error) -> Void = { error in
-            self.alert(title: "Error", message: error.localizedDescription)
-        }
-        
         let url = URL(string: "swifter://success")!
-        swifter.authorize(withCallback: url, presentingFrom: self, success: { token, _ in
+        swifter.authorize(withCallback: url, presentingFrom: self, success: { [unowned self] token, _ in
             if token != nil {
                 self.screenName = token!.screenName
             }
-            self.getUserAvatorUrl()
-        }, failure: failureHandler)
-    }
-
-    func getUserAvatorUrl() {
-        let failureHandler: (Error) -> Void = { error in
+            // ユーザーのプロフィール情報を取得して設定する
+            self.swifter.showUser(.screenName(self.screenName!), success: { json in
+                let imageUrlString = json["profile_image_url_https"].string!.replacingOccurrences(of: "_normal", with: "", options: .backwards)
+                let profile = PeerProfile(name:     json["name"].string!,
+                                          imageUrl: URL(string: imageUrlString)!)
+                ConnectionController.shared.setProfile(profile: profile)
+                NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
+                // プロフィールを他のピアに送信する
+                let data = try! JSONEncoder().encode(profile)
+                let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.peerProfile, value: data))
+                ConnectionController.shared.session.sendRequest(messageData, toPeers: ConnectionController.shared.session.connectedPeers, with: .unreliable)
+            }, failure: { error in
+                self.alert(title: "Error", message: error.localizedDescription)
+            })
+        }, failure: { error in
             self.alert(title: "Error", message: error.localizedDescription)
-        }
-        
-        swifter.showUser(.screenName(self.screenName!), success: { json in
-            print(json["profile_image_url_https"])
-            ConnectionController.shared.setIconURL(iconURL: URL(string: json["profile_image_url_https"].string!))
-            print(ConnectionController.shared.iconURL!)
-            NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
-            let urlData = try! JSONEncoder().encode(ConnectionController.shared.iconURL)
-            
-            let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.Name.iconURL, value: urlData))
-            
-            ConnectionController.shared.session.sendRequest(messageData, toPeers: ConnectionController.shared.session.connectedPeers, with: .unreliable)
-        }, failure: failureHandler)
+        })
     }
     
     func alert(title: String, message: String) {

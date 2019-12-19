@@ -30,7 +30,7 @@ class PlayerQueue{
                     songs.append(PlayerQueue.shared.get(at: i)!)
                 }
                 let songsData = try! JSONEncoder().encode(songs)
-                let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.Name.requestSongs, value: songsData))
+                let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.DataType.requestSongs, value: songsData))
                 
                 do {
                     try ConnectionController.shared.session.send(messageData, toPeers: ConnectionController.shared.session.connectedPeers, with: .unreliable)
@@ -40,9 +40,9 @@ class PlayerQueue{
             }
         }
     }
-    private var urlCorrespondence : [String:URL] = [:] // storeIDとURLの対応表
+    private var artworkUrlCorrespondence : [String:URL] = [:]   // storeIDとアートワークURLの対応表
     
-    private var iconURLCorrespondence :  [URL?] = [] //indexとiconURLの対応表
+    private var profileImageUrlCorrespondence :  [URL?] = []    // リクエストとピアのプロフィール画像URLの対応表
     
     private var isQueueCreated: Bool = false
     
@@ -82,10 +82,10 @@ class PlayerQueue{
             }
             guard error == nil else { return } // TODO: キューの作成ができなかった時の処理
             self.mpAppController.play() // 自動再生する
-            self.urlCorrespondence = [:]
-            self.urlCorrespondence[song.id] = song.artworkUrl
-            self.iconURLCorrespondence = []
-            self.iconURLCorrespondence.append(song.iconURL)
+            self.artworkUrlCorrespondence = [:]
+            self.artworkUrlCorrespondence[song.id] = song.artworkUrl
+            self.profileImageUrlCorrespondence = []
+            self.profileImageUrlCorrespondence.append(song.profileImageUrl)
             self.mpAppController.perform(queueTransaction: { _ in }, completionHandler: { [unowned self] queue, _ in
                 self.items = queue.items
             })
@@ -116,8 +116,8 @@ class PlayerQueue{
                 self.dispatchSemaphore.signal()
             }
             guard (error == nil) else { return } // TODO: 挿入ができなかった時の処理
-            self.urlCorrespondence[song.id] = song.artworkUrl
-            self.iconURLCorrespondence.append(song.iconURL)
+            self.artworkUrlCorrespondence[song.id] = song.artworkUrl
+            self.profileImageUrlCorrespondence.append(song.profileImageUrl)
             self.items = queue.items
             if let completion = completion { completion() }
             NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
@@ -143,7 +143,7 @@ class PlayerQueue{
                 self.dispatchSemaphore.signal()
             }
             guard (error == nil) else { return } // TODO: 削除ができなかった時の処理
-            self.urlCorrespondence.removeValue(forKey: self.items[index].playbackStoreID)
+            self.artworkUrlCorrespondence.removeValue(forKey: self.items[index].playbackStoreID)
             self.items = queue.items
             if let completion = completion { completion() }
             NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
@@ -193,31 +193,31 @@ class PlayerQueue{
         return items.count
     }
     
+    func play(at index: Int) {
+        guard index >= 0 && self.count() > index else { return }
+        self.mpAppController.nowPlayingItem = items[index]
+    }
+    
     func get(at index: Int) -> Song? {
         guard index >= 0 && self.count() > index else { return nil }
         let item = items[index]
-        return Song(title:      item.title ?? "Loading...",
-                    artist:     item.artist ?? "Loading...",
-                    artworkUrl: self.urlCorrespondence[item.playbackStoreID] ?? URL(fileURLWithPath: ""),
-                    id:         item.playbackStoreID,
-                    index:      index,
-                    iconURL:    self.iconURLCorrespondence[index] ?? URL(fileURLWithPath: ""))
-    }
-    
-    func getMediaItem(at index: Int) -> MPMediaItem? {
-        guard index >= 0 && self.count() > index else { return nil }
-        return items[index]
+        return Song(title:           item.title ?? "Loading...",
+                    artist:          item.artist ?? "Loading...",
+                    artworkUrl:      self.artworkUrlCorrespondence[item.playbackStoreID] ?? URL(fileURLWithPath: ""),
+                    id:              item.playbackStoreID,
+                    index:           index,
+                    profileImageUrl: self.profileImageUrlCorrespondence[index] ?? URL(fileURLWithPath: ""))
     }
     
     func getArtworkURL(storeID: String) -> URL? {
-        return self.urlCorrespondence[storeID]
+        return self.artworkUrlCorrespondence[storeID]
     }
     
     func getNowPlaying() -> Song? {
         guard let item = self.mpAppController.nowPlayingItem else { return nil }
         return Song(title:      item.title ?? "Loading...",
                     artist:     item.artist ?? "Loading...",
-                    artworkUrl: self.urlCorrespondence[item.playbackStoreID] ?? URL(fileURLWithPath: ""),
+                    artworkUrl: self.artworkUrlCorrespondence[item.playbackStoreID] ?? URL(fileURLWithPath: ""),
                     id:         item.playbackStoreID,
                     index:      self.mpAppController.indexOfNowPlayingItem)
     }
