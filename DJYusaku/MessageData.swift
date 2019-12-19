@@ -9,11 +9,13 @@
 import UIKit
 
 struct MessageData : Codable {
-    var desc : MessageData.Name // 説明
-    var value: Data   // JOSNデータ
+    var desc : MessageData.DataType // データの種類
+    var value: Data             // JSONデータ
     
-    enum Name: Int, Codable {
+    enum DataType: Int, Codable {
         case nowPlaying
+        case requestSong
         case requestSongs
+        case peerProfile
     }
 }

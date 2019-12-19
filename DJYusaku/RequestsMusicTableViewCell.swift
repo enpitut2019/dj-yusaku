@@ -9,11 +9,12 @@
 import UIKit
 
 class RequestsMusicTableViewCell: UITableViewCell {
-        // TODO: TableViewCellとアウトレット接続しているけど未使用
-        @IBOutlet weak var title: UILabel!
-        @IBOutlet weak var artist: UILabel!
-        @IBOutlet weak var artwork: UIImageView!
-        @IBOutlet weak var nowPlayingIndicator: UIImageView!
+    
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var artist: UILabel!
+    @IBOutlet weak var artwork: UIImageView!
+    @IBOutlet weak var nowPlayingIndicator: UIImageView!
+    @IBOutlet weak var profileImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,6 +22,10 @@ class RequestsMusicTableViewCell: UITableViewCell {
         // アートワーク画像を角丸にする
         artwork.layer.cornerRadius = artwork.frame.size.width * 0.05
         artwork.clipsToBounds = true
+        
+        // アイコン画像を円形にする
+        profileImageView.layer.cornerRadius = profileImageView.frame.size.height * 0.5
+        profileImageView.clipsToBounds = true
         
         self.animateNowPlayingIndicatior()
     }

@@ -10,12 +10,15 @@ import UIKit
 
 class MemberTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var peerImage: UIImageView!
+    @IBOutlet weak var peerImageView: UIImageView!
     @IBOutlet weak var peerName: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        // アイコン画像を円形にする
+        peerImageView.layer.cornerRadius = peerImageView.frame.size.height * 0.5
+        peerImageView.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

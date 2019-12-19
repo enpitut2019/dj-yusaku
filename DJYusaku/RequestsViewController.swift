@@ -101,7 +101,7 @@ class RequestsViewController: UIViewController {
         guard ConnectionController.shared.session.connectedPeers.count != 0 else { return }
         
         let nowPlayingData = try! JSONEncoder().encode(nowPlayingSong)
-        let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.Name.nowPlaying, value: nowPlayingData))
+        let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.DataType.nowPlaying, value: nowPlayingData))
         do {
             try ConnectionController.shared.session.send(messageData, toPeers: ConnectionController.shared.session.connectedPeers, with: .unreliable)
         } catch let error {
@@ -136,6 +136,23 @@ class RequestsViewController: UIViewController {
                 name: .DJYusakuRequestVCWillEnterForeground,
                 object: nil
             )
+        }
+    }
+    
+    func scrollToNowPlayingItem(animated: Bool = true) {
+        guard ConnectionController.shared.isDJ != nil else { return }
+        
+        let numberOfRequestedSongs = ConnectionController.shared.isDJ
+                                   ? PlayerQueue.shared.count()
+                                   : ConnectionController.shared.receivedSongs.count
+        guard numberOfRequestedSongs != 0 else { return }
+        
+        let indexOfNowPlayingItem  = ConnectionController.shared.isDJ
+                                   ? PlayerQueue.shared.mpAppController.indexOfNowPlayingItem
+                                   : RequestsViewController.self.indexOfNowPlayingItemOnListener
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(row: indexOfNowPlayingItem, section: 0)
+            self.tableView.scrollToRow(at: indexPath, at: UITableView.ScrollPosition.top, animated: animated)
         }
     }
     
@@ -205,23 +222,6 @@ class RequestsViewController: UIViewController {
         scrollToNowPlayingItem()
     }
     
-    func scrollToNowPlayingItem(animated: Bool = true) {
-        guard ConnectionController.shared.isDJ != nil else { return }
-        
-        let numberOfRequestedSongs = ConnectionController.shared.isDJ
-                                   ? PlayerQueue.shared.count()
-                                   : ConnectionController.shared.receivedSongs.count
-        guard numberOfRequestedSongs != 0 else { return }
-        
-        let indexOfNowPlayingItem  = ConnectionController.shared.isDJ
-                                   ? PlayerQueue.shared.mpAppController.indexOfNowPlayingItem
-                                   : RequestsViewController.self.indexOfNowPlayingItemOnListener
-        DispatchQueue.main.async {
-          let indexPath = IndexPath(row: indexOfNowPlayingItem, section: 0)
-            self.tableView.scrollToRow(at: indexPath, at: UITableView.ScrollPosition.top, animated: animated)
-        }
-    }
-    
 }
 
 // MARK: - UITableViewDataSource
@@ -252,6 +252,9 @@ extension RequestsViewController: UITableViewDataSource {
                                   : RequestsViewController.self.indexOfNowPlayingItemOnListener
         cell.title.text    = song.title
         cell.artist.text   = song.artist
+        if let profileImageUrl = song.profileImageUrl {
+            cell.profileImageView.image = Artwork.fetch(url: profileImageUrl)
+        }
         cell.nowPlayingIndicator.isHidden = indexOfNowPlayingItem != indexPath.row
         
         DispatchQueue.global().async {
@@ -288,8 +291,7 @@ extension RequestsViewController: UITableViewDelegate {
         self.tableView.deselectRow(at: indexPath, animated: false)  // セルの選択を解除
         if ConnectionController.shared.isDJ {   // 自分がDJのとき
             // 曲を再生する
-            guard let selectedItem = PlayerQueue.shared.getMediaItem(at: indexPath.row) else { return }
-            PlayerQueue.shared.mpAppController.nowPlayingItem = selectedItem
+            PlayerQueue.shared.play(at: indexPath.row)
         }
     }
     
