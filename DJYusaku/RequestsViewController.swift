@@ -111,6 +111,26 @@ class RequestsViewController: UIViewController {
         requestTutorialView.layer.mask = maskLayer
     }
     
+    func makeTutorialSpot(at point: CGPoint, radius: CGFloat){
+        let maskLayer = CAShapeLayer()
+        
+        maskLayer.fillRule  = .evenOdd              // Pathの内部を判定する方法を設定
+        maskLayer.fillColor = UIColor.black.cgColor
+        
+        let maskPath = UIBezierPath(rect: self.view.frame)
+        maskPath.move(to: point)
+        
+        maskPath.addArc(withCenter: point,
+                        radius: radius,
+                        startAngle: 0.0,
+                        endAngle: 2.0 * CGFloat.pi,
+                        clockwise: true)
+        
+        maskLayer.path = maskPath.cgPath
+        
+        requestTutorialView.layer.mask = maskLayer
+    }
+    
     @objc func handleRequestsDidUpdate(){
         DispatchQueue.main.async{
             self.tableView.reloadData()
