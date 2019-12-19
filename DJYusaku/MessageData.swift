@@ -16,5 +16,6 @@ struct MessageData : Codable {
         case nowPlaying
         case requestSong
         case requestSongs
+        case iconURL
     }
 }
