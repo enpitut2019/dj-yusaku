@@ -47,6 +47,12 @@ class SettingViewController: UIViewController, SFSafariViewControllerDelegate {
             print(json["profile_image_url_https"])
             ConnectionController.shared.setIconURL(iconURL: URL(string: json["profile_image_url_https"].string!))
             print(ConnectionController.shared.iconURL!)
+            NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
+            let urlData = try! JSONEncoder().encode(ConnectionController.shared.iconURL)
+            
+            let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.Name.iconURL, value: urlData))
+            
+            ConnectionController.shared.session.sendRequest(messageData, toPeers: ConnectionController.shared.session.connectedPeers, with: .unreliable)
         }, failure: failureHandler)
     }
     
