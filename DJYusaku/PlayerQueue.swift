@@ -40,11 +40,13 @@ class PlayerQueue{
             }
         }
     }
+    
     private var artworkUrlCorrespondence : [String:URL] = [:]   // storeIDとアートワークURLの対応表
     
     private var profileImageUrlCorrespondence :  [URL?] = []    // リクエストとピアのプロフィール画像URLの対応表
     
     private var isQueueCreated: Bool = false
+    private var firstSong: Song? = nil
     
     private let dispatchSemaphore = DispatchSemaphore(value: 1)
     private let SEMAPHORE_TIMEOUT = 2.0
@@ -88,10 +90,11 @@ class PlayerQueue{
             self.profileImageUrlCorrespondence.append(song.profileImageUrl)
             self.mpAppController.perform(queueTransaction: { _ in }, completionHandler: { [unowned self] queue, _ in
                 self.items = queue.items
+                self.firstSong = song
+                NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
             })
             self.isQueueCreated = true
             if let completion = completion { completion() }
-            NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
         }
     }
 
@@ -199,7 +202,9 @@ class PlayerQueue{
     }
     
     func get(at index: Int) -> Song? {
-        guard index >= 0 && self.count() > index else { return nil }
+        guard index >= 0 && self.count() > index else { return nil }    // 不正な呼び出しのとき
+        if index == 0 { return self.firstSong }                         // 1曲目のとき
+        // 2曲目以降のとき
         let item = items[index]
         return Song(title:           item.title ?? "Loading...",
                     artist:          item.artist ?? "Loading...",
