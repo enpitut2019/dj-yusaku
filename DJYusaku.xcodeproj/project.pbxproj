@@ -17,6 +17,7 @@
 		411F288B23616EEB00BA96C1 /* PlayerQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F288A23616EEB00BA96C1 /* PlayerQueue.swift */; };
 		4181777C2388DC5E00A7B02A /* MemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4181777B2388DC5E00A7B02A /* MemberViewController.swift */; };
 		418177822388EEF300A7B02A /* MemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418177812388EEF300A7B02A /* MemberTableViewCell.swift */; };
+		41D3624F23ABB03600E0ED1E /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D3624E23ABB03600E0ED1E /* TutorialViewController.swift */; };
 		B10A9E122373F46E00209871 /* MCSession+sendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10A9E112373F46E00209871 /* MCSession+sendRequest.swift */; };
 		B125D88D235F426C00D383E7 /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B125D88C235F426C00D383E7 /* Artwork.swift */; };
 		C40DC880236570DD00E80AB1 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */; };
@@ -69,6 +70,7 @@
 		411F288A23616EEB00BA96C1 /* PlayerQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerQueue.swift; sourceTree = "<group>"; };
 		4181777B2388DC5E00A7B02A /* MemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberViewController.swift; sourceTree = "<group>"; };
 		418177812388EEF300A7B02A /* MemberTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTableViewCell.swift; sourceTree = "<group>"; };
+		41D3624E23ABB03600E0ED1E /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		B10A9E112373F46E00209871 /* MCSession+sendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MCSession+sendRequest.swift"; sourceTree = "<group>"; };
 		B125D88C235F426C00D383E7 /* Artwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
 		C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				C447ACB0234882FB00D535EB /* Assets.xcassets */,
 				C447ACB2234882FB00D535EB /* LaunchScreen.storyboard */,
 				C447ACAD234882F900D535EB /* Main.storyboard */,
+				41D3624E23ABB03600E0ED1E /* TutorialViewController.swift */,
 			);
 			path = DJYusaku;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 				4181777C2388DC5E00A7B02A /* MemberViewController.swift in Sources */,
 				106B1C2D2372BE1F008684EB /* ListenerConnectableDJsTableViewCell.swift in Sources */,
 				C43634D323923485000CE58F /* DummyViewController.swift in Sources */,
+				41D3624F23ABB03600E0ED1E /* TutorialViewController.swift in Sources */,
 				1049BAF823877093001DCFD8 /* MessageData.swift in Sources */,
 				411F288B23616EEB00BA96C1 /* PlayerQueue.swift in Sources */,
 				C4FDD0CC2356EA8F007569B1 /* RequestsMusicTableViewCell.swift in Sources */,
@@ -550,14 +554,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = 29WP3DF4XR;
+				DEVELOPMENT_TEAM = J87XZSWPMZ;
 				INFOPLIST_FILE = DJYusaku/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.5;
-				PRODUCT_BUNDLE_IDENTIFIER = jp.yaplus.DJYusaku;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.yaplus.DJYusaku.amylase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

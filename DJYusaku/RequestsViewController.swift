@@ -70,10 +70,6 @@ class RequestsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let convertedFrame = playerControllerView.convert(playButtonBackgroundView.center, to: requestTutorialView)
-        
-        makeTutorialSpot(at: convertedFrame, radius: playButtonBackgroundView.frame.width)
-        
         if !RequestsViewController.isViewAppearedAtLeastOnce {  // 初回だけ表示する画面遷移に使う
             // 初回にはWelcomeViewをモーダルを表示
             let storyboard: UIStoryboard = self.storyboard!
@@ -89,46 +85,6 @@ class RequestsViewController: UIViewController {
         }
         // スクロールを現在再生中の曲に移動する
         scrollToNowPlayingItem(animated: false)
-    }
-    
-    func makeTutorialSpot(at point: CGPoint, radius: CGFloat){
-        let maskLayer = CAShapeLayer()
-        
-        maskLayer.fillRule  = .evenOdd              // Pathの内部を判定する方法を設定
-        maskLayer.fillColor = UIColor.black.cgColor
-        
-        let maskPath = UIBezierPath(rect: self.view.frame)
-        maskPath.move(to: point)
-        
-        maskPath.addArc(withCenter: point,
-                        radius: radius,
-                        startAngle: 0.0,
-                        endAngle: 2.0 * CGFloat.pi,
-                        clockwise: true)
-        
-        maskLayer.path = maskPath.cgPath
-        
-        requestTutorialView.layer.mask = maskLayer
-    }
-    
-    func makeTutorialSpot(at point: CGPoint, radius: CGFloat){
-        let maskLayer = CAShapeLayer()
-        
-        maskLayer.fillRule  = .evenOdd              // Pathの内部を判定する方法を設定
-        maskLayer.fillColor = UIColor.black.cgColor
-        
-        let maskPath = UIBezierPath(rect: self.view.frame)
-        maskPath.move(to: point)
-        
-        maskPath.addArc(withCenter: point,
-                        radius: radius,
-                        startAngle: 0.0,
-                        endAngle: 2.0 * CGFloat.pi,
-                        clockwise: true)
-        
-        maskLayer.path = maskPath.cgPath
-        
-        requestTutorialView.layer.mask = maskLayer
     }
     
     @objc func handleRequestsDidUpdate(){
