@@ -166,7 +166,6 @@ extension ConnectionController: MCSessionDelegate {
             }
         }
         
-        self.delegate?.connectionController(didReceiveData: data, from: peerID)
     }
     
     // 他のピアによる sendStream を受け取ったとき呼ばれる

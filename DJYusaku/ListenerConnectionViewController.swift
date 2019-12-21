@@ -71,10 +71,6 @@ extension ListenerConnectionViewController: UITableViewDelegate {
 // MARK: - ConnectionControllerDelegate
 
 extension ListenerConnectionViewController: ConnectionControllerDelegate {
-    func connectionController(didReceiveData data: Data, from peerID: MCPeerID) {
-        
-    }
-
     func connectionController(didChangeConnectableDevices devices: [MCPeerID]) {
         // browserがピアを見つけたらリロード
         DispatchQueue.main.async {
