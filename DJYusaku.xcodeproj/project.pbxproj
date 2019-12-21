@@ -20,6 +20,7 @@
 		B10A9E122373F46E00209871 /* MCSession+sendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10A9E112373F46E00209871 /* MCSession+sendRequest.swift */; };
 		B125D88D235F426C00D383E7 /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B125D88C235F426C00D383E7 /* Artwork.swift */; };
 		C40DC880236570DD00E80AB1 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */; };
+		C41F18E323AE03BE00E1A886 /* UserDefaults+DJYusakuDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41F18E223AE03BE00E1A886 /* UserDefaults+DJYusakuDefaults.swift */; };
 		C43634CE23922708000CE58F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43634CD23922708000CE58F /* TabBarController.swift */; };
 		C43634D1239227F6000CE58F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C43634D0239227F6000CE58F /* SnapKit */; };
 		C43634D323923485000CE58F /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43634D223923485000CE58F /* DummyViewController.swift */; };
@@ -72,6 +73,7 @@
 		B10A9E112373F46E00209871 /* MCSession+sendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MCSession+sendRequest.swift"; sourceTree = "<group>"; };
 		B125D88C235F426C00D383E7 /* Artwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
 		C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		C41F18E223AE03BE00E1A886 /* UserDefaults+DJYusakuDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+DJYusakuDefaults.swift"; sourceTree = "<group>"; };
 		C43634CD23922708000CE58F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		C43634D223923485000CE58F /* DummyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
 		C436A8552350B16B009F6498 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				C447ACB0234882FB00D535EB /* Assets.xcassets */,
 				C447ACB2234882FB00D535EB /* LaunchScreen.storyboard */,
 				C447ACAD234882F900D535EB /* Main.storyboard */,
+				C41F18E223AE03BE00E1A886 /* UserDefaults+DJYusakuDefaults.swift */,
 			);
 			path = DJYusaku;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 				B125D88D235F426C00D383E7 /* Artwork.swift in Sources */,
 				C4CF9725235163EF00C8A102 /* SearchViewController.swift in Sources */,
 				4181777C2388DC5E00A7B02A /* MemberViewController.swift in Sources */,
+				C41F18E323AE03BE00E1A886 /* UserDefaults+DJYusakuDefaults.swift in Sources */,
 				106B1C2D2372BE1F008684EB /* ListenerConnectableDJsTableViewCell.swift in Sources */,
 				C43634D323923485000CE58F /* DummyViewController.swift in Sources */,
 				1049BAF823877093001DCFD8 /* MessageData.swift in Sources */,
