@@ -17,33 +17,32 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if !ConnectionController.shared.isInitialized {
+            ConnectionController.shared.initialize()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.doneButtonItem.isEnabled = WelcomeViewController.isViewAppearedAtLeastOnce
-        WelcomeViewController.isViewAppearedAtLeastOnce = true
+        if let _ = ConnectionController.shared.isDJ {
+            self.doneButtonItem.isEnabled = true
+        } else {
+            self.doneButtonItem.isEnabled = false
+        }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     @IBAction func closeModal(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func joinAsDJ(_ sender: Any) {
-        ConnectionController.shared.initialize(isDJ: true, displayName: UIDevice.current.name)
-        
-        ConnectionController.shared.startAdvertise()
+        if let profile = ConnectionController.shared.profile {
+            ConnectionController.shared.startDJ(displayName: profile.name, iconUrlString: profile.imageUrl.absoluteString)
+        } else {
+            ConnectionController.shared.startDJ(displayName: UIDevice.current.name)
+        }
         
         self.dismiss(animated: true, completion: nil)
     }

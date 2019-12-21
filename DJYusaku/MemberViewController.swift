@@ -48,35 +48,40 @@ class MemberViewController: UIViewController {
     }
     
     func updateMembers() {
-        var DJName = ConnectionController.shared.isDJ
+        var DJName = ConnectionController.shared.isDJ!
                    ? ConnectionController.shared.peerID.displayName
-                   : ConnectionController.shared.connectedDJ.displayName
-        var DJIcon: UIImage?
+                   : ConnectionController.shared.connectedDJ?.displayName
+        var DJIcon: UIImage? = nil
         
-        // 接続している端末（親機）はtableViewには表示しない
-        listeners = ConnectionController.shared.session.connectedPeers.filter({ $0 != ConnectionController.shared.connectedDJ })
+        listeners = ConnectionController.shared.session.connectedPeers
         
-        // 子機のときは自分を先頭に挿入
-        if !ConnectionController.shared.isDJ {
+        if !ConnectionController.shared.isDJ! {
+            if let connectedDJ = ConnectionController.shared.connectedDJ {
+                // 接続している端末（親機）はtableViewには表示しない
+                self.listeners = self.listeners.filter({ $0 != connectedDJ })
+            }
+            // 子機のときは自分を先頭に挿入
             self.listeners.insert(ConnectionController.shared.peerID, at: 0)
         }
         
-        if ConnectionController.shared.isDJ {
+        if ConnectionController.shared.isDJ! {
             if let profile = ConnectionController.shared.profile {
                 DJName = profile.name
                 DJIcon = Artwork.fetch(url: profile.imageUrl)
             }
         } else {
-            if let profile = ConnectionController.shared.peerProfileCorrespondence[ ConnectionController.shared.connectedDJ] {
-                DJName = profile.name
-                DJIcon = Artwork.fetch(url: profile.imageUrl)
+            if let connectedDJ = ConnectionController.shared.connectedDJ {
+                if let profile = ConnectionController.shared.peerProfileCorrespondence[connectedDJ] {
+                    DJName = profile.name
+                    DJIcon = Artwork.fetch(url: profile.imageUrl)
+                }
             }
         }
         
         // 親機の表示を更新
         DispatchQueue.main.async{
             self.DJNameLabel.text  = DJName
-            self.DJImageView.image = DJIcon ?? self.DJImageView.image
+            self.DJImageView.image = DJIcon
             self.tableView.reloadData()
         }
     }
@@ -103,7 +108,7 @@ extension MemberViewController: UITableViewDataSource {
         DispatchQueue.global().async {
             var listenerName: String?
             var listenerIcon: UIImage?
-            if indexPath.row == 0 && !ConnectionController.shared.isDJ { // 自分自身（子機）
+            if indexPath.row == 0 && !ConnectionController.shared.isDJ! { // 自分自身（子機）
                 if let profile = ConnectionController.shared.profile {
                     listenerName = profile.name
                     listenerIcon = Artwork.fetch(url: profile.imageUrl)

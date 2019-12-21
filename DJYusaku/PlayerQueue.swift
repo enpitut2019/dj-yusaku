@@ -23,7 +23,7 @@ class PlayerQueue{
     
     private var items: [MPMediaItem] = [] {
         didSet {
-            if ConnectionController.shared.isDJ {   // DJのリクエストが更新されたとき
+            if ConnectionController.shared.isDJ! {   // DJのリクエストが更新されたとき
                 guard ConnectionController.shared.session.connectedPeers.count != 0 else { return }
                 var songs: [Song] = []
                 for i in 0..<PlayerQueue.shared.count() {
