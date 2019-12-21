@@ -96,7 +96,8 @@ extension MemberViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell  = tableView.dequeueReusableCell(withIdentifier: "MemberTableViewCell", for: indexPath) as! MemberTableViewCell
-        cell.peerName.text = listeners[indexPath.row].displayName
+        cell.peerName.text       = listeners[indexPath.row].displayName
+        cell.peerImageView.image = nil
         
         // プロフィールが設定されている場合
         DispatchQueue.global().async {
