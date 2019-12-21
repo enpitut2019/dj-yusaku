@@ -92,7 +92,7 @@ class RequestsViewController: UIViewController {
     }
     
     @objc func handleNowPlayingItemDidChangeOnDJ(){
-        guard let nowPlayingSong = PlayerQueue.shared.getNowPlaying() else {return}
+        guard let nowPlayingSong = PlayerQueue.shared.getNowPlaying() else { return }
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
