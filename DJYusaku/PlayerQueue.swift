@@ -21,14 +21,12 @@ class PlayerQueue{
     static let shared = PlayerQueue()
     let mpAppController = MPMusicPlayerController.applicationQueuePlayer
     
-    private var items: [MPMediaItem] = [] {
+    private var items: [MPMediaItem] = []
+    
+    private var songs: [Song] = [] {
         didSet {
             if ConnectionController.shared.isDJ {   // DJのリクエストが更新されたとき
                 guard ConnectionController.shared.session.connectedPeers.count != 0 else { return }
-                var songs: [Song] = []
-                for i in 0..<PlayerQueue.shared.count() {
-                    songs.append(PlayerQueue.shared.get(at: i)!)
-                }
                 let songsData = try! JSONEncoder().encode(songs)
                 let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.DataType.requestSongs, value: songsData))
                 
@@ -40,9 +38,6 @@ class PlayerQueue{
             }
         }
     }
-    private var artworkUrlCorrespondence : [String:URL] = [:]   // storeIDとアートワークURLの対応表
-    
-    private var profileImageUrlCorrespondence :  [URL?] = []    // リクエストとピアのプロフィール画像URLの対応表
     
     private var isQueueCreated: Bool = false
     
@@ -82,16 +77,13 @@ class PlayerQueue{
             }
             guard error == nil else { return } // TODO: キューの作成ができなかった時の処理
             self.mpAppController.play() // 自動再生する
-            self.artworkUrlCorrespondence = [:]
-            self.artworkUrlCorrespondence[song.id] = song.artworkUrl
-            self.profileImageUrlCorrespondence = []
-            self.profileImageUrlCorrespondence.append(song.profileImageUrl)
             self.mpAppController.perform(queueTransaction: { _ in }, completionHandler: { [unowned self] queue, _ in
                 self.items = queue.items
             })
+            self.songs.append(song)
+            NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
             self.isQueueCreated = true
             if let completion = completion { completion() }
-            NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
         }
     }
 
@@ -116,9 +108,8 @@ class PlayerQueue{
                 self.dispatchSemaphore.signal()
             }
             guard (error == nil) else { return } // TODO: 挿入ができなかった時の処理
-            self.artworkUrlCorrespondence[song.id] = song.artworkUrl
-            self.profileImageUrlCorrespondence.append(song.profileImageUrl)
             self.items = queue.items
+            self.songs.append(song)
             if let completion = completion { completion() }
             NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
         })
@@ -143,8 +134,8 @@ class PlayerQueue{
                 self.dispatchSemaphore.signal()
             }
             guard (error == nil) else { return } // TODO: 削除ができなかった時の処理
-            self.artworkUrlCorrespondence.removeValue(forKey: self.items[index].playbackStoreID)
             self.items = queue.items
+            self.songs.remove(at: index)
             if let completion = completion { completion() }
             NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
         })
@@ -176,6 +167,9 @@ class PlayerQueue{
             }
             guard (error == nil) else { return } // TODO: 挿入ができなかった時の処理
             self.items = queue.items
+            self.songs.insert(self.songs[srcIndex], at: dstIndex)
+            let afterIndex = dstIndex > srcIndex ? dstIndex : dstIndex-1
+            self.songs.remove(at: afterIndex)
             if let completion = completion { completion() }
             NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
         })
@@ -185,12 +179,12 @@ class PlayerQueue{
         if !isQueueCreated { // キューが初期化されていないとき
             self.create(with: song, completion: completion)
         } else {            // 既にキューが作られているとき
-            self.insert(after: items.count - 1, with: song, completion: completion)
+            self.insert(after: songs.count - 1, with: song, completion: completion)
         }
     }
     
     func count() -> Int {
-        return items.count
+        return songs.count
     }
     
     func play(at index: Int) {
@@ -199,27 +193,13 @@ class PlayerQueue{
     }
     
     func get(at index: Int) -> Song? {
-        guard index >= 0 && self.count() > index else { return nil }
-        let item = items[index]
-        return Song(title:           item.title ?? "Loading...",
-                    artist:          item.artist ?? "Loading...",
-                    artworkUrl:      self.artworkUrlCorrespondence[item.playbackStoreID] ?? URL(fileURLWithPath: ""),
-                    id:              item.playbackStoreID,
-                    index:           index,
-                    profileImageUrl: self.profileImageUrlCorrespondence[index] ?? URL(fileURLWithPath: ""))
-    }
-    
-    func getArtworkURL(storeID: String) -> URL? {
-        return self.artworkUrlCorrespondence[storeID]
+        guard index >= 0 && self.count() > index else { return nil }    // 不正な呼び出しのとき
+        return songs[index]
     }
     
     func getNowPlaying() -> Song? {
-        guard let item = self.mpAppController.nowPlayingItem else { return nil }
-        return Song(title:      item.title ?? "Loading...",
-                    artist:     item.artist ?? "Loading...",
-                    artworkUrl: self.artworkUrlCorrespondence[item.playbackStoreID] ?? URL(fileURLWithPath: ""),
-                    id:         item.playbackStoreID,
-                    index:      self.mpAppController.indexOfNowPlayingItem)
+        guard self.mpAppController.nowPlayingItem != nil else { return nil }
+        return songs[self.mpAppController.indexOfNowPlayingItem]
     }
     
 }
