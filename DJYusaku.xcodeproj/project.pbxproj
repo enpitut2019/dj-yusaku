@@ -728,8 +728,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mattdonnelly/Swifter.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = revision;
+				revision = 8889232f27784f6f33cb689c77f233b578124a53;
 			};
 		};
 		C43634CF239227F6000CE58F /* XCRemoteSwiftPackageReference "SnapKit" */ = {
