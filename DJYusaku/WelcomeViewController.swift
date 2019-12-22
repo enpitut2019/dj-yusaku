@@ -38,7 +38,7 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func joinAsDJ(_ sender: Any) {
-        if let profile = ConnectionController.shared.profile {
+        if let profile = DefaultsController.shared.profile {
             ConnectionController.shared.startDJ(displayName: profile.name, iconUrlString: profile.imageUrl.absoluteString)
         } else {
             ConnectionController.shared.startDJ(displayName: UIDevice.current.name)

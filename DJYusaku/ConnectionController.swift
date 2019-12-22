@@ -39,7 +39,6 @@ class ConnectionController: NSObject {
     
     var receivedSongs: [Song] = []
     
-    var profile: PeerProfile? = nil
     var peerProfileCorrespondence: [MCPeerID:PeerProfile] = [:]
     
     func initialize() {
@@ -102,9 +101,6 @@ class ConnectionController: NSObject {
         }
     }
     
-    func setProfile(profile: PeerProfile){
-        self.profile = profile
-    }
 }
 
 // MARK: - MCSessionDelegate
@@ -123,7 +119,7 @@ extension ConnectionController: MCSessionDelegate {
             NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
             
             // プロフィールが設定されていれば他のピアに送信する
-            if let profile = self.profile {
+            if let profile = DefaultsController.shared.profile {
                 let data = try! JSONEncoder().encode(profile)
                 let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.peerProfile, value: data))
                 ConnectionController.shared.session.sendRequest(messageData, toPeers: [peerID], with: .unreliable)
