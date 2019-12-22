@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="64" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2ub-dF-W8m">
-                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" semanticContentAttribute="playback" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RequestsMusicTableViewCell" id="T5J-aV-tbm" customClass="RequestsMusicTableViewCell" customModule="DJYusaku" customModuleProvider="target">
@@ -189,7 +189,6 @@
                         <outlet property="playButton" destination="0xl-kp-iyr" id="RvD-UI-h3b"/>
                         <outlet property="playButtonBackgroundView" destination="2h6-e1-QnV" id="Kn5-5Y-QZx"/>
                         <outlet property="playerControllerView" destination="9aA-O6-Z64" id="aI6-QH-R2d"/>
-                        <outlet property="requestView" destination="tsR-hK-woN" id="TwX-j2-Eyb"/>
                         <outlet property="skipButton" destination="sYe-8j-hTb" id="179-Hw-Xv1"/>
                         <outlet property="tableView" destination="2ub-dF-W8m" id="Bwj-iS-B5T"/>
                     </connections>
