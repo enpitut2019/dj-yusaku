@@ -1,8 +1,8 @@
 //
-//  SettingViewController.swift
+//  SettingsViewController.swift
 //  DJYusaku
 //
-//  Created by Masahiro Nakamura on 2019/12/18.
+//  Created by Hayato Kohara on 2019/12/22.
 //  Copyright © 2019 Yusaku. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import UIKit
 import Swifter
 import SafariServices
 
-class SettingViewController: UIViewController, SFSafariViewControllerDelegate {
+class SettingsViewController: UITableViewController, SFSafariViewControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
