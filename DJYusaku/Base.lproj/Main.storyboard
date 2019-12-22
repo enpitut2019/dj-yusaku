@@ -189,7 +189,6 @@
                         <outlet property="playButton" destination="0xl-kp-iyr" id="RvD-UI-h3b"/>
                         <outlet property="playButtonBackgroundView" destination="2h6-e1-QnV" id="Kn5-5Y-QZx"/>
                         <outlet property="playerControllerView" destination="9aA-O6-Z64" id="aI6-QH-R2d"/>
-                        <outlet property="requestView" destination="tsR-hK-woN" id="TwX-j2-Eyb"/>
                         <outlet property="skipButton" destination="sYe-8j-hTb" id="179-Hw-Xv1"/>
                         <outlet property="tableView" destination="2ub-dF-W8m" id="Bwj-iS-B5T"/>
                     </connections>
