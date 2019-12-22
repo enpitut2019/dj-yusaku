@@ -24,8 +24,8 @@ class ListenerConnectionViewController: UIViewController {
         tableView.dataSource = self
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         
         ConnectionController.shared.stopBrowse()
         ConnectionController.shared.connectableDJs.removeAll()
@@ -59,10 +59,10 @@ extension ListenerConnectionViewController: UITableViewDataSource {
 
 extension ListenerConnectionViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selected = ConnectionController.shared.connectableDJs[indexPath.row]
-        ConnectionController.shared.startListener(selectedDJ: selected)
-        
-        self.dismiss(animated: true, completion: nil)
+        let selectedDJ = ConnectionController.shared.connectableDJs[indexPath.row]
+        self.dismiss(animated: true) {
+            ConnectionController.shared.startListener(selectedDJ: selectedDJ)
+        }
     }
 }
 
