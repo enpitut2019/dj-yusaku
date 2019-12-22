@@ -356,31 +356,44 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BXT-Va-ZlK">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="64" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BXT-Va-ZlK">
                                 <rect key="frame" x="0.0" y="108" width="414" height="700"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ListenerConnectableDJsTableViewCell" id="Hmp-1P-PDK" customClass="ListenerConnectableDJsTableViewCell" customModule="DJYusaku" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Hmp-1P-PDK" id="mhw-qc-RfJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KK9-dh-Qaa">
-                                                    <rect key="frame" x="11" y="11.5" width="391" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KK9-dh-Qaa">
+                                                    <rect key="frame" x="64" y="22" width="334" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="7nV-4J-FpJ"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="Ynj-sW-L7l" userLabel="PeerImage">
+                                                    <rect key="frame" x="8" y="8" width="48" height="48"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="48" id="f4H-6d-uzd"/>
+                                                        <constraint firstAttribute="width" constant="48" id="nd0-Zd-QY9"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="KK9-dh-Qaa" secondAttribute="trailing" constant="12" id="6jQ-1j-Ifz"/>
+                                                <constraint firstAttribute="trailing" secondItem="KK9-dh-Qaa" secondAttribute="trailing" constant="16" id="6jQ-1j-Ifz"/>
                                                 <constraint firstItem="KK9-dh-Qaa" firstAttribute="centerY" secondItem="mhw-qc-RfJ" secondAttribute="centerY" id="9AF-nk-HgV"/>
-                                                <constraint firstItem="KK9-dh-Qaa" firstAttribute="leading" secondItem="mhw-qc-RfJ" secondAttribute="leading" constant="11" id="bMW-KF-4b4"/>
+                                                <constraint firstItem="Ynj-sW-L7l" firstAttribute="leading" secondItem="mhw-qc-RfJ" secondAttribute="leading" constant="8" id="WNg-NB-GZ6"/>
+                                                <constraint firstItem="KK9-dh-Qaa" firstAttribute="leading" secondItem="Ynj-sW-L7l" secondAttribute="trailing" constant="8" id="bvY-Zb-7DP"/>
+                                                <constraint firstItem="Ynj-sW-L7l" firstAttribute="centerY" secondItem="mhw-qc-RfJ" secondAttribute="centerY" id="piQ-I4-YNQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="djImageView" destination="Ynj-sW-L7l" id="ySk-CX-KIu"/>
                                             <outlet property="djName" destination="KK9-dh-Qaa" id="M6H-OO-qg6"/>
                                         </connections>
                                     </tableViewCell>
@@ -403,7 +416,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x2a-pV-KQr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1729" y="1727"/>
+            <point key="canvasLocation" x="1728.985507246377" y="1726.3392857142856"/>
         </scene>
         <!--New Request-->
         <scene sceneID="wg7-f3-ORb">
