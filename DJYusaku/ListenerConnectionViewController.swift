@@ -16,25 +16,20 @@ class ListenerConnectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        ConnectionController.shared.initialize(isDJ: false, displayName: UIDevice.current.name)
-        ConnectionController.shared.delegate = self
         ConnectionController.shared.startBrowse()
+        ConnectionController.shared.delegate = self
         
         // tableViewのdelegate, dataSource設定
         tableView.delegate = self
         tableView.dataSource = self
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        ConnectionController.shared.stopBrowse()
+        ConnectionController.shared.connectableDJs.removeAll()
     }
-    */
 
 }
 
@@ -47,34 +42,33 @@ extension ListenerConnectionViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListenerConnectableDJsTableViewCell", for: indexPath) as! ListenerConnectableDJsTableViewCell
-        let item = ConnectionController.shared.connectableDJs[indexPath.row]
-        cell.djName?.text = "DJ: " + item.displayName
+        let peerID = ConnectionController.shared.connectableDJs[indexPath.row]
+        let (displayName, imageUrlString) = ConnectionController.shared.connectableDJNameCorrespondence[peerID]!
+        cell.djName?.text = displayName
+        if imageUrlString != nil {
+            if let imageUrl = URL(string: imageUrlString!) {
+                cell.djImageView.image = Artwork.fetch(url: imageUrl)
+            }
+        }
 
         return cell
-    }
-    
-     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedDJ = ConnectionController.shared.connectableDJs[indexPath.row]
-        ConnectionController.shared.browser.invitePeer(selectedDJ, to: ConnectionController.shared.session, withContext: nil, timeout: 10.0)
-        ConnectionController.shared.connectedDJ = selectedDJ
-        ConnectionController.shared.stopBrowse()
-        self.dismiss(animated: true, completion: nil)
     }
 }
 
 // MARK: - UITableViewDelegate
 
 extension ListenerConnectionViewController: UITableViewDelegate {
-    /* TODO: 未実装 */
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedDJ = ConnectionController.shared.connectableDJs[indexPath.row]
+        self.dismiss(animated: true) {
+            ConnectionController.shared.startListener(selectedDJ: selectedDJ)
+        }
+    }
 }
 
 // MARK: - ConnectionControllerDelegate
 
 extension ListenerConnectionViewController: ConnectionControllerDelegate {
-    func connectionController(didReceiveData data: Data, from peerID: MCPeerID) {
-        
-    }
-
     func connectionController(didChangeConnectableDevices devices: [MCPeerID]) {
         // browserがピアを見つけたらリロード
         DispatchQueue.main.async {
