@@ -14,8 +14,6 @@ extension Notification.Name {
     static let DJYusakuRequestVCWillEnterForeground = Notification.Name("DJYusakuRequestVCWillEnterForeground")
 }
 class RequestsViewController: UIViewController {
-    @IBOutlet weak var requestView: UIView!
-    @IBOutlet weak var requestTutorialView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var skipButton: UIButton!
