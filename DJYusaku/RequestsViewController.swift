@@ -92,7 +92,7 @@ class RequestsViewController: UIViewController {
     }
     
     @objc func handleNowPlayingItemDidChangeOnDJ(){
-        guard let nowPlayingSong = PlayerQueue.shared.getNowPlaying() else {return}
+        guard let nowPlayingSong = PlayerQueue.shared.getNowPlaying() else { return }
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -131,7 +131,7 @@ class RequestsViewController: UIViewController {
     
     @objc func handleViewWillEnterForeground() {
         guard ConnectionController.shared.isDJ != nil else { return }
-        if !ConnectionController.shared.isDJ {
+        if !ConnectionController.shared.isDJ! {
             NotificationCenter.default.post(
                 name: .DJYusakuRequestVCWillEnterForeground,
                 object: nil
@@ -142,12 +142,12 @@ class RequestsViewController: UIViewController {
     func scrollToNowPlayingItem(animated: Bool = true) {
         guard ConnectionController.shared.isDJ != nil else { return }
         
-        let numberOfRequestedSongs = ConnectionController.shared.isDJ
+        let numberOfRequestedSongs = ConnectionController.shared.isDJ!
                                    ? PlayerQueue.shared.count()
                                    : ConnectionController.shared.receivedSongs.count
         guard numberOfRequestedSongs != 0 else { return }
         
-        let indexOfNowPlayingItem  = ConnectionController.shared.isDJ
+        let indexOfNowPlayingItem  = ConnectionController.shared.isDJ!
                                    ? PlayerQueue.shared.mpAppController.indexOfNowPlayingItem
                                    : RequestsViewController.self.indexOfNowPlayingItemOnListener
         DispatchQueue.main.async {
@@ -230,7 +230,7 @@ extension RequestsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard ConnectionController.shared.isDJ != nil else { return 0 }
-        if ConnectionController.shared.isDJ {
+        if ConnectionController.shared.isDJ! {
             return PlayerQueue.shared.count()
         } else {
             return ConnectionController.shared.receivedSongs.count
@@ -240,14 +240,14 @@ extension RequestsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RequestsMusicTableViewCell", for: indexPath) as! RequestsMusicTableViewCell
         var song: Song
-        if ConnectionController.shared.isDJ {
+        if ConnectionController.shared.isDJ! {
             guard let queueSong = PlayerQueue.shared.get(at: indexPath.row) else { return cell }
             song = queueSong
         } else {
             song = ConnectionController.shared.receivedSongs[indexPath.row]
         }
         
-        let indexOfNowPlayingItem = ConnectionController.shared.isDJ
+        let indexOfNowPlayingItem = ConnectionController.shared.isDJ!
                                   ? PlayerQueue.shared.mpAppController.indexOfNowPlayingItem
                                   : RequestsViewController.self.indexOfNowPlayingItemOnListener
         cell.title.text    = song.title
@@ -289,7 +289,7 @@ extension RequestsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: false)  // セルの選択を解除
-        if ConnectionController.shared.isDJ {   // 自分がDJのとき
+        if ConnectionController.shared.isDJ! {   // 自分がDJのとき
             // 曲を再生する
             PlayerQueue.shared.play(at: indexPath.row)
         }
