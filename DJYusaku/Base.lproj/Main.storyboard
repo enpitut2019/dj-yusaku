@@ -341,7 +341,7 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vEE-zc-sfC">
                                 <rect key="frame" x="16" y="13" width="92" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="About App"/>
                                 <connections>
                                     <segue destination="daP-Eo-T0w" kind="presentation" id="IHL-aG-Vch"/>
                                 </connections>
