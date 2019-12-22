@@ -89,7 +89,9 @@ class ConnectionController: NSObject {
     }
     
     func startListener(selectedDJ: MCPeerID) {
-        disconnect()
+        if selectedDJ != connectedDJ {
+            disconnect()
+        }
         browser.invitePeer(selectedDJ, to: session, withContext: nil, timeout: 10.0)
         
         connectedDJ = selectedDJ
@@ -113,9 +115,6 @@ extension ConnectionController: MCSessionDelegate {
         switch state {
         case .notConnected:
             print("Peer \(peerID.displayName) is not connected.")
-            if !ConnectionController.shared.isDJ! && peerID == connectedDJ {
-                disconnect()
-            }
             break
         case .connecting:
             print("Peer \(peerID.displayName) is connecting...")
