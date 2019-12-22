@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Swifter
 import MultipeerConnectivity
 
 class MemberViewController: UIViewController {
@@ -32,7 +33,7 @@ class MemberViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         self.updateMembers()
     }
     
@@ -65,7 +66,7 @@ class MemberViewController: UIViewController {
         }
         
         if ConnectionController.shared.isDJ! {
-            if let profile = ConnectionController.shared.profile {
+            if let profile = DefaultsController.shared.profile {
                 DJName = profile.name
                 DJIcon = Artwork.fetch(url: profile.imageUrl)
             }
@@ -109,7 +110,7 @@ extension MemberViewController: UITableViewDataSource {
             var listenerName: String?
             var listenerIcon: UIImage?
             if indexPath.row == 0 && !ConnectionController.shared.isDJ! { // 自分自身（子機）
-                if let profile = ConnectionController.shared.profile {
+                if let profile = DefaultsController.shared.profile {
                     listenerName = profile.name
                     listenerIcon = Artwork.fetch(url: profile.imageUrl)
                     DispatchQueue.main.async {

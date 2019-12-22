@@ -39,7 +39,8 @@
 		C4CF9725235163EF00C8A102 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CF9724235163EF00C8A102 /* SearchViewController.swift */; };
 		C4D25958235205D10066FCE0 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D25957235205D10066FCE0 /* Secrets.swift */; };
 		C4D2595A235205EC0066FCE0 /* Secrets+Local.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D25959235205EC0066FCE0 /* Secrets+Local.swift */; };
-		C4E5CD8823AB8A2700C0807A /* PeerProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E5CD8723AB8A2700C0807A /* PeerProfile.swift */; };
+		C4D9018B23AF3ED40068F5C0 /* DefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D9018A23AF3ED40068F5C0 /* DefaultsController.swift */; };
+		C4D9018D23AF4BA30068F5C0 /* PeerProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D9018C23AF4BA30068F5C0 /* PeerProfile.swift */; };
 		C4FDD0CC2356EA8F007569B1 /* RequestsMusicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FDD0CB2356EA8F007569B1 /* RequestsMusicTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -96,7 +97,8 @@
 		C4CF9724235163EF00C8A102 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C4D25957235205D10066FCE0 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		C4D25959235205EC0066FCE0 /* Secrets+Local.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Secrets+Local.swift"; sourceTree = "<group>"; };
-		C4E5CD8723AB8A2700C0807A /* PeerProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerProfile.swift; sourceTree = "<group>"; };
+		C4D9018A23AF3ED40068F5C0 /* DefaultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsController.swift; sourceTree = "<group>"; };
+		C4D9018C23AF4BA30068F5C0 /* PeerProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerProfile.swift; sourceTree = "<group>"; };
 		C4FDD0CB2356EA8F007569B1 /* RequestsMusicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsMusicTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -165,6 +167,7 @@
 				C46CE2072383EBC000492AC3 /* BatterySaverViewController.swift */,
 				106B1C2E2372C696008684EB /* ConnectionController.swift */,
 				106B1C302372C83F008684EB /* ConnectionControllerDelegate.swift */,
+				C4D9018A23AF3ED40068F5C0 /* DefaultsController.swift */,
 				C43634D223923485000CE58F /* DummyViewController.swift */,
 				106B1C2C2372BE1F008684EB /* ListenerConnectableDJsTableViewCell.swift */,
 				106B1C2A2372BCA8008684EB /* ListenerConnectionViewController.swift */,
@@ -172,7 +175,7 @@
 				418177812388EEF300A7B02A /* MemberTableViewCell.swift */,
 				4181777B2388DC5E00A7B02A /* MemberViewController.swift */,
 				1049BAF723877093001DCFD8 /* MessageData.swift */,
-				C4E5CD8723AB8A2700C0807A /* PeerProfile.swift */,
+				C4D9018C23AF4BA30068F5C0 /* PeerProfile.swift */,
 				411F288A23616EEB00BA96C1 /* PlayerQueue.swift */,
 				C4FDD0CB2356EA8F007569B1 /* RequestsMusicTableViewCell.swift */,
 				C447ACA9234882F900D535EB /* RequestsViewController.swift */,
@@ -184,11 +187,11 @@
 				10937F5B23A9DB4F00CB819B /* SettingViewController.swift */,
 				C436A8552350B16B009F6498 /* Song.swift */,
 				C43634CD23922708000CE58F /* TabBarController.swift */,
+				C41F18E223AE03BE00E1A886 /* UserDefaults+DJYusakuDefaults.swift */,
 				C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */,
 				C447ACB0234882FB00D535EB /* Assets.xcassets */,
 				C447ACB2234882FB00D535EB /* LaunchScreen.storyboard */,
 				C447ACAD234882F900D535EB /* Main.storyboard */,
-				C41F18E223AE03BE00E1A886 /* UserDefaults+DJYusakuDefaults.swift */,
 			);
 			path = DJYusaku;
 			sourceTree = "<group>";
@@ -362,6 +365,8 @@
 				1049BAF823877093001DCFD8 /* MessageData.swift in Sources */,
 				411F288B23616EEB00BA96C1 /* PlayerQueue.swift in Sources */,
 				C4FDD0CC2356EA8F007569B1 /* RequestsMusicTableViewCell.swift in Sources */,
+				C4D9018B23AF3ED40068F5C0 /* DefaultsController.swift in Sources */,
+				C4D9018D23AF4BA30068F5C0 /* PeerProfile.swift in Sources */,
 				C436A8562350B16B009F6498 /* Song.swift in Sources */,
 				C4D25958235205D10066FCE0 /* Secrets.swift in Sources */,
 				10937F5C23A9DB4F00CB819B /* SettingViewController.swift in Sources */,
@@ -371,7 +376,6 @@
 				C43634CE23922708000CE58F /* TabBarController.swift in Sources */,
 				106B1C2B2372BCA8008684EB /* ListenerConnectionViewController.swift in Sources */,
 				C4D2595A235205EC0066FCE0 /* Secrets+Local.swift in Sources */,
-				C4E5CD8823AB8A2700C0807A /* PeerProfile.swift in Sources */,
 				B10A9E122373F46E00209871 /* MCSession+sendRequest.swift in Sources */,
 				418177822388EEF300A7B02A /* MemberTableViewCell.swift in Sources */,
 				106B1C312372C83F008684EB /* ConnectionControllerDelegate.swift in Sources */,
