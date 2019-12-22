@@ -26,7 +26,7 @@ class WelcomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let _ = ConnectionController.shared.isDJ {
+        if ConnectionController.shared.isDJ != nil {
             self.doneButtonItem.isEnabled = true
         } else {
             self.doneButtonItem.isEnabled = false

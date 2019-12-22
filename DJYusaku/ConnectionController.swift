@@ -86,9 +86,6 @@ class ConnectionController: NSObject {
         
         isDJ = true
         advertiser.startAdvertisingPeer()
-        if browser != nil {
-            browser.stopBrowsingForPeers()
-        }
     }
     
     func startListener(selectedDJ: MCPeerID) {
