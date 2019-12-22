@@ -51,7 +51,7 @@ class MemberViewController: UIViewController {
         var DJName = ConnectionController.shared.isDJ!
                    ? ConnectionController.shared.peerID.displayName
                    : ConnectionController.shared.connectedDJ?.displayName
-        var DJIcon: UIImage? = nil
+        var DJIcon: UIImage? = UIImage(named: "TemporarySingleColored")
         
         listeners = ConnectionController.shared.session.connectedPeers
         
@@ -102,7 +102,7 @@ extension MemberViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell  = tableView.dequeueReusableCell(withIdentifier: "MemberTableViewCell", for: indexPath) as! MemberTableViewCell
         cell.peerName.text       = listeners[indexPath.row].displayName
-        cell.peerImageView.image = nil
+        cell.peerImageView.image = UIImage(named: "TemporarySingleColored")
         
         // プロフィールが設定されている場合
         DispatchQueue.global().async {
