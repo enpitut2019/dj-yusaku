@@ -16,10 +16,15 @@ class TutorialViewController: UIPageViewController {
         super.viewDidLoad()
         self.dataSource = self
         
-        let firstTutorial = storyboard!.instantiateViewController(identifier: "TutorialFirstViewController") as! TutorialFirstViewController
+        let firstTutorial  = storyboard!.instantiateViewController(identifier: "TutorialFirstViewController")  as! TutorialFirstViewController
         let secondTutorial = storyboard!.instantiateViewController(identifier: "TutorialSecondViewController") as! TutorialSecondViewController
+        let thirdTutorial  = storyboard!.instantiateViewController(identifier: "TutorialThirdViewController")  as! TutorialThirdViewController
+        let fourthTutorial = storyboard!.instantiateViewController(identifier: "TutorialFourthViewController") as! TutorialFourthViewController
         
-        tutorialContents = [firstTutorial, secondTutorial]
+        tutorialContents = [firstTutorial,
+                            secondTutorial,
+                            thirdTutorial,
+                            fourthTutorial]
         
         self.setViewControllers([tutorialContents[0]],
                                 direction: .forward,
@@ -32,7 +37,7 @@ class TutorialViewController: UIPageViewController {
 
 // MARK: - UIPageViewControllerDatasource
 
-extension TutorialViewController: UIPageViewControllerDataSource{
+extension TutorialViewController: UIPageViewControllerDataSource {
     
     // ページを戻す方向の遷移
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -52,6 +57,14 @@ extension TutorialViewController: UIPageViewControllerDataSource{
         return next
     }
     
+    func presentationCount(for pageViewController: UIPageViewController) -> Int {
+        return tutorialContents.count
+    }
+    
+    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
+        return 0
+    }
+    
 }
 
 // MARK: - TutorialFirstViewController
@@ -69,6 +82,30 @@ class TutorialFirstViewController: UIViewController {
 // MARK: - TutorialSecondViewController
 
 class TutorialSecondViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+    }
+
+}
+
+// MARK: - TutorialThirdViewController
+
+class TutorialThirdViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+    }
+
+}
+
+// MARK: - TutorialFourthViewController
+
+class TutorialFourthViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
