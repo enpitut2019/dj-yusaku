@@ -12,8 +12,7 @@ import MultipeerConnectivity
 extension Notification.Name{
     static let DJYusakuConnectionControllerNowPlayingSongDidChange = Notification.Name("DJYusakuConnectionControllerNowPlayingSongDidChange")
     static let DJYusakuPeerConnectionStateDidUpdate = Notification.Name("DJYusakuPeerConnectionStateDidUpdate")
-    static let DJYusakuDisconnectedFromDJ =
-        Notification.Name("DJYusakuDisconnectedFromDJ")
+    static let DJYusakuDisconnectedFromDJ = Notification.Name("DJYusakuDisconnectedFromDJ")
 }
 
 class ConnectionController: NSObject {
@@ -131,11 +130,7 @@ extension ConnectionController: MCSessionDelegate {
                 }
                 let songsData = try! JSONEncoder().encode(songs)
                 let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.requestSongs, value: songsData))
-                do {
-                    try self.session.send(messageData, toPeers: [peerID], with: .unreliable)
-                } catch let error {
-                    print(error)
-                }
+                self.session.sendRequest(messageData, toPeers: [peerID], with: .unreliable)
                 //注意: これはPlayerQueueで実装しているNotification.Nameです
                 NotificationCenter.default.post(name:
                     .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
