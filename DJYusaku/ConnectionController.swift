@@ -211,7 +211,9 @@ extension ConnectionController: MCNearbyServiceBrowserDelegate {
 
     // 接続可能なピアが見つかったとき
     public func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String: String]?) {
-        self.connectableDJs.append(peerID)
+        if !self.connectableDJs.contains(peerID) {
+            self.connectableDJs.append(peerID)
+        }
         
         // TODO: DJ名にinfoを使うのは非互換な変更のため、以下のようにして互換性を保つ
         if let info = info {
