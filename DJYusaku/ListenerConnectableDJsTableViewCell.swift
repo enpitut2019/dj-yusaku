@@ -11,10 +11,14 @@ import UIKit
 class ListenerConnectableDJsTableViewCell: UITableViewCell {
 
     @IBOutlet weak var djName: UILabel!
+    @IBOutlet weak var djImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        // アイコン画像を円形にする
+        djImageView.layer.cornerRadius = djImageView.frame.size.height * 0.5
+        djImageView.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
