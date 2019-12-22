@@ -13,6 +13,8 @@ extension Notification.Name{
     static let DJYusakuConnectionControllerNowPlayingSongDidChange = Notification.Name("DJYusakuConnectionControllerNowPlayingSongDidChange")
     static let DJYusakuPeerConnectionStateDidUpdate = Notification.Name("DJYusakuPeerConnectionStateDidUpdate")
     static let DJYusakuDisconnectedFromDJ = Notification.Name("DJYusakuDisconnectedFromDJ")
+    static let DJYusakuUserStateDidUpdate =
+        Notification.Name("DJYusakuUserStateDidUpdate")
 }
 
 class ConnectionController: NSObject {
@@ -84,6 +86,7 @@ class ConnectionController: NSObject {
         
         self.isDJ = true
         self.advertiser.startAdvertisingPeer()
+        NotificationCenter.default.post(name: .DJYusakuUserStateDidUpdate, object: nil)
     }
     
     func startListener(selectedDJ: MCPeerID) {
@@ -96,6 +99,7 @@ class ConnectionController: NSObject {
         if self.advertiser != nil {
             self.advertiser.stopAdvertisingPeer()
         }
+        NotificationCenter.default.post(name: .DJYusakuUserStateDidUpdate, object: nil)
     }
     
 }
