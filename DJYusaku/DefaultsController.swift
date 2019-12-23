@@ -62,11 +62,17 @@ class DefaultsController: NSObject {
         self.updateTwitterAccount() { [unowned self] in
             if self.willUseTwitterProfile { // Twitterの情報をプロフィールに反映するとき
                 // プロフィールをTwitterの情報で上書きする
-                self.updateProfileFromTwitter()
+                self.updateProfileFromTwitter() {
+                    self.sendProfile()  // Swifterが別スレッドで処理するため、プロフィールをもう一回送る
+                }
             }
         }
         
         // プロフィールを他のピアに送信する
+        self.sendProfile()
+    }
+        
+    private func sendProfile() {
         if let profile = self.profile {
             let data = try! JSONEncoder().encode(profile)
             let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.DataType.peerProfile, value: data))
