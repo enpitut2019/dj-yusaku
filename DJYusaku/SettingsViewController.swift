@@ -99,7 +99,10 @@ class SettingsNameViewController: UITableViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.nameField.resignFirstResponder()
         
-        if let name = self.nameField.text {
+        let name = self.nameField.text ?? ""
+        if name.isEmpty {
+            UserDefaults.standard.removeObject(forKey: UserDefaults.DJYusakuDefaults.ProfileName)
+        } else {
             UserDefaults.standard.set(name, forKey: UserDefaults.DJYusakuDefaults.ProfileName)
         }
 

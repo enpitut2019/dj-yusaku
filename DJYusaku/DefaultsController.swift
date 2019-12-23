@@ -47,11 +47,12 @@ class DefaultsController: NSObject {
     
     // UserDefaultsから設定を取得する
     private func update() {
+        // プロフィールを初期化する
+        self.profile = nil
+        
         // プロフィールの名前を設定する
-        if self.profile != nil { // TODO: 今はPeerProfileのURLがOptionalじゃないので一度Twitterに連携しないと名前を入力できない
-            if let name = UserDefaults.standard.string(forKey: UserDefaults.DJYusakuDefaults.ProfileName) {
-                self.profile!.name = name
-            }
+        if let name = UserDefaults.standard.string(forKey: UserDefaults.DJYusakuDefaults.ProfileName) {
+            self.profile = PeerProfile(name: name, imageUrl: nil)
         }
         
         // Twitterのプロフィールを使用するかどうかを設定する
