@@ -25,7 +25,10 @@ class SettingsViewController: UITableViewController, SFSafariViewControllerDeleg
         
         self.userNameLabel.text = UserDefaults.standard.string(forKey: UserDefaults.DJYusakuDefaults.ProfileName)
         
-        self.willUseTwitterProfileSwitch.isOn = DefaultsController.shared.willUseTwitterProfile
+        self.willUseTwitterProfileSwitch.isEnabled = DefaultsController.shared.twitterAccount != nil
+        if self.willUseTwitterProfileSwitch.isEnabled {
+            self.willUseTwitterProfileSwitch.isOn = DefaultsController.shared.willUseTwitterProfile
+        }
         
         if let twitterAccount = DefaultsController.shared.twitterAccount {
             self.twitterAccountLabel.text = "@" + twitterAccount.screenName
