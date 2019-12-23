@@ -43,11 +43,10 @@ extension ListenerConnectionViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListenerConnectableDJsTableViewCell", for: indexPath) as! ListenerConnectableDJsTableViewCell
         let peerID = ConnectionController.shared.connectableDJs[indexPath.row]
-        let (displayName, imageUrlString) = ConnectionController.shared.connectableDJNameCorrespondence[peerID]!
-        cell.djName?.text = displayName
-        if imageUrlString != nil {
-            if let imageUrl = URL(string: imageUrlString!) {
-                cell.djImageView.image = Artwork.fetch(url: imageUrl)
+        if let profile = ConnectionController.shared.peerProfileCorrespondence[peerID] {
+            cell.djName?.text = profile.name
+            if let imageUrl = profile.imageUrl {
+                cell.djImageView.image = CachedImage.fetch(url: imageUrl)
             }
         }
 

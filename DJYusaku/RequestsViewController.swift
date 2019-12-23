@@ -35,12 +35,14 @@ class RequestsViewController: UIViewController {
         tableView.delegate   = self
         
         // 再生コントロールの見た目を設定（角丸・影・境界線など）
-        playerControllerView.layer.cornerRadius = playerControllerView.frame.size.height * 0.5
-        playerControllerView.layer.shadowColor   = CGColor(srgbRed: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
-        playerControllerView.layer.shadowOffset  = .zero
-        playerControllerView.layer.shadowOpacity = 0.4
-        playerControllerView.layer.borderColor = CGColor(srgbRed: 0.5, green: 0.5, blue: 0.5, alpha: 0.3)
-        playerControllerView.layer.borderWidth = 1
+        
+        playerControllerView.isHidden               = true //初めは隠しておく
+        playerControllerView.layer.cornerRadius     = playerControllerView.frame.size.height * 0.5
+        playerControllerView.layer.shadowColor      = CGColor(srgbRed: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
+        playerControllerView.layer.shadowOffset     = .zero
+        playerControllerView.layer.shadowOpacity    = 0.4
+        playerControllerView.layer.borderColor      = CGColor(srgbRed: 0.5, green: 0.5, blue: 0.5, alpha: 0.3)
+        playerControllerView.layer.borderWidth      = 1
 
         playButtonBackgroundView.layer.cornerRadius = playButtonBackgroundView.frame.size.height * 0.5
 
@@ -62,6 +64,7 @@ class RequestsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlaybackStateDidChange), name: .DJYusakuPlayerQueuePlaybackStateDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChangeOnListener), name: .DJYusakuConnectionControllerNowPlayingSongDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleViewWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePlayerControllerViewFromUserState), name: .DJYusakuUserStateDidUpdate, object: nil)
         
     }
     
@@ -137,6 +140,11 @@ class RequestsViewController: UIViewController {
                 object: nil
             )
         }
+    }
+    
+    @objc func handlePlayerControllerViewFromUserState() {
+        guard let isDJ = ConnectionController.shared.isDJ else { return }
+        self.playerControllerView.isHidden = !isDJ
     }
     
     func scrollToNowPlayingItem(animated: Bool = true) {
@@ -253,12 +261,12 @@ extension RequestsViewController: UITableViewDataSource {
         cell.title.text    = song.title
         cell.artist.text   = song.artist
         if let profileImageUrl = song.profileImageUrl {
-            cell.profileImageView.image = Artwork.fetch(url: profileImageUrl)
+            cell.profileImageView.image = CachedImage.fetch(url: profileImageUrl)
         }
         cell.nowPlayingIndicator.isHidden = indexOfNowPlayingItem != indexPath.row
         
         DispatchQueue.global().async {
-            let image = Artwork.fetch(url: song.artworkUrl)
+            let image = CachedImage.fetch(url: song.artworkUrl)
             DispatchQueue.main.async {
                 cell.artwork.image = image  // 画像の取得に失敗していたらnilが入ることに注意
                 cell.artwork.setNeedsLayout()

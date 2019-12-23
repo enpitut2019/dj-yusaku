@@ -73,7 +73,7 @@ extension SearchViewController: UITableViewDataSource {
         cell.artwork.image    = defaultArtwork
         
         DispatchQueue.global().async {
-            let image = Artwork.fetch(url: item.artworkUrl)
+            let image = CachedImage.fetch(url: item.artworkUrl)
             DispatchQueue.main.async {
                 cell.artwork.image = image  // 画像の取得に失敗していたらnilが入ることに注意
                 cell.artwork.setNeedsLayout()
@@ -177,7 +177,7 @@ extension SearchViewController: UISearchResultsUpdating {
                     let artist           = song["attributes"]["artistName"].stringValue
                     let artworkUrlString = song["attributes"]["artwork"]["url"].stringValue
                     let songID           = song["attributes"]["playParams"]["id"].stringValue
-                    let artworkUrl = Artwork.url(urlString: artworkUrlString, width: 256, height: 256)
+                    let artworkUrl = CachedImage.url(urlString: artworkUrlString, width: 256, height: 256)
                     self.results.append(Song(title: title, artist: artist, artworkUrl: artworkUrl, id: songID, profileImageUrl: DefaultsController.shared.profile?.imageUrl))
                 }
                 self.tableView.reloadData()
