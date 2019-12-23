@@ -35,7 +35,6 @@ class ConnectionController: NSObject {
     
     // Listener 用
     var connectableDJs: [MCPeerID] = []
-    var connectableDJNameCorrespondence : [MCPeerID:(String, String?)] = [:]    // TODO: 消えなさい
     var connectedDJ: MCPeerID? = nil
     
     var receivedSongs: [Song] = []
@@ -223,12 +222,8 @@ extension ConnectionController: MCNearbyServiceBrowserDelegate {
             self.connectableDJs.append(peerID)
         }
         
-        // TODO: DJ名にinfoを使うのは非互換な変更のため、以下のようにして互換性を保つ
-        if let info = info {
-            self.connectableDJNameCorrespondence[peerID] = (info["name"], info["imageUrl"]) as? (String, String?)
-        } else {
-            self.connectableDJNameCorrespondence[peerID] = (peerID.displayName, nil)
-        }
+        self.peerProfileCorrespondence[peerID] = PeerProfile(name:     info!["name"]!,
+                                                             imageUrl: URL(string: info!["imageUrl"]!))
 
         self.delegate?.connectionController(didChangeConnectableDevices: self.connectableDJs)
     }

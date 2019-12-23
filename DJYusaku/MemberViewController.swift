@@ -68,13 +68,17 @@ class MemberViewController: UIViewController {
         if ConnectionController.shared.isDJ! {
             if let profile = DefaultsController.shared.profile {
                 DJName = profile.name
-                DJIcon = Artwork.fetch(url: profile.imageUrl)
+                if let imageUrl = profile.imageUrl {
+                    DJIcon = Artwork.fetch(url: imageUrl)
+                }
             }
         } else {
             if let connectedDJ = ConnectionController.shared.connectedDJ {
                 if let profile = ConnectionController.shared.peerProfileCorrespondence[connectedDJ] {
                     DJName = profile.name
-                    DJIcon = Artwork.fetch(url: profile.imageUrl)
+                    if let imageUrl = profile.imageUrl {
+                        DJIcon = Artwork.fetch(url: imageUrl)
+                    }
                 }
             }
         }
@@ -112,7 +116,9 @@ extension MemberViewController: UITableViewDataSource {
             if indexPath.row == 0 && !ConnectionController.shared.isDJ! { // 自分自身（子機）
                 if let profile = DefaultsController.shared.profile {
                     listenerName = profile.name
-                    listenerIcon = Artwork.fetch(url: profile.imageUrl)
+                    if let imageUrl = profile.imageUrl {
+                        listenerIcon = Artwork.fetch(url: imageUrl)
+                    }
                     DispatchQueue.main.async {
                         cell.peerName.text       = listenerName
                         cell.peerImageView.image = listenerIcon
@@ -122,7 +128,9 @@ extension MemberViewController: UITableViewDataSource {
             } else { // 自分以外の子機
                 if let profile = ConnectionController.shared.peerProfileCorrespondence[self.listeners[indexPath.row]] {
                     listenerName = profile.name
-                    listenerIcon = Artwork.fetch(url: profile.imageUrl)
+                    if let imageUrl = profile.imageUrl {
+                        listenerIcon = Artwork.fetch(url: imageUrl)
+                    }
                     DispatchQueue.main.async {
                         cell.peerName.text       = listenerName
                         cell.peerImageView.image = listenerIcon
