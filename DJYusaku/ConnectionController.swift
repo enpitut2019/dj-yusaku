@@ -73,12 +73,16 @@ class ConnectionController: NSObject {
         
     }
     
-    func startDJ(displayName: String, iconUrlString: String? = nil) {
+    func startDJ() {
         self.disconnect()
-        var info = ["name": displayName]
         
-        if iconUrlString != nil {
-            info["imageUrl"] = iconUrlString
+        var info = ["name":     "",
+                    "imageUrl": ""]
+        if let profile = DefaultsController.shared.profile {
+            info["name"] = profile.name
+            info["imageUrl"] = profile.imageUrl?.absoluteString ?? ""
+        } else {
+            info["name"] = UIDevice.current.name
         }
         
         self.advertiser = MCNearbyServiceAdvertiser(peer: self.peerID, discoveryInfo: info, serviceType: self.serviceType)
