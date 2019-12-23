@@ -48,7 +48,7 @@ class DefaultsController: NSObject {
     // UserDefaultsから設定を取得する
     private func update() {
         // プロフィールを初期化する
-        self.profile = nil
+        self.profile = PeerProfile(name: UIDevice.current.name, imageUrl: nil)
         
         // プロフィールの名前を設定する
         if let name = UserDefaults.standard.string(forKey: UserDefaults.DJYusakuDefaults.ProfileName) {
@@ -73,12 +73,14 @@ class DefaultsController: NSObject {
     
     // プロフィールを他のピアに送信する
     private func sendProfile() {
-        let data = try! JSONEncoder().encode(self.profile)
-        let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.DataType.peerProfile, value: data))
-        ConnectionController.shared.session.sendRequest(messageData,
-                                                        toPeers: ConnectionController.shared.session.connectedPeers,
-                                                        with: .unreliable)
-        NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
+        if let profile = self.profile {
+            let data = try! JSONEncoder().encode(profile)
+            let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.DataType.peerProfile, value: data))
+            ConnectionController.shared.session.sendRequest(messageData,
+                                                            toPeers: ConnectionController.shared.session.connectedPeers,
+                                                            with: .unreliable)
+            NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
+        }
     }
     
     @objc func handleUserDefaultsDidChange(_ notification: Notification) {
