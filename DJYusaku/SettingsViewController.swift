@@ -16,14 +16,6 @@ class SettingsViewController: UITableViewController, SFSafariViewControllerDeleg
     @IBOutlet weak var twitterAccountLabel: UILabel!
     @IBOutlet weak var willUseTwitterProfileSwitch: UISwitch!
     
-    let developerGitHubLinks = [
-        URL(string: "https://github.com/yaplus")!,      // yaplus
-        URL(string: "https://github.com/amylaseF85")!,  // amylaseF85
-        URL(string: "https://github.com/tsuu32")!,      // tsuu32
-        URL(string: "https://github.com/bldsky")!       // bldsky
-    ]
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -55,11 +47,8 @@ class SettingsViewController: UITableViewController, SFSafariViewControllerDeleg
             break
         case 1: // Twitter
             self.tableViewTwitterSection(at: indexPath.row)
-        case 2: // About Us
-            let url = self.developerGitHubLinks[indexPath.row]
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url)
-            }
+        case 2: // About This App
+            break
         default:
             break
         }
@@ -89,7 +78,7 @@ class SettingsViewController: UITableViewController, SFSafariViewControllerDeleg
     }
 }
 
-// MARK: - 名前の設定画面
+// MARK: - SettingsNameViewController
 
 class SettingsNameViewController: UITableViewController, UITextFieldDelegate {
     
@@ -118,4 +107,42 @@ class SettingsNameViewController: UITableViewController, UITextFieldDelegate {
 
         return true
     }
+}
+
+// MARK: - SettingsAboutThisAppViewController
+
+class SettingsAboutThisAppViewController: UITableViewController {
+    
+    @IBOutlet weak var versionLabel: UILabel!
+    
+    let developerGitHubLinks = [
+        URL(string: "https://github.com/yaplus")!,      // yaplus
+        URL(string: "https://github.com/amylaseF85")!,  // amylaseF85
+        URL(string: "https://github.com/tsuu32")!,      // tsuu32
+        URL(string: "https://github.com/bldsky")!       // bldsky
+    ]
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        versionLabel.text = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+    }
+
+    // MARK: - UITableViewDelegate
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: false)  // セルの選択を解除
+        switch indexPath.section {
+        case 0: // Version
+            break
+        case 1: // About Us
+            let url = self.developerGitHubLinks[indexPath.row]
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            }
+        default:
+            break
+        }
+    }
+    
 }
