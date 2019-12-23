@@ -57,7 +57,6 @@ class ConnectionController: NSObject {
         guard let connectedDJ = self.connectedDJ else { return }
         self.browser.invitePeer(connectedDJ.peerID, to: self.session, withContext: nil, timeout: 10.0)
         self.connectedDJ!.state = .connected
-        NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
     }
 
     func startAdvertise(displayName: String, imageUrl: URL?) {
@@ -82,7 +81,6 @@ class ConnectionController: NSObject {
     func disconnect() {
         self.session.disconnect()
         self.connectedDJ = nil
-        NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
     }
     
     func startDJ() {
@@ -118,16 +116,17 @@ extension ConnectionController: MCSessionDelegate {
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         switch state {
         case .notConnected:
-            print("Peer \(peerID.displayName) is not connected.")
-            if !ConnectionController.shared.isDJ! && peerID == connectedDJ?.peerID {
+            print("Peer \(peerID.displayName) is disconnected.")
+            NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
+            if !ConnectionController.shared.isDJ! && peerID == connectedDJ?.peerID { // リスナーがDJを見失ったとき
                 self.connectedDJ!.state = .notConnected
-                NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
             }
             break
         case .connecting:
             print("Peer \(peerID.displayName) is connecting...")
             break
         case .connected:
+            print("Peer \(peerID.displayName) is connected.")
             NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
             
             // プロフィールが設定されていれば他のピアに送信する
@@ -137,7 +136,6 @@ extension ConnectionController: MCSessionDelegate {
                 self.session.sendRequest(messageData, toPeers: [peerID], with: .unreliable)
             }
             
-            print("Peer \(peerID.displayName) is connected.")
             if ConnectionController.shared.isDJ! {   // DJが新しい子機と接続したとき
                 var songs: [Song] = []
                 for i in 0..<PlayerQueue.shared.count() {
