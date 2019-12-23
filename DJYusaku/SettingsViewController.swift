@@ -68,9 +68,7 @@ class SettingsViewController: UITableViewController, SFSafariViewControllerDeleg
                 let data = try! JSONEncoder().encode(twitterAccount)
                 UserDefaults.standard.set(data, forKey: UserDefaults.DJYusakuDefaults.TwitterAccount)
             }, failure: { error in
-                let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+                print("Swifter Error at SettingsViewController.tableViewTwitterSection():", error.localizedDescription)
             })
         default:
           break
