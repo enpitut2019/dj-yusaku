@@ -46,7 +46,7 @@ extension ListenerConnectionViewController: UITableViewDataSource {
         if let profile = ConnectionController.shared.peerProfileCorrespondence[peerID] {
             cell.djName?.text = profile.name
             if let imageUrl = profile.imageUrl {
-                cell.djImageView.image = Artwork.fetch(url: imageUrl)
+                cell.djImageView.image = CachedImage.fetch(url: imageUrl)
             }
         }
 

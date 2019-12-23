@@ -9,7 +9,7 @@
 import UIKit
 import Swifter
 
-struct TwitterAccount {
+struct TwitterAccount: Codable {
     var key:        String
     var secret:     String
     var screenName: String
@@ -21,37 +21,84 @@ struct TwitterAccount {
     }
 }
 
+//
+// DefaultsController
+//  - UserDefaultsの内容に合わせて自身の状態を更新する
+//
+
 class DefaultsController: NSObject {
     static let shared = DefaultsController()
     
-    public private(set) var twitterAccount: TwitterAccount? = nil
-    public private(set) var swifter : Swifter = Swifter(consumerKey: Secrets.TwitterConsumerKey,
-                                                        consumerSecret: Secrets.TwitterConsumerSecret)
-    
-    public private(set) var profile: PeerProfile? = nil
+    private(set) var twitterAccount: TwitterAccount? = nil
+    private(set) var swifter : Swifter = Swifter(consumerKey: Secrets.TwitterConsumerKey,
+                                                 consumerSecret: Secrets.TwitterConsumerSecret)
+    private(set) var profile: PeerProfile? = nil
+    private(set) var willUseTwitterProfile : Bool = false
     
     private override init() {
         super.init()
+        // UserDefaultsの変更を監視する
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleUserDefaultsDidChange),
+                                               name: UserDefaults.didChangeNotification,
+                                               object: nil)
+        self.update()
+    }
+    
+    // UserDefaultsから設定を取得する
+    private func update() {
+        // プロフィールを初期化する
+        self.profile = PeerProfile(name: UIDevice.current.name, imageUrl: nil)
         
-        // ログイン状態が保存されていればプロフィールを取得する
-        self.setupTwitterAccount()
-        self.setProfileFromTwitter()
+        // プロフィールの名前を設定する
+        if let name = UserDefaults.standard.string(forKey: UserDefaults.DJYusakuDefaults.ProfileName) {
+            self.profile = PeerProfile(name: name, imageUrl: nil)
+        }
+        
+        // Twitterのプロフィールを使用するかどうかを設定する
+        self.willUseTwitterProfile = UserDefaults.standard.bool(forKey: UserDefaults.DJYusakuDefaults.WillUseTwitterProfile)
+        
+        // Twitterアカウントを設定する
+        self.updateTwitterAccount() { [unowned self] in
+            if self.willUseTwitterProfile { // Twitterの情報をプロフィールに反映するとき
+                // プロフィールをTwitterの情報で上書きする
+                self.updateProfileFromTwitter() {
+                    self.sendProfile()  // Swifterが別スレッドで処理するため、プロフィールをもう一回送る
+                }
+            }
+        }
+        
+        self.sendProfile()  // プロフィールを他のピアに送信する
+    }
+    
+    // プロフィールを他のピアに送信する
+    private func sendProfile() {
+        if let profile = self.profile {
+            let data = try! JSONEncoder().encode(profile)
+            let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.DataType.peerProfile, value: data))
+            ConnectionController.shared.session.sendRequest(messageData,
+                                                            toPeers: ConnectionController.shared.session.connectedPeers,
+                                                            with: .unreliable)
+            NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
+        }
+    }
+    
+    @objc func handleUserDefaultsDidChange(_ notification: Notification) {
+        self.update()
     }
 
-    func setupTwitterAccount() {
-        if let twitterKey        = UserDefaults.standard.string(forKey: UserDefaults.DJYusakuDefaults.TwitterKey)
-         , let twitterSecret     = UserDefaults.standard.string(forKey: UserDefaults.DJYusakuDefaults.TwitterSecret)
-         , let twitterScreenName = UserDefaults.standard.string(forKey: UserDefaults.DJYusakuDefaults.TwitterScreenName) {
-            self.twitterAccount = TwitterAccount(key: twitterKey, secret: twitterSecret, screenName: twitterScreenName)
+    private func updateTwitterAccount(completion: (() -> (Void))? = nil) {
+        if let data = UserDefaults.standard.data(forKey: UserDefaults.DJYusakuDefaults.TwitterAccount) {
+            self.twitterAccount = try! JSONDecoder().decode(TwitterAccount.self, from: data)
             self.swifter = Swifter(consumerKey:      Secrets.TwitterConsumerKey,
                                    consumerSecret:   Secrets.TwitterConsumerSecret,
                                    oauthToken:       self.twitterAccount!.key,
                                    oauthTokenSecret: self.twitterAccount!.secret)
+            if let completion = completion { completion() }
         }
     }
     
-    func setProfileFromTwitter(currentViewController: UIViewController? = nil,
-                               completion: (() -> (Void))? = nil) {
+    private func updateProfileFromTwitter(completion: (() -> (Void))? = nil) {
         guard let twitterAccount = self.twitterAccount else { return }
         // ユーザーのプロフィール情報を取得して設定する
         self.swifter.showUser(.screenName(twitterAccount.screenName), success: { json in
@@ -60,15 +107,7 @@ class DefaultsController: NSObject {
                                        imageUrl: URL(string: imageUrlString))
             if let completion = completion { completion() }
         }, failure: { error in
-            guard let viewController = currentViewController else {
-                print(error.localizedDescription)
-                return
-            }
-            let alert = UIAlertController(title: "Error",
-                                          message: error.localizedDescription,
-                                          preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            viewController.present(alert, animated: true)
+            print("Swifter Error at DefaultsController.updateProfileFromTwitter():", error.localizedDescription)
         })
     }
     

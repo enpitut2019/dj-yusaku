@@ -13,13 +13,13 @@
 		106B1C2D2372BE1F008684EB /* ListenerConnectableDJsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106B1C2C2372BE1F008684EB /* ListenerConnectableDJsTableViewCell.swift */; };
 		106B1C2F2372C696008684EB /* ConnectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106B1C2E2372C696008684EB /* ConnectionController.swift */; };
 		106B1C312372C83F008684EB /* ConnectionControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106B1C302372C83F008684EB /* ConnectionControllerDelegate.swift */; };
-		10937F5C23A9DB4F00CB819B /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10937F5B23A9DB4F00CB819B /* SettingViewController.swift */; };
+		10937F5C23A9DB4F00CB819B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10937F5B23A9DB4F00CB819B /* SettingsViewController.swift */; };
 		411F288B23616EEB00BA96C1 /* PlayerQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F288A23616EEB00BA96C1 /* PlayerQueue.swift */; };
 		4181777C2388DC5E00A7B02A /* MemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4181777B2388DC5E00A7B02A /* MemberViewController.swift */; };
 		418177822388EEF300A7B02A /* MemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418177812388EEF300A7B02A /* MemberTableViewCell.swift */; };
 		41D3624F23ABB03600E0ED1E /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D3624E23ABB03600E0ED1E /* TutorialViewController.swift */; };
 		B10A9E122373F46E00209871 /* MCSession+sendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10A9E112373F46E00209871 /* MCSession+sendRequest.swift */; };
-		B125D88D235F426C00D383E7 /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B125D88C235F426C00D383E7 /* Artwork.swift */; };
+		B125D88D235F426C00D383E7 /* CachedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B125D88C235F426C00D383E7 /* CachedImage.swift */; };
 		C40DC880236570DD00E80AB1 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */; };
 		C41F18E323AE03BE00E1A886 /* UserDefaults+DJYusakuDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41F18E223AE03BE00E1A886 /* UserDefaults+DJYusakuDefaults.swift */; };
 		C43634CE23922708000CE58F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43634CD23922708000CE58F /* TabBarController.swift */; };
@@ -68,13 +68,13 @@
 		106B1C2C2372BE1F008684EB /* ListenerConnectableDJsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListenerConnectableDJsTableViewCell.swift; sourceTree = "<group>"; };
 		106B1C2E2372C696008684EB /* ConnectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionController.swift; sourceTree = "<group>"; };
 		106B1C302372C83F008684EB /* ConnectionControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionControllerDelegate.swift; sourceTree = "<group>"; };
-		10937F5B23A9DB4F00CB819B /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		10937F5B23A9DB4F00CB819B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		411F288A23616EEB00BA96C1 /* PlayerQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerQueue.swift; sourceTree = "<group>"; };
 		4181777B2388DC5E00A7B02A /* MemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberViewController.swift; sourceTree = "<group>"; };
 		418177812388EEF300A7B02A /* MemberTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTableViewCell.swift; sourceTree = "<group>"; };
 		41D3624E23ABB03600E0ED1E /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		B10A9E112373F46E00209871 /* MCSession+sendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MCSession+sendRequest.swift"; sourceTree = "<group>"; };
-		B125D88C235F426C00D383E7 /* Artwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
+		B125D88C235F426C00D383E7 /* CachedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImage.swift; sourceTree = "<group>"; };
 		C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		C41F18E223AE03BE00E1A886 /* UserDefaults+DJYusakuDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+DJYusakuDefaults.swift"; sourceTree = "<group>"; };
 		C43634CD23922708000CE58F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -165,8 +165,8 @@
 			children = (
 				C447ACB5234882FB00D535EB /* Info.plist */,
 				C447ACA5234882F900D535EB /* AppDelegate.swift */,
-				B125D88C235F426C00D383E7 /* Artwork.swift */,
 				C46CE2072383EBC000492AC3 /* BatterySaverViewController.swift */,
+				B125D88C235F426C00D383E7 /* CachedImage.swift */,
 				106B1C2E2372C696008684EB /* ConnectionController.swift */,
 				106B1C302372C83F008684EB /* ConnectionControllerDelegate.swift */,
 				C4D9018A23AF3ED40068F5C0 /* DefaultsController.swift */,
@@ -186,7 +186,7 @@
 				C4CF9724235163EF00C8A102 /* SearchViewController.swift */,
 				C4D25957235205D10066FCE0 /* Secrets.swift */,
 				C4D25959235205EC0066FCE0 /* Secrets+Local.swift */,
-				10937F5B23A9DB4F00CB819B /* SettingViewController.swift */,
+				10937F5B23A9DB4F00CB819B /* SettingsViewController.swift */,
 				C436A8552350B16B009F6498 /* Song.swift */,
 				C43634CD23922708000CE58F /* TabBarController.swift */,
 				41D3624E23ABB03600E0ED1E /* TutorialViewController.swift */,
@@ -359,7 +359,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C46CE2082383EBC000492AC3 /* BatterySaverViewController.swift in Sources */,
-				B125D88D235F426C00D383E7 /* Artwork.swift in Sources */,
+				B125D88D235F426C00D383E7 /* CachedImage.swift in Sources */,
 				C4CF9725235163EF00C8A102 /* SearchViewController.swift in Sources */,
 				4181777C2388DC5E00A7B02A /* MemberViewController.swift in Sources */,
 				C41F18E323AE03BE00E1A886 /* UserDefaults+DJYusakuDefaults.swift in Sources */,
@@ -373,7 +373,7 @@
 				C4D9018D23AF4BA30068F5C0 /* PeerProfile.swift in Sources */,
 				C436A8562350B16B009F6498 /* Song.swift in Sources */,
 				C4D25958235205D10066FCE0 /* Secrets.swift in Sources */,
-				10937F5C23A9DB4F00CB819B /* SettingViewController.swift in Sources */,
+				10937F5C23A9DB4F00CB819B /* SettingsViewController.swift in Sources */,
 				106B1C2F2372C696008684EB /* ConnectionController.swift in Sources */,
 				C447ACAA234882F900D535EB /* RequestsViewController.swift in Sources */,
 				C447ACA6234882F900D535EB /* AppDelegate.swift in Sources */,
