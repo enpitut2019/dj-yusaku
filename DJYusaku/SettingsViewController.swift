@@ -40,11 +40,7 @@ class SettingsViewController: UITableViewController, SFSafariViewControllerDeleg
         
     }
     
-}
-
-// MARK: - UITableViewDelegate
-
-extension SettingsViewController {
+    // MARK: - UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: false)  // セルの選択を解除
@@ -69,21 +65,13 @@ extension SettingsViewController {
             // Twitterにログインする
             let url = URL(string: "swifter://success")!
             DefaultsController.shared.swifter.authorize(withCallback: url, presentingFrom: self, success: { token, _ in
-                guard token != nil else { return }
+                guard let token = token else { return }
                 // ログイン状態を保存する
-                UserDefaults.standard.set(token?.key,         forKey: UserDefaults.DJYusakuDefaults.TwitterKey)
-                UserDefaults.standard.set(token?.secret,      forKey: UserDefaults.DJYusakuDefaults.TwitterSecret)
-                UserDefaults.standard.set(token!.screenName!, forKey: UserDefaults.DJYusakuDefaults.TwitterScreenName)
-                DefaultsController.shared.setupTwitterAccount()
-                DefaultsController.shared.setProfileFromTwitter(currentViewController: self) {
-                    // プロフィールを他のピアに送信する
-                    let data = try! JSONEncoder().encode(DefaultsController.shared.profile!)
-                    let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.DataType.peerProfile, value: data))
-                    ConnectionController.shared.session.sendRequest(messageData,
-                                                                    toPeers: ConnectionController.shared.session.connectedPeers,
-                                                                    with: .unreliable)
-                    NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
-                }
+                let twitterAccount = TwitterAccount(key:        token.key,
+                                                    secret:     token.secret,
+                                                    screenName: token.screenName!)
+                let data = try! JSONEncoder().encode(twitterAccount)
+                UserDefaults.standard.set(data, forKey: UserDefaults.DJYusakuDefaults.TwitterAccount)
             }, failure: { error in
                 let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
