@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-class Artwork {
+class CachedImage {
     
     private static var imageCache = NSCache<AnyObject, AnyObject>()
 

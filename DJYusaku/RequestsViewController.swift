@@ -261,12 +261,12 @@ extension RequestsViewController: UITableViewDataSource {
         cell.title.text    = song.title
         cell.artist.text   = song.artist
         if let profileImageUrl = song.profileImageUrl {
-            cell.profileImageView.image = Artwork.fetch(url: profileImageUrl)
+            cell.profileImageView.image = CachedImage.fetch(url: profileImageUrl)
         }
         cell.nowPlayingIndicator.isHidden = indexOfNowPlayingItem != indexPath.row
         
         DispatchQueue.global().async {
-            let image = Artwork.fetch(url: song.artworkUrl)
+            let image = CachedImage.fetch(url: song.artworkUrl)
             DispatchQueue.main.async {
                 cell.artwork.image = image  // 画像の取得に失敗していたらnilが入ることに注意
                 cell.artwork.setNeedsLayout()
