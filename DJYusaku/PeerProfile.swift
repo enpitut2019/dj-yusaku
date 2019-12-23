@@ -10,9 +10,9 @@ import UIKit
 
 struct PeerProfile : Codable {
     var name : String           // Twitter上の名前(name)
-    var imageUrl: URL           // アイコン画像のURL(profile_image_url_https)
+    var imageUrl: URL?          // アイコン画像のURL(profile_image_url_https)
     
-    init(name: String, imageUrl: URL){
+    init(name: String, imageUrl: URL?){
         self.name     = name
         self.imageUrl = imageUrl
     }
