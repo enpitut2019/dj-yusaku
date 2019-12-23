@@ -67,14 +67,18 @@ class MemberViewController: UIViewController {
         
         if ConnectionController.shared.isDJ! {
             if let profile = DefaultsController.shared.profile {
-                DJName = profile.name
-                DJIcon = Artwork.fetch(url: profile.imageUrl)
+                DispatchQueue.global().async {
+                    DJName = profile.name
+                    DJIcon = Artwork.fetch(url: profile.imageUrl)
+                }
             }
         } else {
             if let connectedDJ = ConnectionController.shared.connectedDJ {
                 if let profile = ConnectionController.shared.peerProfileCorrespondence[connectedDJ] {
-                    DJName = profile.name
-                    DJIcon = Artwork.fetch(url: profile.imageUrl)
+                    DispatchQueue.global().async {
+                        DJName = profile.name
+                        DJIcon = Artwork.fetch(url: profile.imageUrl)
+                    }
                 }
             }
         }
