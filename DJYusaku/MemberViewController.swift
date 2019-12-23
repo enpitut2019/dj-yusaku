@@ -69,10 +69,12 @@ class MemberViewController: UIViewController {
             if let profile = DefaultsController.shared.profile {
                 DispatchQueue.global().async {
                     DJName = profile.name
-                    DJIcon = Artwork.fetch(url: profile.imageUrl)
-                    DispatchQueue.main.async{
-                        self.DJImageView.image = DJIcon
-                        self.DJImageView.setNeedsLayout()
+                    if let imageUrl = profile.imageUrl {
+                        DJIcon = Artwork.fetch(url: imageUrl)
+                        DispatchQueue.main.async{
+                            self.DJImageView.image = DJIcon
+                            self.DJImageView.setNeedsLayout()
+                        }
                     }
                 }
             }
@@ -81,10 +83,12 @@ class MemberViewController: UIViewController {
                 if let profile = ConnectionController.shared.peerProfileCorrespondence[connectedDJ] {
                     DispatchQueue.global().async {
                         DJName = profile.name
-                        DJIcon = Artwork.fetch(url: profile.imageUrl)
-                        DispatchQueue.main.async{
-                            self.DJImageView.image = DJIcon
-                            self.DJImageView.setNeedsLayout()
+                        if let imageUrl = profile.imageUrl {
+                            DJIcon = Artwork.fetch(url: imageUrl)
+                            DispatchQueue.main.async{
+                                self.DJImageView.image = DJIcon
+                                self.DJImageView.setNeedsLayout()
+                            }
                         }
                     }
                 }
@@ -124,7 +128,9 @@ extension MemberViewController: UITableViewDataSource {
             if indexPath.row == 0 && !ConnectionController.shared.isDJ! { // 自分自身（子機）
                 if let profile = DefaultsController.shared.profile {
                     listenerName = profile.name
-                    listenerIcon = Artwork.fetch(url: profile.imageUrl)
+                    if let imageUrl = profile.imageUrl {
+                        listenerIcon = Artwork.fetch(url: imageUrl)
+                    }
                     DispatchQueue.main.async {
                         cell.peerName.text       = listenerName
                         cell.peerImageView.image = listenerIcon
@@ -134,7 +140,9 @@ extension MemberViewController: UITableViewDataSource {
             } else { // 自分以外の子機
                 if let profile = ConnectionController.shared.peerProfileCorrespondence[self.listeners[indexPath.row]] {
                     listenerName = profile.name
-                    listenerIcon = Artwork.fetch(url: profile.imageUrl)
+                    if let imageUrl = profile.imageUrl {
+                        listenerIcon = Artwork.fetch(url: imageUrl)
+                    }
                     DispatchQueue.main.async {
                         cell.peerName.text       = listenerName
                         cell.peerImageView.image = listenerIcon

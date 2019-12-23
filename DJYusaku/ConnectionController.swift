@@ -35,7 +35,6 @@ class ConnectionController: NSObject {
     
     // Listener 用
     var connectableDJs: [MCPeerID] = []
-    var connectableDJNameCorrespondence : [MCPeerID:(String, String?)] = [:]    // TODO: 消えなさい
     var connectedDJ: MCPeerID? = nil
     
     var receivedSongs: [Song] = []
@@ -73,12 +72,16 @@ class ConnectionController: NSObject {
         
     }
     
-    func startDJ(displayName: String, iconUrlString: String? = nil) {
+    func startDJ() {
         self.disconnect()
-        var info = ["name": displayName]
         
-        if iconUrlString != nil {
-            info["imageUrl"] = iconUrlString
+        var info = ["name":     "",
+                    "imageUrl": ""]
+        if let profile = DefaultsController.shared.profile {
+            info["name"] = profile.name
+            info["imageUrl"] = profile.imageUrl?.absoluteString ?? ""
+        } else {
+            info["name"] = UIDevice.current.name
         }
         
         self.advertiser = MCNearbyServiceAdvertiser(peer: self.peerID, discoveryInfo: info, serviceType: self.serviceType)
@@ -219,12 +222,8 @@ extension ConnectionController: MCNearbyServiceBrowserDelegate {
             self.connectableDJs.append(peerID)
         }
         
-        // TODO: DJ名にinfoを使うのは非互換な変更のため、以下のようにして互換性を保つ
-        if let info = info {
-            self.connectableDJNameCorrespondence[peerID] = (info["name"], info["imageUrl"]) as? (String, String?)
-        } else {
-            self.connectableDJNameCorrespondence[peerID] = (peerID.displayName, nil)
-        }
+        self.peerProfileCorrespondence[peerID] = PeerProfile(name:     info!["name"]!,
+                                                             imageUrl: URL(string: info!["imageUrl"]!))
 
         self.delegate?.connectionController(didChangeConnectableDevices: self.connectableDJs)
     }

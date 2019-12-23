@@ -97,7 +97,7 @@ class DefaultsController: NSObject {
         self.swifter.showUser(.screenName(twitterAccount.screenName), success: { json in
             let imageUrlString = json["profile_image_url_https"].string!.replacingOccurrences(of: "_normal", with: "", options: .backwards)
             self.profile = PeerProfile(name: json["name"].string!,
-                                       imageUrl: URL(string: imageUrlString)!)
+                                       imageUrl: URL(string: imageUrlString))
             if let completion = completion { completion() }
         }, failure: { error in
             print("Swifter Error at DefaultsController.updateProfileFromTwitter():", error.localizedDescription)
