@@ -14,6 +14,7 @@ class SettingsViewController: UITableViewController, SFSafariViewControllerDeleg
     
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var twitterAccountLabel: UILabel!
+    @IBOutlet weak var willUseTwitterProfileSwitch: UISwitch!
     
     let developerGitHubLinks = [
         URL(string: "https://github.com/yaplus")!,      // yaplus
@@ -30,14 +31,19 @@ class SettingsViewController: UITableViewController, SFSafariViewControllerDeleg
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let profile = DefaultsController.shared.profile {
-            self.userNameLabel.text = profile.name
-        }
+        self.userNameLabel.text = UserDefaults.standard.string(forKey: UserDefaults.DJYusakuDefaults.ProfileName)
+        
+        self.willUseTwitterProfileSwitch.isOn = DefaultsController.shared.willUseTwitterProfile
         
         if let twitterAccount = DefaultsController.shared.twitterAccount {
             self.twitterAccountLabel.text = "@" + twitterAccount.screenName
         }
         
+    }
+    
+    
+    @IBAction func willUseTwitterProfileSwitchValueDidChange(_ sender: UISwitch) {
+        UserDefaults.standard.set(sender.isOn, forKey: UserDefaults.DJYusakuDefaults.WillUseTwitterProfile)
     }
     
     // MARK: - UITableViewDelegate
@@ -100,9 +106,7 @@ class SettingsNameViewController: UITableViewController, UITextFieldDelegate {
         super.viewWillAppear(animated)
         
         // 既に名前が設定されていればテキストボックスに名前を表示
-        if let profile = DefaultsController.shared.profile {
-            self.nameField.text = profile.name
-        }
+        self.nameField.text = UserDefaults.standard.string(forKey: UserDefaults.DJYusakuDefaults.ProfileName)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

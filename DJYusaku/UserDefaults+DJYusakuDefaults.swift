@@ -10,8 +10,8 @@ import UIKit
 
 extension UserDefaults {
     class DJYusakuDefaults {
-        static let TwitterAccount = "TwitterAccount"
-        static let ProfileName    = "ProfileName"
+        static let ProfileName           = "ProfileName"
+        static let TwitterAccount        = "TwitterAccount"
+        static let WillUseTwitterProfile = "WillUseTwitterProfile"
     }
-    
 }

@@ -70,6 +70,10 @@ class MemberViewController: UIViewController {
                 DispatchQueue.global().async {
                     DJName = profile.name
                     DJIcon = Artwork.fetch(url: profile.imageUrl)
+                    DispatchQueue.main.async{
+                        self.DJImageView.image = DJIcon
+                        self.DJImageView.setNeedsLayout()
+                    }
                 }
             }
         } else {
@@ -78,6 +82,10 @@ class MemberViewController: UIViewController {
                     DispatchQueue.global().async {
                         DJName = profile.name
                         DJIcon = Artwork.fetch(url: profile.imageUrl)
+                        DispatchQueue.main.async{
+                            self.DJImageView.image = DJIcon
+                            self.DJImageView.setNeedsLayout()
+                        }
                     }
                 }
             }

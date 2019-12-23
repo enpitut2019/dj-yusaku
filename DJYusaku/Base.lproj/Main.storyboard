@@ -936,6 +936,9 @@
                                                         <constraint firstAttribute="width" constant="47" id="A31-c2-7wx"/>
                                                         <constraint firstAttribute="height" constant="31" id="hMg-nQ-bAr"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <action selector="willUseTwitterProfileSwitchValueDidChange:" destination="Xlt-eI-mT8" eventType="valueChanged" id="MBb-lW-Kue"/>
+                                                    </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Nh-yi-nFf">
                                                     <rect key="frame" x="15" y="11.666666666666664" width="313" height="21"/>
@@ -1065,6 +1068,7 @@
                     <connections>
                         <outlet property="twitterAccountLabel" destination="Y5i-Fz-AZG" id="Q91-th-3wE"/>
                         <outlet property="userNameLabel" destination="Bl7-8g-a7O" id="VKY-0W-nYe"/>
+                        <outlet property="willUseTwitterProfileSwitch" destination="u1w-l1-k2W" id="dez-90-UEc"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qv8-tq-q3H" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

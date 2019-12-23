@@ -33,7 +33,7 @@ class DefaultsController: NSObject {
     private(set) var swifter : Swifter = Swifter(consumerKey: Secrets.TwitterConsumerKey,
                                                  consumerSecret: Secrets.TwitterConsumerSecret)
     private(set) var profile: PeerProfile? = nil
-    private(set) var willUseTwitterProfile : Bool = true    // TODO: falseにする
+    private(set) var willUseTwitterProfile : Bool = false
     
     private override init() {
         super.init()
@@ -53,6 +53,9 @@ class DefaultsController: NSObject {
                 self.profile!.name = name
             }
         }
+        
+        // Twitterのプロフィールを使用するかどうかを設定する
+        self.willUseTwitterProfile = UserDefaults.standard.bool(forKey: UserDefaults.DJYusakuDefaults.WillUseTwitterProfile)
         
         // Twitterアカウントを設定する
         self.updateTwitterAccount() { [unowned self] in
