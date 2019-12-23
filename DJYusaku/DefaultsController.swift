@@ -74,6 +74,8 @@ class DefaultsController: NSObject {
     // プロフィールを他のピアに送信する
     private func sendProfile() {
         if let profile = self.profile {
+            ConnectionController.shared.startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl)
+            
             let data = try! JSONEncoder().encode(profile)
             let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.DataType.peerProfile, value: data))
             ConnectionController.shared.session.sendRequest(messageData,

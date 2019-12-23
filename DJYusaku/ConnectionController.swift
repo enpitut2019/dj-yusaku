@@ -60,6 +60,17 @@ class ConnectionController: NSObject {
         NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
     }
 
+    func startAdvertise(displayName: String, imageUrl: URL?) {
+        if self.advertiser != nil {
+            self.advertiser.stopAdvertisingPeer()
+        }
+        let info = ["name":     displayName,
+                    "imageUrl": imageUrl?.absoluteString ?? ""]
+        self.advertiser = MCNearbyServiceAdvertiser(peer: self.peerID, discoveryInfo: info, serviceType: self.serviceType)
+        self.advertiser.delegate = self
+        self.advertiser.startAdvertisingPeer()
+    }
+    
     func startBrowse() {
         self.browser.startBrowsingForPeers()
     }
@@ -76,21 +87,12 @@ class ConnectionController: NSObject {
     
     func startDJ() {
         self.disconnect()
-        
-        var info = ["name":     "",
-                    "imageUrl": ""]
         if let profile = DefaultsController.shared.profile {
-            info["name"] = profile.name
-            info["imageUrl"] = profile.imageUrl?.absoluteString ?? ""
+            startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl)
         } else {
-            info["name"] = UIDevice.current.name
+            startAdvertise(displayName: UIDevice.current.name, imageUrl: nil)
         }
-        
-        self.advertiser = MCNearbyServiceAdvertiser(peer: self.peerID, discoveryInfo: info, serviceType: self.serviceType)
-        self.advertiser.delegate = self
-        
         self.isDJ = true
-        self.advertiser.startAdvertisingPeer()
         NotificationCenter.default.post(name: .DJYusakuUserStateDidUpdate, object: nil)
     }
     
