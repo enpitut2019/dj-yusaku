@@ -67,9 +67,13 @@ class MemberViewController: UIViewController {
             if let profile = DefaultsController.shared.profile {
                 DispatchQueue.global().async {
                     DJName = profile.name
+                    DispatchQueue.main.async {
+                        self.DJNameLabel.alpha = 1.0
+                        self.DJImageView.alpha = 1.0
+                    }
                     if let imageUrl = profile.imageUrl {
                         DJIcon = CachedImage.fetch(url: imageUrl)
-                        DispatchQueue.main.async{
+                        DispatchQueue.main.async {
                             self.DJImageView.image = DJIcon
                             self.DJImageView.setNeedsLayout()
                         }
@@ -80,6 +84,15 @@ class MemberViewController: UIViewController {
             if let profile = ConnectionController.shared.peerProfileCorrespondence[ConnectionController.shared.connectedDJ!.peerID] {
                 DispatchQueue.global().async {
                     DJName = profile.name
+                    DispatchQueue.main.async {
+                        if ConnectionController.shared.connectedDJ!.state != .connected {
+                            self.DJNameLabel.alpha = 0.3
+                            self.DJImageView.alpha = 0.3
+                        } else {
+                            self.DJNameLabel.alpha = 1.0
+                            self.DJImageView.alpha = 1.0
+                        }
+                    }
                     if let imageUrl = profile.imageUrl {
                         DJIcon = CachedImage.fetch(url: imageUrl)
                         DispatchQueue.main.async{

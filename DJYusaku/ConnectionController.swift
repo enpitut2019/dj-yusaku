@@ -57,6 +57,7 @@ class ConnectionController: NSObject {
         guard let connectedDJ = self.connectedDJ else { return }
         self.browser.invitePeer(connectedDJ.peerID, to: self.session, withContext: nil, timeout: 10.0)
         self.connectedDJ!.state = .connected
+        NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
     }
 
     func startBrowse() {
@@ -70,7 +71,7 @@ class ConnectionController: NSObject {
     func disconnect() {
         self.session.disconnect()
         self.connectedDJ = nil
-        
+        NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
     }
     
     func startDJ() {
@@ -118,6 +119,7 @@ extension ConnectionController: MCSessionDelegate {
             print("Peer \(peerID.displayName) is not connected.")
             if !ConnectionController.shared.isDJ! && peerID == connectedDJ?.peerID {
                 self.connectedDJ!.state = .notConnected
+                NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
             }
             break
         case .connecting:
