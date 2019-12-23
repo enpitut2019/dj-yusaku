@@ -68,19 +68,17 @@ class DefaultsController: NSObject {
             }
         }
         
-        // プロフィールを他のピアに送信する
-        self.sendProfile()
+        self.sendProfile()  // プロフィールを他のピアに送信する
     }
-        
+    
+    // プロフィールを他のピアに送信する
     private func sendProfile() {
-        if let profile = self.profile {
-            let data = try! JSONEncoder().encode(profile)
-            let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.DataType.peerProfile, value: data))
-            ConnectionController.shared.session.sendRequest(messageData,
-                                                            toPeers: ConnectionController.shared.session.connectedPeers,
-                                                            with: .unreliable)
-            NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
-        }
+        let data = try! JSONEncoder().encode(self.profile)
+        let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.DataType.peerProfile, value: data))
+        ConnectionController.shared.session.sendRequest(messageData,
+                                                        toPeers: ConnectionController.shared.session.connectedPeers,
+                                                        with: .unreliable)
+        NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
     }
     
     @objc func handleUserDefaultsDidChange(_ notification: Notification) {
