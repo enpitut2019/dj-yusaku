@@ -82,3 +82,36 @@ class SettingsViewController: UITableViewController, SFSafariViewControllerDeleg
         }
     }
 }
+
+// MARK: - 名前の設定画面
+
+class SettingsNameViewController: UITableViewController, UITextFieldDelegate {
+    
+    @IBOutlet weak var nameField: UITextField!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.nameField.delegate = self
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // 既に名前が設定されていればテキストボックスに名前を表示
+        if let profile = DefaultsController.shared.profile {
+            self.nameField.text = profile.name
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.nameField.resignFirstResponder()
+        
+        if let name = self.nameField.text {
+            UserDefaults.standard.set(name, forKey: UserDefaults.DJYusakuDefaults.ProfileName)
+        }
+
+        return true
+    }
+}
