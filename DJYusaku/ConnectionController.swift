@@ -91,11 +91,8 @@ class ConnectionController: NSObject {
     
     func startDJ() {
         self.disconnect()
-        if let profile = DefaultsController.shared.profile {
-            startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl)
-        } else {
-            startAdvertise(displayName: UIDevice.current.name, imageUrl: nil)
-        }
+        let profile = DefaultsController.shared.profile
+        startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl)
         self.isDJ = true
         NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
         NotificationCenter.default.post(name: .DJYusakuUserStateDidUpdate, object: nil)
@@ -136,12 +133,10 @@ extension ConnectionController: MCSessionDelegate {
             print("Peer \(peerID.displayName) is connected.")
             NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
             
-            // プロフィールが設定されていれば他のピアに送信する
-            if let profile = DefaultsController.shared.profile {
-                let data = try! JSONEncoder().encode(profile)
-                let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.peerProfile, value: data))
-                self.session.sendRequest(messageData, toPeers: [peerID], with: .unreliable)
-            }
+            // 接続したらプロフィールを他のピアに送信する
+            let data = try! JSONEncoder().encode(DefaultsController.shared.profile)
+            let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.peerProfile, value: data))
+            self.session.sendRequest(messageData, toPeers: [peerID], with: .unreliable)
             
             if ConnectionController.shared.isDJ! {   // DJが新しい子機と接続したとき
                 var songs: [Song] = []
