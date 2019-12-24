@@ -97,7 +97,7 @@ extension SearchViewController: UITableViewDelegate {
                 viewController.dismiss(animated: true)    // 1曲追加するごとにViewを閉じる
             }
         } else {                                 // 自分がリスナーのとき
-            guard ConnectionController.shared.connectedDJ!.state != .connected else { return }
+            guard ConnectionController.shared.connectedDJ!.state == .connected else { return }
             let songData = try! JSONEncoder().encode(song)
             
             let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.requestSong, value: songData))
