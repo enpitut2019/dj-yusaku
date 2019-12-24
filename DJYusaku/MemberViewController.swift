@@ -17,6 +17,7 @@ class MemberViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var DJNameLabel: UILabel!
     @IBOutlet weak var DJImageView: UIImageView!
+    @IBOutlet weak var DJStatusLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +71,7 @@ class MemberViewController: UIViewController {
                     DispatchQueue.main.async {
                         self.DJNameLabel.alpha = 1.0
                         self.DJImageView.alpha = 1.0
+                        self.DJStatusLabel.text = "Connecting"
                     }
                     if let imageUrl = profile.imageUrl {
                         DJIcon = CachedImage.fetch(url: imageUrl)
@@ -88,9 +90,11 @@ class MemberViewController: UIViewController {
                         if ConnectionController.shared.connectedDJ!.state != .connected {
                             self.DJNameLabel.alpha = 0.3
                             self.DJImageView.alpha = 0.3
+                            self.DJStatusLabel.text = "Missing"
                         } else {
                             self.DJNameLabel.alpha = 1.0
                             self.DJImageView.alpha = 1.0
+                            self.DJStatusLabel.text = "Connecting"
                         }
                     }
                     if let imageUrl = profile.imageUrl {

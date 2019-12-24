@@ -851,6 +851,7 @@
                     <connections>
                         <outlet property="DJImageView" destination="KmF-kX-f76" id="oZ7-ES-pcW"/>
                         <outlet property="DJNameLabel" destination="yP3-9N-fvb" id="0H7-1v-B4C"/>
+                        <outlet property="DJStatusLabel" destination="0Zn-fy-Vhb" id="T23-Cp-JjQ"/>
                         <outlet property="tableView" destination="ljm-v3-8g9" id="Wfb-fc-RgC"/>
                     </connections>
                 </viewController>
