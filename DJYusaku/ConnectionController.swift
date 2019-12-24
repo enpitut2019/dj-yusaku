@@ -97,6 +97,7 @@ class ConnectionController: NSObject {
             startAdvertise(displayName: UIDevice.current.name, imageUrl: nil)
         }
         self.isDJ = true
+        NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
         NotificationCenter.default.post(name: .DJYusakuUserStateDidUpdate, object: nil)
     }
     
