@@ -53,7 +53,7 @@ class MemberViewController: UIViewController {
         let DJName = ConnectionController.shared.isDJ!
                    ? DefaultsController.shared.profile.name
                    : ConnectionController.shared.peerProfileCorrespondence[ConnectionController.shared.connectedDJ!.peerID]!.name
-        var DJIcon: UIImage?
+        var DJImage: UIImage?
         
         self.listeners = ConnectionController.shared.session.connectedPeers
         
@@ -67,20 +67,20 @@ class MemberViewController: UIViewController {
         if ConnectionController.shared.isDJ! {
             DispatchQueue.global().async {
                 if let imageUrl = DefaultsController.shared.profile.imageUrl {
-                    DJIcon = CachedImage.fetch(url: imageUrl)
+                    DJImage = CachedImage.fetch(url: imageUrl)
                 }
                 DispatchQueue.main.async {
                     self.DJNameLabel.alpha = 1.0
                     self.DJImageView.alpha = 1.0
                     self.DJStatusLabel.text = "Connecting"
-                    self.DJImageView.image = DJIcon ?? UIImage(named: "TemporarySingleColored")
+                    self.DJImageView.image = DJImage ?? UIImage(named: "TemporarySingleColored")
                     self.DJImageView.setNeedsLayout()
                 }
             }
         } else {
             DispatchQueue.global().async {
                 if let imageUrl = ConnectionController.shared.peerProfileCorrespondence[ConnectionController.shared.connectedDJ!.peerID]!.imageUrl {
-                    DJIcon = CachedImage.fetch(url: imageUrl)
+                    DJImage = CachedImage.fetch(url: imageUrl)
                 }
                 DispatchQueue.main.async {
                     if ConnectionController.shared.connectedDJ!.state != .connected {
@@ -92,7 +92,7 @@ class MemberViewController: UIViewController {
                         self.DJImageView.alpha = 1.0
                         self.DJStatusLabel.text = "Connecting"
                     }
-                    self.DJImageView.image = DJIcon ?? UIImage(named: "TemporarySingleColored")
+                    self.DJImageView.image = DJImage ?? UIImage(named: "TemporarySingleColored")
                     self.DJImageView.setNeedsLayout()
                 }
             }
@@ -120,16 +120,16 @@ extension MemberViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell  = tableView.dequeueReusableCell(withIdentifier: "MemberTableViewCell", for: indexPath) as! MemberTableViewCell
-        var listenerIcon: UIImage?
+        var listenerImage: UIImage?
         if indexPath.row == 0 && !ConnectionController.shared.isDJ! { // 自分自身（子機）
             let profile = DefaultsController.shared.profile
             cell.peerName.text = profile.name
             DispatchQueue.global().async {
                 if let imageUrl = profile.imageUrl {
-                    listenerIcon = CachedImage.fetch(url: imageUrl)
+                    listenerImage = CachedImage.fetch(url: imageUrl)
                 }
                 DispatchQueue.main.async {
-                    cell.peerImageView.image = listenerIcon ?? UIImage(named: "TemporarySingleColored")
+                    cell.peerImageView.image = listenerImage ?? UIImage(named: "TemporarySingleColored")
                     cell.peerImageView.setNeedsLayout()
                 }
             }
@@ -138,10 +138,10 @@ extension MemberViewController: UITableViewDataSource {
                 cell.peerName.text = profile.name
                 DispatchQueue.global().async {
                     if let imageUrl = profile.imageUrl {
-                        listenerIcon = CachedImage.fetch(url: imageUrl)
+                        listenerImage = CachedImage.fetch(url: imageUrl)
                     }
                     DispatchQueue.main.async {
-                        cell.peerImageView.image = listenerIcon ?? UIImage(named: "TemporarySingleColored")
+                        cell.peerImageView.image = listenerImage ?? UIImage(named: "TemporarySingleColored")
                         cell.peerImageView.setNeedsLayout()
                     }
                 }
