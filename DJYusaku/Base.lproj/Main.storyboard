@@ -504,9 +504,9 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KK9-dh-Qaa">
-                                                    <rect key="frame" x="64" y="22" width="334" height="20"/>
+                                                    <rect key="frame" x="64" y="17" width="334" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="7nV-4J-FpJ"/>
+                                                        <constraint firstAttribute="height" constant="30" id="7nV-4J-FpJ"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
                                                     <nil key="textColor"/>
