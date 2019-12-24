@@ -504,9 +504,9 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KK9-dh-Qaa">
-                                                    <rect key="frame" x="64" y="22" width="334" height="20"/>
+                                                    <rect key="frame" x="64" y="17" width="334" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="7nV-4J-FpJ"/>
+                                                        <constraint firstAttribute="height" constant="30" id="7nV-4J-FpJ"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
                                                     <nil key="textColor"/>
@@ -851,6 +851,7 @@
                     <connections>
                         <outlet property="DJImageView" destination="KmF-kX-f76" id="oZ7-ES-pcW"/>
                         <outlet property="DJNameLabel" destination="yP3-9N-fvb" id="0H7-1v-B4C"/>
+                        <outlet property="DJStatusLabel" destination="0Zn-fy-Vhb" id="T23-Cp-JjQ"/>
                         <outlet property="tableView" destination="ljm-v3-8g9" id="Wfb-fc-RgC"/>
                     </connections>
                 </viewController>

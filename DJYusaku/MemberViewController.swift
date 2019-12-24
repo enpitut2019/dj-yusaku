@@ -17,6 +17,7 @@ class MemberViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var DJNameLabel: UILabel!
     @IBOutlet weak var DJImageView: UIImageView!
+    @IBOutlet weak var DJStatusLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,16 +52,14 @@ class MemberViewController: UIViewController {
     func updateMembers() {
         var DJName = ConnectionController.shared.isDJ!
                    ? ConnectionController.shared.peerID.displayName
-                   : ConnectionController.shared.connectedDJ?.displayName
+                   : ConnectionController.shared.connectedDJ!.peerID.displayName
         var DJIcon: UIImage? = UIImage(named: "TemporarySingleColored")
         
         listeners = ConnectionController.shared.session.connectedPeers
         
         if !ConnectionController.shared.isDJ! {
-            if let connectedDJ = ConnectionController.shared.connectedDJ {
-                // 接続している端末（親機）はtableViewには表示しない
-                self.listeners = self.listeners.filter({ $0 != connectedDJ })
-            }
+            // 接続している端末（親機）はtableViewには表示しない
+            self.listeners = self.listeners.filter({ $0 != ConnectionController.shared.connectedDJ!.peerID })
             // 子機のときは自分を先頭に挿入
             self.listeners.insert(ConnectionController.shared.peerID, at: 0)
         }
@@ -69,9 +68,14 @@ class MemberViewController: UIViewController {
             if let profile = DefaultsController.shared.profile {
                 DispatchQueue.global().async {
                     DJName = profile.name
+                    DispatchQueue.main.async {
+                        self.DJNameLabel.alpha = 1.0
+                        self.DJImageView.alpha = 1.0
+                        self.DJStatusLabel.text = "Connecting"
+                    }
                     if let imageUrl = profile.imageUrl {
                         DJIcon = CachedImage.fetch(url: imageUrl)
-                        DispatchQueue.main.async{
+                        DispatchQueue.main.async {
                             self.DJImageView.image = DJIcon
                             self.DJImageView.setNeedsLayout()
                         }
@@ -79,16 +83,25 @@ class MemberViewController: UIViewController {
                 }
             }
         } else {
-            if let connectedDJ = ConnectionController.shared.connectedDJ {
-                if let profile = ConnectionController.shared.peerProfileCorrespondence[connectedDJ] {
-                    DispatchQueue.global().async {
-                        DJName = profile.name
-                        if let imageUrl = profile.imageUrl {
-                            DJIcon = CachedImage.fetch(url: imageUrl)
-                            DispatchQueue.main.async{
-                                self.DJImageView.image = DJIcon
-                                self.DJImageView.setNeedsLayout()
-                            }
+            if let profile = ConnectionController.shared.peerProfileCorrespondence[ConnectionController.shared.connectedDJ!.peerID] {
+                DispatchQueue.global().async {
+                    DJName = profile.name
+                    DispatchQueue.main.async {
+                        if ConnectionController.shared.connectedDJ!.state != .connected {
+                            self.DJNameLabel.alpha = 0.3
+                            self.DJImageView.alpha = 0.3
+                            self.DJStatusLabel.text = "Missing"
+                        } else {
+                            self.DJNameLabel.alpha = 1.0
+                            self.DJImageView.alpha = 1.0
+                            self.DJStatusLabel.text = "Connecting"
+                        }
+                    }
+                    if let imageUrl = profile.imageUrl {
+                        DJIcon = CachedImage.fetch(url: imageUrl)
+                        DispatchQueue.main.async{
+                            self.DJImageView.image = DJIcon
+                            self.DJImageView.setNeedsLayout()
                         }
                     }
                 }
