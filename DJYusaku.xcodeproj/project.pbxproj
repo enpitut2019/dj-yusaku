@@ -35,6 +35,7 @@
 		C447ACB4234882FB00D535EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C447ACB2234882FB00D535EB /* LaunchScreen.storyboard */; };
 		C447ACBF234882FB00D535EB /* DJYusakuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447ACBE234882FB00D535EB /* DJYusakuTests.swift */; };
 		C447ACCA234882FB00D535EB /* DJYusakuUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447ACC9234882FB00D535EB /* DJYusakuUITests.swift */; };
+		C449C27423B24C8800A34BE0 /* UIColor+YusakuColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C449C27323B24C8800A34BE0 /* UIColor+YusakuColor.swift */; };
 		C46CE2082383EBC000492AC3 /* BatterySaverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46CE2072383EBC000492AC3 /* BatterySaverViewController.swift */; };
 		C4A3C95A2357E908005304AA /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = C4A3C9592357E908005304AA /* SwiftyJSON */; };
 		C4CF9725235163EF00C8A102 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CF9724235163EF00C8A102 /* SearchViewController.swift */; };
@@ -95,6 +96,7 @@
 		C447ACC5234882FB00D535EB /* DJYusakuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DJYusakuUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C447ACC9234882FB00D535EB /* DJYusakuUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJYusakuUITests.swift; sourceTree = "<group>"; };
 		C447ACCB234882FB00D535EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C449C27323B24C8800A34BE0 /* UIColor+YusakuColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+YusakuColor.swift"; sourceTree = "<group>"; };
 		C46CE2072383EBC000492AC3 /* BatterySaverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatterySaverViewController.swift; sourceTree = "<group>"; };
 		C4CF9724235163EF00C8A102 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C4D25957235205D10066FCE0 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				C447ACB0234882FB00D535EB /* Assets.xcassets */,
 				C447ACB2234882FB00D535EB /* LaunchScreen.storyboard */,
 				C447ACAD234882F900D535EB /* Main.storyboard */,
+				C449C27323B24C8800A34BE0 /* UIColor+YusakuColor.swift */,
 			);
 			path = DJYusaku;
 			sourceTree = "<group>";
@@ -382,6 +385,7 @@
 				C4D2595A235205EC0066FCE0 /* Secrets+Local.swift in Sources */,
 				B10A9E122373F46E00209871 /* MCSession+sendRequest.swift in Sources */,
 				418177822388EEF300A7B02A /* MemberTableViewCell.swift in Sources */,
+				C449C27423B24C8800A34BE0 /* UIColor+YusakuColor.swift in Sources */,
 				106B1C312372C83F008684EB /* ConnectionControllerDelegate.swift in Sources */,
 				C40DC880236570DD00E80AB1 /* WelcomeViewController.swift in Sources */,
 				C447ACA8234882F900D535EB /* SceneDelegate.swift in Sources */,
