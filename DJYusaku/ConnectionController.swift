@@ -32,14 +32,14 @@ class ConnectionController: NSObject {
     private(set) var isInitialized = false
     
     var isDJ: Bool? = nil
-    
-    // Listener 用
-    var connectableDJs: [MCPeerID] = []
     var connectedDJ: (peerID: MCPeerID, state: MCSessionState)? = nil
     
-    var receivedSongs: [Song] = []
-    
     var peerProfileCorrespondence: [MCPeerID:PeerProfile] = [:]
+    
+    var connectableDJs: [MCPeerID] = [] //  ListenerConnectionViewController用
+    
+    var receivedSongs: [Song] = [] // リスナー用
+    
     
     func initialize() {
         self.session = MCSession(peer: self.peerID)
@@ -50,7 +50,13 @@ class ConnectionController: NSObject {
         
         self.isInitialized = true
         
+        NotificationCenter.default.addObserver(self, selector: #selector(handleViewDidEnterBackground), name: .DJYusakuRequestVCDidEnterBackground, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleViewWillEnterForeground), name: .DJYusakuRequestVCWillEnterForeground, object: nil)
+    }
+    
+    @objc func handleViewDidEnterBackground() {
+        guard self.connectedDJ != nil else { return }
+        self.session.disconnect()
     }
     
     @objc func handleViewWillEnterForeground() {
