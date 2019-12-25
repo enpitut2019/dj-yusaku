@@ -99,6 +99,7 @@ class ConnectionController: NSObject {
     
     func startListener(selectedDJ: MCPeerID) {
         self.isDJ = false
+        PlayerQueue.shared.clearSongs()
         if selectedDJ != self.connectedDJ?.peerID {
             self.disconnect()
         }

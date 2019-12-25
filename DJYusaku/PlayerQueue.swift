@@ -204,4 +204,10 @@ class PlayerQueue{
         return nowPlayingSong
     }
     
+    func clearSongs() {
+        PlayerQueue.shared.mpAppController.stop()
+        songs.removeAll()
+        isQueueCreated = false
+    }
+    
 }
