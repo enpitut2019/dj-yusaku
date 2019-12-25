@@ -22,24 +22,23 @@ class ConnectionController: NSObject {
     
     public weak var delegate: ConnectionControllerDelegate?
     
-    let serviceType = "djyusaku"
+    private let serviceType = "djyusaku"
     
-    var peerID = MCPeerID(displayName: UIDevice.current.name)
-    var session: MCSession!
-    var advertiser: MCNearbyServiceAdvertiser!
-    var browser: MCNearbyServiceBrowser!
+    let peerID = MCPeerID(displayName: UIDevice.current.name)
+    private(set) var session: MCSession!
+    private var advertiser: MCNearbyServiceAdvertiser!
+    private var browser: MCNearbyServiceBrowser!
     
     private(set) var isInitialized = false
     
-    var isDJ: Bool? = nil
-    var connectedDJ: (peerID: MCPeerID, state: MCSessionState)? = nil
+    private(set) var isDJ: Bool? = nil
+    private(set) var connectedDJ: (peerID: MCPeerID, state: MCSessionState)? = nil
     
     var peerProfileCorrespondence: [MCPeerID:PeerProfile] = [:]
     
     var connectableDJs: [MCPeerID] = [] //  ListenerConnectionViewController用
     
-    var receivedSongs: [Song] = [] // リスナー用
-    
+    private(set) var receivedSongs: [Song] = [] // リスナー用
     
     func initialize() {
         self.session = MCSession(peer: self.peerID)
@@ -90,23 +89,21 @@ class ConnectionController: NSObject {
     }
     
     func startDJ() {
-        self.disconnect()
-        if let profile = DefaultsController.shared.profile {
-            startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl)
-        } else {
-            startAdvertise(displayName: UIDevice.current.name, imageUrl: nil)
-        }
         self.isDJ = true
+        self.disconnect()
+        let profile = DefaultsController.shared.profile
+        startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl)
+        NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
         NotificationCenter.default.post(name: .DJYusakuUserStateDidUpdate, object: nil)
     }
     
     func startListener(selectedDJ: MCPeerID) {
+        self.isDJ = false
         if selectedDJ != self.connectedDJ?.peerID {
             self.disconnect()
         }
         self.browser.invitePeer(selectedDJ, to: session, withContext: nil, timeout: 10.0)
         self.connectedDJ = (selectedDJ, .connected)
-        self.isDJ = false
         if self.advertiser != nil {
             self.advertiser.stopAdvertisingPeer()
         }
@@ -124,7 +121,7 @@ extension ConnectionController: MCSessionDelegate {
         case .notConnected:
             print("Peer \(peerID.displayName) is disconnected.")
             NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
-            if !ConnectionController.shared.isDJ! && peerID == connectedDJ?.peerID { // リスナーがDJを見失ったとき
+            if !self.isDJ! && peerID == self.connectedDJ?.peerID { // リスナーがDJを見失ったとき
                 self.connectedDJ!.state = .notConnected
             }
             break
@@ -135,14 +132,12 @@ extension ConnectionController: MCSessionDelegate {
             print("Peer \(peerID.displayName) is connected.")
             NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
             
-            // プロフィールが設定されていれば他のピアに送信する
-            if let profile = DefaultsController.shared.profile {
-                let data = try! JSONEncoder().encode(profile)
-                let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.peerProfile, value: data))
-                self.session.sendRequest(messageData, toPeers: [peerID], with: .unreliable)
-            }
+            // 接続したらプロフィールを他のピアに送信する
+            let data = try! JSONEncoder().encode(DefaultsController.shared.profile)
+            let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.peerProfile, value: data))
+            self.session.sendRequest(messageData, toPeers: [peerID], with: .unreliable)
             
-            if ConnectionController.shared.isDJ! {   // DJが新しい子機と接続したとき
+            if self.isDJ! {   // DJが新しい子機と接続したとき
                 var songs: [Song] = []
                 for i in 0..<PlayerQueue.shared.count() {
                     songs.append(PlayerQueue.shared.get(at: i)!)
