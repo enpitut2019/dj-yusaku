@@ -63,9 +63,8 @@ extension ListenerConnectionViewController: UITableViewDataSource {
 extension ListenerConnectionViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedDJ = ConnectionController.shared.connectableDJs[indexPath.row]
-        self.dismiss(animated: true) {
-            ConnectionController.shared.startListener(selectedDJ: selectedDJ)
-        }
+        ConnectionController.shared.startListener(selectedDJ: selectedDJ)
+        self.dismiss(animated: true)
     }
 }
 
