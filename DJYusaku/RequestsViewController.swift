@@ -196,7 +196,9 @@ class RequestsViewController: UIViewController {
         case .playing:          // 再生中なら停止する
             PlayerQueue.shared.mpAppController.pause()
         case .paused, .stopped: // 停止中なら再生する
-            PlayerQueue.shared.mpAppController.play()
+            if PlayerQueue.shared.count() != 0 {
+                PlayerQueue.shared.mpAppController.play()
+            }
         default:
             break
         }
