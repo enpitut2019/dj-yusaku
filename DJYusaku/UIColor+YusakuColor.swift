@@ -11,4 +11,5 @@ import UIKit
 extension UIColor {
     static let yusakuPink = UIColor(named: "YusakuPinkColor")
     static let yusakuDeepPink = UIColor(named: "YusakuDeepPinkColor")
+    static let yusakuBackground = UIColor(named: "YusakuBackgroundColor")
 }
