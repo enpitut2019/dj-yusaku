@@ -96,13 +96,13 @@ extension SearchViewController: UITableViewDelegate {
             PlayerQueue.shared.add(with: song) { [unowned viewController] in
                 viewController.dismiss(animated: true)    // 1曲追加するごとにViewを閉じる
             }
-        } else {                                    // 自分がリスナーのとき
-            guard let connectedDJ = ConnectionController.shared.connectedDJ else { return }
+        } else {                                 // 自分がリスナーのとき
+            guard ConnectionController.shared.connectedDJ!.state == .connected else { return }
             let songData = try! JSONEncoder().encode(song)
             
             let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.requestSong, value: songData))
             
-            ConnectionController.shared.session.sendRequest(messageData, toPeers: [connectedDJ], with: .unreliable) { [unowned viewController] in
+            ConnectionController.shared.session.sendRequest(messageData, toPeers: [ConnectionController.shared.connectedDJ!.peerID], with: .unreliable) { [unowned viewController] in
                 viewController.dismiss(animated: true)    // 1曲追加するごとにViewを閉じる
             }
         }
@@ -178,7 +178,7 @@ extension SearchViewController: UISearchResultsUpdating {
                     let artworkUrlString = song["attributes"]["artwork"]["url"].stringValue
                     let songID           = song["attributes"]["playParams"]["id"].stringValue
                     let artworkUrl = CachedImage.url(urlString: artworkUrlString, width: 256, height: 256)
-                    self.results.append(Song(title: title, artist: artist, artworkUrl: artworkUrl, id: songID, profileImageUrl: DefaultsController.shared.profile?.imageUrl))
+                    self.results.append(Song(title: title, artist: artist, artworkUrl: artworkUrl, id: songID, profileImageUrl: DefaultsController.shared.profile.imageUrl))
                 }
                 self.tableView.reloadData()
             }

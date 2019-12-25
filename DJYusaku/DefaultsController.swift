@@ -32,7 +32,7 @@ class DefaultsController: NSObject {
     private(set) var twitterAccount: TwitterAccount? = nil
     private(set) var swifter : Swifter = Swifter(consumerKey: Secrets.TwitterConsumerKey,
                                                  consumerSecret: Secrets.TwitterConsumerSecret)
-    private(set) var profile: PeerProfile? = nil
+    private(set) var profile: PeerProfile = PeerProfile(name: UIDevice.current.name, imageUrl: nil)
     private(set) var willUseTwitterProfile : Bool = false
     
     private override init() {
@@ -73,14 +73,18 @@ class DefaultsController: NSObject {
     
     // プロフィールを他のピアに送信する
     private func sendProfile() {
-        if let profile = self.profile {
-            let data = try! JSONEncoder().encode(profile)
-            let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.DataType.peerProfile, value: data))
-            ConnectionController.shared.session.sendRequest(messageData,
-                                                            toPeers: ConnectionController.shared.session.connectedPeers,
-                                                            with: .unreliable)
-            NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
+        if let isDJ = ConnectionController.shared.isDJ {
+            if isDJ {
+                ConnectionController.shared.startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl)
+            }
         }
+        
+        let data = try! JSONEncoder().encode(profile)
+        let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.DataType.peerProfile, value: data))
+        ConnectionController.shared.session.sendRequest(messageData,
+                                                        toPeers: ConnectionController.shared.session.connectedPeers,
+                                                        with: .unreliable)
+        NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
     }
     
     @objc func handleUserDefaultsDidChange(_ notification: Notification) {

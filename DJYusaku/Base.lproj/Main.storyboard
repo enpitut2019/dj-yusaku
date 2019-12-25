@@ -504,15 +504,15 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KK9-dh-Qaa">
-                                                    <rect key="frame" x="64" y="22" width="334" height="20"/>
+                                                    <rect key="frame" x="64" y="17" width="334" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="7nV-4J-FpJ"/>
+                                                        <constraint firstAttribute="height" constant="30" id="7nV-4J-FpJ"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="Ynj-sW-L7l" userLabel="PeerImage">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ynj-sW-L7l" userLabel="PeerImage">
                                                     <rect key="frame" x="8" y="8" width="48" height="48"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="48" id="f4H-6d-uzd"/>
@@ -765,7 +765,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="fpU-yS-Emb" userLabel="PeerImage">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fpU-yS-Emb" userLabel="PeerImage">
                                                     <rect key="frame" x="15" y="2" width="40" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="2GT-bu-IGl"/>
@@ -799,7 +799,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="KmF-kX-f76" userLabel="PeerImage">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KmF-kX-f76" userLabel="PeerImage">
                                 <rect key="frame" x="143" y="111" width="128" height="128"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="KBs-ay-c8n"/>
@@ -851,6 +851,7 @@
                     <connections>
                         <outlet property="DJImageView" destination="KmF-kX-f76" id="oZ7-ES-pcW"/>
                         <outlet property="DJNameLabel" destination="yP3-9N-fvb" id="0H7-1v-B4C"/>
+                        <outlet property="DJStatusLabel" destination="0Zn-fy-Vhb" id="T23-Cp-JjQ"/>
                         <outlet property="tableView" destination="ljm-v3-8g9" id="Wfb-fc-RgC"/>
                     </connections>
                 </viewController>

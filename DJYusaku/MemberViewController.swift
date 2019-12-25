@@ -17,6 +17,7 @@ class MemberViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var DJNameLabel: UILabel!
     @IBOutlet weak var DJImageView: UIImageView!
+    @IBOutlet weak var DJStatusLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,56 +50,57 @@ class MemberViewController: UIViewController {
     }
     
     func updateMembers() {
-        var DJName = ConnectionController.shared.isDJ!
-                   ? ConnectionController.shared.peerID.displayName
-                   : ConnectionController.shared.connectedDJ?.displayName
-        var DJIcon: UIImage? = UIImage(named: "TemporarySingleColored")
+        let DJName = ConnectionController.shared.isDJ!
+                   ? DefaultsController.shared.profile.name
+                   : ConnectionController.shared.peerProfileCorrespondence[ConnectionController.shared.connectedDJ!.peerID]!.name
+        var DJImage: UIImage?
         
-        listeners = ConnectionController.shared.session.connectedPeers
+        self.listeners = ConnectionController.shared.session.connectedPeers
         
         if !ConnectionController.shared.isDJ! {
-            if let connectedDJ = ConnectionController.shared.connectedDJ {
-                // 接続している端末（親機）はtableViewには表示しない
-                self.listeners = self.listeners.filter({ $0 != connectedDJ })
-            }
+            // 接続している端末（親機）はtableViewには表示しない
+            self.listeners = self.listeners.filter({ $0 != ConnectionController.shared.connectedDJ!.peerID })
             // 子機のときは自分を先頭に挿入
             self.listeners.insert(ConnectionController.shared.peerID, at: 0)
         }
         
         if ConnectionController.shared.isDJ! {
-            if let profile = DefaultsController.shared.profile {
-                DispatchQueue.global().async {
-                    DJName = profile.name
-                    if let imageUrl = profile.imageUrl {
-                        DJIcon = CachedImage.fetch(url: imageUrl)
-                        DispatchQueue.main.async{
-                            self.DJImageView.image = DJIcon
-                            self.DJImageView.setNeedsLayout()
-                        }
-                    }
+            DispatchQueue.global().async {
+                if let imageUrl = DefaultsController.shared.profile.imageUrl {
+                    DJImage = CachedImage.fetch(url: imageUrl)
+                }
+                DispatchQueue.main.async {
+                    self.DJNameLabel.alpha = 1.0
+                    self.DJImageView.alpha = 1.0
+                    self.DJStatusLabel.text = "Connecting"
+                    self.DJImageView.image = DJImage ?? UIImage(named: "TemporarySingleColored")
+                    self.DJImageView.setNeedsLayout()
                 }
             }
         } else {
-            if let connectedDJ = ConnectionController.shared.connectedDJ {
-                if let profile = ConnectionController.shared.peerProfileCorrespondence[connectedDJ] {
-                    DispatchQueue.global().async {
-                        DJName = profile.name
-                        if let imageUrl = profile.imageUrl {
-                            DJIcon = CachedImage.fetch(url: imageUrl)
-                            DispatchQueue.main.async{
-                                self.DJImageView.image = DJIcon
-                                self.DJImageView.setNeedsLayout()
-                            }
-                        }
+            DispatchQueue.global().async {
+                if let imageUrl = ConnectionController.shared.peerProfileCorrespondence[ConnectionController.shared.connectedDJ!.peerID]!.imageUrl {
+                    DJImage = CachedImage.fetch(url: imageUrl)
+                }
+                DispatchQueue.main.async {
+                    if ConnectionController.shared.connectedDJ!.state != .connected {
+                        self.DJNameLabel.alpha = 0.3
+                        self.DJImageView.alpha = 0.3
+                        self.DJStatusLabel.text = "Missing"
+                    } else {
+                        self.DJNameLabel.alpha = 1.0
+                        self.DJImageView.alpha = 1.0
+                        self.DJStatusLabel.text = "Connecting"
                     }
+                    self.DJImageView.image = DJImage ?? UIImage(named: "TemporarySingleColored")
+                    self.DJImageView.setNeedsLayout()
                 }
             }
         }
         
         // 親機の表示を更新
-        DispatchQueue.main.async{
+        DispatchQueue.main.async {
             self.DJNameLabel.text  = DJName
-            self.DJImageView.image = DJIcon
             self.tableView.reloadData()
         }
     }
@@ -113,45 +115,42 @@ class MemberViewController: UIViewController {
 
 extension MemberViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return listeners.count
+        return self.listeners.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell  = tableView.dequeueReusableCell(withIdentifier: "MemberTableViewCell", for: indexPath) as! MemberTableViewCell
-        cell.peerName.text       = listeners[indexPath.row].displayName
-        cell.peerImageView.image = UIImage(named: "TemporarySingleColored")
-        
-        // プロフィールが設定されている場合
-        DispatchQueue.global().async {
-            var listenerName: String?
-            var listenerIcon: UIImage?
-            if indexPath.row == 0 && !ConnectionController.shared.isDJ! { // 自分自身（子機）
-                if let profile = DefaultsController.shared.profile {
-                    listenerName = profile.name
-                    if let imageUrl = profile.imageUrl {
-                        listenerIcon = CachedImage.fetch(url: imageUrl)
-                    }
-                    DispatchQueue.main.async {
-                        cell.peerName.text       = listenerName
-                        cell.peerImageView.image = listenerIcon
-                        cell.peerImageView.setNeedsLayout()
-                    }
+        var listenerImage: UIImage?
+        if indexPath.row == 0 && !ConnectionController.shared.isDJ! { // 自分自身（子機）
+            let profile = DefaultsController.shared.profile
+            cell.peerName.text = profile.name
+            DispatchQueue.global().async {
+                if let imageUrl = profile.imageUrl {
+                    listenerImage = CachedImage.fetch(url: imageUrl)
                 }
-            } else { // 自分以外の子機
-                if let profile = ConnectionController.shared.peerProfileCorrespondence[self.listeners[indexPath.row]] {
-                    listenerName = profile.name
-                    if let imageUrl = profile.imageUrl {
-                        listenerIcon = CachedImage.fetch(url: imageUrl)
-                    }
-                    DispatchQueue.main.async {
-                        cell.peerName.text       = listenerName
-                        cell.peerImageView.image = listenerIcon
-                        cell.peerImageView.setNeedsLayout()
-                    }
+                DispatchQueue.main.async {
+                    cell.peerImageView.image = listenerImage ?? UIImage(named: "TemporarySingleColored")
+                    cell.peerImageView.setNeedsLayout()
                 }
             }
+        } else { // 自分以外の子機
+            if let profile = ConnectionController.shared.peerProfileCorrespondence[self.listeners[indexPath.row]] {
+                cell.peerName.text = profile.name
+                DispatchQueue.global().async {
+                    if let imageUrl = profile.imageUrl {
+                        listenerImage = CachedImage.fetch(url: imageUrl)
+                    }
+                    DispatchQueue.main.async {
+                        cell.peerImageView.image = listenerImage ?? UIImage(named: "TemporarySingleColored")
+                        cell.peerImageView.setNeedsLayout()
+                    }
+                }
+            } else { // このリスナーのprofileをまだ受け取ってないとき
+                cell.peerName.text = self.listeners[indexPath.row].displayName
+            }
+            
         }
-        
+             
         return cell
     }
  }

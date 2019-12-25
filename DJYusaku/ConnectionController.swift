@@ -22,24 +22,23 @@ class ConnectionController: NSObject {
     
     public weak var delegate: ConnectionControllerDelegate?
     
-    let serviceType = "djyusaku"
+    private let serviceType = "djyusaku"
     
-    var peerID = MCPeerID(displayName: UIDevice.current.name)
-    var session: MCSession!
-    var advertiser: MCNearbyServiceAdvertiser!
-    var browser: MCNearbyServiceBrowser!
+    let peerID = MCPeerID(displayName: UIDevice.current.name)
+    private(set) var session: MCSession!
+    private var advertiser: MCNearbyServiceAdvertiser!
+    private var browser: MCNearbyServiceBrowser!
     
     private(set) var isInitialized = false
     
-    var isDJ: Bool? = nil
-    
-    // Listener 用
-    var connectableDJs: [MCPeerID] = []
-    var connectedDJ: MCPeerID? = nil
-    
-    var receivedSongs: [Song] = []
+    private(set) var isDJ: Bool? = nil
+    private(set) var connectedDJ: (peerID: MCPeerID, state: MCSessionState)? = nil
     
     var peerProfileCorrespondence: [MCPeerID:PeerProfile] = [:]
+    
+    var connectableDJs: [MCPeerID] = [] //  ListenerConnectionViewController用
+    
+    private(set) var receivedSongs: [Song] = [] // リスナー用
     
     func initialize() {
         self.session = MCSession(peer: self.peerID)
@@ -50,14 +49,32 @@ class ConnectionController: NSObject {
         
         self.isInitialized = true
         
+        NotificationCenter.default.addObserver(self, selector: #selector(handleViewDidEnterBackground), name: .DJYusakuRequestVCDidEnterBackground, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleViewWillEnterForeground), name: .DJYusakuRequestVCWillEnterForeground, object: nil)
     }
     
+    @objc func handleViewDidEnterBackground() {
+        guard self.connectedDJ != nil else { return }
+        self.session.disconnect()
+    }
+    
     @objc func handleViewWillEnterForeground() {
-        guard let connectedDJ = connectedDJ else { return }
-        self.browser.invitePeer(connectedDJ, to: ConnectionController.shared.session, withContext: nil, timeout: 10.0)
+        guard let connectedDJ = self.connectedDJ else { return }
+        self.browser.invitePeer(connectedDJ.peerID, to: self.session, withContext: nil, timeout: 10.0)
+        self.connectedDJ!.state = .connected
     }
 
+    func startAdvertise(displayName: String, imageUrl: URL?) {
+        if self.advertiser != nil {
+            self.advertiser.stopAdvertisingPeer()
+        }
+        let info = ["name":     displayName,
+                    "imageUrl": imageUrl?.absoluteString ?? ""]
+        self.advertiser = MCNearbyServiceAdvertiser(peer: self.peerID, discoveryInfo: info, serviceType: self.serviceType)
+        self.advertiser.delegate = self
+        self.advertiser.startAdvertisingPeer()
+    }
+    
     func startBrowse() {
         self.browser.startBrowsingForPeers()
     }
@@ -69,36 +86,24 @@ class ConnectionController: NSObject {
     func disconnect() {
         self.session.disconnect()
         self.connectedDJ = nil
-        
     }
     
     func startDJ() {
-        self.disconnect()
-        
-        var info = ["name":     "",
-                    "imageUrl": ""]
-        if let profile = DefaultsController.shared.profile {
-            info["name"] = profile.name
-            info["imageUrl"] = profile.imageUrl?.absoluteString ?? ""
-        } else {
-            info["name"] = UIDevice.current.name
-        }
-        
-        self.advertiser = MCNearbyServiceAdvertiser(peer: self.peerID, discoveryInfo: info, serviceType: self.serviceType)
-        self.advertiser.delegate = self
-        
         self.isDJ = true
-        self.advertiser.startAdvertisingPeer()
+        self.disconnect()
+        let profile = DefaultsController.shared.profile
+        startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl)
+        NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
         NotificationCenter.default.post(name: .DJYusakuUserStateDidUpdate, object: nil)
     }
     
     func startListener(selectedDJ: MCPeerID) {
-        if selectedDJ != self.connectedDJ {
+        self.isDJ = false
+        if selectedDJ != self.connectedDJ?.peerID {
             self.disconnect()
         }
         self.browser.invitePeer(selectedDJ, to: session, withContext: nil, timeout: 10.0)
-        self.connectedDJ = selectedDJ
-        self.isDJ = false
+        self.connectedDJ = (selectedDJ, .connected)
         if self.advertiser != nil {
             self.advertiser.stopAdvertisingPeer()
         }
@@ -114,23 +119,25 @@ extension ConnectionController: MCSessionDelegate {
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         switch state {
         case .notConnected:
-            print("Peer \(peerID.displayName) is not connected.")
+            print("Peer \(peerID.displayName) is disconnected.")
+            NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
+            if !self.isDJ! && peerID == self.connectedDJ?.peerID { // リスナーがDJを見失ったとき
+                self.connectedDJ!.state = .notConnected
+            }
             break
         case .connecting:
             print("Peer \(peerID.displayName) is connecting...")
             break
         case .connected:
+            print("Peer \(peerID.displayName) is connected.")
             NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
             
-            // プロフィールが設定されていれば他のピアに送信する
-            if let profile = DefaultsController.shared.profile {
-                let data = try! JSONEncoder().encode(profile)
-                let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.peerProfile, value: data))
-                self.session.sendRequest(messageData, toPeers: [peerID], with: .unreliable)
-            }
+            // 接続したらプロフィールを他のピアに送信する
+            let data = try! JSONEncoder().encode(DefaultsController.shared.profile)
+            let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.peerProfile, value: data))
+            self.session.sendRequest(messageData, toPeers: [peerID], with: .unreliable)
             
-            print("Peer \(peerID.displayName) is connected.")
-            if ConnectionController.shared.isDJ! {   // DJが新しい子機と接続したとき
+            if self.isDJ! {   // DJが新しい子機と接続したとき
                 var songs: [Song] = []
                 for i in 0..<PlayerQueue.shared.count() {
                     songs.append(PlayerQueue.shared.get(at: i)!)
@@ -230,7 +237,7 @@ extension ConnectionController: MCNearbyServiceBrowserDelegate {
 
     // 接続可能なピアが消えたとき
     public func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
-        self.connectableDJs = connectableDJs.filter { $0 != peerID }
+        self.connectableDJs = self.connectableDJs.filter { $0 != peerID }
         
         self.delegate?.connectionController(didChangeConnectableDevices: self.connectableDJs)
     }
