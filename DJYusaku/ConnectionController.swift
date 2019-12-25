@@ -81,6 +81,7 @@ class ConnectionController: NSObject {
     
     func stopBrowse() {
         self.browser.stopBrowsingForPeers()
+        self.connectableDJs.removeAll()
     }
     
     func disconnect() {
