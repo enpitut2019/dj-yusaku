@@ -42,11 +42,15 @@ extension ListenerConnectionViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListenerConnectableDJsTableViewCell", for: indexPath) as! ListenerConnectableDJsTableViewCell
-        let peerID = ConnectionController.shared.connectableDJs[indexPath.row]
-        if let profile = ConnectionController.shared.peerProfileCorrespondence[peerID] {
-            cell.djName?.text = profile.name
+        var DJImage: UIImage?
+        let profile = ConnectionController.shared.peerProfileCorrespondence[ConnectionController.shared.connectableDJs[indexPath.row]]!
+        cell.djName?.text = profile.name
+        DispatchQueue.global().async {
             if let imageUrl = profile.imageUrl {
-                cell.djImageView.image = CachedImage.fetch(url: imageUrl)
+                DJImage = CachedImage.fetch(url: imageUrl)
+            }
+            DispatchQueue.main.async {
+                cell.djImageView.image = DJImage ?? UIImage(named: "TemporarySingleColored")
             }
         }
 
@@ -59,9 +63,8 @@ extension ListenerConnectionViewController: UITableViewDataSource {
 extension ListenerConnectionViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedDJ = ConnectionController.shared.connectableDJs[indexPath.row]
-        self.dismiss(animated: true) {
-            ConnectionController.shared.startListener(selectedDJ: selectedDJ)
-        }
+        ConnectionController.shared.startListener(selectedDJ: selectedDJ)
+        self.dismiss(animated: true)
     }
 }
 
