@@ -15,6 +15,8 @@ extension Notification.Name {
     static let DJYusakuPlayerQueueDidUpdate = Notification.Name("DJYusakuPlayerQueueDidUpdate")
     static let DJYusakuPlayerQueueNowPlayingSongDidChange = Notification.Name("DJYusakuPlayerQueueNowPlayingSongDidChange")
     static let DJYusakuPlayerQueuePlaybackStateDidChange = Notification.Name("DJYusakuPlayerQueuePlaybackStateDidChange")
+    static let DJYusakuPlayerQueueSongsExistanceDidChange =
+        Notification.Name("DJYusakuPlayerQueueSongsExistanceDidChange")
 }
 
 class PlayerQueue{
@@ -83,6 +85,7 @@ class PlayerQueue{
             self.songs.append(song)
             NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
             self.isQueueCreated = true
+            NotificationCenter.default.post(name: .DJYusakuPlayerQueueSongsExistanceDidChange, object: nil, userInfo: ["existance": true as Any])
             if let completion = completion { completion() }
         }
     }
@@ -205,6 +208,7 @@ class PlayerQueue{
     }
     
     func clearSongs() {
+        NotificationCenter.default.post(name: .DJYusakuPlayerQueueSongsExistanceDidChange, object: nil, userInfo: ["existance": false as Any])
         PlayerQueue.shared.mpAppController.stop()
         songs.removeAll()
         isQueueCreated = false

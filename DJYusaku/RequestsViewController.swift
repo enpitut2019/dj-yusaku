@@ -46,6 +46,9 @@ class RequestsViewController: UIViewController {
         playerControllerView.layer.borderWidth      = 1
 
         playButtonBackgroundView.layer.cornerRadius = playButtonBackgroundView.frame.size.height * 0.5
+        
+        playButton.isEnabled = false
+        skipButton.isEnabled = false
 
         let footerView = UIView()
         footerView.frame.size.height = 100
@@ -67,6 +70,7 @@ class RequestsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleViewDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleViewWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlayerControllerViewFromUserState), name: .DJYusakuUserStateDidUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleButtonStateChange), name: .DJYusakuPlayerQueueSongsExistanceDidChange, object: nil)
         
     }
     
@@ -149,6 +153,12 @@ class RequestsViewController: UIViewController {
         self.playerControllerView.isHidden = !isDJ
     }
     
+    @objc func handleButtonStateChange(notification: NSNotification) {
+        guard let existance = notification.userInfo!["existance"] as? Bool else { return }
+        playButton.isEnabled = existance
+        skipButton.isEnabled = existance
+    }
+    
     func scrollToNowPlayingItem(animated: Bool = true) {
         guard ConnectionController.shared.isDJ != nil else { return }
         
@@ -196,9 +206,7 @@ class RequestsViewController: UIViewController {
         case .playing:          // 再生中なら停止する
             PlayerQueue.shared.mpAppController.pause()
         case .paused, .stopped: // 停止中なら再生する
-            if PlayerQueue.shared.count() != 0 {
-                PlayerQueue.shared.mpAppController.play()
-            }
+            PlayerQueue.shared.mpAppController.play()
         default:
             break
         }
@@ -233,7 +241,6 @@ class RequestsViewController: UIViewController {
         }
         scrollToNowPlayingItem()
     }
-    
 }
 
 // MARK: - UITableViewDataSource
