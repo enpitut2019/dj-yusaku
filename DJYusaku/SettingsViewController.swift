@@ -34,6 +34,9 @@ class SettingsViewController: UITableViewController, SFSafariViewControllerDeleg
             self.twitterAccountLabel.text = "@" + twitterAccount.screenName
         }
         
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     
@@ -98,6 +101,8 @@ class SettingsNameViewController: UITableViewController, UITextFieldDelegate {
         // 既に名前が設定されていればテキストボックスに名前を表示
         self.nameField.text = UserDefaults.standard.string(forKey: UserDefaults.DJYusakuDefaults.ProfileName)
     }
+    
+    // MARK: - UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.nameField.resignFirstResponder()
