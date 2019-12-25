@@ -184,12 +184,12 @@ class RequestsViewController: UIViewController {
     
     @IBAction func playButtonTouchDown(_ sender: Any) {
         // アニメーション
-        animateShrinkDown(view: self.playButtonBackgroundView, scale: 0.9)
+        self.animateShrinkDown(view: self.playButtonBackgroundView, scale: 0.9)
     }
     
     @IBAction func playButtonTouchUp(_ sender: Any) {
         // アニメーション
-        animateGrowUp(view: self.playButtonBackgroundView)
+        self.animateGrowUp(view: self.playButtonBackgroundView)
         
         // 曲の再生・停止
         switch PlayerQueue.shared.mpAppController.playbackState {

@@ -89,7 +89,7 @@
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9aA-O6-Z64" userLabel="PlayerControllerVIew">
-                                <rect key="frame" x="77" y="717" width="260" height="80"/>
+                                <rect key="frame" x="77" y="709" width="260" height="80"/>
                                 <subviews>
                                     <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sYe-8j-hTb">
                                         <rect key="frame" x="178" y="8" width="64" height="64"/>
@@ -167,7 +167,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="9aA-O6-Z64" firstAttribute="centerX" secondItem="PQr-Ze-W5v" secondAttribute="centerX" id="6JY-Sd-elh"/>
-                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="9aA-O6-Z64" secondAttribute="bottom" constant="16" id="8PQ-hp-m4Q"/>
+                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="9aA-O6-Z64" secondAttribute="bottom" constant="24" id="8PQ-hp-m4Q"/>
                             <constraint firstItem="2ub-dF-W8m" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="M8e-kI-47d"/>
                             <constraint firstItem="2ub-dF-W8m" firstAttribute="width" secondItem="PQr-Ze-W5v" secondAttribute="width" id="QLn-7Y-0sz"/>
                             <constraint firstItem="2ub-dF-W8m" firstAttribute="bottom" secondItem="PQr-Ze-W5v" secondAttribute="bottom" id="RVA-ta-QTO"/>
