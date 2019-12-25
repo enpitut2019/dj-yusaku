@@ -196,12 +196,4 @@ class PlayerQueue{
         guard index >= 0 && self.count() > index else { return nil }    // 不正な呼び出しのとき
         return songs[index]
     }
-    
-    func getNowPlaying() -> Song? {
-        guard self.mpAppController.nowPlayingItem != nil else { return nil }
-        var nowPlayingSong = songs[self.mpAppController.indexOfNowPlayingItem]
-        nowPlayingSong.index = self.mpAppController.indexOfNowPlayingItem
-        return nowPlayingSong
-    }
-    
 }
