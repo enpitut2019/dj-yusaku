@@ -64,8 +64,6 @@ class RequestsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChangeOnDJ), name: .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlaybackStateDidChange), name: .DJYusakuPlayerQueuePlaybackStateDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChangeOnListener), name: .DJYusakuConnectionControllerNowPlayingSongDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleViewDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleViewWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlayerControllerViewFromUserState), name: .DJYusakuUserStateDidUpdate, object: nil)
         
     }
@@ -131,16 +129,6 @@ class RequestsViewController: UIViewController {
         default:
             break
         }
-    }
-    
-    @objc func handleViewDidEnterBackground() {
-        guard ConnectionController.shared.isDJ != nil else { return }
-        NotificationCenter.default.post(name: .DJYusakuRequestVCDidEnterBackground, object: nil)
-    }
-    
-    @objc func handleViewWillEnterForeground() {
-        guard ConnectionController.shared.isDJ != nil else { return }
-        NotificationCenter.default.post(name: .DJYusakuRequestVCWillEnterForeground, object: nil)
     }
     
     @objc func handlePlayerControllerViewFromUserState() {

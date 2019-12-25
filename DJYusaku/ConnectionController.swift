@@ -49,8 +49,8 @@ class ConnectionController: NSObject {
         
         self.isInitialized = true
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleViewDidEnterBackground), name: .DJYusakuRequestVCDidEnterBackground, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleViewWillEnterForeground), name: .DJYusakuRequestVCWillEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleViewDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleViewWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
     @objc func handleViewDidEnterBackground() {
