@@ -199,7 +199,9 @@ class PlayerQueue{
     
     func getNowPlaying() -> Song? {
         guard self.mpAppController.nowPlayingItem != nil else { return nil }
-        return songs[self.mpAppController.indexOfNowPlayingItem]
+        var nowPlayingSong = songs[self.mpAppController.indexOfNowPlayingItem]
+        nowPlayingSong.index = self.mpAppController.indexOfNowPlayingItem
+        return nowPlayingSong
     }
     
 }
