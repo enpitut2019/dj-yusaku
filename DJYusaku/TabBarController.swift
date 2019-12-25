@@ -26,7 +26,7 @@ class TabBarController: UITabBarController {
 
         self.delegate = self
         
-        // 中央のタブがある位置に空のViewを配置
+        // 中央のタブがある位置に円形のViewを配置
         let centerRoundView = UIView()
         self.tabBar.addSubview(centerRoundView)
         centerRoundView.backgroundColor = UIColor.systemBackground
@@ -42,6 +42,7 @@ class TabBarController: UITabBarController {
         centerRoundView.layer.borderColor = UIColor.gray.cgColor
         centerRoundView.layer.borderWidth = 0.2
         
+        // 円形のViewの枠線を四角いViewで上書きして上側の枠線を残す
         let centerView = UIView()
         self.tabBar.addSubview(centerView)
         centerView.backgroundColor = UIColor.systemBackground
@@ -55,7 +56,7 @@ class TabBarController: UITabBarController {
         // プラスボタンを中央のエリアに配置
         self.plusButtonView = UIButton()
         self.plusButtonView.backgroundColor = UIColor.systemBlue
-        self.plusButtonView.setImage(UIImage(systemName: "plus"), for: UIControl.State.normal)
+        self.plusButtonView.setImage(UIImage(systemName: "plus.bubble.fill"), for: UIControl.State.normal)
         self.plusButtonView.setPreferredSymbolConfiguration(
             UIImage.SymbolConfiguration.init(pointSize: 18,
                                              weight: UIImage.SymbolWeight.bold,
