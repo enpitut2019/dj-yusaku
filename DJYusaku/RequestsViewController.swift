@@ -97,7 +97,7 @@ class RequestsViewController: UIViewController {
     }
     
     @objc func handleNowPlayingItemDidChangeOnDJ(){
-        guard let nowPlayingSong = PlayerQueue.shared.getNowPlaying() else { return }
+        guard let nowPlayingIndex = PlayerQueue.shared.getNowPlayingIndex() else { return }
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -105,8 +105,8 @@ class RequestsViewController: UIViewController {
         
         guard ConnectionController.shared.session.connectedPeers.count != 0 else { return }
         
-        let nowPlayingData = try! JSONEncoder().encode(nowPlayingSong)
-        let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.DataType.nowPlaying, value: nowPlayingData))
+        let nowPlayingIndexData = try! JSONEncoder().encode(nowPlayingIndex)
+        let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.DataType.nowPlaying, value: nowPlayingIndexData))
         do {
             try ConnectionController.shared.session.send(messageData, toPeers: ConnectionController.shared.session.connectedPeers, with: .unreliable)
         } catch let error {
@@ -116,8 +116,8 @@ class RequestsViewController: UIViewController {
     
     // （リスナーのとき）NowPlayingItemが変わったとき呼ばれる
     @objc func handleNowPlayingItemDidChangeOnListener(notification: NSNotification){
-        guard let song = notification.userInfo!["song"] as? Song else { return }
-        RequestsViewController.self.indexOfNowPlayingItemOnListener = song.index ?? 0
+        guard let nowPlyingIndex = notification.userInfo!["nowPlayingIndex"] as? Int else { return }
+        RequestsViewController.self.indexOfNowPlayingItemOnListener = nowPlyingIndex
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
