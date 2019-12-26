@@ -12,6 +12,7 @@ import SwiftyJSON
 
 class SearchViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var whenNoSearchResultsView: UIView!
     private let searchController = UISearchController(searchResultsController: nil)
     private let cloudServiceController = SKCloudServiceController()
     private var storefrontCountryCode : String? = nil
@@ -20,6 +21,8 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        whenNoSearchResultsView.isHidden = false
         
         // 検索バーの設定
         searchController.searchResultsUpdater = self
@@ -167,6 +170,9 @@ extension SearchViewController: UISearchResultsUpdating {
             }
             
             DispatchQueue.main.async {
+                // ダイアログ表示をかくす
+                self.whenNoSearchResultsView.isHidden = true
+                
                 // 今のserachBarの内容と矛盾していれば何もしない
                 let currentText = searchController.searchBar.text
                 guard searchText == currentText else { return }

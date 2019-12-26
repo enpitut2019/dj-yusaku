@@ -19,7 +19,8 @@ class RequestsViewController: UIViewController {
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var skipButton: UIButton!
     @IBOutlet weak var batterySaverButton: UIButton!
-
+    @IBOutlet weak var whenNoRequestsView: UIView!
+    
     @IBOutlet weak var playerControllerView: UIView!
     @IBOutlet weak var playButtonBackgroundView: UIView!
     
@@ -96,6 +97,9 @@ class RequestsViewController: UIViewController {
     
     @objc func handleRequestsDidUpdate(){
         DispatchQueue.main.async{
+            if !PlayerQueue.shared.isQueueCreated && PlayerQueue.shared.isEmpty(){
+                self.whenNoRequestsView.isHidden = !ConnectionController.shared.receivedSongs.isEmpty
+            }
             self.tableView.reloadData()
         }
     }
@@ -155,6 +159,9 @@ class RequestsViewController: UIViewController {
     @objc func handleButtonStateChange() {
         playButton.isEnabled = PlayerQueue.shared.isQueueCreated
         skipButton.isEnabled = PlayerQueue.shared.isQueueCreated
+        DispatchQueue.main.async {
+            self.whenNoRequestsView.isHidden = PlayerQueue.shared.isQueueCreated
+        }
     }
     
     func scrollToNowPlayingItem(animated: Bool = true) {

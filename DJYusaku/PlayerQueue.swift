@@ -200,6 +200,10 @@ class PlayerQueue{
         return songs[index]
     }
     
+    func isEmpty() -> Bool {
+        return songs.isEmpty
+    }
+    
     func clearSongs() {
         PlayerQueue.shared.mpAppController.stop()
         songs.removeAll()
