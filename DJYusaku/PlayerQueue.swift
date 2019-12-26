@@ -41,7 +41,7 @@ class PlayerQueue{
         }
     }
     
-    private var isQueueCreated: Bool = false
+    private(set) var isQueueCreated: Bool = false
     
     private let dispatchSemaphore = DispatchSemaphore(value: 1)
     private let SEMAPHORE_TIMEOUT = 2.0
@@ -85,7 +85,7 @@ class PlayerQueue{
             self.songs.append(song)
             NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
             self.isQueueCreated = true
-            NotificationCenter.default.post(name: .DJYusakuPlayerQueueSongsExistanceDidChange, object: nil, userInfo: ["existance": true as Any])
+            NotificationCenter.default.post(name: .DJYusakuPlayerQueueSongsExistanceDidChange, object: nil)
             if let completion = completion { completion() }
         }
     }
@@ -208,10 +208,10 @@ class PlayerQueue{
     }
     
     func clearSongs() {
-        NotificationCenter.default.post(name: .DJYusakuPlayerQueueSongsExistanceDidChange, object: nil, userInfo: ["existance": false as Any])
         PlayerQueue.shared.mpAppController.stop()
         songs.removeAll()
         isQueueCreated = false
+        NotificationCenter.default.post(name: .DJYusakuPlayerQueueSongsExistanceDidChange, object: nil)
     }
     
 }

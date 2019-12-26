@@ -153,10 +153,9 @@ class RequestsViewController: UIViewController {
         self.playerControllerView.isHidden = !isDJ
     }
     
-    @objc func handleButtonStateChange(notification: NSNotification) {
-        guard let existance = notification.userInfo!["existance"] as? Bool else { return }
-        playButton.isEnabled = existance
-        skipButton.isEnabled = existance
+    @objc func handleButtonStateChange() {
+        playButton.isEnabled = PlayerQueue.shared.isQueueCreated
+        skipButton.isEnabled = PlayerQueue.shared.isQueueCreated
     }
     
     func scrollToNowPlayingItem(animated: Bool = true) {
