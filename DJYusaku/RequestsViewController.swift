@@ -70,7 +70,7 @@ class RequestsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleViewDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleViewWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlayerControllerViewFromUserState), name: .DJYusakuUserStateDidUpdate, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleButtonStateChange), name: .DJYusakuPlayerQueueSongsExistanceDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleButtonStateChange), name: .DJYusakuIsQueueCreatedDidChange, object: nil)
         
     }
     
