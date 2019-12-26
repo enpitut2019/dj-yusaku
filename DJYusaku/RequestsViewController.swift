@@ -21,7 +21,6 @@ class RequestsViewController: UIViewController {
     @IBOutlet weak var batterySaverButton: UIButton!
 
     @IBOutlet weak var playerControllerView: UIView!
-    @IBOutlet weak var playButtonBackgroundView: UIView!
     
     static private var isViewAppearedAtLeastOnce: Bool = false
     static private var indexOfNowPlayingItemOnListener: Int = 0
@@ -39,19 +38,15 @@ class RequestsViewController: UIViewController {
         
         playerControllerView.isHidden               = true //初めは隠しておく
         playerControllerView.layer.cornerRadius     = playerControllerView.frame.size.height * 0.5
-        playerControllerView.layer.shadowColor      = CGColor(srgbRed: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
-        playerControllerView.layer.shadowOffset     = .zero
-        playerControllerView.layer.shadowOpacity    = 0.4
-        playerControllerView.layer.borderColor      = CGColor(srgbRed: 0.5, green: 0.5, blue: 0.5, alpha: 0.3)
-        playerControllerView.layer.borderWidth      = 1
+        playerControllerView.layer.shadowColor      = UIColor.black.cgColor
+        playerControllerView.layer.shadowOffset     = CGSize(width: 0, height: 3)
+        playerControllerView.layer.shadowOpacity    = 0.3
 
-        playButtonBackgroundView.layer.cornerRadius = playButtonBackgroundView.frame.size.height * 0.5
-        
         playButton.isEnabled = false
         skipButton.isEnabled = false
 
         let footerView = UIView()
-        footerView.frame.size.height = 100
+        footerView.frame.size.height = 128
         tableView.tableFooterView = footerView // 空のセルの罫線を消す
         
         // Apple Musicライブラリへのアクセス許可の確認
@@ -192,12 +187,12 @@ class RequestsViewController: UIViewController {
     
     @IBAction func playButtonTouchDown(_ sender: Any) {
         // アニメーション
-        self.animateShrinkDown(view: self.playButtonBackgroundView, scale: 0.9)
+        self.animateShrinkDown(view: self.playButton, scale: 0.8)
     }
     
     @IBAction func playButtonTouchUp(_ sender: Any) {
         // アニメーション
-        self.animateGrowUp(view: self.playButtonBackgroundView)
+        self.animateGrowUp(view: self.playButton)
         
         // 曲の再生・停止
         switch PlayerQueue.shared.mpAppController.playbackState {
