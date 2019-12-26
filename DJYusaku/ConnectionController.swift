@@ -34,9 +34,9 @@ class ConnectionController: NSObject {
     private(set) var isDJ: Bool? = nil
     private(set) var connectedDJ: (peerID: MCPeerID, state: MCSessionState)? = nil
     
-    var peerProfileCorrespondence: [MCPeerID:PeerProfile] = [:]
+    private(set) var peerProfileCorrespondence: [MCPeerID:PeerProfile] = [:]
     
-    var connectableDJs: [MCPeerID] = [] //  ListenerConnectionViewController用
+    private(set) var connectableDJs: [MCPeerID] = [] //  ListenerConnectionViewController用
     
     private(set) var receivedSongs: [Song] = [] // リスナー用
     
