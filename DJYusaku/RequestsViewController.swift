@@ -34,8 +34,16 @@ class RequestsViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate   = self
         
-        // 再生コントロールの見た目を設定（角丸・影・境界線など）
+        // ナビゲーションバーの見た目を設定
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithDefaultBackground()
+        appearance.backgroundColor = UIColor.yusakuPink
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        appearance.titleTextAttributes      = [.foregroundColor: UIColor.white]
+        self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        self.navigationController?.navigationBar.standardAppearance   = appearance
         
+        // 再生コントロールの見た目を設定（角丸・影・境界線など）
         playerControllerView.isHidden               = true //初めは隠しておく
         playerControllerView.layer.cornerRadius     = playerControllerView.frame.size.height * 0.5
         playerControllerView.layer.shadowColor      = UIColor.black.cgColor
