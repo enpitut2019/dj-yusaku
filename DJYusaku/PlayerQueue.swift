@@ -15,6 +15,8 @@ extension Notification.Name {
     static let DJYusakuPlayerQueueDidUpdate = Notification.Name("DJYusakuPlayerQueueDidUpdate")
     static let DJYusakuPlayerQueueNowPlayingSongDidChange = Notification.Name("DJYusakuPlayerQueueNowPlayingSongDidChange")
     static let DJYusakuPlayerQueuePlaybackStateDidChange = Notification.Name("DJYusakuPlayerQueuePlaybackStateDidChange")
+    static let DJYusakuIsQueueCreatedDidChange =
+        Notification.Name("DJYusakuIsQueueCreatedDidChange")
 }
 
 class PlayerQueue{
@@ -39,7 +41,7 @@ class PlayerQueue{
         }
     }
     
-    private var isQueueCreated: Bool = false
+    private(set) var isQueueCreated: Bool = false
     
     private let dispatchSemaphore = DispatchSemaphore(value: 1)
     private let SEMAPHORE_TIMEOUT = 2.0
@@ -83,6 +85,7 @@ class PlayerQueue{
             self.songs.append(song)
             NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
             self.isQueueCreated = true
+            NotificationCenter.default.post(name: .DJYusakuIsQueueCreatedDidChange, object: nil)
             if let completion = completion { completion() }
         }
     }
@@ -195,5 +198,12 @@ class PlayerQueue{
     func get(at index: Int) -> Song? {
         guard index >= 0 && self.count() > index else { return nil }    // 不正な呼び出しのとき
         return songs[index]
+    }
+    
+    func clearSongs() {
+        PlayerQueue.shared.mpAppController.stop()
+        songs.removeAll()
+        isQueueCreated = false
+        NotificationCenter.default.post(name: .DJYusakuIsQueueCreatedDidChange, object: nil)
     }
 }

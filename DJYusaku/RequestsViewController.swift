@@ -46,6 +46,9 @@ class RequestsViewController: UIViewController {
         playerControllerView.layer.borderWidth      = 1
 
         playButtonBackgroundView.layer.cornerRadius = playButtonBackgroundView.frame.size.height * 0.5
+        
+        playButton.isEnabled = false
+        skipButton.isEnabled = false
 
         let footerView = UIView()
         footerView.frame.size.height = 100
@@ -67,6 +70,7 @@ class RequestsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleViewDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleViewWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlayerControllerViewFromUserState), name: .DJYusakuUserStateDidUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleButtonStateChange), name: .DJYusakuIsQueueCreatedDidChange, object: nil)
         
     }
     
@@ -146,6 +150,11 @@ class RequestsViewController: UIViewController {
     @objc func handlePlayerControllerViewFromUserState() {
         guard let isDJ = ConnectionController.shared.isDJ else { return }
         self.playerControllerView.isHidden = !isDJ
+    }
+    
+    @objc func handleButtonStateChange() {
+        playButton.isEnabled = PlayerQueue.shared.isQueueCreated
+        skipButton.isEnabled = PlayerQueue.shared.isQueueCreated
     }
     
     func scrollToNowPlayingItem(animated: Bool = true) {
@@ -230,7 +239,6 @@ class RequestsViewController: UIViewController {
         }
         scrollToNowPlayingItem()
     }
-    
 }
 
 // MARK: - UITableViewDataSource
