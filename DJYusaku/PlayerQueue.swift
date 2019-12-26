@@ -200,18 +200,10 @@ class PlayerQueue{
         return songs[index]
     }
     
-    func getNowPlaying() -> Song? {
-        guard self.mpAppController.nowPlayingItem != nil else { return nil }
-        var nowPlayingSong = songs[self.mpAppController.indexOfNowPlayingItem]
-        nowPlayingSong.index = self.mpAppController.indexOfNowPlayingItem
-        return nowPlayingSong
-    }
-    
     func clearSongs() {
         PlayerQueue.shared.mpAppController.stop()
         songs.removeAll()
         isQueueCreated = false
         NotificationCenter.default.post(name: .DJYusakuPlayerQueueSongsExistanceDidChange, object: nil)
     }
-    
 }

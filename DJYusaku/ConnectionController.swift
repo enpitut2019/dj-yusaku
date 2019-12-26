@@ -180,8 +180,8 @@ extension ConnectionController: MCSessionDelegate {
                     receivedSongs = songs
                     NotificationCenter.default.post(name: .DJYusakuPlayerQueueDidUpdate, object: nil)
                 case MessageData.DataType.nowPlaying:
-                    let nowPlaying = try! JSONDecoder().decode(Song.self, from: messageData.value)
-                    NotificationCenter.default.post(name: .DJYusakuConnectionControllerNowPlayingSongDidChange, object: nil, userInfo: ["song": nowPlaying as Any])
+                    let indexOfNowPlayingItem = try! JSONDecoder().decode(Int.self, from: messageData.value)
+                    NotificationCenter.default.post(name: .DJYusakuConnectionControllerNowPlayingSongDidChange, object: nil, userInfo: ["indexOfNowPlayingItem": indexOfNowPlayingItem as Any])
                 case MessageData.DataType.peerProfile:
                     let profile = try! JSONDecoder().decode(PeerProfile?.self, from: messageData.value)
                     self.peerProfileCorrespondence[peerID] = profile
