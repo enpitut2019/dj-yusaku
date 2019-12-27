@@ -160,6 +160,7 @@ extension SearchViewController: UISearchResultsUpdating {
         let searchText = searchController.searchBar.text ?? ""
         if searchText.isEmpty { // 空なら検索しない
             DispatchQueue.main.async {
+                self.whenNoSearchResultsView.isHidden = false
                 self.results.removeAll()
                 self.tableView.reloadData()
             }
@@ -177,9 +178,9 @@ extension SearchViewController: UISearchResultsUpdating {
             
             DispatchQueue.main.async {
                 // ダイアログ表示をかくす
-                self.whenNoSearchResultsView.isHidden = true
+                self.whenNoSearchResultsView.isHidden = !songs.isEmpty
                 
-                // 今のserachBarの内容と矛盾していれば何もしない
+                // 今のsearchBarの内容と矛盾していれば何もしない
                 let currentText = searchController.searchBar.text
                 guard searchText == currentText else { return }
                 
