@@ -121,7 +121,6 @@
                                             <action selector="batterySaverButtonTouchDown:" destination="9pv-A4-QxB" eventType="touchDown" id="vGR-to-0uk"/>
                                             <action selector="batterySaverButtonTouchUp:" destination="9pv-A4-QxB" eventType="touchUpInside" id="C47-mL-FWe"/>
                                             <action selector="batterySaverButtonTouchUp:" destination="9pv-A4-QxB" eventType="touchUpOutside" id="Ldw-eC-PQ0"/>
-                                            <segue destination="oZn-cn-RSW" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="mgi-sd-vTS"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2h6-e1-QnV">
@@ -659,7 +658,7 @@
         <!--Battery Saver View Controller-->
         <scene sceneID="piP-6K-uOh">
             <objects>
-                <viewController id="oZn-cn-RSW" customClass="BatterySaverViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BatterySaverView" id="oZn-cn-RSW" customClass="BatterySaverViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JaV-wB-E59">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
