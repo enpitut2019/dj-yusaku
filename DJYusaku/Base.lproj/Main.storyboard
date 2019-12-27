@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="64" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2ub-dF-W8m">
-                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" semanticContentAttribute="playback" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RequestsMusicTableViewCell" id="T5J-aV-tbm" customClass="RequestsMusicTableViewCell" customModule="DJYusaku" customModuleProvider="target">
@@ -89,17 +89,17 @@
                                 </prototypes>
                             </tableView>
                             <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KuE-ce-LIi" userLabel="WhenNoRequestsView">
-                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="DB5-VE-YZb">
-                                        <rect key="frame" x="143" y="227.5" width="128" height="128"/>
+                                        <rect key="frame" x="143" y="253.5" width="128" height="128"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="128" id="Gbl-IA-pPq"/>
                                             <constraint firstAttribute="height" constant="128" id="Ymi-jY-iVQ"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g6q-4j-3bI">
-                                        <rect key="frame" x="100" y="375.5" width="214" height="48"/>
+                                        <rect key="frame" x="100" y="401.5" width="214" height="48"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -677,24 +677,46 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ez6-o0-DGd" userLabel="WhenNoSearchResultsView">
+                            <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FTn-HS-gCz" userLabel="ViewWhenNoSearchWords">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="PSU-ER-fUe">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="kW2-O7-92P" userLabel="ImageWhenNoSearchWords">
                                         <rect key="frame" x="143" y="323" width="128" height="128"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="128" id="a08-hg-iOn"/>
-                                            <constraint firstAttribute="width" constant="128" id="tly-jd-xKz"/>
+                                            <constraint firstAttribute="height" constant="128" id="JEb-fN-CTK"/>
+                                            <constraint firstAttribute="width" constant="128" id="uIH-MC-LhG"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9SP-N1-ndf">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XgZ-Sg-IAg" userLabel="LabelWhenNoSearchWords">
                                         <rect key="frame" x="100" y="471" width="214" height="41"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="XgZ-Sg-IAg" firstAttribute="top" secondItem="kW2-O7-92P" secondAttribute="bottom" constant="20" id="k1s-p3-cP0"/>
+                                </constraints>
+                            </view>
+                            <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ez6-o0-DGd" userLabel="ViewWhenNoSearchResults">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="PSU-ER-fUe" userLabel="ImageWhenNoSearchResults">
+                                        <rect key="frame" x="143" y="323" width="128" height="128"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="128" id="a08-hg-iOn"/>
+                                            <constraint firstAttribute="width" constant="128" id="tly-jd-xKz"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9SP-N1-ndf" userLabel="LabelNoSearchResults">
+                                        <rect key="frame" x="100" y="471" width="214" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="9SP-N1-ndf" firstAttribute="top" secondItem="PSU-ER-fUe" secondAttribute="bottom" constant="20" id="XHe-T0-bI9"/>
                                 </constraints>
@@ -703,15 +725,23 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="PSU-ER-fUe" firstAttribute="centerY" secondItem="HZ6-xd-uma" secondAttribute="centerY" id="6ca-xF-h2B"/>
+                            <constraint firstItem="HZ6-xd-uma" firstAttribute="trailing" secondItem="FTn-HS-gCz" secondAttribute="trailing" id="73m-BT-PjB"/>
                             <constraint firstItem="HZ6-xd-uma" firstAttribute="trailing" secondItem="ez6-o0-DGd" secondAttribute="trailing" id="8T6-Vt-6Ue"/>
                             <constraint firstItem="ez6-o0-DGd" firstAttribute="top" secondItem="HZ6-xd-uma" secondAttribute="top" id="9GS-xU-2Qv"/>
+                            <constraint firstItem="HZ6-xd-uma" firstAttribute="bottom" secondItem="FTn-HS-gCz" secondAttribute="bottom" id="C95-Ge-DUH"/>
                             <constraint firstItem="HZ6-xd-uma" firstAttribute="bottom" secondItem="ez6-o0-DGd" secondAttribute="bottom" id="Dbo-Ar-pWZ"/>
                             <constraint firstItem="9SP-N1-ndf" firstAttribute="leading" secondItem="HZ6-xd-uma" secondAttribute="leading" constant="100" id="N4A-ox-ZCU"/>
                             <constraint firstItem="wCp-R2-0r7" firstAttribute="bottom" secondItem="HZ6-xd-uma" secondAttribute="bottom" id="P9z-IS-dum"/>
                             <constraint firstItem="wCp-R2-0r7" firstAttribute="top" secondItem="HZ6-xd-uma" secondAttribute="top" id="Pfj-A5-qg8"/>
                             <constraint firstItem="wCp-R2-0r7" firstAttribute="centerX" secondItem="HZ6-xd-uma" secondAttribute="centerX" id="SSn-bP-WTO"/>
+                            <constraint firstItem="FTn-HS-gCz" firstAttribute="top" secondItem="HZ6-xd-uma" secondAttribute="top" id="Xj5-e7-H4h"/>
                             <constraint firstItem="wCp-R2-0r7" firstAttribute="width" secondItem="QS5-Rx-YEW" secondAttribute="width" id="YNU-Ix-imf"/>
+                            <constraint firstItem="XgZ-Sg-IAg" firstAttribute="leading" secondItem="HZ6-xd-uma" secondAttribute="leading" constant="100" id="dkW-ST-xDt"/>
                             <constraint firstItem="9SP-N1-ndf" firstAttribute="centerX" secondItem="HZ6-xd-uma" secondAttribute="centerX" id="gba-hQ-i97"/>
+                            <constraint firstItem="kW2-O7-92P" firstAttribute="centerY" secondItem="HZ6-xd-uma" secondAttribute="centerY" id="jm3-Jh-IGA"/>
+                            <constraint firstItem="XgZ-Sg-IAg" firstAttribute="centerX" secondItem="HZ6-xd-uma" secondAttribute="centerX" id="lGO-JM-8Cf"/>
+                            <constraint firstItem="FTn-HS-gCz" firstAttribute="leading" secondItem="HZ6-xd-uma" secondAttribute="leading" id="lay-xB-Ceb"/>
+                            <constraint firstItem="kW2-O7-92P" firstAttribute="centerX" secondItem="HZ6-xd-uma" secondAttribute="centerX" id="ndh-e6-qpI"/>
                             <constraint firstItem="ez6-o0-DGd" firstAttribute="leading" secondItem="HZ6-xd-uma" secondAttribute="leading" id="rpE-0g-01m"/>
                             <constraint firstItem="PSU-ER-fUe" firstAttribute="centerX" secondItem="HZ6-xd-uma" secondAttribute="centerX" id="saR-dS-fSx"/>
                         </constraints>
@@ -726,12 +756,13 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="wCp-R2-0r7" id="6hg-Je-h4F"/>
-                        <outlet property="whenNoSearchResultsView" destination="ez6-o0-DGd" id="LgP-Pn-ySs"/>
+                        <outlet property="viewWhenNoSearchResults" destination="ez6-o0-DGd" id="qjQ-RT-j8Z"/>
+                        <outlet property="viewWhenNoSearchWords" destination="FTn-HS-gCz" id="QVB-WE-5FI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2625" y="146"/>
+            <point key="canvasLocation" x="2624.6376811594205" y="145.98214285714286"/>
         </scene>
         <!--Dummy View Controller-->
         <scene sceneID="9np-iI-gcW">
