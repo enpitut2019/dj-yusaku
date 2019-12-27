@@ -88,7 +88,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KuE-ce-LIi" userLabel="ViewWhenNoRequests">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KuE-ce-LIi" userLabel="ViewWhenNoRequests">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="DB5-VE-YZb" userLabel="ImageWhenNoRequests">
@@ -105,7 +105,6 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="g6q-4j-3bI" firstAttribute="top" secondItem="DB5-VE-YZb" secondAttribute="bottom" constant="20" id="oqH-dW-P24"/>
                                 </constraints>
@@ -566,7 +565,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="37a-eQ-Dej" userLabel="ViewWhenNoConnectableDJs">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="37a-eQ-Dej" userLabel="ViewWhenNoConnectableDJs">
                                 <rect key="frame" x="0.0" y="108" width="414" height="700"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="jKe-FC-egM" userLabel="ImageWhenNoConnectableDJs">
@@ -583,7 +582,6 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="Rrn-Yo-aTG" firstAttribute="top" secondItem="jKe-FC-egM" secondAttribute="bottom" constant="20" id="f0T-uL-RLJ"/>
                                 </constraints>
@@ -677,7 +675,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FTn-HS-gCz" userLabel="ViewWhenNoSearchWords">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FTn-HS-gCz" userLabel="ViewWhenNoSearchWords">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="kW2-O7-92P" userLabel="ImageWhenNoSearchWords">
@@ -694,12 +692,11 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="XgZ-Sg-IAg" firstAttribute="top" secondItem="kW2-O7-92P" secondAttribute="bottom" constant="20" id="k1s-p3-cP0"/>
                                 </constraints>
                             </view>
-                            <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ez6-o0-DGd" userLabel="ViewWhenNoSearchResults">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ez6-o0-DGd" userLabel="ViewWhenNoSearchResults">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="PSU-ER-fUe" userLabel="ImageWhenNoSearchResults">
@@ -716,7 +713,6 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="9SP-N1-ndf" firstAttribute="top" secondItem="PSU-ER-fUe" secondAttribute="bottom" constant="20" id="XHe-T0-bI9"/>
                                 </constraints>
@@ -942,7 +938,7 @@
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HEU-5s-nqG" userLabel="ViewWhenNoListeners">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HEU-5s-nqG" userLabel="ViewWhenNoListeners">
                                 <rect key="frame" x="0.0" y="342" width="414" height="471"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="l5o-5q-SOU" userLabel="ImageWhenNoListeners">
@@ -959,7 +955,6 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="UFI-S3-Yk6" firstAttribute="top" secondItem="l5o-5q-SOU" secondAttribute="bottom" constant="20" id="Spq-V3-c6S"/>
                                 </constraints>
