@@ -40,6 +40,12 @@ class ConnectionController: NSObject {
     
     private(set) var receivedSongs: [Song] = [] // リスナー用
     
+    var nunberOfMembers: Int {
+        get {
+            return ConnectionController.shared.session.connectedPeers.count + 1
+        }
+    }
+    
     func initialize() {
         self.session = MCSession(peer: self.peerID)
         self.session.delegate = self

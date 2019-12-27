@@ -12,6 +12,7 @@ class ListenerConnectableDJsTableViewCell: UITableViewCell {
 
     @IBOutlet weak var djName: UILabel!
     @IBOutlet weak var djImageView: UIImageView!
+    @IBOutlet weak var numberOfParticipants: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
