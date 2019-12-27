@@ -18,7 +18,7 @@ class MemberViewController: UIViewController {
     @IBOutlet weak var DJNameLabel: UILabel!
     @IBOutlet weak var DJImageView: UIImageView!
     @IBOutlet weak var DJStatusLabel: UILabel!
-    @IBOutlet weak var whenNoListenersView: UIView!
+    @IBOutlet weak var viewWhenNoListeners: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +30,7 @@ class MemberViewController: UIViewController {
         DJImageView.layer.cornerRadius = DJImageView.frame.size.height * 0.5
         DJImageView.clipsToBounds = true
         
-        whenNoListenersView.isHidden = false
+        viewWhenNoListeners.isHidden = false
         
         NotificationCenter.default.addObserver(self, selector: #selector(handlePeerConnectionStateDidUpdate), name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
     }
@@ -86,7 +86,7 @@ class MemberViewController: UIViewController {
                     DJImage = CachedImage.fetch(url: imageUrl)
                 }
                 DispatchQueue.main.async {
-                    self.whenNoListenersView.isHidden = true
+                    self.viewWhenNoListeners.isHidden = true
                     if ConnectionController.shared.connectedDJ!.state != .connected {
                         self.DJNameLabel.alpha = 0.3
                         self.DJImageView.alpha = 0.3
@@ -105,7 +105,7 @@ class MemberViewController: UIViewController {
         // 親機の表示を更新
         DispatchQueue.main.async {
             self.DJNameLabel.text  = DJName
-            self.whenNoListenersView.isHidden = !self.listeners.isEmpty
+            self.viewWhenNoListeners.isHidden = !self.listeners.isEmpty
             self.tableView.reloadData()
         }
     }

@@ -19,7 +19,7 @@ class RequestsViewController: UIViewController {
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var skipButton: UIButton!
     @IBOutlet weak var batterySaverButton: UIButton!
-    @IBOutlet weak var whenNoRequestsView: UIView!
+    @IBOutlet weak var viewWhenNoRequests: UIView!
     
     @IBOutlet weak var playerControllerView: UIView!
     @IBOutlet weak var playButtonBackgroundView: UIView!
@@ -99,9 +99,9 @@ class RequestsViewController: UIViewController {
         guard let isDJ = ConnectionController.shared.isDJ else { return }
         DispatchQueue.main.async{
             if isDJ {
-                self.whenNoRequestsView.isHidden = !PlayerQueue.shared.songs.isEmpty
+                self.viewWhenNoRequests.isHidden = !PlayerQueue.shared.songs.isEmpty
             }else{
-                self.whenNoRequestsView.isHidden = !ConnectionController.shared.receivedSongs.isEmpty
+                self.viewWhenNoRequests.isHidden = !ConnectionController.shared.receivedSongs.isEmpty
             }
             self.tableView.reloadData()
         }
@@ -163,7 +163,7 @@ class RequestsViewController: UIViewController {
         playButton.isEnabled = PlayerQueue.shared.isQueueCreated
         skipButton.isEnabled = PlayerQueue.shared.isQueueCreated
         DispatchQueue.main.async {
-            self.whenNoRequestsView.isHidden = PlayerQueue.shared.isQueueCreated
+            self.viewWhenNoRequests.isHidden = PlayerQueue.shared.isQueueCreated
         }
         
         /*
