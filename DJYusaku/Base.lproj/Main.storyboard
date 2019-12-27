@@ -88,17 +88,17 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KuE-ce-LIi" userLabel="ViewWhenNoRequests">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KuE-ce-LIi" userLabel="NoRequestsView">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="DB5-VE-YZb" userLabel="ImageWhenNoRequests">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="DB5-VE-YZb">
                                         <rect key="frame" x="143" y="253.5" width="128" height="128"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="128" id="Gbl-IA-pPq"/>
                                             <constraint firstAttribute="height" constant="128" id="Ymi-jY-iVQ"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g6q-4j-3bI" userLabel="LabelWhenNoRequests">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g6q-4j-3bI">
                                         <rect key="frame" x="100" y="401.5" width="214" height="48"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="textColor"/>
@@ -215,12 +215,12 @@
                     </navigationItem>
                     <connections>
                         <outlet property="batterySaverButton" destination="VTg-nf-1br" id="VTh-hh-FOK"/>
+                        <outlet property="noRequestsView" destination="KuE-ce-LIi" id="2ZS-ZW-7Gm"/>
                         <outlet property="playButton" destination="0xl-kp-iyr" id="RvD-UI-h3b"/>
                         <outlet property="playButtonBackgroundView" destination="2h6-e1-QnV" id="Kn5-5Y-QZx"/>
                         <outlet property="playerControllerView" destination="9aA-O6-Z64" id="aI6-QH-R2d"/>
                         <outlet property="skipButton" destination="sYe-8j-hTb" id="179-Hw-Xv1"/>
                         <outlet property="tableView" destination="2ub-dF-W8m" id="Bwj-iS-B5T"/>
-                        <outlet property="viewWhenNoRequests" destination="KuE-ce-LIi" id="2ZS-ZW-7Gm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -565,17 +565,17 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="37a-eQ-Dej" userLabel="ViewWhenNoConnectableDJs">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="37a-eQ-Dej" userLabel="NoConnectableDJsView">
                                 <rect key="frame" x="0.0" y="108" width="414" height="700"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="jKe-FC-egM" userLabel="ImageWhenNoConnectableDJs">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="jKe-FC-egM">
                                         <rect key="frame" x="143" y="286" width="128" height="128"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="128" id="Y4o-4Q-mOd"/>
                                             <constraint firstAttribute="height" constant="128" id="jKJ-bS-qzd"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rrn-Yo-aTG" userLabel="LabelWhenNoConnectableDJs">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rrn-Yo-aTG">
                                         <rect key="frame" x="80" y="434" width="254" height="48"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="textColor"/>
@@ -606,8 +606,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Join as a listener" id="dzb-SC-M7Y"/>
                     <connections>
+                        <outlet property="noConnectableDJsView" destination="37a-eQ-Dej" id="qPX-PS-UAg"/>
                         <outlet property="tableView" destination="BXT-Va-ZlK" id="6jB-hE-X0Q"/>
-                        <outlet property="viewWhenNoConnectableDJs" destination="37a-eQ-Dej" id="qPX-PS-UAg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x2a-pV-KQr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -675,17 +675,17 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FTn-HS-gCz" userLabel="ViewWhenNoSearchWords">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FTn-HS-gCz" userLabel="NoSearchWordsView">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="kW2-O7-92P" userLabel="ImageWhenNoSearchWords">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="kW2-O7-92P">
                                         <rect key="frame" x="143" y="323" width="128" height="128"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="128" id="JEb-fN-CTK"/>
                                             <constraint firstAttribute="width" constant="128" id="uIH-MC-LhG"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XgZ-Sg-IAg" userLabel="LabelWhenNoSearchWords">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XgZ-Sg-IAg">
                                         <rect key="frame" x="100" y="471" width="214" height="41"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -696,17 +696,17 @@
                                     <constraint firstItem="XgZ-Sg-IAg" firstAttribute="top" secondItem="kW2-O7-92P" secondAttribute="bottom" constant="20" id="k1s-p3-cP0"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ez6-o0-DGd" userLabel="ViewWhenNoSearchResults">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ez6-o0-DGd" userLabel="NoSearchResultsView">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="PSU-ER-fUe" userLabel="ImageWhenNoSearchResults">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="PSU-ER-fUe">
                                         <rect key="frame" x="143" y="323" width="128" height="128"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="128" id="a08-hg-iOn"/>
                                             <constraint firstAttribute="width" constant="128" id="tly-jd-xKz"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9SP-N1-ndf" userLabel="LabelNoSearchResults">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9SP-N1-ndf">
                                         <rect key="frame" x="100" y="471" width="214" height="41"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -751,9 +751,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="noSearchResultsView" destination="ez6-o0-DGd" id="qjQ-RT-j8Z"/>
+                        <outlet property="noSearchWordsView" destination="FTn-HS-gCz" id="QVB-WE-5FI"/>
                         <outlet property="tableView" destination="wCp-R2-0r7" id="6hg-Je-h4F"/>
-                        <outlet property="viewWhenNoSearchResults" destination="ez6-o0-DGd" id="qjQ-RT-j8Z"/>
-                        <outlet property="viewWhenNoSearchWords" destination="FTn-HS-gCz" id="QVB-WE-5FI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
@@ -938,17 +938,17 @@
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HEU-5s-nqG" userLabel="ViewWhenNoListeners">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HEU-5s-nqG" userLabel="NoListenersView">
                                 <rect key="frame" x="0.0" y="342" width="414" height="471"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="l5o-5q-SOU" userLabel="ImageWhenNoListeners">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="l5o-5q-SOU">
                                         <rect key="frame" x="143" y="44.5" width="128" height="128"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="128" id="CML-Qu-lUt"/>
                                             <constraint firstAttribute="width" constant="128" id="EuF-FK-36d"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UFI-S3-Yk6" userLabel="LabelWhenNoListeners">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UFI-S3-Yk6">
                                         <rect key="frame" x="100" y="192.5" width="214" height="48"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="textColor"/>
@@ -1001,8 +1001,8 @@
                         <outlet property="DJImageView" destination="KmF-kX-f76" id="oZ7-ES-pcW"/>
                         <outlet property="DJNameLabel" destination="yP3-9N-fvb" id="0H7-1v-B4C"/>
                         <outlet property="DJStatusLabel" destination="0Zn-fy-Vhb" id="T23-Cp-JjQ"/>
+                        <outlet property="noListenersView" destination="HEU-5s-nqG" id="sEl-Ce-vGJ"/>
                         <outlet property="tableView" destination="ljm-v3-8g9" id="Wfb-fc-RgC"/>
-                        <outlet property="viewWhenNoListeners" destination="HEU-5s-nqG" id="sEl-Ce-vGJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PXn-HL-BvO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
