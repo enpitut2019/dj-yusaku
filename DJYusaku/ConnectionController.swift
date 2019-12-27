@@ -40,7 +40,7 @@ class ConnectionController: NSObject {
     
     private(set) var receivedSongs: [Song] = [] // リスナー用
     
-    var nunberOfMembers: Int {
+    var numberOfParticipants: Int {
         get {
             return ConnectionController.shared.session.connectedPeers.count + 1
         }
