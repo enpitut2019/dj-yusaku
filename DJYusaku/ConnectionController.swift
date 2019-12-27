@@ -34,9 +34,9 @@ class ConnectionController: NSObject {
     private(set) var isDJ: Bool? = nil
     private(set) var connectedDJ: (peerID: MCPeerID, state: MCSessionState)? = nil
     
-    var peerProfileCorrespondence: [MCPeerID:PeerProfile] = [:]
+    private(set) var peerProfileCorrespondence: [MCPeerID:PeerProfile] = [:]
     
-    var connectableDJs: [MCPeerID] = [] //  ListenerConnectionViewController用
+    private(set) var connectableDJs: [MCPeerID] = [] //  ListenerConnectionViewController用
     
     private(set) var receivedSongs: [Song] = [] // リスナー用
     
@@ -49,8 +49,8 @@ class ConnectionController: NSObject {
         
         self.isInitialized = true
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleViewDidEnterBackground), name: .DJYusakuRequestVCDidEnterBackground, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleViewWillEnterForeground), name: .DJYusakuRequestVCWillEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleViewDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleViewWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
     @objc func handleViewDidEnterBackground() {
@@ -81,6 +81,7 @@ class ConnectionController: NSObject {
     
     func stopBrowse() {
         self.browser.stopBrowsingForPeers()
+        self.connectableDJs.removeAll()
     }
     
     func disconnect() {
