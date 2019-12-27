@@ -28,7 +28,7 @@ class PlayerQueue{
     private var songs: [Song] = [] {
         didSet {
             guard let isDJ = ConnectionController.shared.isDJ else { return }
-             if isDJ {   // DJのリクエストが更新されたとき
+            if isDJ {   // DJのリクエストが更新されたとき
                 guard ConnectionController.shared.session.connectedPeers.count != 0 else { return }
                 let songsData = try! JSONEncoder().encode(songs)
                 let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.DataType.requestSongs, value: songsData))
