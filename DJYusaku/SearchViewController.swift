@@ -18,6 +18,9 @@ class SearchViewController: UIViewController {
     private var storefrontCountryCode : String? = nil
     private var results : [Song] = []
     private let defaultArtwork : UIImage = UIImage()
+    // 画像の取得の際に用いるキュー
+    private let imageFetchQueue = DispatchQueue(label: "DJYusakuImageFetch", qos:.userInteractive)
+    private var imageFetchWorkItem : [DispatchWorkItem?] = [DispatchWorkItem?](repeating: nil, count: 25)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,13 +78,16 @@ extension SearchViewController: UITableViewDataSource {
         cell.artist.text      = item.artist
         cell.artwork.image    = defaultArtwork
         
-        DispatchQueue.global().async {
+        self.imageFetchWorkItem[indexPath.row]?.cancel()
+        self.imageFetchWorkItem[indexPath.row] = DispatchWorkItem {
             let image = CachedImage.fetch(url: item.artworkUrl)
             DispatchQueue.main.async {
                 cell.artwork.image = image  // 画像の取得に失敗していたらnilが入ることに注意
                 cell.artwork.setNeedsLayout()
             }
         }
+        imageFetchQueue.async(execute: self.imageFetchWorkItem[indexPath.row]!)
+        
         return cell
     }
 }
