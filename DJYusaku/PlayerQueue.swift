@@ -25,7 +25,7 @@ class PlayerQueue{
     
     private var items: [MPMediaItem] = []
     
-    private var songs: [Song] = [] {
+    private(set) var songs: [Song] = [] {
         didSet {
             guard let isDJ = ConnectionController.shared.isDJ else { return }
             if isDJ {   // DJのリクエストが更新されたとき
@@ -199,10 +199,6 @@ class PlayerQueue{
     func get(at index: Int) -> Song? {
         guard index >= 0 && self.count() > index else { return nil }    // 不正な呼び出しのとき
         return songs[index]
-    }
-    
-    func isEmpty() -> Bool {
-        return songs.isEmpty
     }
     
     func clearSongs() {

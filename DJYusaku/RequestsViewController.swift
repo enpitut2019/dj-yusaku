@@ -96,8 +96,11 @@ class RequestsViewController: UIViewController {
     }
     
     @objc func handleRequestsDidUpdate(){
+        guard let isDJ = ConnectionController.shared.isDJ else { return }
         DispatchQueue.main.async{
-            if !PlayerQueue.shared.isQueueCreated && PlayerQueue.shared.isEmpty(){
+            if isDJ {
+                self.whenNoRequestsView.isHidden = !PlayerQueue.shared.songs.isEmpty
+            }else{
                 self.whenNoRequestsView.isHidden = !ConnectionController.shared.receivedSongs.isEmpty
             }
             self.tableView.reloadData()
@@ -162,6 +165,14 @@ class RequestsViewController: UIViewController {
         DispatchQueue.main.async {
             self.whenNoRequestsView.isHidden = PlayerQueue.shared.isQueueCreated
         }
+        
+        /*
+         isDJ のT/Fは receivedSongs.isEmpty() のT/Fと同義
+         isDJ: T (=DJ)
+            -> isHidden のT/FはisQueueCreatedのT/Fと同義
+         isDJ: F (=Listener)
+            -> isHidden のT/FはreceivedSongs.isEmpty()のT/Fと同義
+         */
     }
     
     func scrollToNowPlayingItem(animated: Bool = true) {
