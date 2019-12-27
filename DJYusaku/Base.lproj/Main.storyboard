@@ -550,11 +550,11 @@
             <objects>
                 <viewController id="8rJ-Kc-sve" customClass="SearchViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="64" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wCp-R2-0r7">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchMusicTableViewCell" id="Uxy-eD-cUw" customClass="SearchMusicTableViewCell" customModule="DJYusaku" customModuleProvider="target">
@@ -694,9 +694,10 @@
                 <navigationController storyboardIdentifier="SearchNavigation" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qzH-DJ-E1R" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" id="cPa-gy-q4n"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="t5Y-gP-1Ll">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="t5Y-gP-1Ll">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" name="YusakuPinkColor"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -754,11 +755,11 @@
             <objects>
                 <viewController title="Member" id="ODD-3q-aMv" customClass="MemberViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4UC-dV-YyJ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ljm-v3-8g9">
-                                <rect key="frame" x="0.0" y="342" width="414" height="471"/>
+                                <rect key="frame" x="0.0" y="254" width="414" height="471"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MemberTableViewCell" id="MsJ-dR-GdV" customClass="MemberTableViewCell" customModule="DJYusaku" customModuleProvider="target">
@@ -802,37 +803,49 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KmF-kX-f76" userLabel="PeerImage">
-                                <rect key="frame" x="143" y="111" width="128" height="128"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="KBs-ay-c8n"/>
-                                    <constraint firstAttribute="width" constant="128" id="iTt-bB-YCZ"/>
-                                </constraints>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yP3-9N-fvb" userLabel="DJName">
-                                <rect key="frame" x="40" y="247" width="334" height="33.5"/>
+                                <rect key="frame" x="40" y="160" width="334" height="33.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="28"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Zn-fy-Vhb">
-                                <rect key="frame" x="40" y="280.5" width="334" height="17"/>
+                                <rect key="frame" x="40" y="193.5" width="334" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YwJ-0O-PKN">
+                                <rect key="frame" x="143" y="24" width="128" height="128"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KmF-kX-f76" userLabel="PeerImage">
+                                        <rect key="frame" x="5" y="5" width="118" height="118"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="118" id="KBs-ay-c8n"/>
+                                            <constraint firstAttribute="width" constant="118" id="iTt-bB-YCZ"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="Kb3-JD-Krx"/>
+                                    <constraint firstItem="KmF-kX-f76" firstAttribute="centerY" secondItem="YwJ-0O-PKN" secondAttribute="centerY" id="Rw8-b4-isZ"/>
+                                    <constraint firstAttribute="width" constant="128" id="cKR-rP-6Sm"/>
+                                    <constraint firstItem="KmF-kX-f76" firstAttribute="centerX" secondItem="YwJ-0O-PKN" secondAttribute="centerX" id="m5r-CS-NWe"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" name="YusakuPinkColor"/>
                         <constraints>
+                            <constraint firstItem="yP3-9N-fvb" firstAttribute="top" secondItem="YwJ-0O-PKN" secondAttribute="bottom" constant="8" id="1si-dP-Ehl"/>
                             <constraint firstItem="ljm-v3-8g9" firstAttribute="centerX" secondItem="4UC-dV-YyJ" secondAttribute="centerX" id="5Yf-Wz-uDz"/>
                             <constraint firstItem="6Vp-Xo-GvN" firstAttribute="trailing" secondItem="yP3-9N-fvb" secondAttribute="trailing" constant="40" id="CqE-lh-mWg"/>
                             <constraint firstItem="ljm-v3-8g9" firstAttribute="bottom" secondItem="6Vp-Xo-GvN" secondAttribute="bottom" id="Gb2-3l-YPA"/>
-                            <constraint firstItem="KmF-kX-f76" firstAttribute="top" secondItem="6Vp-Xo-GvN" secondAttribute="top" constant="23" id="Imd-Rj-OhF"/>
                             <constraint firstItem="yP3-9N-fvb" firstAttribute="leading" secondItem="6Vp-Xo-GvN" secondAttribute="leading" constant="40" id="KRV-Vt-hF5"/>
-                            <constraint firstItem="KmF-kX-f76" firstAttribute="centerX" secondItem="6Vp-Xo-GvN" secondAttribute="centerX" id="Nua-Nn-NLj"/>
                             <constraint firstItem="ljm-v3-8g9" firstAttribute="top" secondItem="6Vp-Xo-GvN" secondAttribute="top" constant="254" id="QQ1-3r-fBT"/>
                             <constraint firstItem="6Vp-Xo-GvN" firstAttribute="trailing" secondItem="0Zn-fy-Vhb" secondAttribute="trailing" constant="40" id="l5H-h9-AN2"/>
-                            <constraint firstItem="yP3-9N-fvb" firstAttribute="top" secondItem="KmF-kX-f76" secondAttribute="bottom" constant="8" id="sd3-bt-HqI"/>
+                            <constraint firstItem="YwJ-0O-PKN" firstAttribute="centerX" secondItem="6Vp-Xo-GvN" secondAttribute="centerX" id="owh-VS-8VR"/>
+                            <constraint firstItem="YwJ-0O-PKN" firstAttribute="top" secondItem="6Vp-Xo-GvN" secondAttribute="top" constant="24" id="tG3-Hh-qUb"/>
                             <constraint firstItem="ljm-v3-8g9" firstAttribute="width" secondItem="6Vp-Xo-GvN" secondAttribute="width" id="tQo-XF-Lfe"/>
                             <constraint firstItem="0Zn-fy-Vhb" firstAttribute="leading" secondItem="6Vp-Xo-GvN" secondAttribute="leading" constant="40" id="vXc-F9-dDL"/>
                             <constraint firstItem="0Zn-fy-Vhb" firstAttribute="top" secondItem="yP3-9N-fvb" secondAttribute="bottom" id="xZ1-zv-ej6"/>
@@ -852,6 +865,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="DJImageContainerView" destination="YwJ-0O-PKN" id="z9S-mJ-hVz"/>
                         <outlet property="DJImageView" destination="KmF-kX-f76" id="oZ7-ES-pcW"/>
                         <outlet property="DJNameLabel" destination="yP3-9N-fvb" id="0H7-1v-B4C"/>
                         <outlet property="DJStatusLabel" destination="0Zn-fy-Vhb" id="T23-Cp-JjQ"/>
@@ -860,14 +874,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PXn-HL-BvO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1681" y="927"/>
+            <point key="canvasLocation" x="1679.7101449275362" y="926.78571428571422"/>
         </scene>
         <!--Settings-->
         <scene sceneID="nao-RH-2dL">
             <objects>
                 <tableViewController id="Xlt-eI-mT8" customClass="SettingsViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Z2X-f6-JOQ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <sections>
                             <tableViewSection headerTitle="Your Profile" id="UGi-OW-Xv6">
@@ -1008,7 +1022,7 @@
             <objects>
                 <tableViewController id="SQY-EL-BYa" customClass="SettingsNameViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="1k1-LV-HEC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <sections>
                             <tableViewSection footerTitle="Name will be shown to participants of the session. " id="vaN-CN-ABS">
@@ -1055,7 +1069,7 @@
             <objects>
                 <tableViewController id="IZX-zN-OeS" customClass="SettingsAboutThisAppViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="b84-DP-zow">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <sections>
                             <tableViewSection id="cVv-8L-fQD">
@@ -1207,9 +1221,15 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Hcp-5O-p0T" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="2" title="Session" image="person.3.fill" catalog="system" id="TBi-Pu-CWv" userLabel="Member"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="8QL-15-Dut">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="8QL-15-Dut">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" name="YusakuPinkColor"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" name="YusakuPinkColor"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

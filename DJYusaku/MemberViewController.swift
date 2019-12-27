@@ -17,15 +17,23 @@ class MemberViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var DJNameLabel: UILabel!
     @IBOutlet weak var DJImageView: UIImageView!
+    @IBOutlet weak var DJImageContainerView: UIView!
     @IBOutlet weak var DJStatusLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // ナビゲーションバーの見た目を設定
+        self.navigationController?.navigationBar.shadowImage = UIImage()    // 下線を消す
+        
         // tableViewのdataSource設定
         tableView.dataSource = self
         
-        // DJのアイコン画像を円形にする
+        // DJのアイコン画像の見た目を設定（角丸・影・境界線など）
+        DJImageContainerView.layer.cornerRadius = DJImageContainerView.frame.size.height * 0.5
+        DJImageContainerView.layer.shadowColor      = UIColor.black.cgColor
+        DJImageContainerView.layer.shadowOffset     = CGSize(width: 0, height: 3)
+        DJImageContainerView.layer.shadowOpacity    = 0.4
         DJImageView.layer.cornerRadius = DJImageView.frame.size.height * 0.5
         DJImageView.clipsToBounds = true
         
@@ -36,17 +44,6 @@ class MemberViewController: UIViewController {
         super.viewWillAppear(animated)
 
         self.updateMembers()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.1, initialSpringVelocity: 0.0, animations: { [unowned self] in
-            self.DJImageView.frame.size.width  -= 20
-            self.DJImageView.frame.size.height -= 20
-            self.DJImageView.center.x += 10
-            self.DJImageView.center.y += 10
-        })
     }
     
     func updateMembers() {
