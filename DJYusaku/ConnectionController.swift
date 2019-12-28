@@ -67,17 +67,13 @@ class ConnectionController: NSObject {
     
     @objc func handleWillTerminate() {
         self.session.disconnect()
-        if self.advertiser != nil {
-            self.advertiser.stopAdvertisingPeer()
-        }
+        self.advertiser?.stopAdvertisingPeer()
         self.browser.stopBrowsingForPeers()
         self.connectableDJs.removeAll()
     }
 
     func startAdvertise(displayName: String, imageUrl: URL?) {
-        if self.advertiser != nil {
-            self.advertiser.stopAdvertisingPeer()
-        }
+        self.advertiser?.stopAdvertisingPeer()
         let info = ["name":     displayName,
                     "imageUrl": imageUrl?.absoluteString ?? ""]
         self.advertiser = MCNearbyServiceAdvertiser(peer: self.peerID, discoveryInfo: info, serviceType: self.serviceType)
@@ -116,9 +112,7 @@ class ConnectionController: NSObject {
         }
         self.browser.invitePeer(selectedDJ, to: session, withContext: nil, timeout: 10.0)
         self.connectedDJ = (selectedDJ, .connected)
-        if self.advertiser != nil {
-            self.advertiser.stopAdvertisingPeer()
-        }
+        self.advertiser?.stopAdvertisingPeer()
         NotificationCenter.default.post(name: .DJYusakuUserStateDidUpdate, object: nil)
     }
     
