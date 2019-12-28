@@ -75,7 +75,7 @@ class DefaultsController: NSObject {
     private func sendProfile() {
         if let isDJ = ConnectionController.shared.isDJ {
             if isDJ {
-                ConnectionController.shared.startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl)
+                ConnectionController.shared.startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: ConnectionController.shared.numberOfParticipants)
             }
         }
         
