@@ -19,7 +19,8 @@ class RequestsViewController: UIViewController {
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var skipButton: UIButton!
     @IBOutlet weak var batterySaverButton: UIButton!
-
+    @IBOutlet weak var noRequestsView: UIView!
+    
     @IBOutlet weak var playerControllerView: UIView!
     
     static private var isViewAppearedAtLeastOnce: Bool = false
@@ -96,7 +97,13 @@ class RequestsViewController: UIViewController {
     }
     
     @objc func handleRequestsDidUpdate(){
+        guard let isDJ = ConnectionController.shared.isDJ else { return }
         DispatchQueue.main.async{
+            if isDJ {
+                self.noRequestsView.isHidden = !PlayerQueue.shared.songs.isEmpty
+            }else{
+                self.noRequestsView.isHidden = !ConnectionController.shared.receivedSongs.isEmpty
+            }
             self.tableView.reloadData()
         }
     }
@@ -146,6 +153,17 @@ class RequestsViewController: UIViewController {
     @objc func handleButtonStateChange() {
         playButton.isEnabled = PlayerQueue.shared.isQueueCreated
         skipButton.isEnabled = PlayerQueue.shared.isQueueCreated
+        DispatchQueue.main.async {
+            self.noRequestsView.isHidden = PlayerQueue.shared.isQueueCreated
+        }
+        
+        /*
+         isDJ のT/Fは receivedSongs.isEmpty() のT/Fと同義
+         isDJ: T (=DJ)
+            -> isHidden のT/FはisQueueCreatedのT/Fと同義
+         isDJ: F (=Listener)
+            -> isHidden のT/FはreceivedSongs.isEmpty()のT/Fと同義
+         */
     }
     
     func scrollToNowPlayingItem(animated: Bool = true) {
