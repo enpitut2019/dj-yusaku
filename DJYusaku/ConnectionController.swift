@@ -44,7 +44,7 @@ class ConnectionController: NSObject {
     
     var numberOfParticipants: Int {
         get {
-            return ConnectionController.shared.session.connectedPeers.count + 1
+            return self.session.connectedPeers.count + 1
         }
     }
     
@@ -101,7 +101,7 @@ class ConnectionController: NSObject {
         self.isDJ = true
         self.disconnect()
         let profile = DefaultsController.shared.profile
-        startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: ConnectionController.shared.numberOfParticipants)
+        startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: self.numberOfParticipants)
         NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
         NotificationCenter.default.post(name: .DJYusakuUserStateDidUpdate, object: nil)
     }
@@ -133,7 +133,7 @@ extension ConnectionController: MCSessionDelegate {
             NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
             if self.isDJ! {
                 let profile = DefaultsController.shared.profile
-                startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: ConnectionController.shared.numberOfParticipants)
+                startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: self.numberOfParticipants)
             } else if peerID == self.connectedDJ?.peerID { // リスナーがDJを見失ったとき
                 self.connectedDJ!.state = .notConnected
             }
@@ -162,7 +162,7 @@ extension ConnectionController: MCSessionDelegate {
                 NotificationCenter.default.post(name:
                     .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
                 let profile = DefaultsController.shared.profile
-                startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: ConnectionController.shared.numberOfParticipants)
+                startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: self.numberOfParticipants)
             }
             break
         default:
