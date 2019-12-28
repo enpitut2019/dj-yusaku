@@ -240,6 +240,20 @@ class RequestsViewController: UIViewController {
     @IBAction func batterySaverButtonTouchUp(_ sender: Any) {
         // アニメーション
         animateGrowUp(view: self.batterySaverButton)
+        
+        // アラートを表示
+        let alertController = UIAlertController(title:   "Battery Saver Mode",
+                                                message: "To exit battery saver mode, double-tap the screen.",
+                                                preferredStyle: UIAlertController.Style.alert)
+        let alertButton = UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel) { [unowned self] _ in
+            let storyboard: UIStoryboard = self.storyboard!
+            let batterySaverView = storyboard.instantiateViewController(withIdentifier: "BatterySaverView")
+            batterySaverView.modalPresentationStyle = .fullScreen
+            batterySaverView.modalTransitionStyle   = .crossDissolve
+            self.present(batterySaverView, animated: true)
+        }
+        alertController.addAction(alertButton)
+        self.present(alertController, animated: true)
     }
     
     @IBAction func reloadButton(_ sender: Any) {
