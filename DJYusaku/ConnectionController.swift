@@ -49,19 +49,29 @@ class ConnectionController: NSObject {
         
         self.isInitialized = true
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleViewDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleViewWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleWillTerminate), name: UIApplication.willTerminateNotification, object: nil)
     }
     
-    @objc func handleViewDidEnterBackground() {
+    @objc func handleDidEnterBackground() {
         guard self.connectedDJ != nil else { return }
         self.session.disconnect()
     }
     
-    @objc func handleViewWillEnterForeground() {
+    @objc func handleWillEnterForeground() {
         guard let connectedDJ = self.connectedDJ else { return }
         self.browser.invitePeer(connectedDJ.peerID, to: self.session, withContext: nil, timeout: 10.0)
         self.connectedDJ!.state = .connected
+    }
+    
+    @objc func handleWillTerminate() {
+        self.session.disconnect()
+        if self.advertiser != nil {
+            self.advertiser.stopAdvertisingPeer()
+        }
+        self.browser.stopBrowsingForPeers()
+        self.connectableDJs.removeAll()
     }
 
     func startAdvertise(displayName: String, imageUrl: URL?) {
