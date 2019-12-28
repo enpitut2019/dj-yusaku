@@ -831,11 +831,6 @@
                         <color key="barTintColor" name="YusakuBackgroundColor"/>
                         <color key="selectedImageTintColor" name="YusakuPinkColor"/>
                     </tabBar>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
-                            <color key="value" name="YusakuPinkColor"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="SUy-sJ-FBC" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="4uZ-Wj-ld5" kind="relationship" relationship="viewControllers" id="xBv-5K-jFi"/>
