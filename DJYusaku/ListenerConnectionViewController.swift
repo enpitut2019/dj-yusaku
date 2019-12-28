@@ -28,7 +28,6 @@ class ListenerConnectionViewController: UIViewController {
         super.viewDidDisappear(animated)
         
         ConnectionController.shared.stopBrowse()
-        ConnectionController.shared.connectableDJs.removeAll()
     }
 
 }
