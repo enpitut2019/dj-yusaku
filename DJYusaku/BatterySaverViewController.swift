@@ -58,7 +58,7 @@ class BatterySaverViewController: UIViewController {
     func animateFadeOut(view: UIView) {
         view.alpha = 1.0
         UIScreen.main.brightness = previousScreenBrightness
-        UIView.animate(withDuration: 2.0, delay: 0.0, animations: {
+        UIView.animate(withDuration: 2.0, delay: 1.0, animations: {
             view.alpha = 0.0
         }, completion: { _ in
             view.alpha = 0.0
