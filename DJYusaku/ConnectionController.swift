@@ -34,12 +34,11 @@ class ConnectionController: NSObject {
     private(set) var isDJ: Bool? = nil
     private(set) var connectedDJ: (peerID: MCPeerID, state: MCSessionState)? = nil
     
-    var peerProfileCorrespondence: [MCPeerID:PeerProfile] = [:]
+    private(set) var peerProfileCorrespondence: [MCPeerID:PeerProfile] = [:]
     
     private(set) var numberOfParticipantsCorrespondence: [MCPeerID:Int] = [:]
     
-    var connectableDJs: [MCPeerID] = [] // ListenerConnectionViewController用
-    
+    private(set) var connectableDJs: [MCPeerID] = [] //  ListenerConnectionViewController用
     private(set) var receivedSongs: [Song] = [] // リスナー用
     
     var numberOfParticipants: Int {
@@ -57,25 +56,31 @@ class ConnectionController: NSObject {
         
         self.isInitialized = true
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleViewDidEnterBackground), name: .DJYusakuRequestVCDidEnterBackground, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleViewWillEnterForeground), name: .DJYusakuRequestVCWillEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleWillTerminate), name: UIApplication.willTerminateNotification, object: nil)
     }
     
-    @objc func handleViewDidEnterBackground() {
+    @objc func handleDidEnterBackground() {
         guard self.connectedDJ != nil else { return }
         self.session.disconnect()
     }
     
-    @objc func handleViewWillEnterForeground() {
+    @objc func handleWillEnterForeground() {
         guard let connectedDJ = self.connectedDJ else { return }
         self.browser.invitePeer(connectedDJ.peerID, to: self.session, withContext: nil, timeout: 10.0)
         self.connectedDJ!.state = .connected
     }
-
+    
+    @objc func handleWillTerminate() {
+        self.session.disconnect()
+        self.advertiser?.stopAdvertisingPeer()
+        self.browser.stopBrowsingForPeers()
+        self.connectableDJs.removeAll()
+    }
+    
     func startAdvertise(displayName: String, imageUrl: URL?, numberOfParticipants: Int) {
-        if self.advertiser != nil {
-            self.advertiser.stopAdvertisingPeer()
-        }
+        self.advertiser?.stopAdvertisingPeer()
         let info = ["name"                  : displayName,
                     "imageUrl"              : imageUrl?.absoluteString ?? "",
                     "numberOfParticipants"  : String(numberOfParticipants)]
@@ -90,6 +95,7 @@ class ConnectionController: NSObject {
     
     func stopBrowse() {
         self.browser.stopBrowsingForPeers()
+        self.connectableDJs.removeAll()
     }
     
     func disconnect() {
@@ -114,9 +120,7 @@ class ConnectionController: NSObject {
         }
         self.browser.invitePeer(selectedDJ, to: session, withContext: nil, timeout: 10.0)
         self.connectedDJ = (selectedDJ, .connected)
-        if self.advertiser != nil {
-            self.advertiser.stopAdvertisingPeer()
-        }
+        self.advertiser?.stopAdvertisingPeer()
         NotificationCenter.default.post(name: .DJYusakuUserStateDidUpdate, object: nil)
     }
     

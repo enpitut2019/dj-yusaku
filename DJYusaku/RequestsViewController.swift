@@ -19,7 +19,8 @@ class RequestsViewController: UIViewController {
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var skipButton: UIButton!
     @IBOutlet weak var batterySaverButton: UIButton!
-
+    @IBOutlet weak var noRequestsView: UIView!
+    
     @IBOutlet weak var playerControllerView: UIView!
     @IBOutlet weak var playButtonBackgroundView: UIView!
     
@@ -67,8 +68,6 @@ class RequestsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChangeOnDJ), name: .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlaybackStateDidChange), name: .DJYusakuPlayerQueuePlaybackStateDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChangeOnListener), name: .DJYusakuConnectionControllerNowPlayingSongDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleViewDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleViewWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlayerControllerViewFromUserState), name: .DJYusakuUserStateDidUpdate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleButtonStateChange), name: .DJYusakuIsQueueCreatedDidChange, object: nil)
         
@@ -95,7 +94,13 @@ class RequestsViewController: UIViewController {
     }
     
     @objc func handleRequestsDidUpdate(){
+        guard let isDJ = ConnectionController.shared.isDJ else { return }
         DispatchQueue.main.async{
+            if isDJ {
+                self.noRequestsView.isHidden = !PlayerQueue.shared.songs.isEmpty
+            }else{
+                self.noRequestsView.isHidden = !ConnectionController.shared.receivedSongs.isEmpty
+            }
             self.tableView.reloadData()
         }
     }
@@ -137,16 +142,6 @@ class RequestsViewController: UIViewController {
         }
     }
     
-    @objc func handleViewDidEnterBackground() {
-        guard ConnectionController.shared.isDJ != nil else { return }
-        NotificationCenter.default.post(name: .DJYusakuRequestVCDidEnterBackground, object: nil)
-    }
-    
-    @objc func handleViewWillEnterForeground() {
-        guard ConnectionController.shared.isDJ != nil else { return }
-        NotificationCenter.default.post(name: .DJYusakuRequestVCWillEnterForeground, object: nil)
-    }
-    
     @objc func handlePlayerControllerViewFromUserState() {
         guard let isDJ = ConnectionController.shared.isDJ else { return }
         self.playerControllerView.isHidden = !isDJ
@@ -155,6 +150,17 @@ class RequestsViewController: UIViewController {
     @objc func handleButtonStateChange() {
         playButton.isEnabled = PlayerQueue.shared.isQueueCreated
         skipButton.isEnabled = PlayerQueue.shared.isQueueCreated
+        DispatchQueue.main.async {
+            self.noRequestsView.isHidden = PlayerQueue.shared.isQueueCreated
+        }
+        
+        /*
+         isDJ のT/Fは receivedSongs.isEmpty() のT/Fと同義
+         isDJ: T (=DJ)
+            -> isHidden のT/FはisQueueCreatedのT/Fと同義
+         isDJ: F (=Listener)
+            -> isHidden のT/FはreceivedSongs.isEmpty()のT/Fと同義
+         */
     }
     
     func scrollToNowPlayingItem(animated: Bool = true) {
@@ -231,6 +237,20 @@ class RequestsViewController: UIViewController {
     @IBAction func batterySaverButtonTouchUp(_ sender: Any) {
         // アニメーション
         animateGrowUp(view: self.batterySaverButton)
+        
+        // アラートを表示
+        let alertController = UIAlertController(title:   "Battery Saver Mode",
+                                                message: "To exit battery saver mode, double-tap the screen.",
+                                                preferredStyle: UIAlertController.Style.alert)
+        let alertButton = UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel) { [unowned self] _ in
+            let storyboard: UIStoryboard = self.storyboard!
+            let batterySaverView = storyboard.instantiateViewController(withIdentifier: "BatterySaverView")
+            batterySaverView.modalPresentationStyle = .fullScreen
+            batterySaverView.modalTransitionStyle   = .crossDissolve
+            self.present(batterySaverView, animated: true)
+        }
+        alertController.addAction(alertButton)
+        self.present(alertController, animated: true)
     }
     
     @IBAction func reloadButton(_ sender: Any) {

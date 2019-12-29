@@ -79,12 +79,14 @@ class DefaultsController: NSObject {
             }
         }
         
+        NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
+        
+        guard ConnectionController.shared.session.connectedPeers.count != 0 else { return }
         let data = try! JSONEncoder().encode(profile)
         let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.DataType.peerProfile, value: data))
         ConnectionController.shared.session.sendRequest(messageData,
                                                         toPeers: ConnectionController.shared.session.connectedPeers,
                                                         with: .unreliable)
-        NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
     }
     
     @objc func handleUserDefaultsDidChange(_ notification: Notification) {

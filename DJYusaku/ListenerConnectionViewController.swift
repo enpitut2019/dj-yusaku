@@ -12,12 +12,15 @@ import MultipeerConnectivity
 class ListenerConnectionViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-
+    @IBOutlet weak var noConnectableDJsView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         ConnectionController.shared.startBrowse()
         ConnectionController.shared.delegate = self
+        
+        noConnectableDJsView.isHidden = false
         
         // tableViewのdelegate, dataSource設定
         tableView.delegate = self
@@ -28,7 +31,6 @@ class ListenerConnectionViewController: UIViewController {
         super.viewDidDisappear(animated)
         
         ConnectionController.shared.stopBrowse()
-        ConnectionController.shared.connectableDJs.removeAll()
     }
 
 }
@@ -78,8 +80,9 @@ extension ListenerConnectionViewController: UITableViewDelegate {
 
 extension ListenerConnectionViewController: ConnectionControllerDelegate {
     func connectionController(didChangeConnectableDevices devices: [MCPeerID]) {
-        // browserがピアを見つけたらリロード
+        // browserによって接続可能なピアが変化したらリロード
         DispatchQueue.main.async {
+                self.noConnectableDJsView.isHidden = !ConnectionController.shared.connectableDJs.isEmpty
             self.tableView.reloadData()
         }
     }
