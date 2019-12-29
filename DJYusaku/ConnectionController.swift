@@ -36,9 +36,9 @@ class ConnectionController: NSObject {
     
     var peerProfileCorrespondence: [MCPeerID:PeerProfile] = [:]
     
-    var NumberOfParticipantsCorrespondence: [MCPeerID:Int] = [:]
+    private(set) var numberOfParticipantsCorrespondence: [MCPeerID:Int] = [:]
     
-    var connectableDJs: [MCPeerID] = [] //  ListenerConnectionViewController用
+    var connectableDJs: [MCPeerID] = [] // ListenerConnectionViewController用
     
     private(set) var receivedSongs: [Song] = [] // リスナー用
     
@@ -247,7 +247,7 @@ extension ConnectionController: MCNearbyServiceBrowserDelegate {
         self.peerProfileCorrespondence[peerID] = PeerProfile(name:     info!["name"]!,
                                                              imageUrl: URL(string: info!["imageUrl"]!))
         if let numberOfParticipantsText = info!["numberOfParticipants"] {
-            self.NumberOfParticipantsCorrespondence[peerID] = Int(numberOfParticipantsText)
+            self.numberOfParticipantsCorrespondence[peerID] = Int(numberOfParticipantsText)
         }
 
         self.delegate?.connectionController(didChangeConnectableDevices: self.connectableDJs)
