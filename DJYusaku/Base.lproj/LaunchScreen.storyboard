@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,26 +15,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TemporarySingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="C5z-3Y-vRC">
-                                <rect key="frame" x="59.666666666666657" y="278" width="255.99999999999997" height="256"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="JukeSingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="C5z-3Y-vRC">
+                                <rect key="frame" x="107.66666666666669" y="326" width="160" height="160"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="256" id="KRK-7z-6yM"/>
-                                    <constraint firstAttribute="height" constant="256" id="xSe-AB-ahx"/>
+                                    <constraint firstAttribute="width" constant="160" id="KRK-7z-6yM"/>
+                                    <constraint firstAttribute="height" constant="160" id="xSe-AB-ahx"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="© 2019 Yusaku" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2do-du-Cat">
-                                <rect key="frame" x="144.66666666666666" y="542" width="85.666666666666657" height="14.333333333333371"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="C5z-3Y-vRC" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="8QD-1S-XsJ"/>
-                            <constraint firstItem="2do-du-Cat" firstAttribute="top" secondItem="C5z-3Y-vRC" secondAttribute="bottom" constant="8" id="AIQ-r4-iHb"/>
                             <constraint firstItem="C5z-3Y-vRC" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Wq1-qc-tbl"/>
-                            <constraint firstItem="2do-du-Cat" firstAttribute="centerX" secondItem="C5z-3Y-vRC" secondAttribute="centerX" id="e6a-iF-9YQ"/>
                             <constraint firstItem="C5z-3Y-vRC" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="fyf-H5-ug1"/>
                             <constraint firstItem="C5z-3Y-vRC" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="igH-M1-GwB"/>
                         </constraints>
@@ -47,6 +39,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="TemporarySingleColored" width="1024" height="1024"/>
+        <image name="JukeSingleColored" width="448" height="448"/>
     </resources>
 </document>
