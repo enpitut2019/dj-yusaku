@@ -22,7 +22,6 @@ class RequestsViewController: UIViewController {
     @IBOutlet weak var noRequestsView: UIView!
     
     @IBOutlet weak var playerControllerView: UIView!
-    @IBOutlet weak var playButtonBackgroundView: UIView!
     
     static private var isViewAppearedAtLeastOnce: Bool = false
     static private var indexOfNowPlayingItemOnListener: Int = 0
@@ -36,23 +35,27 @@ class RequestsViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate   = self
         
-        // 再生コントロールの見た目を設定（角丸・影・境界線など）
+        // ナビゲーションバーの見た目を設定
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithDefaultBackground()
+        appearance.backgroundColor = UIColor.yusakuPink
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        appearance.titleTextAttributes      = [.foregroundColor: UIColor.white]
+        self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        self.navigationController?.navigationBar.standardAppearance   = appearance
         
+        // 再生コントロールの見た目を設定（角丸・影・境界線など）
         playerControllerView.isHidden               = true //初めは隠しておく
         playerControllerView.layer.cornerRadius     = playerControllerView.frame.size.height * 0.5
-        playerControllerView.layer.shadowColor      = CGColor(srgbRed: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
-        playerControllerView.layer.shadowOffset     = .zero
-        playerControllerView.layer.shadowOpacity    = 0.4
-        playerControllerView.layer.borderColor      = CGColor(srgbRed: 0.5, green: 0.5, blue: 0.5, alpha: 0.3)
-        playerControllerView.layer.borderWidth      = 1
+        playerControllerView.layer.shadowColor      = UIColor.black.cgColor
+        playerControllerView.layer.shadowOffset     = CGSize(width: 0, height: 3)
+        playerControllerView.layer.shadowOpacity    = 0.3
 
-        playButtonBackgroundView.layer.cornerRadius = playButtonBackgroundView.frame.size.height * 0.5
-        
         playButton.isEnabled = false
         skipButton.isEnabled = false
 
         let footerView = UIView()
-        footerView.frame.size.height = 100
+        footerView.frame.size.height = 128
         tableView.tableFooterView = footerView // 空のセルの罫線を消す
         
         // Apple Musicライブラリへのアクセス許可の確認
@@ -198,12 +201,12 @@ class RequestsViewController: UIViewController {
     
     @IBAction func playButtonTouchDown(_ sender: Any) {
         // アニメーション
-        animateShrinkDown(view: self.playButtonBackgroundView, scale: 0.9)
+        self.animateShrinkDown(view: self.playButton, scale: 0.8)
     }
     
     @IBAction func playButtonTouchUp(_ sender: Any) {
         // アニメーション
-        animateGrowUp(view: self.playButtonBackgroundView)
+        self.animateGrowUp(view: self.playButton)
         
         // 曲の再生・停止
         switch PlayerQueue.shared.mpAppController.playbackState {

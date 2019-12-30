@@ -26,25 +26,56 @@ class TabBarController: UITabBarController {
 
         self.delegate = self
         
-        // 中央のタブがある位置に空のViewを配置
+        // 中央のタブがある位置に円形のViewを配置
+        let centerRoundView = UIView()
+        self.tabBar.addSubview(centerRoundView)
+        centerRoundView.backgroundColor = UIColor.yusakuBackground
+        centerRoundView.snp.makeConstraints { (make) -> Void in
+            make.height.equalTo(80)
+            make.width.equalTo(80)
+            make.centerX.equalToSuperview()
+            // make.centerY.equalTo(self.tabBar.subviews[1])
+            make.top.equalTo(self.tabBar.subviews[1]).offset(-20)
+        }
+        centerRoundView.layer.cornerRadius = 40
+        centerRoundView.clipsToBounds = true
+        centerRoundView.layer.borderColor = UIColor.gray.cgColor
+        centerRoundView.layer.borderWidth = 0.2
+        
+        // 円形のViewの枠線を四角いViewで上書きして上側の枠線を残す
         let centerView = UIView()
         self.tabBar.addSubview(centerView)
+        centerView.backgroundColor = UIColor.yusakuBackground
         centerView.snp.makeConstraints { (make) -> Void in
-            make.height.equalTo(self.tabBar.subviews[1])
             make.width.equalTo(self.tabBar.subviews[1])
             make.centerX.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalTo(self.view.snp.bottom)
         }
         
         // プラスボタンを中央のエリアに配置
         self.plusButtonView = UIButton()
-        self.plusButtonView.setBackgroundImage(UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration.init(pointSize: 20, weight: UIImage.SymbolWeight.bold, scale: UIImage.SymbolScale.large)),
-                                          for: UIControl.State.normal)
-        self.plusButtonView.addTarget(self, action: #selector(plusButton), for: UIControl.Event.touchUpInside)
+        self.plusButtonView.backgroundColor = UIColor.yusakuPink
+        self.plusButtonView.setImage(UIImage(systemName: "plus.bubble.fill"), for: UIControl.State.normal)
+        self.plusButtonView.setPreferredSymbolConfiguration(
+            UIImage.SymbolConfiguration.init(pointSize: 18,
+                                             weight: UIImage.SymbolWeight.bold,
+                                             scale: UIImage.SymbolScale.large),
+            forImageIn: UIControl.State.normal
+        )
+        self.plusButtonView.tintColor = UIColor.white
+        self.plusButtonView.addTarget(self, action: #selector(plusButtonTouchDown), for: UIControl.Event.touchDown)
+        self.plusButtonView.addTarget(self, action: #selector(plusButtonTouchUp), for: UIControl.Event.touchUpInside)
+        self.plusButtonView.addTarget(self, action: #selector(plusButtonTouchUp), for: UIControl.Event.touchUpOutside)
         centerView.addSubview(self.plusButtonView)
         self.plusButtonView.snp.makeConstraints { (make) -> Void in
+            make.height.equalTo(60)
+            make.width.equalTo(60)
             make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
+            make.centerY.equalTo(centerRoundView)
         }
+        self.plusButtonView.layer.cornerRadius = 30
+        self.plusButtonView.clipsToBounds = true
         
         self.requestTabImageView = self.tabBar.subviews[0].subviews.first as? UIImageView
         self.requestTabImageView.contentMode = .center
@@ -80,8 +111,32 @@ class TabBarController: UITabBarController {
         }
     }
     
+    func animateShrinkDown(view: UIView, scale: CGFloat) {
+        UIView.animate(withDuration: 0.05, delay: 0.0, animations: {
+            view.transform = CGAffineTransform(scaleX: scale, y: scale);
+        }, completion: { _ in
+            view.transform = CGAffineTransform(scaleX: scale, y: scale);
+        })
+    }
+    
+    func animateGrowUp(view: UIView) {
+        UIView.animate(withDuration: 0.05, delay: 0.0, animations: {
+            view.transform = CGAffineTransform.identity;
+        }, completion: { _ in
+            view.transform = CGAffineTransform.identity;
+        })
+    }
+    
     // 中央のプラスボタンが押されたとき
-    @objc func plusButton() {
+    
+    @objc func plusButtonTouchDown() {
+        // アニメーション
+        self.animateShrinkDown(view: self.plusButtonView, scale: 0.9)
+    }
+    @objc func plusButtonTouchUp() {
+        // アニメーション
+        self.animateGrowUp(view: self.plusButtonView)
+        
         // SearchView(実際にはそのコンテナであるNavigation)を表示する
         let storyboard: UIStoryboard = self.storyboard!
         let vc = storyboard.instantiateViewController(withIdentifier: "SearchNavigation")
