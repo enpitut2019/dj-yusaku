@@ -16,10 +16,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="JukeSingleColored" translatesAutoresizingMaskIntoConstraints="NO" id="C5z-3Y-vRC">
-                                <rect key="frame" x="107.66666666666669" y="326" width="160" height="160"/>
+                                <rect key="frame" x="123.66666666666669" y="342" width="128" height="128"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="160" id="KRK-7z-6yM"/>
-                                    <constraint firstAttribute="height" constant="160" id="xSe-AB-ahx"/>
+                                    <constraint firstAttribute="width" constant="128" id="KRK-7z-6yM"/>
+                                    <constraint firstAttribute="height" constant="128" id="xSe-AB-ahx"/>
                                 </constraints>
                             </imageView>
                         </subviews>
