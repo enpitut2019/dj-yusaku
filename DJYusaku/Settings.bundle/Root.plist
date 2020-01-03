@@ -11,7 +11,7 @@
 			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
 			<string>Acknowledgements</string>
-			<key>Key</key>
+			<key>File</key>
 			<string>Acknowledgements</string>
 		</dict>
 	</array>

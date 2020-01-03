@@ -4,13 +4,13 @@
 <dict>
 	<key>StringsTable</key>
 	<string>Root</string>
-	<key>PreferencesSpecifiers</key>
+	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string></string>
+			<string>SwiftyJSON</string>
 			<key>FooterText</key>
 			<string>The MIT License (MIT)
 

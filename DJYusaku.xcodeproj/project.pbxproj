@@ -15,7 +15,7 @@
 		106B1C312372C83F008684EB /* ConnectionControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106B1C302372C83F008684EB /* ConnectionControllerDelegate.swift */; };
 		10937F5C23A9DB4F00CB819B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10937F5B23A9DB4F00CB819B /* SettingsViewController.swift */; };
 		411F288B23616EEB00BA96C1 /* PlayerQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F288A23616EEB00BA96C1 /* PlayerQueue.swift */; };
-		413DD6F323BEF9610069885E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 413DD6F223BEF9610069885E /* Settings.bundle */; };
+		413DD6F723BF08D70069885E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 413DD6F623BF08D70069885E /* Settings.bundle */; };
 		4181777C2388DC5E00A7B02A /* MemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4181777B2388DC5E00A7B02A /* MemberViewController.swift */; };
 		418177822388EEF300A7B02A /* MemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418177812388EEF300A7B02A /* MemberTableViewCell.swift */; };
 		41D3624F23ABB03600E0ED1E /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D3624E23ABB03600E0ED1E /* TutorialViewController.swift */; };
@@ -71,7 +71,7 @@
 		106B1C302372C83F008684EB /* ConnectionControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionControllerDelegate.swift; sourceTree = "<group>"; };
 		10937F5B23A9DB4F00CB819B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		411F288A23616EEB00BA96C1 /* PlayerQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerQueue.swift; sourceTree = "<group>"; };
-		413DD6F223BEF9610069885E /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		413DD6F623BF08D70069885E /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		4181777B2388DC5E00A7B02A /* MemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberViewController.swift; sourceTree = "<group>"; };
 		418177812388EEF300A7B02A /* MemberTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTableViewCell.swift; sourceTree = "<group>"; };
 		41D3624E23ABB03600E0ED1E /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
@@ -144,7 +144,6 @@
 		C447AC99234882F900D535EB = {
 			isa = PBXGroup;
 			children = (
-				413DD6F223BEF9610069885E /* Settings.bundle */,
 				C447ACA4234882F900D535EB /* DJYusaku */,
 				C447ACBD234882FB00D535EB /* DJYusakuTests */,
 				C447ACC8234882FB00D535EB /* DJYusakuUITests */,
@@ -166,6 +165,7 @@
 		C447ACA4234882F900D535EB /* DJYusaku */ = {
 			isa = PBXGroup;
 			children = (
+				413DD6F623BF08D70069885E /* Settings.bundle */,
 				C447ACB5234882FB00D535EB /* Info.plist */,
 				C447ACA5234882F900D535EB /* AppDelegate.swift */,
 				C46CE2072383EBC000492AC3 /* BatterySaverViewController.swift */,
@@ -334,7 +334,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				413DD6F323BEF9610069885E /* Settings.bundle in Resources */,
+				413DD6F723BF08D70069885E /* Settings.bundle in Resources */,
 				C447ACB4234882FB00D535EB /* LaunchScreen.storyboard in Resources */,
 				C447ACB1234882FB00D535EB /* Assets.xcassets in Resources */,
 				C447ACAF234882F900D535EB /* Main.storyboard in Resources */,
