@@ -25,7 +25,7 @@ class PlayerQueue{
     
     private var items: [MPMediaItem] = []
     
-    private var songs: [Song] = [] {
+    private(set) var songs: [Song] = [] {
         didSet {
             guard let isDJ = ConnectionController.shared.isDJ else { return }
             if isDJ {   // DJのリクエストが更新されたとき
