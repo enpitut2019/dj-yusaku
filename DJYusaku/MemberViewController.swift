@@ -20,6 +20,7 @@ class MemberViewController: UIViewController {
     @IBOutlet weak var DJImageContainerView: UIView!
     @IBOutlet weak var DJStatusLabel: UILabel!
     @IBOutlet weak var noListenersView: UIView!
+    @IBOutlet weak var numberOfMembersLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,9 @@ class MemberViewController: UIViewController {
         
         // tableViewのdataSource設定
         tableView.dataSource = self
+        
+        numberOfMembersLabel.layer.cornerRadius = numberOfMembersLabel.frame.size.height * 0.5
+        numberOfMembersLabel.clipsToBounds = true
         
         // DJのアイコン画像の見た目を設定（角丸・影・境界線など）
         DJImageContainerView.layer.cornerRadius = DJImageContainerView.frame.size.height * 0.5
@@ -139,7 +143,7 @@ extension MemberViewController: UITableViewDataSource {
                     listenerImage = CachedImage.fetch(url: imageUrl)
                 }
                 DispatchQueue.main.async {
-                    cell.peerImageView.image = listenerImage ?? UIImage(named: "JukeSingleColored")
+                    cell.peerImageView.image = listenerImage ?? UIImage(named: "TemporarySingleColored")
                     cell.peerImageView.setNeedsLayout()
                 }
             }
