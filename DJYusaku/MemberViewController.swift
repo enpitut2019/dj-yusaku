@@ -139,7 +139,7 @@ extension MemberViewController: UITableViewDataSource {
                     listenerImage = CachedImage.fetch(url: imageUrl)
                 }
                 DispatchQueue.main.async {
-                    cell.peerImageView.image = listenerImage ?? UIImage(named: "TemporarySingleColored")
+                    cell.peerImageView.image = listenerImage ?? UIImage(named: "JukeSingleColored")
                     cell.peerImageView.setNeedsLayout()
                 }
             }

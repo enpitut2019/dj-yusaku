@@ -25,6 +25,8 @@ class ListenerConnectionViewController: UIViewController {
         // tableViewのdelegate, dataSource設定
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.tableFooterView = UIView() // 空のセルの罫線を消す
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {

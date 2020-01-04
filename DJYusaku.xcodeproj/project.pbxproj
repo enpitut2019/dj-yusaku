@@ -149,8 +149,8 @@
 				C447ACA4234882F900D535EB /* DJYusaku */,
 				C447ACBD234882FB00D535EB /* DJYusakuTests */,
 				C447ACC8234882FB00D535EB /* DJYusakuUITests */,
-				C447ACA3234882F900D535EB /* Products */,
 				101D596C23AA2CDA0067396C /* Frameworks */,
+				C447ACA3234882F900D535EB /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -195,12 +195,12 @@
 				C43634CD23922708000CE58F /* TabBarController.swift */,
 				41D3624E23ABB03600E0ED1E /* TutorialViewController.swift */,
 				C449C27323B24C8800A34BE0 /* UIColor+YusakuColor.swift */,
+				C43DD58123C062E000DFF38F /* UINavigationController+PreferedViewControllerStatusBarColor.swift */,
 				C41F18E223AE03BE00E1A886 /* UserDefaults+DJYusakuDefaults.swift */,
 				C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */,
 				C447ACB0234882FB00D535EB /* Assets.xcassets */,
 				C447ACB2234882FB00D535EB /* LaunchScreen.storyboard */,
 				C447ACAD234882F900D535EB /* Main.storyboard */,
-				C43DD58123C062E000DFF38F /* UINavigationController+PreferedViewControllerStatusBarColor.swift */,
 			);
 			path = DJYusaku;
 			sourceTree = "<group>";

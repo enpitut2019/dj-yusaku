@@ -33,7 +33,7 @@ class SearchViewController: UIViewController {
         // 検索バーの設定
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Songs, Artists, Lyrics, and More"
+        searchController.searchBar.placeholder = "Apple Music"
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         
