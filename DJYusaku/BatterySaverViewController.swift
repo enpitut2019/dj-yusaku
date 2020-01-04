@@ -55,6 +55,12 @@ class BatterySaverViewController: UIViewController {
         UIScreen.main.brightness = self.previousScreenBrightness // 画面の明るさを復元する
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        NotificationCenter.default.post(name: .DJYusakuModalViewDidDisappear, object: nil)
+    }
+    
     func animateFadeOut(view: UIView) {
         view.alpha = 1.0
         UIScreen.main.brightness = previousScreenBrightness
