@@ -56,13 +56,7 @@ class TabBarController: UITabBarController {
         // プラスボタンを中央のエリアに配置
         self.plusButtonView = UIButton()
         self.plusButtonView.backgroundColor = UIColor.yusakuPink
-        self.plusButtonView.setImage(UIImage(systemName: "plus.bubble.fill"), for: UIControl.State.normal)
-        self.plusButtonView.setPreferredSymbolConfiguration(
-            UIImage.SymbolConfiguration.init(pointSize: 18,
-                                             weight: UIImage.SymbolWeight.bold,
-                                             scale: UIImage.SymbolScale.large),
-            forImageIn: UIControl.State.normal
-        )
+        self.plusButtonView.setImage(UIImage(named: "music.bubble"), for: UIControl.State.normal)
         self.plusButtonView.tintColor = UIColor.white
         self.plusButtonView.addTarget(self, action: #selector(plusButtonTouchDown), for: UIControl.Event.touchDown)
         self.plusButtonView.addTarget(self, action: #selector(plusButtonTouchUp), for: UIControl.Event.touchUpInside)

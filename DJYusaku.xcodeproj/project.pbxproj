@@ -82,7 +82,7 @@
 		C43634D223923485000CE58F /* DummyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
 		C436A8552350B16B009F6498 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		C436A8572350D36F009F6498 /* SearchMusicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicTableViewCell.swift; sourceTree = "<group>"; };
-		C447ACA2234882F900D535EB /* DJYusaku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DJYusaku.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C447ACA2234882F900D535EB /* Juke.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Juke.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C447ACA5234882F900D535EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C447ACA7234882F900D535EB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C447ACA9234882F900D535EB /* RequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsViewController.swift; sourceTree = "<group>"; };
@@ -155,7 +155,7 @@
 		C447ACA3234882F900D535EB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C447ACA2234882F900D535EB /* DJYusaku.app */,
+				C447ACA2234882F900D535EB /* Juke.app */,
 				C447ACBA234882FB00D535EB /* DJYusakuTests.xctest */,
 				C447ACC5234882FB00D535EB /* DJYusakuUITests.xctest */,
 			);
@@ -242,7 +242,7 @@
 				101D596E23AA2FE10067396C /* Swifter */,
 			);
 			productName = DJYusaku;
-			productReference = C447ACA2234882F900D535EB /* DJYusaku.app */;
+			productReference = C447ACA2234882F900D535EB /* Juke.app */;
 			productType = "com.apple.product-type.application";
 		};
 		C447ACB9234882FB00D535EB /* DJYusakuTests */ = {
@@ -574,7 +574,7 @@
 				);
 				MARKETING_VERSION = 0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = jp.yaplus.DJYusaku;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Juke;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -595,7 +595,7 @@
 				);
 				MARKETING_VERSION = 0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = jp.yaplus.DJYusaku;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Juke;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
