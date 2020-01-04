@@ -73,6 +73,7 @@ class RequestsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChangeOnListener), name: .DJYusakuConnectionControllerNowPlayingSongDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlayerControllerViewFromUserState), name: .DJYusakuUserStateDidUpdate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleButtonStateChange), name: .DJYusakuIsQueueCreatedDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleModalViewDidDisappear), name: .DJYusakuModalViewDidDisappear, object: nil)
         
     }
     
@@ -164,6 +165,10 @@ class RequestsViewController: UIViewController {
          isDJ: F (=Listener)
             -> isHidden のT/FはreceivedSongs.isEmpty()のT/Fと同義
          */
+    }
+    
+    @objc func handleModalViewDidDisappear() {
+        self.setNeedsStatusBarAppearanceUpdate()
     }
     
     func scrollToNowPlayingItem(animated: Bool = true) {
@@ -261,6 +266,10 @@ class RequestsViewController: UIViewController {
             self.tableView.reloadData()
         }
         scrollToNowPlayingItem()
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
     }
 }
 

@@ -30,6 +30,12 @@ class WelcomeViewController: UIViewController {
             self.doneButtonItem.isEnabled = false
         }
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        NotificationCenter.default.post(name: .DJYusakuModalViewDidDisappear, object: nil)
+    }
 
     @IBAction func closeModal(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)

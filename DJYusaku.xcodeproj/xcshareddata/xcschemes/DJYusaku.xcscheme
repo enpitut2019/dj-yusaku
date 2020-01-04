@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C447ACA1234882F900D535EB"
-               BuildableName = "DJYusaku.app"
+               BuildableName = "Juke.app"
                BlueprintName = "DJYusaku"
                ReferencedContainer = "container:DJYusaku.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C447ACA1234882F900D535EB"
-            BuildableName = "DJYusaku.app"
+            BuildableName = "Juke.app"
             BlueprintName = "DJYusaku"
             ReferencedContainer = "container:DJYusaku.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C447ACA1234882F900D535EB"
-            BuildableName = "DJYusaku.app"
+            BuildableName = "Juke.app"
             BlueprintName = "DJYusaku"
             ReferencedContainer = "container:DJYusaku.xcodeproj">
          </BuildableReference>

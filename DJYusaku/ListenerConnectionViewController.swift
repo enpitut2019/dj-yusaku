@@ -30,6 +30,8 @@ class ListenerConnectionViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
+        NotificationCenter.default.post(name: .DJYusakuModalViewDidDisappear, object: nil)
+        
         ConnectionController.shared.stopBrowse()
     }
 

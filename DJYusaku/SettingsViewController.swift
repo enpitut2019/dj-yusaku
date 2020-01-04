@@ -81,6 +81,10 @@ class SettingsViewController: UITableViewController, SFSafariViewControllerDeleg
           break
         }
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+    }
 }
 
 // MARK: - SettingsNameViewController
@@ -103,6 +107,10 @@ class SettingsNameViewController: UITableViewController, UITextFieldDelegate {
         self.nameField.text = UserDefaults.standard.string(forKey: UserDefaults.DJYusakuDefaults.ProfileName)
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+    }
+    
     // MARK: - UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -117,6 +125,7 @@ class SettingsNameViewController: UITableViewController, UITextFieldDelegate {
 
         return true
     }
+    
 }
 
 // MARK: - SettingsAboutThisAppViewController
@@ -136,6 +145,10 @@ class SettingsAboutThisAppViewController: UITableViewController {
         super.viewDidLoad()
         
         versionLabel.text = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
     }
 
     // MARK: - UITableViewDelegate

@@ -60,6 +60,13 @@ class SearchViewController: UIViewController {
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        NotificationCenter.default.post(name: .DJYusakuModalViewDidDisappear, object: nil)
+    }
+
+    
     @IBAction func closeButton(_ sender: Any) {
         self.dismiss(animated: true)
     }

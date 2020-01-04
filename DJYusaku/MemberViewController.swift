@@ -41,6 +41,7 @@ class MemberViewController: UIViewController {
         noListenersView.isHidden = false
         
         NotificationCenter.default.addObserver(self, selector: #selector(handlePeerConnectionStateDidUpdate), name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleModalViewDidDisappear), name: .DJYusakuModalViewDidDisappear, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,6 +112,13 @@ class MemberViewController: UIViewController {
         self.updateMembers()
     }
     
+    @objc func handleModalViewDidDisappear() {
+        self.setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+    }
 }
 
 // MARK: - UITableViewDataSource
