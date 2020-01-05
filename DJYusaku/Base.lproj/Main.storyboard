@@ -246,7 +246,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RGD-qI-6Bt">
-                                <rect key="frame" x="75" y="532" width="225" height="44"/>
+                                <rect key="frame" x="75" y="526" width="225" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="4xT-wQ-5Cn"/>
                                 </constraints>
@@ -286,7 +286,7 @@
                                 <color key="tintColor" name="YusakuPinkColor"/>
                                 <state key="normal" image="questionmark.circle.fill" catalog="system">
                                     <color key="titleColor" name="YusakuPinkColor"/>
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="22" scale="large" weight="regular"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" scale="large" weight="regular"/>
                                 </state>
                                 <connections>
                                     <segue destination="daP-Eo-T0w" kind="presentation" id="PWD-zE-cT3"/>
@@ -301,7 +301,7 @@
                             <constraint firstItem="QLv-BI-r7q" firstAttribute="top" secondItem="90a-jE-PNH" secondAttribute="bottom" constant="4" id="4Yb-P2-mR6"/>
                             <constraint firstItem="LZr-FI-GlJ" firstAttribute="centerY" secondItem="UTD-8F-7rV" secondAttribute="centerY" constant="-70" id="5mX-WO-vy6"/>
                             <constraint firstItem="QLv-BI-r7q" firstAttribute="centerX" secondItem="90a-jE-PNH" secondAttribute="centerX" id="Da6-kM-pz5"/>
-                            <constraint firstItem="RGD-qI-6Bt" firstAttribute="top" secondItem="90a-jE-PNH" secondAttribute="bottom" constant="44" id="EcA-p9-d07"/>
+                            <constraint firstItem="RGD-qI-6Bt" firstAttribute="top" secondItem="90a-jE-PNH" secondAttribute="bottom" constant="38" id="EcA-p9-d07"/>
                             <constraint firstItem="S0h-WO-K7i" firstAttribute="width" secondItem="LZr-FI-GlJ" secondAttribute="width" id="I3u-vB-Noa"/>
                             <constraint firstItem="90a-jE-PNH" firstAttribute="centerY" secondItem="UTD-8F-7rV" secondAttribute="centerY" constant="50" id="I6p-lY-ueM"/>
                             <constraint firstItem="QLv-BI-r7q" firstAttribute="width" secondItem="90a-jE-PNH" secondAttribute="width" id="RQ8-96-7n5"/>
