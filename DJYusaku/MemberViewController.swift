@@ -19,6 +19,8 @@ class MemberViewController: UIViewController {
     @IBOutlet weak var DJImageView: UIImageView!
     @IBOutlet weak var DJStatusLabel: UILabel!
     @IBOutlet weak var noListenersView: UIView!
+    @IBOutlet weak var numberOfParticipants: UILabel!
+    @IBOutlet weak var numberOfParticipantsBackgroundView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +31,8 @@ class MemberViewController: UIViewController {
         // DJのアイコン画像を円形にする
         DJImageView.layer.cornerRadius = DJImageView.frame.size.height * 0.5
         DJImageView.clipsToBounds = true
+        
+        numberOfParticipantsBackgroundView.layer.cornerRadius = numberOfParticipantsBackgroundView.frame.size.height * 0.5
         
         noListenersView.isHidden = false
         
@@ -105,6 +109,12 @@ class MemberViewController: UIViewController {
         // 親機の表示を更新
         DispatchQueue.main.async {
             self.DJNameLabel.text  = DJName
+            self.numberOfParticipants.text = "\(ConnectionController.shared.numberOfParticipants)/8"
+            if ConnectionController.shared.numberOfParticipants == 8 {
+                self.numberOfParticipantsBackgroundView.layer.backgroundColor = CGColor(srgbRed: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
+            } else {
+                self.numberOfParticipantsBackgroundView.layer.backgroundColor = CGColor(srgbRed: 0.776, green: 0.776, blue: 0.784, alpha: 1.0)
+            }
             self.noListenersView.isHidden = !self.listeners.isEmpty
             self.tableView.reloadData()
         }
