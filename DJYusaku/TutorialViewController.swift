@@ -75,11 +75,10 @@ extension TutorialViewController: UIPageViewControllerDataSource {
 // MARK: - UIPageViewControllerDelegate
 
 extension TutorialViewController: UIPageViewControllerDelegate {
-    
 
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         let content = pendingViewControllers[0] as! TutorialContentType
-        self.indexOfPendingContent = content.indexOfTutorialContent()
+        self.indexOfPendingContent = content.indexOfTutorialContent
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
@@ -87,21 +86,19 @@ extension TutorialViewController: UIPageViewControllerDelegate {
             self.pageControl.currentPage = self.indexOfPendingContent
         }
     }
+    
 }
 
 // MARK: - TutorialContentViewController
 
 protocol TutorialContentType {
-    func indexOfTutorialContent() -> Int
+    var indexOfTutorialContent: Int { get }
 }
 
 // MARK: - TutorialFirstViewController
 
 class TutorialFirstViewController: UIViewController, TutorialContentType {
-    func indexOfTutorialContent() -> Int {
-        return 0
-    }
-    
+    var indexOfTutorialContent: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,11 +111,8 @@ class TutorialFirstViewController: UIViewController, TutorialContentType {
 // MARK: - TutorialSecondViewController
 
 class TutorialSecondViewController: UIViewController, TutorialContentType {
-    func indexOfTutorialContent() -> Int {
-        return 1
-    }
+    var indexOfTutorialContent: Int = 1
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -130,11 +124,8 @@ class TutorialSecondViewController: UIViewController, TutorialContentType {
 // MARK: - TutorialThirdViewController
 
 class TutorialThirdViewController: UIViewController, TutorialContentType {
-    func indexOfTutorialContent() -> Int {
-        return 2
-    }
+    var indexOfTutorialContent: Int = 2
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -146,10 +137,7 @@ class TutorialThirdViewController: UIViewController, TutorialContentType {
 // MARK: - TutorialFourthViewController
 
 class TutorialFourthViewController: UIViewController, TutorialContentType {
-    func indexOfTutorialContent() -> Int {
-        return 3
-    }
-    
+    var indexOfTutorialContent: Int = 3
 
     override func viewDidLoad() {
         super.viewDidLoad()
