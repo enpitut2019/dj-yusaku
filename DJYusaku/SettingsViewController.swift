@@ -74,6 +74,7 @@ class SettingsViewController: UITableViewController, SFSafariViewControllerDeleg
                 let data = try! JSONEncoder().encode(twitterAccount)
                 UserDefaults.standard.set(data, forKey: UserDefaults.DJYusakuDefaults.TwitterAccount)
                 self.twitterAccountLabel.text = "@" + twitterAccount.screenName
+                self.willUseTwitterProfileSwitch.isEnabled = true
             }, failure: { error in
                 print("Swifter Error at SettingsViewController.tableViewTwitterSection():", error.localizedDescription)
             })
