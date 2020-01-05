@@ -11,7 +11,7 @@
         <!--Requested Songs-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController id="9pv-A4-QxB" customClass="RequestsViewController" customModule="Juke" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9pv-A4-QxB" customClass="RequestsViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" semanticContentAttribute="playback" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RequestsMusicTableViewCell" id="T5J-aV-tbm" customClass="RequestsMusicTableViewCell" customModule="Juke" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" semanticContentAttribute="playback" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RequestsMusicTableViewCell" id="T5J-aV-tbm" customClass="RequestsMusicTableViewCell" customModule="DJYusaku" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T5J-aV-tbm" id="Bkg-rZ-UB5">
@@ -220,7 +220,7 @@
         <!--Welcome-->
         <scene sceneID="EK0-NK-Ha9">
             <objects>
-                <viewController title="Welcome" id="ypK-t8-Qz5" customClass="WelcomeViewController" customModule="Juke" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Welcome" id="ypK-t8-Qz5" customClass="WelcomeViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zoG-Zx-5x5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -337,7 +337,7 @@
         <!--Tutorial View Controller-->
         <scene sceneID="pRP-uB-BIg">
             <objects>
-                <pageViewController storyboardIdentifier="TutorialViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="daP-Eo-T0w" customClass="TutorialViewController" customModule="Juke" customModuleProvider="target" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="TutorialViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="daP-Eo-T0w" customClass="TutorialViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VGl-0s-anX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="745" y="2531"/>
@@ -345,7 +345,7 @@
         <!--Tutorial First View Controller-->
         <scene sceneID="nAA-Kd-gCM">
             <objects>
-                <viewController storyboardIdentifier="TutorialFirstViewController" id="sZ9-Wy-X5c" customClass="TutorialFirstViewController" customModule="Juke" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TutorialFirstViewController" id="sZ9-Wy-X5c" customClass="TutorialFirstViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Om6-Fb-Z0I">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -403,7 +403,7 @@
         <!--Tutorial Second View Controller-->
         <scene sceneID="NoQ-Rl-j8D">
             <objects>
-                <viewController storyboardIdentifier="TutorialSecondViewController" id="ugP-90-YnU" customClass="TutorialSecondViewController" customModule="Juke" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TutorialSecondViewController" id="ugP-90-YnU" customClass="TutorialSecondViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5hl-hA-W7U">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -461,7 +461,7 @@
         <!--Available Sessions-->
         <scene sceneID="z8Z-ZC-zfs">
             <objects>
-                <viewController id="2ZU-rh-NCc" customClass="ListenerConnectionViewController" customModule="Juke" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="2ZU-rh-NCc" customClass="ListenerConnectionViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TEh-b3-bIb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -470,7 +470,7 @@
                                 <rect key="frame" x="0.0" y="108" width="375" height="616"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ListenerConnectableDJsTableViewCell" id="Hmp-1P-PDK" customClass="ListenerConnectableDJsTableViewCell" customModule="Juke" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ListenerConnectableDJsTableViewCell" id="Hmp-1P-PDK" customClass="ListenerConnectableDJsTableViewCell" customModule="DJYusaku" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Hmp-1P-PDK" id="mhw-qc-RfJ">
@@ -478,28 +478,51 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KK9-dh-Qaa">
-                                                    <rect key="frame" x="64" y="17" width="295" height="30"/>
+                                                    <rect key="frame" x="72" y="16" width="219" height="32"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="7nV-4J-FpJ"/>
+                                                        <constraint firstAttribute="height" constant="32" id="7nV-4J-FpJ"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ynj-sW-L7l" userLabel="PeerImage">
-                                                    <rect key="frame" x="8" y="8" width="48" height="48"/>
+                                                    <rect key="frame" x="12" y="8" width="48" height="48"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="48" id="f4H-6d-uzd"/>
                                                         <constraint firstAttribute="width" constant="48" id="nd0-Zd-QY9"/>
                                                     </constraints>
                                                 </imageView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Ew-Lp-Gqh">
+                                                    <rect key="frame" x="299" y="16" width="64" height="32"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/8" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YiX-nO-KLp">
+                                                            <rect key="frame" x="0.0" y="0.0" width="64" height="32"/>
+                                                            <color key="backgroundColor" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <constraints>
+                                                        <constraint firstItem="YiX-nO-KLp" firstAttribute="width" secondItem="4Ew-Lp-Gqh" secondAttribute="width" id="3V3-Gm-CSS"/>
+                                                        <constraint firstAttribute="height" constant="32" id="Pfb-Tv-A8y"/>
+                                                        <constraint firstItem="YiX-nO-KLp" firstAttribute="height" secondItem="4Ew-Lp-Gqh" secondAttribute="height" id="SHS-dd-PBA"/>
+                                                        <constraint firstItem="YiX-nO-KLp" firstAttribute="centerY" secondItem="4Ew-Lp-Gqh" secondAttribute="centerY" id="VO8-iS-cdW"/>
+                                                        <constraint firstAttribute="width" constant="64" id="eNc-em-B3p"/>
+                                                        <constraint firstItem="YiX-nO-KLp" firstAttribute="centerX" secondItem="4Ew-Lp-Gqh" secondAttribute="centerX" id="irC-MB-o5d"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="KK9-dh-Qaa" secondAttribute="trailing" constant="16" id="6jQ-1j-Ifz"/>
                                                 <constraint firstItem="KK9-dh-Qaa" firstAttribute="centerY" secondItem="mhw-qc-RfJ" secondAttribute="centerY" id="9AF-nk-HgV"/>
-                                                <constraint firstItem="Ynj-sW-L7l" firstAttribute="leading" secondItem="mhw-qc-RfJ" secondAttribute="leading" constant="8" id="WNg-NB-GZ6"/>
-                                                <constraint firstItem="KK9-dh-Qaa" firstAttribute="leading" secondItem="Ynj-sW-L7l" secondAttribute="trailing" constant="8" id="bvY-Zb-7DP"/>
+                                                <constraint firstAttribute="trailing" secondItem="4Ew-Lp-Gqh" secondAttribute="trailing" constant="12" id="EyL-HS-aa8"/>
+                                                <constraint firstItem="Ynj-sW-L7l" firstAttribute="leading" secondItem="mhw-qc-RfJ" secondAttribute="leading" constant="12" id="WNg-NB-GZ6"/>
+                                                <constraint firstItem="KK9-dh-Qaa" firstAttribute="leading" secondItem="Ynj-sW-L7l" secondAttribute="trailing" constant="12" id="bvY-Zb-7DP"/>
+                                                <constraint firstItem="4Ew-Lp-Gqh" firstAttribute="leading" secondItem="KK9-dh-Qaa" secondAttribute="trailing" constant="8" id="ePY-JP-J6u"/>
                                                 <constraint firstItem="Ynj-sW-L7l" firstAttribute="centerY" secondItem="mhw-qc-RfJ" secondAttribute="centerY" id="piQ-I4-YNQ"/>
+                                                <constraint firstItem="4Ew-Lp-Gqh" firstAttribute="centerY" secondItem="mhw-qc-RfJ" secondAttribute="centerY" id="wl2-iD-GlE"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -557,12 +580,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x2a-pV-KQr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1728.985507246377" y="1726.3392857142856"/>
+            <point key="canvasLocation" x="1728.8" y="1726.1083743842364"/>
         </scene>
         <!--New Request-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController id="8rJ-Kc-sve" customClass="SearchViewController" customModule="Juke" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8rJ-Kc-sve" customClass="SearchViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -571,7 +594,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="690"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchMusicTableViewCell" id="Uxy-eD-cUw" customClass="SearchMusicTableViewCell" customModule="Juke" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchMusicTableViewCell" id="Uxy-eD-cUw" customClass="SearchMusicTableViewCell" customModule="DJYusaku" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Uxy-eD-cUw" id="jsM-e1-0mc">
@@ -708,7 +731,7 @@
         <!--Dummy View Controller-->
         <scene sceneID="9np-iI-gcW">
             <objects>
-                <viewController id="4uZ-Wj-ld5" customClass="DummyViewController" customModule="Juke" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="4uZ-Wj-ld5" customClass="DummyViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lsb-Hs-IUt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -724,7 +747,7 @@
         <!--Battery Saver View Controller-->
         <scene sceneID="piP-6K-uOh">
             <objects>
-                <viewController storyboardIdentifier="BatterySaverView" id="oZn-cn-RSW" customClass="BatterySaverViewController" customModule="Juke" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BatterySaverView" id="oZn-cn-RSW" customClass="BatterySaverViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JaV-wB-E59">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -779,7 +802,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" customClass="TabBarController" customModule="Juke" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController id="49e-Tb-3d3" customClass="TabBarController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -863,35 +886,35 @@
         <!--Member View Controller-->
         <scene sceneID="m4A-BZ-CU1">
             <objects>
-                <viewController id="ODD-3q-aMv" customClass="MemberViewController" customModule="Juke" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ODD-3q-aMv" customClass="MemberViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4UC-dV-YyJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ljm-v3-8g9">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="64" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ljm-v3-8g9">
                                 <rect key="frame" x="0.0" y="254" width="375" height="387"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MemberTableViewCell" id="MsJ-dR-GdV" customClass="MemberTableViewCell" customModule="Juke" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MemberTableViewCell" id="MsJ-dR-GdV" customClass="MemberTableViewCell" customModule="DJYusaku" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MsJ-dR-GdV" id="Oji-6z-nXc">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fpU-yS-Emb" userLabel="PeerImage">
-                                                    <rect key="frame" x="15" y="2" width="40" height="40"/>
+                                                    <rect key="frame" x="12" y="8" width="48" height="48"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="40" id="2GT-bu-IGl"/>
-                                                        <constraint firstAttribute="width" constant="40" id="xiq-zI-hvk"/>
+                                                        <constraint firstAttribute="height" constant="48" id="2GT-bu-IGl"/>
+                                                        <constraint firstAttribute="width" constant="48" id="xiq-zI-hvk"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKd-f8-to8" userLabel="PeerName">
-                                                    <rect key="frame" x="63" y="11.666666666666664" width="304" height="21"/>
+                                                    <rect key="frame" x="72" y="21.666666666666671" width="295" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="jru-If-yFn"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -899,8 +922,8 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="WKd-f8-to8" secondAttribute="trailing" constant="8" id="9Ih-z9-w4W"/>
                                                 <constraint firstItem="fpU-yS-Emb" firstAttribute="centerY" secondItem="Oji-6z-nXc" secondAttribute="centerY" id="rQo-Ce-LVO"/>
-                                                <constraint firstItem="WKd-f8-to8" firstAttribute="leading" secondItem="fpU-yS-Emb" secondAttribute="trailing" constant="8" id="xxU-Bw-CZi"/>
-                                                <constraint firstItem="fpU-yS-Emb" firstAttribute="leading" secondItem="Oji-6z-nXc" secondAttribute="leading" constant="15" id="ziw-cQ-Yxz"/>
+                                                <constraint firstItem="WKd-f8-to8" firstAttribute="leading" secondItem="fpU-yS-Emb" secondAttribute="trailing" constant="12" id="xxU-Bw-CZi"/>
+                                                <constraint firstItem="fpU-yS-Emb" firstAttribute="leading" secondItem="Oji-6z-nXc" secondAttribute="leading" constant="12" id="ziw-cQ-Yxz"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <constraints>
@@ -1097,7 +1120,7 @@
         <!--Settings-->
         <scene sceneID="nao-RH-2dL">
             <objects>
-                <tableViewController id="Xlt-eI-mT8" customClass="SettingsViewController" customModule="Juke" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Xlt-eI-mT8" customClass="SettingsViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Z2X-f6-JOQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1238,7 +1261,7 @@
         <!--Name-->
         <scene sceneID="rEb-Lt-6WS">
             <objects>
-                <tableViewController id="SQY-EL-BYa" customClass="SettingsNameViewController" customModule="Juke" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="SQY-EL-BYa" customClass="SettingsNameViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="1k1-LV-HEC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1285,7 +1308,7 @@
         <!--About This App-->
         <scene sceneID="w2t-As-rMw">
             <objects>
-                <tableViewController id="IZX-zN-OeS" customClass="SettingsAboutThisAppViewController" customModule="Juke" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="IZX-zN-OeS" customClass="SettingsAboutThisAppViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="b84-DP-zow">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1461,7 +1484,7 @@
         <!--Tutorial Third View Controller-->
         <scene sceneID="XER-fT-oLh">
             <objects>
-                <viewController storyboardIdentifier="TutorialThirdViewController" id="GRp-2Z-1ou" customClass="TutorialThirdViewController" customModule="Juke" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TutorialThirdViewController" id="GRp-2Z-1ou" customClass="TutorialThirdViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2SR-CR-0Le">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1519,7 +1542,7 @@
         <!--Tutorial Fourth View Controller-->
         <scene sceneID="T66-B3-gzD">
             <objects>
-                <viewController storyboardIdentifier="TutorialFourthViewController" id="Z3h-Xx-jlE" customClass="TutorialFourthViewController" customModule="Juke" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TutorialFourthViewController" id="Z3h-Xx-jlE" customClass="TutorialFourthViewController" customModule="DJYusaku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kJm-KQ-82P">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
