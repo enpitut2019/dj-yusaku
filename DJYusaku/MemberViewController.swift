@@ -20,7 +20,7 @@ class MemberViewController: UIViewController {
     @IBOutlet weak var DJImageContainerView: UIView!
     @IBOutlet weak var DJStatusLabel: UILabel!
     @IBOutlet weak var noListenersView: UIView!
-    @IBOutlet weak var numberOfMembersLabel: UILabel!
+    @IBOutlet weak var numberOfParticipantsLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,8 +31,9 @@ class MemberViewController: UIViewController {
         // tableViewのdataSource設定
         tableView.dataSource = self
         
-        numberOfMembersLabel.layer.cornerRadius = numberOfMembersLabel.frame.size.height * 0.5
-        numberOfMembersLabel.clipsToBounds = true
+        // 参加人数表示の見た目を設定（角丸・影・境界線など）
+        numberOfParticipantsLabel.layer.cornerRadius = numberOfParticipantsLabel.frame.size.height * 0.5
+        numberOfParticipantsLabel.clipsToBounds = true
         
         // DJのアイコン画像の見た目を設定（角丸・影・境界線など）
         DJImageContainerView.layer.cornerRadius = DJImageContainerView.frame.size.height * 0.5
@@ -108,6 +109,7 @@ class MemberViewController: UIViewController {
         DispatchQueue.main.async {
             self.DJNameLabel.text  = DJName
             self.noListenersView.isHidden = !self.listeners.isEmpty
+            self.numberOfParticipantsLabel.text = "\(ConnectionController.shared.numberOfParticipants)/8"
             self.tableView.reloadData()
         }
     }

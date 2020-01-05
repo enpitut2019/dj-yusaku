@@ -12,8 +12,7 @@ class ListenerConnectableDJsTableViewCell: UITableViewCell {
 
     @IBOutlet weak var djName: UILabel!
     @IBOutlet weak var djImageView: UIImageView!
-    @IBOutlet weak var numberOfParticipants: UILabel!
-    @IBOutlet weak var numberOfParticipantsBackgroundView: UIView!
+    @IBOutlet weak var numberOfParticipantsLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,8 +21,9 @@ class ListenerConnectableDJsTableViewCell: UITableViewCell {
         djImageView.layer.cornerRadius = djImageView.frame.size.height * 0.5
         djImageView.clipsToBounds = true
         
-        // session参加人数の見た目を設定
-        numberOfParticipantsBackgroundView.layer.cornerRadius = numberOfParticipantsBackgroundView.frame.size.height * 0.5
+        // 参加人数表示の見た目を設定（角丸・影・境界線など）
+        numberOfParticipantsLabel.layer.cornerRadius = numberOfParticipantsLabel.frame.size.height * 0.5
+        numberOfParticipantsLabel.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
