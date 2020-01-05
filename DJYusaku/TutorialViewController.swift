@@ -2,40 +2,53 @@
 //  TutorialViewController.swift
 //  DJYusaku
 //
-//  Created by Yuu Ichikawa on 2019/12/19.
-//  Copyright © 2019 Yusaku. All rights reserved.
+//  Created by Hayato Kohara on 2020/01/05.
+//  Copyright © 2020 Yusaku. All rights reserved.
 //
 
 import UIKit
 
-class TutorialViewController: UIPageViewController {
+class TutorialViewController: UIViewController {
     
+    private var pageViewController: UIPageViewController!
     private var tutorialContents: [UIViewController] = []
-
+    @IBOutlet weak var pageControl: UIPageControl!
+    private var indexOfPendingContent: Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.dataSource = self
         
         let firstTutorial  = storyboard!.instantiateViewController(identifier: "TutorialFirstViewController")  as! TutorialFirstViewController
         let secondTutorial = storyboard!.instantiateViewController(identifier: "TutorialSecondViewController") as! TutorialSecondViewController
         let thirdTutorial  = storyboard!.instantiateViewController(identifier: "TutorialThirdViewController")  as! TutorialThirdViewController
         let fourthTutorial = storyboard!.instantiateViewController(identifier: "TutorialFourthViewController") as! TutorialFourthViewController
         
-        tutorialContents = [firstTutorial,
-                            secondTutorial,
-                            thirdTutorial,
-                            fourthTutorial]
+        self.tutorialContents = [firstTutorial,
+                                 secondTutorial,
+                                 thirdTutorial,
+                                 fourthTutorial]
         
-        self.setViewControllers([tutorialContents[0]],
-                                direction: .forward,
-                                animated: true,
-                                completion: nil)
+        // UIPageViewControllerの設定
+        self.pageViewController = UIPageViewController(transitionStyle: .scroll,
+                                                       navigationOrientation: .horizontal,
+                                                       options: nil)
+        self.pageViewController.delegate   = self
+        self.pageViewController.dataSource = self
+        self.pageViewController.setViewControllers([tutorialContents[0]],
+                                                   direction: .forward,
+                                                   animated: true,
+                                                   completion: nil)
+        self.view.addSubview(self.pageViewController.view)
         
+        // PageControlを前面に表示する
+        view.bringSubviewToFront(self.pageControl)
+        pageControl.numberOfPages = tutorialContents.count
+        pageControl.currentPage   = 0
     }
 
 }
 
-// MARK: - UIPageViewControllerDatasource
+// MARK: - UIPageViewControllerDataSource
 
 extension TutorialViewController: UIPageViewControllerDataSource {
     
@@ -57,19 +70,38 @@ extension TutorialViewController: UIPageViewControllerDataSource {
         return next
     }
     
-    func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        return tutorialContents.count
+}
+
+// MARK: - UIPageViewControllerDelegate
+
+extension TutorialViewController: UIPageViewControllerDelegate {
+    
+
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        let content = pendingViewControllers[0] as! TutorialContentType
+        self.indexOfPendingContent = content.indexOfTutorialContent()
     }
     
-    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        return 0
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if completed {
+            self.pageControl.currentPage = self.indexOfPendingContent
+        }
     }
-    
+}
+
+// MARK: - TutorialContentViewController
+
+protocol TutorialContentType {
+    func indexOfTutorialContent() -> Int
 }
 
 // MARK: - TutorialFirstViewController
 
-class TutorialFirstViewController: UIViewController {
+class TutorialFirstViewController: UIViewController, TutorialContentType {
+    func indexOfTutorialContent() -> Int {
+        return 0
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +113,11 @@ class TutorialFirstViewController: UIViewController {
 
 // MARK: - TutorialSecondViewController
 
-class TutorialSecondViewController: UIViewController {
+class TutorialSecondViewController: UIViewController, TutorialContentType {
+    func indexOfTutorialContent() -> Int {
+        return 1
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,7 +129,11 @@ class TutorialSecondViewController: UIViewController {
 
 // MARK: - TutorialThirdViewController
 
-class TutorialThirdViewController: UIViewController {
+class TutorialThirdViewController: UIViewController, TutorialContentType {
+    func indexOfTutorialContent() -> Int {
+        return 2
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,7 +145,11 @@ class TutorialThirdViewController: UIViewController {
 
 // MARK: - TutorialFourthViewController
 
-class TutorialFourthViewController: UIViewController {
+class TutorialFourthViewController: UIViewController, TutorialContentType {
+    func indexOfTutorialContent() -> Int {
+        return 3
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
