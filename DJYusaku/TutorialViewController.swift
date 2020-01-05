@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class TutorialViewController: UIViewController {
     
@@ -39,11 +40,17 @@ class TutorialViewController: UIViewController {
                                                    animated: true,
                                                    completion: nil)
         self.view.addSubview(self.pageViewController.view)
+        self.pageViewController.view.snp.makeConstraints { [unowned self] (make) -> Void in
+            make.width.equalTo(self.view.safeAreaLayoutGuide)
+            make.centerX.equalTo(self.view.safeAreaLayoutGuide)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            make.bottom.equalTo(self.pageControl.snp.top)
+        }
         
         // PageControlを前面に表示する
-        view.bringSubviewToFront(self.pageControl)
-        pageControl.numberOfPages = tutorialContents.count
-        pageControl.currentPage   = 0
+        self.view.bringSubviewToFront(self.pageControl)
+        self.pageControl.numberOfPages = self.tutorialContents.count
+        self.pageControl.currentPage   = 0
     }
 
 }

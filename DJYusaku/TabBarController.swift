@@ -46,7 +46,7 @@ class TabBarController: UITabBarController {
         let centerView = UIView()
         self.tabBar.addSubview(centerView)
         centerView.backgroundColor = UIColor.yusakuBackground
-        centerView.snp.makeConstraints { (make) -> Void in
+        centerView.snp.makeConstraints { [unowned self] (make) -> Void in
             make.width.equalTo(self.tabBar.subviews[1])
             make.centerX.equalToSuperview()
             make.top.equalToSuperview()
