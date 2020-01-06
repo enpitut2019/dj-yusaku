@@ -36,9 +36,16 @@ class ConnectionController: NSObject {
     
     private(set) var peerProfileCorrespondence: [MCPeerID:PeerProfile] = [:]
     
-    private(set) var connectableDJs: [MCPeerID] = [] //  ListenerConnectionViewController用
+    private(set) var numberOfParticipantsCorrespondence: [MCPeerID:Int] = [:]
     
+    private(set) var connectableDJs: [MCPeerID] = [] //  ListenerConnectionViewController用
     private(set) var receivedSongs: [Song] = [] // リスナー用
+    
+    var numberOfParticipants: Int {
+        get {
+            return self.session.connectedPeers.count + 1
+        }
+    }
     
     func initialize() {
         self.session = MCSession(peer: self.peerID)
@@ -71,11 +78,12 @@ class ConnectionController: NSObject {
         self.browser.stopBrowsingForPeers()
         self.connectableDJs.removeAll()
     }
-
-    func startAdvertise(displayName: String, imageUrl: URL?) {
+    
+    func startAdvertise(displayName: String, imageUrl: URL?, numberOfParticipants: Int) {
         self.advertiser?.stopAdvertisingPeer()
-        let info = ["name":     displayName,
-                    "imageUrl": imageUrl?.absoluteString ?? ""]
+        let info = ["name"                  : displayName,
+                    "imageUrl"              : imageUrl?.absoluteString ?? "",
+                    "numberOfParticipants"  : String(numberOfParticipants)]
         self.advertiser = MCNearbyServiceAdvertiser(peer: self.peerID, discoveryInfo: info, serviceType: self.serviceType)
         self.advertiser.delegate = self
         self.advertiser.startAdvertisingPeer()
@@ -99,7 +107,7 @@ class ConnectionController: NSObject {
         self.isDJ = true
         self.disconnect()
         let profile = DefaultsController.shared.profile
-        startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl)
+        startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: self.numberOfParticipants)
         NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
         NotificationCenter.default.post(name: .DJYusakuUserStateDidUpdate, object: nil)
     }
@@ -127,7 +135,10 @@ extension ConnectionController: MCSessionDelegate {
         case .notConnected:
             print("Peer \(peerID.displayName) is disconnected.")
             NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
-            if !self.isDJ! && peerID == self.connectedDJ?.peerID { // リスナーがDJを見失ったとき
+            if self.isDJ! {
+                let profile = DefaultsController.shared.profile
+                startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: self.numberOfParticipants)
+            } else if peerID == self.connectedDJ?.peerID { // リスナーがDJを見失ったとき
                 self.connectedDJ!.state = .notConnected
             }
             break
@@ -154,6 +165,8 @@ extension ConnectionController: MCSessionDelegate {
                 //注意: これはPlayerQueueで実装しているNotification.Nameです
                 NotificationCenter.default.post(name:
                     .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
+                let profile = DefaultsController.shared.profile
+                startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: self.numberOfParticipants)
             }
             break
         default:
@@ -237,6 +250,9 @@ extension ConnectionController: MCNearbyServiceBrowserDelegate {
         
         self.peerProfileCorrespondence[peerID] = PeerProfile(name:     info!["name"]!,
                                                              imageUrl: URL(string: info!["imageUrl"]!))
+        if let numberOfParticipantsText = info!["numberOfParticipants"] {
+            self.numberOfParticipantsCorrespondence[peerID] = Int(numberOfParticipantsText)
+        }
 
         self.delegate?.connectionController(didChangeConnectableDevices: self.connectableDJs)
     }

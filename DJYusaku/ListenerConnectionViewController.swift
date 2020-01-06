@@ -47,6 +47,12 @@ extension ListenerConnectionViewController: UITableViewDataSource {
         var DJImage: UIImage?
         let profile = ConnectionController.shared.peerProfileCorrespondence[ConnectionController.shared.connectableDJs[indexPath.row]]!
         cell.djName?.text = profile.name
+        if let numberOfParticipants = ConnectionController.shared.numberOfParticipantsCorrespondence[ConnectionController.shared.connectableDJs[indexPath.row]] {
+            cell.numberOfParticipants?.text = "\(numberOfParticipants)/8"
+            if numberOfParticipants == 8 {
+                cell.numberOfParticipantsBackgroundView.layer.backgroundColor = CGColor(srgbRed: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
+            }
+        }
         DispatchQueue.global().async {
             if let imageUrl = profile.imageUrl {
                 DJImage = CachedImage.fetch(url: imageUrl)
