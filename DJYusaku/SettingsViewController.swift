@@ -141,6 +141,10 @@ class SettingsAboutThisAppViewController: UITableViewController, SFSafariViewCon
         URL(string: "https://github.com/tsuu32")!,      // tsuu32
         URL(string: "https://github.com/bldsky")!       // bldsky
     ]
+
+    let repositoryLink = URL(string: "https://github.com/enpitut2019/dj-yusaku")!
+    
+    let designerLink = URL(string: "https://yaplus.jp/")!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -159,8 +163,16 @@ class SettingsAboutThisAppViewController: UITableViewController, SFSafariViewCon
         switch indexPath.section {
         case 0: // Version
             break
-        case 1: // About Us
+        case 1: // Developer
             let url = self.developerGitHubLinks[indexPath.row]
+            let safariView = SFSafariViewController(url: url)
+            self.present(safariView, animated: true, completion: nil)
+        case 2: // Repository
+            let url = self.repositoryLink
+            let safariView = SFSafariViewController(url: url)
+            self.present(safariView, animated: true, completion: nil)
+        case 3: // Designer
+            let url = self.designerLink
             let safariView = SFSafariViewController(url: url)
             self.present(safariView, animated: true, completion: nil)
         default:
