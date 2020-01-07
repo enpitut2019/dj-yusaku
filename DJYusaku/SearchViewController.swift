@@ -33,7 +33,7 @@ class SearchViewController: UIViewController {
         // 検索バーの設定
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Songs, Artists, Lyrics, and More"
+        searchController.searchBar.placeholder = "Apple Music"
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         
@@ -59,6 +59,13 @@ class SearchViewController: UIViewController {
             self.storefrontCountryCode = storefrontCountryCode
         }
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        NotificationCenter.default.post(name: .DJYusakuModalViewDidDisappear, object: nil)
+    }
+
     
     @IBAction func closeButton(_ sender: Any) {
         self.dismiss(animated: true)

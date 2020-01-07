@@ -28,6 +28,7 @@
 		C43634D323923485000CE58F /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43634D223923485000CE58F /* DummyViewController.swift */; };
 		C436A8562350B16B009F6498 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = C436A8552350B16B009F6498 /* Song.swift */; };
 		C436A8582350D36F009F6498 /* SearchMusicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C436A8572350D36F009F6498 /* SearchMusicTableViewCell.swift */; };
+		C43DD58223C062E000DFF38F /* UINavigationController+PreferedViewControllerStatusBarColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43DD58123C062E000DFF38F /* UINavigationController+PreferedViewControllerStatusBarColor.swift */; };
 		C447ACA6234882F900D535EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447ACA5234882F900D535EB /* AppDelegate.swift */; };
 		C447ACA8234882F900D535EB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447ACA7234882F900D535EB /* SceneDelegate.swift */; };
 		C447ACAA234882F900D535EB /* RequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447ACA9234882F900D535EB /* RequestsViewController.swift */; };
@@ -36,6 +37,7 @@
 		C447ACB4234882FB00D535EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C447ACB2234882FB00D535EB /* LaunchScreen.storyboard */; };
 		C447ACBF234882FB00D535EB /* DJYusakuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447ACBE234882FB00D535EB /* DJYusakuTests.swift */; };
 		C447ACCA234882FB00D535EB /* DJYusakuUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447ACC9234882FB00D535EB /* DJYusakuUITests.swift */; };
+		C449C27423B24C8800A34BE0 /* UIColor+YusakuColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C449C27323B24C8800A34BE0 /* UIColor+YusakuColor.swift */; };
 		C46CE2082383EBC000492AC3 /* BatterySaverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46CE2072383EBC000492AC3 /* BatterySaverViewController.swift */; };
 		C4A3C95A2357E908005304AA /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = C4A3C9592357E908005304AA /* SwiftyJSON */; };
 		C4CF9725235163EF00C8A102 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CF9724235163EF00C8A102 /* SearchViewController.swift */; };
@@ -83,7 +85,8 @@
 		C43634D223923485000CE58F /* DummyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
 		C436A8552350B16B009F6498 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		C436A8572350D36F009F6498 /* SearchMusicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicTableViewCell.swift; sourceTree = "<group>"; };
-		C447ACA2234882F900D535EB /* DJYusaku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DJYusaku.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C43DD58123C062E000DFF38F /* UINavigationController+PreferedViewControllerStatusBarColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+PreferedViewControllerStatusBarColor.swift"; sourceTree = "<group>"; };
+		C447ACA2234882F900D535EB /* Juke.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Juke.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C447ACA5234882F900D535EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C447ACA7234882F900D535EB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C447ACA9234882F900D535EB /* RequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsViewController.swift; sourceTree = "<group>"; };
@@ -97,6 +100,7 @@
 		C447ACC5234882FB00D535EB /* DJYusakuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DJYusakuUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C447ACC9234882FB00D535EB /* DJYusakuUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJYusakuUITests.swift; sourceTree = "<group>"; };
 		C447ACCB234882FB00D535EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C449C27323B24C8800A34BE0 /* UIColor+YusakuColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+YusakuColor.swift"; sourceTree = "<group>"; };
 		C46CE2072383EBC000492AC3 /* BatterySaverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatterySaverViewController.swift; sourceTree = "<group>"; };
 		C4CF9724235163EF00C8A102 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C4D25957235205D10066FCE0 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
@@ -147,15 +151,15 @@
 				C447ACA4234882F900D535EB /* DJYusaku */,
 				C447ACBD234882FB00D535EB /* DJYusakuTests */,
 				C447ACC8234882FB00D535EB /* DJYusakuUITests */,
-				C447ACA3234882F900D535EB /* Products */,
 				101D596C23AA2CDA0067396C /* Frameworks */,
+				C447ACA3234882F900D535EB /* Products */,
 			);
 			sourceTree = "<group>";
 		};
 		C447ACA3234882F900D535EB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C447ACA2234882F900D535EB /* DJYusaku.app */,
+				C447ACA2234882F900D535EB /* Juke.app */,
 				C447ACBA234882FB00D535EB /* DJYusakuTests.xctest */,
 				C447ACC5234882FB00D535EB /* DJYusakuUITests.xctest */,
 			);
@@ -193,6 +197,8 @@
 				C436A8552350B16B009F6498 /* Song.swift */,
 				C43634CD23922708000CE58F /* TabBarController.swift */,
 				41D3624E23ABB03600E0ED1E /* TutorialViewController.swift */,
+				C449C27323B24C8800A34BE0 /* UIColor+YusakuColor.swift */,
+				C43DD58123C062E000DFF38F /* UINavigationController+PreferedViewControllerStatusBarColor.swift */,
 				C41F18E223AE03BE00E1A886 /* UserDefaults+DJYusakuDefaults.swift */,
 				C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */,
 				C447ACB0234882FB00D535EB /* Assets.xcassets */,
@@ -243,7 +249,7 @@
 				101D596E23AA2FE10067396C /* Swifter */,
 			);
 			productName = DJYusaku;
-			productReference = C447ACA2234882F900D535EB /* DJYusaku.app */;
+			productReference = C447ACA2234882F900D535EB /* Juke.app */;
 			productType = "com.apple.product-type.application";
 		};
 		C447ACB9234882FB00D535EB /* DJYusakuTests */ = {
@@ -399,6 +405,7 @@
 				C436A8562350B16B009F6498 /* Song.swift in Sources */,
 				C4D25958235205D10066FCE0 /* Secrets.swift in Sources */,
 				10937F5C23A9DB4F00CB819B /* SettingsViewController.swift in Sources */,
+				C43DD58223C062E000DFF38F /* UINavigationController+PreferedViewControllerStatusBarColor.swift in Sources */,
 				106B1C2F2372C696008684EB /* ConnectionController.swift in Sources */,
 				C447ACAA234882F900D535EB /* RequestsViewController.swift in Sources */,
 				C447ACA6234882F900D535EB /* AppDelegate.swift in Sources */,
@@ -407,6 +414,7 @@
 				C4D2595A235205EC0066FCE0 /* Secrets+Local.swift in Sources */,
 				B10A9E122373F46E00209871 /* MCSession+sendRequest.swift in Sources */,
 				418177822388EEF300A7B02A /* MemberTableViewCell.swift in Sources */,
+				C449C27423B24C8800A34BE0 /* UIColor+YusakuColor.swift in Sources */,
 				106B1C312372C83F008684EB /* ConnectionControllerDelegate.swift in Sources */,
 				C40DC880236570DD00E80AB1 /* WelcomeViewController.swift in Sources */,
 				C447ACA8234882F900D535EB /* SceneDelegate.swift in Sources */,
@@ -586,16 +594,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = J87XZSWPMZ;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = 29WP3DF4XR;
 				INFOPLIST_FILE = DJYusaku/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.5;
-				PRODUCT_BUNDLE_IDENTIFIER = jp.yaplus.DJYusaku.amylase;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				MARKETING_VERSION = 0.9;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.yaplus.DJYusaku;
+				PRODUCT_NAME = Juke;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -607,16 +615,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = J87XZSWPMZ;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = 29WP3DF4XR;
 				INFOPLIST_FILE = DJYusaku/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.5;
-				PRODUCT_BUNDLE_IDENTIFIER = jp.yaplus.DJYusaku.amylase;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				MARKETING_VERSION = 0.9;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.yaplus.DJYusaku;
+				PRODUCT_NAME = Juke;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

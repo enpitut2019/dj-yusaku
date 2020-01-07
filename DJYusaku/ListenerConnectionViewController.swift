@@ -25,10 +25,14 @@ class ListenerConnectionViewController: UIViewController {
         // tableViewのdelegate, dataSource設定
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.tableFooterView = UIView() // 空のセルの罫線を消す
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        
+        NotificationCenter.default.post(name: .DJYusakuModalViewDidDisappear, object: nil)
         
         ConnectionController.shared.stopBrowse()
     }
@@ -48,9 +52,9 @@ extension ListenerConnectionViewController: UITableViewDataSource {
         let profile = ConnectionController.shared.peerProfileCorrespondence[ConnectionController.shared.connectableDJs[indexPath.row]]!
         cell.djName?.text = profile.name
         if let numberOfParticipants = ConnectionController.shared.numberOfParticipantsCorrespondence[ConnectionController.shared.connectableDJs[indexPath.row]] {
-            cell.numberOfParticipants?.text = "\(numberOfParticipants)/8"
+            cell.numberOfParticipantsLabel?.text = "\(numberOfParticipants)/8"
             if numberOfParticipants == 8 {
-                cell.numberOfParticipantsBackgroundView.layer.backgroundColor = CGColor(srgbRed: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
+                cell.numberOfParticipantsLabel?.layer.backgroundColor = UIColor.red.cgColor
                 cell.djImageView.alpha = 0.3
                 cell.djName.alpha      = 0.3
                 cell.selectionStyle    = .none
