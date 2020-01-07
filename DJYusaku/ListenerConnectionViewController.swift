@@ -51,7 +51,9 @@ extension ListenerConnectionViewController: UITableViewDataSource {
             cell.numberOfParticipants?.text = "\(numberOfParticipants)/8"
             if numberOfParticipants == 8 {
                 cell.numberOfParticipantsBackgroundView.layer.backgroundColor = CGColor(srgbRed: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
-                cell.selectionStyle = .none
+                cell.djImageView.alpha = 0.3
+                cell.djName.alpha      = 0.3
+                cell.selectionStyle    = .none
             }
         }
         DispatchQueue.global().async {
