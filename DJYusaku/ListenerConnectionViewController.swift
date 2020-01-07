@@ -51,6 +51,9 @@ extension ListenerConnectionViewController: UITableViewDataSource {
             cell.numberOfParticipants?.text = "\(numberOfParticipants)/8"
             if numberOfParticipants == 8 {
                 cell.numberOfParticipantsBackgroundView.layer.backgroundColor = CGColor(srgbRed: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
+                cell.djImageView.alpha = 0.3
+                cell.djName.alpha      = 0.3
+                cell.selectionStyle    = .none
             }
         }
         DispatchQueue.global().async {
@@ -70,9 +73,11 @@ extension ListenerConnectionViewController: UITableViewDataSource {
 
 extension ListenerConnectionViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedDJ = ConnectionController.shared.connectableDJs[indexPath.row]
-        ConnectionController.shared.startListener(selectedDJ: selectedDJ)
-        self.dismiss(animated: true)
+        if ConnectionController.shared.numberOfParticipantsCorrespondence[ConnectionController.shared.connectableDJs[indexPath.row]] != 8 {
+            let selectedDJ = ConnectionController.shared.connectableDJs[indexPath.row]
+            ConnectionController.shared.startListener(selectedDJ: selectedDJ)
+            self.dismiss(animated: true)
+        }
     }
 }
 
