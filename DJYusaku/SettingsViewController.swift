@@ -15,6 +15,7 @@ class SettingsViewController: UITableViewController, SFSafariViewControllerDeleg
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var twitterAccountLabel: UILabel!
     @IBOutlet weak var willUseTwitterProfileSwitch: UISwitch!
+    @IBOutlet weak var isAutoLockEnabledSwitch: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,14 +35,19 @@ class SettingsViewController: UITableViewController, SFSafariViewControllerDeleg
             self.twitterAccountLabel.text = "@" + twitterAccount.screenName
         }
         
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        self.isAutoLockEnabledSwitch.isOn = DefaultsController.shared.isAutoLockEnabled
+        
+        self.tableView.reloadData()
     }
     
     
     @IBAction func willUseTwitterProfileSwitchValueDidChange(_ sender: UISwitch) {
         UserDefaults.standard.set(sender.isOn, forKey: UserDefaults.DJYusakuDefaults.WillUseTwitterProfile)
+    }
+    
+    
+    @IBAction func isAutoLockEnabledSwitchValueDidChange(_ sender: UISwitch) {
+        UserDefaults.standard.set(sender.isOn, forKey: UserDefaults.DJYusakuDefaults.isAutoLockEnabled)
     }
     
     // MARK: - UITableViewDelegate
@@ -53,7 +59,9 @@ class SettingsViewController: UITableViewController, SFSafariViewControllerDeleg
             break
         case 1: // Twitter
             self.tableViewTwitterSection(at: indexPath.row)
-        case 2: // About This App
+        case 2: // No Sleep
+            break
+        case 3: // About This App
             break
         default:
             break

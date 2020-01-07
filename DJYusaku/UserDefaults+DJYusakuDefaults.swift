@@ -13,5 +13,6 @@ extension UserDefaults {
         static let ProfileName           = "ProfileName"
         static let TwitterAccount        = "TwitterAccount"
         static let WillUseTwitterProfile = "WillUseTwitterProfile"
+        static let isAutoLockEnabled     = "isAutoLockEnabled"
     }
 }

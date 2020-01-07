@@ -1292,10 +1292,49 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Auto-Lock" id="jsY-1D-unb">
+                                <string key="footerTitle">When turned off system auto-lock, the screen will not auto-lock while this app is running.  In battery saver mode, auto-lock will be disabled automatically.</string>
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="VpO-rc-Owp">
+                                        <rect key="frame" x="16" y="340.49999618530273" width="343" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VpO-rc-Owp" id="HKR-sv-2ca">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fCY-sL-Iuc">
+                                                    <rect key="frame" x="274" y="6.6666666666666679" width="49" height="31.000000000000004"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="31" id="5d1-TP-IAz"/>
+                                                        <constraint firstAttribute="width" constant="47" id="zhM-DZ-Tyx"/>
+                                                    </constraints>
+                                                    <color key="onTintColor" name="YusakuPinkColor"/>
+                                                    <connections>
+                                                        <action selector="isAutoLockEnabledSwitchValueDidChange:" destination="Xlt-eI-mT8" eventType="valueChanged" id="zY9-uL-eqt"/>
+                                                    </connections>
+                                                </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="System Auto-Lock" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="clx-m3-sFM">
+                                                    <rect key="frame" x="15" y="11.666666666666664" width="313" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="clx-m3-sFM" firstAttribute="leading" secondItem="HKR-sv-2ca" secondAttribute="leading" constant="15" id="QVt-WC-VTy"/>
+                                                <constraint firstItem="clx-m3-sFM" firstAttribute="centerX" secondItem="HKR-sv-2ca" secondAttribute="centerX" id="VRb-wb-yG8"/>
+                                                <constraint firstItem="clx-m3-sFM" firstAttribute="centerY" secondItem="HKR-sv-2ca" secondAttribute="centerY" id="WbA-hY-13U"/>
+                                                <constraint firstItem="fCY-sL-Iuc" firstAttribute="centerY" secondItem="HKR-sv-2ca" secondAttribute="centerY" id="cPI-XY-gG9"/>
+                                                <constraint firstAttribute="trailing" secondItem="fCY-sL-Iuc" secondAttribute="trailing" constant="22" id="eaS-XD-FrO"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                             <tableViewSection id="c1Y-Le-C7u">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="IKi-es-3Ji" style="IBUITableViewCellStyleDefault" id="5oP-6Y-muh">
-                                        <rect key="frame" x="16" y="313.16666412353516" width="343" height="43.5"/>
+                                        <rect key="frame" x="16" y="479.99999618530273" width="343" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5oP-6Y-muh" id="Q0o-gm-JIS">
                                             <rect key="frame" x="0.0" y="0.0" width="317" height="43.5"/>
@@ -1324,6 +1363,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" id="gio-Mw-drT"/>
                     <connections>
+                        <outlet property="isAutoLockEnabledSwitch" destination="fCY-sL-Iuc" id="gbG-LZ-QGF"/>
                         <outlet property="twitterAccountLabel" destination="Y5i-Fz-AZG" id="Q91-th-3wE"/>
                         <outlet property="userNameLabel" destination="Bl7-8g-a7O" id="VKY-0W-nYe"/>
                         <outlet property="willUseTwitterProfileSwitch" destination="u1w-l1-k2W" id="dez-90-UEc"/>
