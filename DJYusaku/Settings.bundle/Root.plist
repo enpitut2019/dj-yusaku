@@ -8,9 +8,13 @@
 	<array>
 		<dict>
 			<key>Type</key>
-			<string>PSGroupSpecifier</string>
+			<string>PSTitleValueSpecifier</string>
+			<key>DefaultValue</key>
+			<string>0.5</string>
 			<key>Title</key>
-			<string>Acknowledgements</string>
+			<string>Version</string>
+			<key>Key</key>
+			<string>sbVersion</string>
 		</dict>
 		<dict>
 			<key>Type</key>

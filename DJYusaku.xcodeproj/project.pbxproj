@@ -230,6 +230,7 @@
 				C447AC9E234882F900D535EB /* Sources */,
 				C447AC9F234882F900D535EB /* Frameworks */,
 				C447ACA0234882F900D535EB /* Resources */,
+				103A077323C46ADE0077C92A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -356,6 +357,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		103A077323C46ADE0077C92A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/libexec/PlistBuddy -c \"Set :PreferenceSpecifiers:0:DefaultValue ${MARKETING_VERSION}\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/Settings.bundle/Root.plist\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C447AC9E234882F900D535EB /* Sources */ = {
