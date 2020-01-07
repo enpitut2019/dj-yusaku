@@ -59,7 +59,7 @@ class SettingsViewController: UITableViewController, SFSafariViewControllerDeleg
             break
         case 1: // Twitter
             self.tableViewTwitterSection(at: indexPath.row)
-        case 2: // No Sleep
+        case 2: // Auto-Lock
             break
         case 3: // About This App
             break
