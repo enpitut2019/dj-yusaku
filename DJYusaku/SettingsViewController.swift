@@ -47,7 +47,7 @@ class SettingsViewController: UITableViewController, SFSafariViewControllerDeleg
     
     
     @IBAction func isAutoLockEnabledSwitchValueDidChange(_ sender: UISwitch) {
-        UserDefaults.standard.set(sender.isOn, forKey: UserDefaults.DJYusakuDefaults.isAutoLockEnabled)
+        UserDefaults.standard.set(sender.isOn, forKey: UserDefaults.DJYusakuDefaults.IsAutoLockEnabled)
     }
     
     // MARK: - UITableViewDelegate

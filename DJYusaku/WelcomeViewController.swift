@@ -37,6 +37,18 @@ class WelcomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        // 初回起動の際にはTutorialViewControllerを表示する
+        let isLaunchedAtLeastOnce = UserDefaults.standard.bool(forKey: UserDefaults.DJYusakuDefaults.IsLaunchedAtLeastOnce)
+        if !isLaunchedAtLeastOnce {
+            // 起動済みであることをUserDefaultsに保存（DefaultsControllerを通さないことに注意）
+            UserDefaults.standard.set(true, forKey: UserDefaults.DJYusakuDefaults.IsLaunchedAtLeastOnce)
+            // モーダルでチュートリアルを表示
+            let storyboard: UIStoryboard = self.storyboard!
+            let tutorialViewController = storyboard.instantiateViewController(withIdentifier: "TutorialView")
+            tutorialViewController.isModalInPresentation = true
+            self.present(tutorialViewController, animated: true)
+        }
+        
         if ConnectionController.shared.isDJ != nil {
             self.doneButtonItem.isEnabled = true
         } else {

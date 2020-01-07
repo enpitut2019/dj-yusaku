@@ -40,7 +40,7 @@ class DefaultsController: NSObject {
         super.init()
         
         // UserDefaultsに初期値を設定する
-        UserDefaults.standard.register(defaults: [UserDefaults.DJYusakuDefaults.isAutoLockEnabled : true])
+        UserDefaults.standard.register(defaults: [UserDefaults.DJYusakuDefaults.IsAutoLockEnabled : true])
         
         // UserDefaultsの変更を監視する
         NotificationCenter.default.addObserver(self,
@@ -74,7 +74,7 @@ class DefaultsController: NSObject {
         }
         
         // 画面の自動ロックの設定を行う
-        self.isAutoLockEnabled = UserDefaults.standard.bool(forKey: UserDefaults.DJYusakuDefaults.isAutoLockEnabled)
+        self.isAutoLockEnabled = UserDefaults.standard.bool(forKey: UserDefaults.DJYusakuDefaults.IsAutoLockEnabled)
         UIApplication.shared.isIdleTimerDisabled = !self.isAutoLockEnabled
         
         self.sendProfile()  // プロフィールを他のピアに送信する
