@@ -74,6 +74,7 @@ class SettingsViewController: UITableViewController, SFSafariViewControllerDeleg
                 let data = try! JSONEncoder().encode(twitterAccount)
                 UserDefaults.standard.set(data, forKey: UserDefaults.DJYusakuDefaults.TwitterAccount)
                 self.twitterAccountLabel.text = "@" + twitterAccount.screenName
+                self.willUseTwitterProfileSwitch.isEnabled = true
             }, failure: { error in
                 print("Swifter Error at SettingsViewController.tableViewTwitterSection():", error.localizedDescription)
             })
@@ -130,7 +131,7 @@ class SettingsNameViewController: UITableViewController, UITextFieldDelegate {
 
 // MARK: - SettingsAboutThisAppViewController
 
-class SettingsAboutThisAppViewController: UITableViewController {
+class SettingsAboutThisAppViewController: UITableViewController, SFSafariViewControllerDelegate {
     
     @IBOutlet weak var versionLabel: UILabel!
     
@@ -160,9 +161,8 @@ class SettingsAboutThisAppViewController: UITableViewController {
             break
         case 1: // About Us
             let url = self.developerGitHubLinks[indexPath.row]
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url)
-            }
+            let safariView = SFSafariViewController(url: url)
+            self.present(safariView, animated: true, completion: nil)
         default:
             break
         }
