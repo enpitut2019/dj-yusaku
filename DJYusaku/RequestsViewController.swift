@@ -149,6 +149,7 @@ class RequestsViewController: UIViewController {
     @objc func handlePlayerControllerViewFromUserState() {
         guard let isDJ = ConnectionController.shared.isDJ else { return }
         self.playerControllerView.isHidden = !isDJ
+        self.tableView.allowsSelection = isDJ
     }
     
     @objc func handleButtonStateChange() {
