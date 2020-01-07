@@ -1167,7 +1167,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="ZUJ-JJ-l3v">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="ZUJ-JJ-l3v">
                                         <rect key="frame" x="16" y="205.66666412353516" width="343" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZUJ-JJ-l3v" id="NhU-Yo-yjx">
@@ -1300,7 +1300,7 @@
                         <sections>
                             <tableViewSection id="cVv-8L-fQD">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="GMN-mA-aEf" detailTextLabel="nqe-80-yWS" style="IBUITableViewCellStyleValue1" id="x2u-he-Ufk">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" textLabel="GMN-mA-aEf" detailTextLabel="nqe-80-yWS" style="IBUITableViewCellStyleValue1" id="x2u-he-Ufk">
                                         <rect key="frame" x="16" y="18" width="343" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="x2u-he-Ufk" id="Bza-u1-aP8">
