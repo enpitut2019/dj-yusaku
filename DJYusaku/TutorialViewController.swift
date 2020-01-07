@@ -11,6 +11,7 @@ import SnapKit
 
 class TutorialViewController: UIViewController {
     
+    private(set) static var current: UIViewController?
     private var pageViewController: UIPageViewController!
     private var tutorialContents: [UIViewController] = []
     @IBOutlet weak var pageControl: UIPageControl!
@@ -51,6 +52,8 @@ class TutorialViewController: UIViewController {
         self.view.bringSubviewToFront(self.pageControl)
         self.pageControl.numberOfPages = self.tutorialContents.count
         self.pageControl.currentPage   = 0
+        
+        TutorialViewController.current = self
     }
 
 }
@@ -145,11 +148,19 @@ class TutorialThirdViewController: UIViewController, TutorialContentType {
 
 class TutorialFourthViewController: UIViewController, TutorialContentType {
     var indexOfTutorialContent: Int = 3
-
+    @IBOutlet weak var startUsingButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.startUsingButton.layer.cornerRadius = 6
+        self.startUsingButton.clipsToBounds = true
+        self.startUsingButton.layer.borderColor = UIColor.white.cgColor
+        self.startUsingButton.layer.borderWidth = 1.5
     }
 
+    @IBAction func startUsingButtonTouchUpInside(_ sender: Any) {
+        TutorialViewController.current?.dismiss(animated: true)
+    }
+    
 }
