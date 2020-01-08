@@ -104,6 +104,9 @@ class ConnectionController: NSObject {
     }
     
     func startDJ() {
+        if let wasDJ = self.isDJ, wasDJ {
+            PlayerQueue.shared.clearSongs()
+        }
         self.isDJ = true
         self.disconnect()
         let profile = DefaultsController.shared.profile
@@ -113,7 +116,9 @@ class ConnectionController: NSObject {
     }
     
     func startListener(selectedDJ: MCPeerID) {
-        PlayerQueue.shared.clearSongs()
+        if let wasDJ = self.isDJ, wasDJ {
+            PlayerQueue.shared.clearSongs()
+        }
         self.isDJ = false
         if selectedDJ != self.connectedDJ?.peerID {
             self.disconnect()
