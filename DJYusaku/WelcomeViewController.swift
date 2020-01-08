@@ -19,6 +19,9 @@ class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // ナビゲーションバーの見た目を設定
+        self.navigationController?.navigationBar.shadowImage = UIImage()    // 下線を消す
+        
         if !ConnectionController.shared.isInitialized {
             ConnectionController.shared.initialize()
         }

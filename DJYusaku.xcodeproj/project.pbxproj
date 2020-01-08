@@ -102,6 +102,7 @@
 		C447ACCB234882FB00D535EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C449C27323B24C8800A34BE0 /* UIColor+YusakuColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+YusakuColor.swift"; sourceTree = "<group>"; };
 		C46CE2072383EBC000492AC3 /* BatterySaverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatterySaverViewController.swift; sourceTree = "<group>"; };
+		C46F48DA23C59A7D00EF7562 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
 		C4CF9724235163EF00C8A102 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C4D25957235205D10066FCE0 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		C4D25959235205EC0066FCE0 /* Secrets+Local.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Secrets+Local.swift"; sourceTree = "<group>"; };
@@ -318,6 +319,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ja,
 			);
 			mainGroup = C447AC99234882F900D535EB;
 			packageReferences = (
@@ -458,6 +460,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				C447ACAE234882F900D535EB /* Base */,
+				C46F48DA23C59A7D00EF7562 /* ja */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
