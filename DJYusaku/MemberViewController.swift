@@ -78,7 +78,7 @@ class MemberViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.DJNameLabel.alpha = 1.0
                     self.DJImageView.alpha = 1.0
-                    self.DJStatusLabel.text = "Connecting"
+                    self.DJStatusLabel.text = ConnectionController.shared.isDJ! ? "You" : "Connecting"
                     self.DJImageView.image = DJImage ?? UIImage(named: "TemporarySingleColored")
                     self.DJImageView.setNeedsLayout()
                 }
@@ -97,7 +97,7 @@ class MemberViewController: UIViewController {
                     } else {
                         self.DJNameLabel.alpha = 1.0
                         self.DJImageView.alpha = 1.0
-                        self.DJStatusLabel.text = "Connecting"
+                        self.DJStatusLabel.text = ConnectionController.shared.isDJ! ? "You" : "Connecting"
                     }
                     self.DJImageView.image = DJImage ?? UIImage(named: "TemporarySingleColored")
                     self.DJImageView.setNeedsLayout()
@@ -140,6 +140,7 @@ extension MemberViewController: UITableViewDataSource {
         if indexPath.row == 0 && !ConnectionController.shared.isDJ! { // 自分自身（子機）
             let profile = DefaultsController.shared.profile
             cell.peerName.text = profile.name
+            cell.statusView.isHidden = false
             DispatchQueue.global().async {
                 if let imageUrl = profile.imageUrl {
                     listenerImage = CachedImage.fetch(url: imageUrl)
@@ -152,6 +153,7 @@ extension MemberViewController: UITableViewDataSource {
         } else { // 自分以外の子機
             if let profile = ConnectionController.shared.peerProfileCorrespondence[self.listeners[indexPath.row]] {
                 cell.peerName.text = profile.name
+                cell.statusView.isHidden = true
                 DispatchQueue.global().async {
                     if let imageUrl = profile.imageUrl {
                         listenerImage = CachedImage.fetch(url: imageUrl)
