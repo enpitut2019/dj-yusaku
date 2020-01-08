@@ -99,7 +99,7 @@ extension TutorialViewController: UIPageViewControllerDelegate {
     
 }
 
-// MARK: - TutorialContentViewController
+// MARK: - TutorialContentType
 
 protocol TutorialContentType {
     var indexOfTutorialContent: Int { get }

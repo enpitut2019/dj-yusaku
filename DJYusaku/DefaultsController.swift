@@ -34,9 +34,14 @@ class DefaultsController: NSObject {
                                                  consumerSecret: Secrets.TwitterConsumerSecret)
     private(set) var profile: PeerProfile = PeerProfile(name: UIDevice.current.name, imageUrl: nil)
     private(set) var willUseTwitterProfile : Bool = false
+    private(set) var isAutoLockEnabled : Bool = true
     
     private override init() {
         super.init()
+        
+        // UserDefaultsに初期値を設定する
+        UserDefaults.standard.register(defaults: [UserDefaults.DJYusakuDefaults.IsAutoLockEnabled : true])
+        
         // UserDefaultsの変更を監視する
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleUserDefaultsDidChange),
@@ -67,6 +72,10 @@ class DefaultsController: NSObject {
                 }
             }
         }
+        
+        // 画面の自動ロックの設定を行う
+        self.isAutoLockEnabled = UserDefaults.standard.bool(forKey: UserDefaults.DJYusakuDefaults.IsAutoLockEnabled)
+        UIApplication.shared.isIdleTimerDisabled = !self.isAutoLockEnabled
         
         self.sendProfile()  // プロフィールを他のピアに送信する
     }

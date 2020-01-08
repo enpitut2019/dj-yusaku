@@ -51,7 +51,9 @@ class BatterySaverViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        UIApplication.shared.isIdleTimerDisabled = false    // 自動スリープをONにする
+        // 自動スリープをONにする
+        UIApplication.shared.isIdleTimerDisabled = !DefaultsController.shared.isAutoLockEnabled
+        
         UIScreen.main.brightness = self.previousScreenBrightness // 画面の明るさを復元する
     }
     
