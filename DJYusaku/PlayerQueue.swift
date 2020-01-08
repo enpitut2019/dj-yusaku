@@ -202,7 +202,7 @@ class PlayerQueue{
     }
     
     func clearSongs() {
-        PlayerQueue.shared.mpAppController.stop()
+        self.mpAppController.stop()
         songs.removeAll()
         isQueueCreated = false
         NotificationCenter.default.post(name: .DJYusakuIsQueueCreatedDidChange, object: nil)

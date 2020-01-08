@@ -12,7 +12,6 @@ import MultipeerConnectivity
 extension Notification.Name{
     static let DJYusakuConnectionControllerNowPlayingSongDidChange = Notification.Name("DJYusakuConnectionControllerNowPlayingSongDidChange")
     static let DJYusakuPeerConnectionStateDidUpdate = Notification.Name("DJYusakuPeerConnectionStateDidUpdate")
-    static let DJYusakuDisconnectedFromDJ = Notification.Name("DJYusakuDisconnectedFromDJ")
     static let DJYusakuUserStateDidUpdate =
         Notification.Name("DJYusakuUserStateDidUpdate")
 }
@@ -36,9 +35,10 @@ class ConnectionController: NSObject {
     
     private(set) var peerProfileCorrespondence: [MCPeerID:PeerProfile] = [:]
     
+    // ListenerConnectionViewController用
+    private(set) var connectableDJs: [MCPeerID] = []
     private(set) var numberOfParticipantsCorrespondence: [MCPeerID:Int] = [:]
     
-    private(set) var connectableDJs: [MCPeerID] = [] //  ListenerConnectionViewController用
     private(set) var receivedSongs: [Song] = [] // リスナー用
     
     var numberOfParticipants: Int {
