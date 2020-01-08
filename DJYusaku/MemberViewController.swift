@@ -56,16 +56,18 @@ class MemberViewController: UIViewController {
     }
     
     func updateMembers() {
+        let connectedDJ = ConnectionController.shared.connectedDJ
+        
         let DJName = ConnectionController.shared.isDJ!
                    ? DefaultsController.shared.profile.name
-                   : ConnectionController.shared.peerProfileCorrespondence[ConnectionController.shared.connectedDJ!.peerID]!.name
+                   : ConnectionController.shared.peerProfileCorrespondence[connectedDJ!.peerID]!.name
         var DJImage: UIImage?
         
         self.listeners = ConnectionController.shared.session.connectedPeers
         
         if !ConnectionController.shared.isDJ! {
             // 接続している端末（親機）はtableViewには表示しない
-            self.listeners = self.listeners.filter({ $0 != ConnectionController.shared.connectedDJ!.peerID })
+            self.listeners = self.listeners.filter({ $0 != connectedDJ!.peerID })
             // 子機のときは自分を先頭に挿入
             self.listeners.insert(ConnectionController.shared.peerID, at: 0)
         }
@@ -85,12 +87,12 @@ class MemberViewController: UIViewController {
             }
         } else {
             DispatchQueue.global().async {
-                if let imageUrl = ConnectionController.shared.peerProfileCorrespondence[ConnectionController.shared.connectedDJ!.peerID]!.imageUrl {
+                if let imageUrl = ConnectionController.shared.peerProfileCorrespondence[connectedDJ!.peerID]!.imageUrl {
                     DJImage = CachedImage.fetch(url: imageUrl)
                 }
                 DispatchQueue.main.async {
                     self.noListenersView.isHidden = true
-                    if ConnectionController.shared.connectedDJ!.state != .connected {
+                    if connectedDJ!.state != .connected {
                         self.DJNameLabel.alpha = 0.3
                         self.DJImageView.alpha = 0.3
                         self.DJStatusLabel.text = "Missing".localized
