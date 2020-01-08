@@ -96,9 +96,9 @@ class DefaultsController: NSObject {
         guard ConnectionController.shared.session.connectedPeers.count != 0 else { return }
         let data = try! JSONEncoder().encode(profile)
         let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.DataType.peerProfile, value: data))
-        ConnectionController.shared.session.sendRequest(messageData,
-                                                        toPeers: ConnectionController.shared.session.connectedPeers,
-                                                        with: .unreliable)
+        ConnectionController.shared.send(messageData,
+                                         toPeers: ConnectionController.shared.session.connectedPeers,
+                                         with: .unreliable)
     }
     
     @objc func handleUserDefaultsDidChange(_ notification: Notification) {

@@ -33,11 +33,7 @@ class PlayerQueue{
                 let songsData = try! JSONEncoder().encode(songs)
                 let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.DataType.requestSongs, value: songsData))
                 
-                do {
-                    try ConnectionController.shared.session.send(messageData, toPeers: ConnectionController.shared.session.connectedPeers, with: .unreliable)
-                } catch let error {
-                    print(error)
-                }
+                ConnectionController.shared.send(messageData, toPeers: ConnectionController.shared.session.connectedPeers, with: .unreliable)
             }
         }
     }
@@ -202,7 +198,7 @@ class PlayerQueue{
     }
     
     func clearSongs() {
-        PlayerQueue.shared.mpAppController.stop()
+        self.mpAppController.stop()
         songs.removeAll()
         isQueueCreated = false
         NotificationCenter.default.post(name: .DJYusakuIsQueueCreatedDidChange, object: nil)

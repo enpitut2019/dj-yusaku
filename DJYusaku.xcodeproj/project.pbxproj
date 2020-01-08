@@ -19,7 +19,6 @@
 		4181777C2388DC5E00A7B02A /* MemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4181777B2388DC5E00A7B02A /* MemberViewController.swift */; };
 		418177822388EEF300A7B02A /* MemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418177812388EEF300A7B02A /* MemberTableViewCell.swift */; };
 		41D3624F23ABB03600E0ED1E /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D3624E23ABB03600E0ED1E /* TutorialViewController.swift */; };
-		B10A9E122373F46E00209871 /* MCSession+sendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10A9E112373F46E00209871 /* MCSession+sendRequest.swift */; };
 		B125D88D235F426C00D383E7 /* CachedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B125D88C235F426C00D383E7 /* CachedImage.swift */; };
 		C40DC880236570DD00E80AB1 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */; };
 		C41F18E323AE03BE00E1A886 /* UserDefaults+DJYusakuDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41F18E223AE03BE00E1A886 /* UserDefaults+DJYusakuDefaults.swift */; };
@@ -77,7 +76,6 @@
 		4181777B2388DC5E00A7B02A /* MemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberViewController.swift; sourceTree = "<group>"; };
 		418177812388EEF300A7B02A /* MemberTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTableViewCell.swift; sourceTree = "<group>"; };
 		41D3624E23ABB03600E0ED1E /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
-		B10A9E112373F46E00209871 /* MCSession+sendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MCSession+sendRequest.swift"; sourceTree = "<group>"; };
 		B125D88C235F426C00D383E7 /* CachedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImage.swift; sourceTree = "<group>"; };
 		C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		C41F18E223AE03BE00E1A886 /* UserDefaults+DJYusakuDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+DJYusakuDefaults.swift"; sourceTree = "<group>"; };
@@ -180,7 +178,6 @@
 				C43634D223923485000CE58F /* DummyViewController.swift */,
 				106B1C2C2372BE1F008684EB /* ListenerConnectableDJsTableViewCell.swift */,
 				106B1C2A2372BCA8008684EB /* ListenerConnectionViewController.swift */,
-				B10A9E112373F46E00209871 /* MCSession+sendRequest.swift */,
 				418177812388EEF300A7B02A /* MemberTableViewCell.swift */,
 				4181777B2388DC5E00A7B02A /* MemberViewController.swift */,
 				1049BAF723877093001DCFD8 /* MessageData.swift */,
@@ -412,7 +409,6 @@
 				C43634CE23922708000CE58F /* TabBarController.swift in Sources */,
 				106B1C2B2372BCA8008684EB /* ListenerConnectionViewController.swift in Sources */,
 				C4D2595A235205EC0066FCE0 /* Secrets+Local.swift in Sources */,
-				B10A9E122373F46E00209871 /* MCSession+sendRequest.swift in Sources */,
 				418177822388EEF300A7B02A /* MemberTableViewCell.swift in Sources */,
 				C449C27423B24C8800A34BE0 /* UIColor+YusakuColor.swift in Sources */,
 				106B1C312372C83F008684EB /* ConnectionControllerDelegate.swift in Sources */,

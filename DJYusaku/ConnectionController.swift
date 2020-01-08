@@ -12,7 +12,6 @@ import MultipeerConnectivity
 extension Notification.Name{
     static let DJYusakuConnectionControllerNowPlayingSongDidChange = Notification.Name("DJYusakuConnectionControllerNowPlayingSongDidChange")
     static let DJYusakuPeerConnectionStateDidUpdate = Notification.Name("DJYusakuPeerConnectionStateDidUpdate")
-    static let DJYusakuDisconnectedFromDJ = Notification.Name("DJYusakuDisconnectedFromDJ")
     static let DJYusakuUserStateDidUpdate =
         Notification.Name("DJYusakuUserStateDidUpdate")
 }
@@ -36,9 +35,10 @@ class ConnectionController: NSObject {
     
     private(set) var peerProfileCorrespondence: [MCPeerID:PeerProfile] = [:]
     
+    // ListenerConnectionViewController用
+    private(set) var connectableDJs: [MCPeerID] = []
     private(set) var numberOfParticipantsCorrespondence: [MCPeerID:Int] = [:]
     
-    private(set) var connectableDJs: [MCPeerID] = [] //  ListenerConnectionViewController用
     private(set) var receivedSongs: [Song] = [] // リスナー用
     
     var numberOfParticipants: Int {
@@ -129,6 +129,15 @@ class ConnectionController: NSObject {
         NotificationCenter.default.post(name: .DJYusakuUserStateDidUpdate, object: nil)
     }
     
+    func send(_ data: Data, toPeers peerIDs: [MCPeerID], with mode: MCSessionSendDataMode, completion: (() -> (Void))? = nil) {
+        do {
+            try self.session.send(data, toPeers: peerIDs, with: mode)
+            if let completion = completion { completion() }
+        } catch {
+            print(error)
+        }
+    }
+    
 }
 
 // MARK: - MCSessionDelegate
@@ -157,7 +166,7 @@ extension ConnectionController: MCSessionDelegate {
             // 接続したらプロフィールを他のピアに送信する
             let data = try! JSONEncoder().encode(DefaultsController.shared.profile)
             let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.peerProfile, value: data))
-            self.session.sendRequest(messageData, toPeers: [peerID], with: .unreliable)
+            self.send(messageData, toPeers: [peerID], with: .unreliable)
             
             if self.isDJ! {   // DJが新しい子機と接続したとき
                 var songs: [Song] = []
@@ -166,7 +175,7 @@ extension ConnectionController: MCSessionDelegate {
                 }
                 let songsData = try! JSONEncoder().encode(songs)
                 let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.requestSongs, value: songsData))
-                self.session.sendRequest(messageData, toPeers: [peerID], with: .unreliable)
+                self.send(messageData, toPeers: [peerID], with: .unreliable)
                 //注意: これはPlayerQueueで実装しているNotification.Nameです
                 NotificationCenter.default.post(name:
                     .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
