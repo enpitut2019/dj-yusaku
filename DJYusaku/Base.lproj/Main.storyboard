@@ -577,7 +577,6 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                     <constraints>
                                                         <constraint firstItem="YiX-nO-KLp" firstAttribute="width" secondItem="4Ew-Lp-Gqh" secondAttribute="width" id="3V3-Gm-CSS"/>
                                                         <constraint firstAttribute="height" constant="32" id="Pfb-Tv-A8y"/>

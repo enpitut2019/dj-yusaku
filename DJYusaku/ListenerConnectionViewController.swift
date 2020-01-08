@@ -53,7 +53,7 @@ extension ListenerConnectionViewController: UITableViewDataSource {
         cell.djName?.text = profile.name
         if let numberOfParticipants = ConnectionController.shared.numberOfParticipantsCorrespondence[ConnectionController.shared.connectableDJs[indexPath.row]] {
             cell.numberOfParticipantsLabel?.text = "\(numberOfParticipants)/8"
-            if numberOfParticipants == 8 {
+            if numberOfParticipants >= 8 {
                 cell.numberOfParticipantsLabel?.layer.backgroundColor = UIColor.red.cgColor
                 cell.djImageView.alpha = 0.3
                 cell.djName.alpha      = 0.3
@@ -77,7 +77,7 @@ extension ListenerConnectionViewController: UITableViewDataSource {
 
 extension ListenerConnectionViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if ConnectionController.shared.numberOfParticipantsCorrespondence[ConnectionController.shared.connectableDJs[indexPath.row]] != 8 {
+        if ConnectionController.shared.numberOfParticipantsCorrespondence[ConnectionController.shared.connectableDJs[indexPath.row]]! < 8 {
             let selectedDJ = ConnectionController.shared.connectableDJs[indexPath.row]
             ConnectionController.shared.startListener(selectedDJ: selectedDJ)
             self.dismiss(animated: true)
