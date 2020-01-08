@@ -121,7 +121,7 @@ extension SearchViewController: UITableViewDelegate {
             
             let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.requestSong, value: songData))
             
-            ConnectionController.shared.session.sendRequest(messageData, toPeers: [ConnectionController.shared.connectedDJ!.peerID], with: .unreliable) { [unowned viewController] in
+            ConnectionController.shared.send(messageData, toPeers: [ConnectionController.shared.connectedDJ!.peerID], with: .unreliable) { [unowned viewController] in
                 viewController.dismiss(animated: true)    // 1曲追加するごとにViewを閉じる
             }
         }

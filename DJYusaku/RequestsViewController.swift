@@ -119,11 +119,7 @@ class RequestsViewController: UIViewController {
         
         let indexOfNowPlayingItemData = try! JSONEncoder().encode(PlayerQueue.shared.mpAppController.indexOfNowPlayingItem)
         let messageData = try! JSONEncoder().encode(MessageData(desc: MessageData.DataType.nowPlaying, value: indexOfNowPlayingItemData))
-        do {
-            try ConnectionController.shared.session.send(messageData, toPeers: ConnectionController.shared.session.connectedPeers, with: .unreliable)
-        } catch let error {
-            print(error)
-        }
+        ConnectionController.shared.send(messageData, toPeers: ConnectionController.shared.session.connectedPeers, with: .unreliable)
     }
     
     // （リスナーのとき）NowPlayingItemが変わったとき呼ばれる
