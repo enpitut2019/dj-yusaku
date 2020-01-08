@@ -1,0 +1,28 @@
+/* 
+  Localizable.strings
+  DJYusaku
+
+  Created by Hayato Kohara on 2020/01/08.
+  Copyright © 2020 Yusaku. All rights reserved.
+*/
+
+// PlayerQueue.swift
+"Request failed" = "Request failed";
+"Queue insertion failed. Try again." = "Queue insertion failed. Try again.";
+"Queue insertion failed. Try again." = "Queue insertion failed. Try again.";
+"Queue deletion failed. Try again." = "Queue deletion failed. Try again.";
+"Move failed" = "Move failed";
+"Swap failed. Try again." = "Swap failed. Try again.";
+
+// RequestsViewController.swift
+"Battery Saver Mode" = "Battery Saver Mode";
+"To exit battery saver mode, double-tap the screen." = "To exit battery saver mode, double-tap the screen.";
+
+// SearchViewController.swift
+"Apple Music connection failed" = "Apple Music connection failed";
+"Please check your online status or iCloud account status." = "Please check your iCloud account status.";
+
+// MemberViewController.swift
+"Missing" = "Missing";
+"Connecting" = "Connecting";
+"You" = "You";

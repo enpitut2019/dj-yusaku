@@ -1,6 +1,6 @@
 
 /* Class = "UILabel"; text = "Connecting"; ObjectID = "0Zn-fy-Vhb"; */
-"0Zn-fy-Vhb.text" = "Connecting";
+"0Zn-fy-Vhb.text" = "接続中";
 
 /* Class = "UIBarButtonItem"; title = "Close"; ObjectID = "0pZ-kI-uKF"; */
 "0pZ-kI-uKF.title" = "閉じる";
@@ -156,7 +156,7 @@
 "dzb-SC-M7Y.title" = "開催中";
 
 /* Class = "UILabel"; text = "If you are the session master and do not make a request, you can turn off the screen in \"battery saver mode\" to save battery power."; ObjectID = "eMj-i6-vVp"; */
-"eMj-i6-vVp.text" = "あなたがセッションの親機であり、リクエストをしない場合（たとえば車の運転中など）は、バッテリーセーバーモードにすることで、画面をオフにして電力を節約することができます。";
+"eMj-i6-vVp.text" = "あなたがセッションの親機であり、リクエストをしない場合（たとえば車の運転中など）は、省電力モードにすることで、画面をオフにして電力を節約することができます。";
 
 /* Class = "UILabel"; text = "enpitut2019/dj-yusaku"; ObjectID = "elk-Zp-L5e"; */
 "elk-Zp-L5e.text" = "enpitut2019/dj-yusaku";
@@ -180,7 +180,7 @@
 "ig8-lj-p2R.headerTitle" = "開発者";
 
 /* Class = "UITableViewSection"; footerTitle = "When system auto-lock is disabled, the screen will not auto-lock while this app is running. In battery saver mode, auto-lock will be disabled regardless of whether system auto-lock is enabled or not."; ObjectID = "jsY-1D-unb"; */
-"jsY-1D-unb.footerTitle" = "システムの自動ロックを無効にすると、このアプリを使っている間は画面を自動ロックされなくなります。バッテリーセーバーモードでは、この設定に関係なくシステムの自動ロックは無効になります。";
+"jsY-1D-unb.footerTitle" = "システムの自動ロックを無効にすると、このアプリを使っている間は画面を自動ロックされなくなります。省電力モードでは、この設定に関係なくシステムの自動ロックは無効になります。";
 
 /* Class = "UITableViewSection"; headerTitle = "Auto-Lock"; ObjectID = "jsY-1D-unb"; */
 "jsY-1D-unb.headerTitle" = "自動ロック";
@@ -204,7 +204,7 @@
 "rzh-G5-F41.text" = "Hayato Kohara";
 
 /* Class = "UILabel"; text = "You"; ObjectID = "smN-R0-RlJ"; */
-"smN-R0-RlJ.text" = "You";
+"smN-R0-RlJ.text" = "あなた";
 
 /* Class = "UILabel"; text = "Play Together."; ObjectID = "umK-U6-Lcw"; */
 "umK-U6-Lcw.text" = "いっしょに再生。";
@@ -219,7 +219,7 @@
 "wPt-KA-6um.title" = "名前";
 
 /* Class = "UILabel"; text = "To exit battery saver mode, double-tap the screen."; ObjectID = "whP-AR-UDb"; */
-"whP-AR-UDb.text" = "画面をダブルタップすると バッテリーセーバーを終了します。";
+"whP-AR-UDb.text" = "画面をダブルタップすると、 省電力モードを終了します。";
 
 /* Class = "UILabel"; text = "Name"; ObjectID = "yP3-9N-fvb"; */
 "yP3-9N-fvb.text" = "名前";

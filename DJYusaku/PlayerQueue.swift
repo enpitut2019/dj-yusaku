@@ -66,7 +66,7 @@ class PlayerQueue{
             // 前のキューへの追加処理が時間内に終わっていなければとりあえずリクエストを捨てる
             DispatchQueue.main.async {
                 guard let rootViewController = (UIApplication.shared.windows.filter{$0.isKeyWindow}.first)?.rootViewController else { return }
-                let alert = UIAlertController(title: "Request failed", message: "Queue insertion failed. Try again.", preferredStyle: UIAlertController.Style.alert)
+                let alert = UIAlertController(title: "Request failed".localized, message: "Queue insertion failed. Try again.".localized, preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 rootViewController.present(alert, animated: true)
             }
@@ -96,7 +96,7 @@ class PlayerQueue{
             // 前のキューへの追加処理が時間内に終わっていなければとりあえずリクエストを捨てる
             DispatchQueue.main.async {
                 guard let rootViewController = (UIApplication.shared.windows.filter{$0.isKeyWindow}.first)?.rootViewController else { return }
-                let alert = UIAlertController(title: "Request failed", message: "Queue insertion failed. Try again.", preferredStyle: UIAlertController.Style.alert)
+                let alert = UIAlertController(title: "Request failed".localized, message: "Queue insertion failed. Try again.".localized, preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 rootViewController.present(alert, animated: true)
             }
@@ -124,7 +124,7 @@ class PlayerQueue{
             // 前のキューへの追加処理が時間内に終わっていなければとりあえずリクエストを捨てる
             DispatchQueue.main.async {
                 guard let rootViewController = (UIApplication.shared.windows.filter{$0.isKeyWindow}.first)?.rootViewController else { return }
-                let alert = UIAlertController(title: "Deletion failed", message: "Queue deletion failed. Try again.", preferredStyle: UIAlertController.Style.alert)
+                let alert = UIAlertController(title: "Deletion failed".localized, message: "Queue deletion failed. Try again.".localized, preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 rootViewController.present(alert, animated: true)
             }
@@ -151,7 +151,7 @@ class PlayerQueue{
             // 前のキューへの追加処理が時間内に終わっていなければとりあえずリクエストを捨てる
             DispatchQueue.main.async {
                 guard let rootViewController = (UIApplication.shared.windows.filter{$0.isKeyWindow}.first)?.rootViewController else { return }
-                let alert = UIAlertController(title: "Move failed", message: "Swap failed. Try again.", preferredStyle: UIAlertController.Style.alert)
+                let alert = UIAlertController(title: "Move failed".localized, message: "Swap failed. Try again.".localized, preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 rootViewController.present(alert, animated: true)
             }
