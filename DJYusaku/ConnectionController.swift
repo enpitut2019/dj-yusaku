@@ -30,8 +30,13 @@ class ConnectionController: NSObject {
     
     private(set) var isInitialized = false
     
-    private(set) var isDJ: Bool? = nil
+    private(set) var isDJorListener = false
     private(set) var connectedDJ: (peerID: MCPeerID, state: MCSessionState)? = nil
+    var isDJ: Bool? {
+        get {
+            return isDJorListener ? (connectedDJ == nil) : nil
+        }
+    }
     
     private(set) var peerProfileCorrespondence: [MCPeerID:PeerProfile] = [:]
     
@@ -107,7 +112,7 @@ class ConnectionController: NSObject {
         if let wasDJ = self.isDJ, wasDJ {
             PlayerQueue.shared.clearSongs()
         }
-        self.isDJ = true
+        self.isDJorListener = true
         self.disconnect()
         let profile = DefaultsController.shared.profile
         startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: self.numberOfParticipants)
@@ -119,12 +124,12 @@ class ConnectionController: NSObject {
         if let wasDJ = self.isDJ, wasDJ {
             PlayerQueue.shared.clearSongs()
         }
-        self.isDJ = false
+        self.isDJorListener = true
         if selectedDJ != self.connectedDJ?.peerID {
             self.disconnect()
         }
-        self.browser.invitePeer(selectedDJ, to: session, withContext: nil, timeout: 10.0)
         self.connectedDJ = (selectedDJ, .connected)
+        self.browser.invitePeer(selectedDJ, to: session, withContext: nil, timeout: 10.0)
         self.advertiser?.stopAdvertisingPeer()
         NotificationCenter.default.post(name: .DJYusakuUserStateDidUpdate, object: nil)
     }
