@@ -171,12 +171,12 @@ class SettingsAboutThisAppViewController: UITableViewController, SFSafariViewCon
         switch indexPath.section {
         case 0: // Version
             break
-        case 1: // Developer
-            let url = self.developerGitHubLinks[indexPath.row]
+        case 1: // Repository
+            let url = self.repositoryLink
             let safariView = SFSafariViewController(url: url)
             self.present(safariView, animated: true, completion: nil)
-        case 2: // Repository
-            let url = self.repositoryLink
+        case 2: // Developer
+            let url = self.developerGitHubLinks[indexPath.row]
             let safariView = SFSafariViewController(url: url)
             self.present(safariView, animated: true, completion: nil)
         case 3: // Designer
