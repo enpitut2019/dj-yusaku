@@ -50,8 +50,9 @@ class SearchViewController: UIViewController {
                                                         message: "Please check your online status or iCloud account status.".localized,
                                                         preferredStyle: UIAlertController.Style.alert)
                 let alertButton = UIAlertAction(title: "OK",
-                                                style: UIAlertAction.Style.cancel,
-                                                handler: nil)
+                                                style: UIAlertAction.Style.cancel) { action in
+                                                    self.dismiss(animated: true)
+                }
                 alertController.addAction(alertButton)
                 self.present(alertController, animated: true, completion: nil)
                 return
