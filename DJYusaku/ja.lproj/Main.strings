@@ -1,0 +1,237 @@
+
+/* Class = "UILabel"; text = "Connecting"; ObjectID = "0Zn-fy-Vhb"; */
+"0Zn-fy-Vhb.text" = "接続中";
+
+/* Class = "UIBarButtonItem"; title = "Close"; ObjectID = "0pZ-kI-uKF"; */
+"0pZ-kI-uKF.title" = "閉じる";
+
+/* Class = "UILabel"; text = "Account"; ObjectID = "1qy-wg-wl2"; */
+"1qy-wg-wl2.text" = "アカウント";
+
+/* Class = "UILabel"; text = "No members"; ObjectID = "2Xn-Xd-sPA"; */
+"2Xn-Xd-sPA.text" = "メンバーがいません";
+
+/* Class = "UILabel"; text = "Yuya Kiuchi"; ObjectID = "4fa-q5-nKY"; */
+"4fa-q5-nKY.text" = "Yuya Kiuchi";
+
+/* Class = "UILabel"; text = "Use Profile"; ObjectID = "8Nh-yi-nFf"; */
+"8Nh-yi-nFf.text" = "プロフィールを使用する";
+
+/* Class = "UILabel"; text = "tsuu32"; ObjectID = "8ak-0M-dVi"; */
+"8ak-0M-dVi.text" = "tsuu32";
+
+/* Class = "UILabel"; text = "Swipe left to next"; ObjectID = "8rH-1d-ew6"; */
+"8rH-1d-ew6.text" = "スワイプして次へ";
+
+/* Class = "UIButton"; normalTitle = "New Session"; ObjectID = "90a-jE-PNH"; */
+"90a-jE-PNH.normalTitle" = "新規セッション";
+
+/* Class = "UILabel"; text = "No results"; ObjectID = "9SP-N1-ndf"; */
+"9SP-N1-ndf.text" = "結果なし";
+
+/* Class = "UILabel"; text = "Masahiro Nakamura"; ObjectID = "CPv-Cg-4t5"; */
+"CPv-Cg-4t5.text" = "Masahiro Nakamura";
+
+/* Class = "UIBarButtonItem"; title = "Reconnect"; ObjectID = "D4K-Hj-JEu"; */
+"D4K-Hj-JEu.title" = "再接続";
+
+/* Class = "UILabel"; text = "Music Title"; ObjectID = "DxG-x9-Q3o"; */
+"DxG-x9-Q3o.text" = "Music Title";
+
+/* Class = "UILabel"; text = "The \"requested\" songs will be played on the session master's device. Up to 8 people can participate in one session."; ObjectID = "EON-EQ-VNj"; */
+"EON-EQ-VNj.text" = "セッションの参加者から「リクエスト」された楽曲は、親機の端末上で再生されます。1つのセッションには、最大8人まで参加することができます。";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "ElN-Ah-E0J"; */
+"ElN-Ah-E0J.text" = "名前";
+
+/* Class = "UILabel"; text = "Version"; ObjectID = "GMN-mA-aEf"; */
+"GMN-mA-aEf.text" = "バージョン";
+
+/* Class = "UINavigationItem"; title = "About This App"; ObjectID = "H8z-j7-kiB"; */
+"H8z-j7-kiB.title" = "このアプリについて";
+
+/* Class = "UILabel"; text = "About This App"; ObjectID = "IKi-es-3Ji"; */
+"IKi-es-3Ji.text" = "このアプリについて";
+
+/* Class = "UILabel"; text = "You can set your name to be displayed in the session. By linking Juke to your Twitter account, you can use your Twitter display name and profile picture."; ObjectID = "IVD-cF-rO5"; */
+"IVD-cF-rO5.text" = "セッション中の表示名は自由に設定することができます。あなたのTwitterアカウントとJukeを連携すれば、Twitterの表示名とプロフィール画像をJukeのセッションで使うこともできます。";
+
+/* Class = "UILabel"; text = "After you create a session (or join a session), search Apple Music for the song you want to play and \"request\" it to the session master."; ObjectID = "JFi-qC-Yoa"; */
+"JFi-qC-Yoa.text" = "セッションを作成（あるいは既存のセッションに参加）してから、再生したい楽曲をApple Musicから検索して、セッションの親機に「リクエスト」します。";
+
+/* Class = "UITableViewSection"; footerTitle = "Logging in Twitter, you can use profile name and image of your Twitter account."; ObjectID = "JUc-MG-44H"; */
+"JUc-MG-44H.footerTitle" = "Twitterにログインすると、あなたのアカウントのプロフィール名と画像をJukeで使うことができます。";
+
+/* Class = "UITableViewSection"; headerTitle = "Twitter"; ObjectID = "JUc-MG-44H"; */
+"JUc-MG-44H.headerTitle" = "Twitter";
+
+/* Class = "UINavigationItem"; title = "Requested Songs"; ObjectID = "K0B-Hq-EiT"; */
+"K0B-Hq-EiT.title" = "リクエスト一覧";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "KK9-dh-Qaa"; */
+"KK9-dh-Qaa.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "New Request"; ObjectID = "KdW-M4-Iev"; */
+"KdW-M4-Iev.title" = "新規リクエスト";
+
+/* Class = "UILabel"; text = "requires Apple Music contract"; ObjectID = "QLv-BI-r7q"; */
+"QLv-BI-r7q.text" = "Apple Musicのメンバーシップが必要です";
+
+/* Class = "UILabel"; text = "When searching for a song to request, you can search by artist name, lyrics, or album name as well as the song name."; ObjectID = "QXG-aW-VbD"; */
+"QXG-aW-VbD.text" = "リクエストしたい曲の検索ワードとして、曲名のほかにアーティスト名や歌詞、アルバム名などでも検索することができます。";
+
+/* Class = "UIButton"; normalTitle = "Join Session..."; ObjectID = "RGD-qI-6Bt"; */
+"RGD-qI-6Bt.normalTitle" = "セッションに参加...";
+
+/* Class = "UILabel"; text = "0/8"; ObjectID = "RrF-7Q-5Pb"; */
+"RrF-7Q-5Pb.text" = "0/8";
+
+/* Class = "UILabel"; text = "No available sessions"; ObjectID = "Rrn-Yo-aTG"; */
+"Rrn-Yo-aTG.text" = "セッションがありません";
+
+/* Class = "UILabel"; text = "© 2020 Yusaku"; ObjectID = "S0h-WO-K7i"; */
+"S0h-WO-K7i.text" = "© 2020 Yusaku";
+
+/* Class = "UITextField"; placeholder = "Input your name here"; ObjectID = "SIY-O4-BJX"; */
+"SIY-O4-BJX.placeholder" = "セッションで表示する名前";
+
+/* Class = "UILabel"; text = "yaplus.jp"; ObjectID = "T4J-Wm-U4f"; */
+"T4J-Wm-U4f.text" = "yaplus.jp";
+
+/* Class = "UITabBarItem"; title = "Session"; ObjectID = "TBi-Pu-CWv"; */
+"TBi-Pu-CWv.title" = "セッション";
+
+/* Class = "UITableViewSection"; headerTitle = "Your Profile"; ObjectID = "UGi-OW-Xv6"; */
+"UGi-OW-Xv6.headerTitle" = "あなたの情報";
+
+/* Class = "UILabel"; text = "Artist"; ObjectID = "UVM-Kb-uf9"; */
+"UVM-Kb-uf9.text" = "Artist";
+
+/* Class = "UILabel"; text = "yaplus"; ObjectID = "VNe-xg-qsV"; */
+"VNe-xg-qsV.text" = "yaplus";
+
+/* Class = "UIBarButtonItem"; title = "Settings"; ObjectID = "Vfj-8P-xLO"; */
+"Vfj-8P-xLO.title" = "設定";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "WKd-f8-to8"; */
+"WKd-f8-to8.text" = "名前";
+
+/* Class = "UILabel"; text = "You can search for songs on Apple Music by song name, artist name, lyrics, etc. and request them."; ObjectID = "XgZ-Sg-IAg"; */
+"XgZ-Sg-IAg.text" = "楽曲をApple Musicから曲名やアーティスト名、歌詞などで検索してリクエストすることができます。";
+
+/* Class = "UILabel"; text = "Welcome to"; ObjectID = "Xjw-4N-jZQ"; */
+"Xjw-4N-jZQ.text" = "Welcome to";
+
+/* Class = "UILabel"; text = "Session Members"; ObjectID = "Y0U-zI-jXg"; */
+"Y0U-zI-jXg.text" = "セッション参加者";
+
+/* Class = "UILabel"; text = "No account"; ObjectID = "Y5i-Fz-AZG"; */
+"Y5i-Fz-AZG.text" = "アカウントなし";
+
+/* Class = "UILabel"; text = "0/8"; ObjectID = "YiX-nO-KLp"; */
+"YiX-nO-KLp.text" = "0/8";
+
+/* Class = "UILabel"; text = "Hayato Kohara"; ObjectID = "YnT-gN-cvo"; */
+"YnT-gN-cvo.text" = "Hayato Kohara";
+
+/* Class = "UITableViewSection"; headerTitle = "Designer"; ObjectID = "Z5Y-0e-rAZ"; */
+"Z5Y-0e-rAZ.headerTitle" = "デザイン";
+
+/* Class = "UITabBarItem"; title = "Requests"; ObjectID = "acW-dT-cKf"; */
+"acW-dT-cKf.title" = "リクエスト";
+
+/* Class = "UILabel"; text = "Request."; ObjectID = "arv-7n-e5O"; */
+"arv-7n-e5O.text" = "リクエストする。";
+
+/* Class = "UILabel"; text = "Juke allows you to make and play playlists by \"requesting\" songs to the other who subscribes to Apple Music."; ObjectID = "bSx-NQ-Bh4"; */
+"bSx-NQ-Bh4.text" = "Jukeを使えば、Apple Musicを購読している親機にみんなで曲を「リクエスト」することで、プレイリストを作成して再生することができます。";
+
+/* Class = "UITabBarItem"; title = "Search"; ObjectID = "cPa-gy-q4n"; */
+"cPa-gy-q4n.title" = "検索";
+
+/* Class = "UILabel"; text = "System Auto-Lock"; ObjectID = "clx-m3-sFM"; */
+"clx-m3-sFM.text" = "システムの自動ロック";
+
+/* Class = "UINavigationItem"; title = "Available Sessions"; ObjectID = "dzb-SC-M7Y"; */
+"dzb-SC-M7Y.title" = "開催中";
+
+/* Class = "UILabel"; text = "If you are the session master and do not make a request, you can turn off the screen in \"battery saver mode\" to save battery power."; ObjectID = "eMj-i6-vVp"; */
+"eMj-i6-vVp.text" = "あなたがセッションの親機であり、リクエストをしない場合（たとえば車の運転中など）は、省電力モードにすることで、画面をオフにして電力を節約することができます。";
+
+/* Class = "UILabel"; text = "enpitut2019/dj-yusaku"; ObjectID = "elk-Zp-L5e"; */
+"elk-Zp-L5e.text" = "enpitut2019/dj-yusaku";
+
+/* Class = "UILabel"; text = "bldsky"; ObjectID = "evX-1H-orG"; */
+"evX-1H-orG.text" = "bldsky";
+
+/* Class = "UILabel"; text = "Requested songs  will be shown here"; ObjectID = "g6q-4j-3bI"; */
+"g6q-4j-3bI.text" = "リクエストされた楽曲は  ここに表示されます";
+
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "gio-Mw-drT"; */
+"gio-Mw-drT.title" = "設定";
+
+/* Class = "UILabel"; text = "Artist"; ObjectID = "hw4-hv-Z0J"; */
+"hw4-hv-Z0J.text" = "Artist";
+
+/* Class = "UITableViewSection"; footerTitle = "Yusaku is developer team organized by university students. We all have job hunting ❤️"; ObjectID = "ig8-lj-p2R"; */
+"ig8-lj-p2R.footerTitle" = "Jukeの開発チームである優作は、筑波大学の学生で構成されています。就職活動中なので、仕事をください🙏";
+
+/* Class = "UITableViewSection"; headerTitle = "Developer"; ObjectID = "ig8-lj-p2R"; */
+"ig8-lj-p2R.headerTitle" = "開発者";
+
+/* Class = "UITableViewSection"; footerTitle = "When system auto-lock is disabled, the screen will not auto-lock while this app is running. In battery saver mode, auto-lock will be disabled regardless of whether system auto-lock is enabled or not."; ObjectID = "jsY-1D-unb"; */
+"jsY-1D-unb.footerTitle" = "システムの自動ロックを無効にすると、このアプリを使っている間は画面を自動ロックされなくなります。省電力モードでは、この設定に関係なくシステムの自動ロックは無効になります。";
+
+/* Class = "UITableViewSection"; headerTitle = "Auto-Lock"; ObjectID = "jsY-1D-unb"; */
+"jsY-1D-unb.headerTitle" = "自動ロック";
+
+/* Class = "UIButton"; normalTitle = "Start using Juke"; ObjectID = "jyJ-Ze-gYI"; */
+"jyJ-Ze-gYI.normalTitle" = "Jukeをはじめる";
+
+/* Class = "UILabel"; text = "Battery Friendly."; ObjectID = "l7E-cA-mWo"; */
+"l7E-cA-mWo.text" = "電気を大切に。";
+
+/* Class = "UILabel"; text = "Marketing Version"; ObjectID = "nqe-80-yWS"; */
+"nqe-80-yWS.text" = "Marketing Version";
+
+/* Class = "UILabel"; text = "amylaseF85"; ObjectID = "qIC-7T-9nv"; */
+"qIC-7T-9nv.text" = "amylaseF85";
+
+/* Class = "UILabel"; text = "Yuu Ichikawa"; ObjectID = "qhd-gx-0jQ"; */
+"qhd-gx-0jQ.text" = "Yuu Ichikawa";
+
+/* Class = "UILabel"; text = "Hayato Kohara"; ObjectID = "rzh-G5-F41"; */
+"rzh-G5-F41.text" = "Hayato Kohara";
+
+/* Class = "UILabel"; text = "You"; ObjectID = "smN-R0-RlJ"; */
+"smN-R0-RlJ.text" = "あなた";
+
+/* Class = "UILabel"; text = "Play Together."; ObjectID = "umK-U6-Lcw"; */
+"umK-U6-Lcw.text" = "いっしょに再生。";
+
+/* Class = "UILabel"; text = "Self-Introduction."; ObjectID = "v2E-Cq-hjm"; */
+"v2E-Cq-hjm.text" = "自己紹介しよう。";
+
+/* Class = "UITableViewSection"; footerTitle = "Name will be shown to participants of the session. "; ObjectID = "vaN-CN-ABS"; */
+"vaN-CN-ABS.footerTitle" = "設定した名前はセッションの参加者に表示されます。 ";
+
+/* Class = "UINavigationItem"; title = "Name"; ObjectID = "wPt-KA-6um"; */
+"wPt-KA-6um.title" = "名前";
+
+/* Class = "UILabel"; text = "To exit battery saver mode, double-tap the screen."; ObjectID = "whP-AR-UDb"; */
+"whP-AR-UDb.text" = "画面をダブルタップすると、 省電力モードを終了します。";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "yP3-9N-fvb"; */
+"yP3-9N-fvb.text" = "名前";
+
+/* Class = "UILabel"; text = "Search Conveniently."; ObjectID = "yYt-ve-v88"; */
+"yYt-ve-v88.text" = "便利な検索。";
+
+/* Class = "UIViewController"; title = "Welcome"; ObjectID = "ypK-t8-Qz5"; */
+"ypK-t8-Qz5.title" = "Welcome";
+
+/* Class = "UILabel"; text = "Music Title"; ObjectID = "yug-k8-ppk"; */
+"yug-k8-ppk.text" = "Music Title";
+
+/* Class = "UITableViewSection"; headerTitle = "GitHub"; ObjectID = "znF-DA-Vz7"; */
+"znF-DA-Vz7.headerTitle" = "GitHub";

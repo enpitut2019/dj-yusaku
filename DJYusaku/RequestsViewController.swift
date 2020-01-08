@@ -244,8 +244,8 @@ class RequestsViewController: UIViewController {
         animateGrowUp(view: self.batterySaverButton)
         
         // アラートを表示
-        let alertController = UIAlertController(title:   "Battery Saver Mode",
-                                                message: "To exit battery saver mode, double-tap the screen.",
+        let alertController = UIAlertController(title:   "Battery Saver Mode".localized,
+                                                message: "To exit battery saver mode, double-tap the screen.".localized,
                                                 preferredStyle: UIAlertController.Style.alert)
         let alertButton = UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel) { [unowned self] _ in
             let storyboard: UIStoryboard = self.storyboard!

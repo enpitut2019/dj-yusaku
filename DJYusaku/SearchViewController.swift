@@ -46,8 +46,8 @@ class SearchViewController: UIViewController {
         self.cloudServiceController.requestStorefrontCountryCode { (storefrontCountryCode, error) in
             if error != nil {
                 // アラートを表示
-                let alertController = UIAlertController(title:   "Apple Music connection failed",
-                                                        message: "Please check your iCloud account status.",
+                let alertController = UIAlertController(title:   "Apple Music connection failed".localized,
+                                                        message: "Please check your online status or iCloud account status.".localized,
                                                         preferredStyle: UIAlertController.Style.alert)
                 let alertButton = UIAlertAction(title: "OK",
                                                 style: UIAlertAction.Style.cancel,

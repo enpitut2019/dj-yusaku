@@ -21,6 +21,8 @@
 		41D3624F23ABB03600E0ED1E /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D3624E23ABB03600E0ED1E /* TutorialViewController.swift */; };
 		B125D88D235F426C00D383E7 /* CachedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B125D88C235F426C00D383E7 /* CachedImage.swift */; };
 		C40DC880236570DD00E80AB1 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */; };
+		C417365E23C5CCAC003DB3AF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C417366023C5CCAC003DB3AF /* Localizable.strings */; };
+		C417366323C5CDA3003DB3AF /* String+localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = C417366223C5CDA3003DB3AF /* String+localized.swift */; };
 		C41F18E323AE03BE00E1A886 /* UserDefaults+DJYusakuDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41F18E223AE03BE00E1A886 /* UserDefaults+DJYusakuDefaults.swift */; };
 		C43634CE23922708000CE58F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43634CD23922708000CE58F /* TabBarController.swift */; };
 		C43634D1239227F6000CE58F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C43634D0239227F6000CE58F /* SnapKit */; };
@@ -78,6 +80,9 @@
 		41D3624E23ABB03600E0ED1E /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		B125D88C235F426C00D383E7 /* CachedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImage.swift; sourceTree = "<group>"; };
 		C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		C417365F23C5CCAC003DB3AF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C417366123C5CCE4003DB3AF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C417366223C5CDA3003DB3AF /* String+localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+localized.swift"; sourceTree = "<group>"; };
 		C41F18E223AE03BE00E1A886 /* UserDefaults+DJYusakuDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+DJYusakuDefaults.swift"; sourceTree = "<group>"; };
 		C43634CD23922708000CE58F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		C43634D223923485000CE58F /* DummyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +105,7 @@
 		C447ACCB234882FB00D535EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C449C27323B24C8800A34BE0 /* UIColor+YusakuColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+YusakuColor.swift"; sourceTree = "<group>"; };
 		C46CE2072383EBC000492AC3 /* BatterySaverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatterySaverViewController.swift; sourceTree = "<group>"; };
+		C46F48DA23C59A7D00EF7562 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
 		C4CF9724235163EF00C8A102 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C4D25957235205D10066FCE0 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		C4D25959235205EC0066FCE0 /* Secrets+Local.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Secrets+Local.swift"; sourceTree = "<group>"; };
@@ -192,6 +198,7 @@
 				C4D25959235205EC0066FCE0 /* Secrets+Local.swift */,
 				10937F5B23A9DB4F00CB819B /* SettingsViewController.swift */,
 				C436A8552350B16B009F6498 /* Song.swift */,
+				C417366223C5CDA3003DB3AF /* String+localized.swift */,
 				C43634CD23922708000CE58F /* TabBarController.swift */,
 				41D3624E23ABB03600E0ED1E /* TutorialViewController.swift */,
 				C449C27323B24C8800A34BE0 /* UIColor+YusakuColor.swift */,
@@ -200,6 +207,7 @@
 				C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */,
 				C447ACB0234882FB00D535EB /* Assets.xcassets */,
 				C447ACB2234882FB00D535EB /* LaunchScreen.storyboard */,
+				C417366023C5CCAC003DB3AF /* Localizable.strings */,
 				C447ACAD234882F900D535EB /* Main.storyboard */,
 			);
 			path = DJYusaku;
@@ -315,6 +323,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ja,
 			);
 			mainGroup = C447AC99234882F900D535EB;
 			packageReferences = (
@@ -338,6 +347,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C417365E23C5CCAC003DB3AF /* Localizable.strings in Resources */,
 				413DD6F723BF08D70069885E /* Settings.bundle in Resources */,
 				C447ACB4234882FB00D535EB /* LaunchScreen.storyboard in Resources */,
 				C447ACB1234882FB00D535EB /* Assets.xcassets in Resources */,
@@ -412,6 +422,7 @@
 				418177822388EEF300A7B02A /* MemberTableViewCell.swift in Sources */,
 				C449C27423B24C8800A34BE0 /* UIColor+YusakuColor.swift in Sources */,
 				106B1C312372C83F008684EB /* ConnectionControllerDelegate.swift in Sources */,
+				C417366323C5CDA3003DB3AF /* String+localized.swift in Sources */,
 				C40DC880236570DD00E80AB1 /* WelcomeViewController.swift in Sources */,
 				C447ACA8234882F900D535EB /* SceneDelegate.swift in Sources */,
 				C436A8582350D36F009F6498 /* SearchMusicTableViewCell.swift in Sources */,
@@ -450,10 +461,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		C417366023C5CCAC003DB3AF /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C417365F23C5CCAC003DB3AF /* ja */,
+				C417366123C5CCE4003DB3AF /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		C447ACAD234882F900D535EB /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				C447ACAE234882F900D535EB /* Base */,
+				C46F48DA23C59A7D00EF7562 /* ja */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
