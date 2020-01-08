@@ -12,6 +12,7 @@ class MemberTableViewCell: UITableViewCell {
     
     @IBOutlet weak var peerImageView: UIImageView!
     @IBOutlet weak var peerName: UILabel!
+    @IBOutlet weak var statusView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
