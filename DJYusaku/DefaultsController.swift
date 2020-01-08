@@ -75,7 +75,10 @@ class DefaultsController: NSObject {
         
         // 画面の自動ロックの設定を行う
         self.isAutoLockEnabled = UserDefaults.standard.bool(forKey: UserDefaults.DJYusakuDefaults.IsAutoLockEnabled)
-        UIApplication.shared.isIdleTimerDisabled = !self.isAutoLockEnabled
+        
+        DispatchQueue.main.async {
+            UIApplication.shared.isIdleTimerDisabled = !self.isAutoLockEnabled
+        }
         
         self.sendProfile()  // プロフィールを他のピアに送信する
     }
