@@ -78,7 +78,7 @@ class MemberViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.DJNameLabel.alpha = 1.0
                     self.DJImageView.alpha = 1.0
-                    self.DJStatusLabel.text = ConnectionController.shared.isDJ! ? "You" : "Connecting"
+                    self.DJStatusLabel.text = "You"
                     self.DJImageView.image = DJImage ?? UIImage(named: "TemporarySingleColored")
                     self.DJImageView.setNeedsLayout()
                 }
@@ -97,7 +97,7 @@ class MemberViewController: UIViewController {
                     } else {
                         self.DJNameLabel.alpha = 1.0
                         self.DJImageView.alpha = 1.0
-                        self.DJStatusLabel.text = ConnectionController.shared.isDJ! ? "You" : "Connecting"
+                        self.DJStatusLabel.text = "Connecting"
                     }
                     self.DJImageView.image = DJImage ?? UIImage(named: "TemporarySingleColored")
                     self.DJImageView.setNeedsLayout()
