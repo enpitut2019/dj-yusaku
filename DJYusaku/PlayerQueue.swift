@@ -45,6 +45,7 @@ class PlayerQueue{
     
     private init(){
         mpAppController.repeatMode = MPMusicRepeatMode.all
+        mpAppController.beginGeneratingPlaybackNotifications()
         NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChange), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlaybackStateDidChange), name: .MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
     }
