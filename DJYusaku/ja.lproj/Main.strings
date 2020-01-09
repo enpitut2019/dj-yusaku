@@ -80,8 +80,8 @@
 /* Class = "UILabel"; text = "When searching for a song to request, you can search by artist name, lyrics, or album name as well as the song name."; ObjectID = "QXG-aW-VbD"; */
 "QXG-aW-VbD.text" = "リクエストしたい曲の検索ワードとして、曲名のほかにアーティスト名や歌詞、アルバム名などでも検索することができます。";
 
-/* Class = "UIButton"; normalTitle = "Join Session..."; ObjectID = "RGD-qI-6Bt"; */
-"RGD-qI-6Bt.normalTitle" = "セッションに参加...";
+/* Class = "UIButton"; normalTitle = "Join Session…"; ObjectID = "RGD-qI-6Bt"; */
+"RGD-qI-6Bt.normalTitle" = "セッションに参加…";
 
 /* Class = "UILabel"; text = "0/8"; ObjectID = "RrF-7Q-5Pb"; */
 "RrF-7Q-5Pb.text" = "0/8";

@@ -85,10 +85,8 @@ class DefaultsController: NSObject {
     
     // プロフィールを他のピアに送信する
     private func sendProfile() {
-        if let isDJ = ConnectionController.shared.isDJ {
-            if isDJ {
-                ConnectionController.shared.startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: ConnectionController.shared.numberOfParticipants)
-            }
+        if let isDJ = ConnectionController.shared.isDJ, isDJ {
+            ConnectionController.shared.startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: ConnectionController.shared.numberOfParticipants)
         }
         
         NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)

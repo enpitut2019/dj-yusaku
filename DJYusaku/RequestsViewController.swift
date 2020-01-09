@@ -169,14 +169,14 @@ class RequestsViewController: UIViewController {
     }
     
     func scrollToNowPlayingItem(animated: Bool = true) {
-        guard ConnectionController.shared.isDJ != nil else { return }
+        guard let isDJ = ConnectionController.shared.isDJ else { return }
         
-        let numberOfRequestedSongs = ConnectionController.shared.isDJ!
+        let numberOfRequestedSongs = isDJ
                                    ? PlayerQueue.shared.count()
                                    : ConnectionController.shared.receivedSongs.count
         guard numberOfRequestedSongs != 0 else { return }
         
-        let indexOfNowPlayingItem  = ConnectionController.shared.isDJ!
+        let indexOfNowPlayingItem  = isDJ
                                    ? PlayerQueue.shared.mpAppController.indexOfNowPlayingItem
                                    : RequestsViewController.self.indexOfNowPlayingItemOnListener
         DispatchQueue.main.async {
@@ -275,8 +275,8 @@ class RequestsViewController: UIViewController {
 extension RequestsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard ConnectionController.shared.isDJ != nil else { return 0 }
-        if ConnectionController.shared.isDJ! {
+        guard let isDJ = ConnectionController.shared.isDJ else { return 0 }
+        if isDJ {
             return PlayerQueue.shared.count()
         } else {
             return ConnectionController.shared.receivedSongs.count
