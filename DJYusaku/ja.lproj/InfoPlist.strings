@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  DJYusaku
+
+  Created by Hayato Kohara on 2020/01/10.
+  Copyright © 2020 Yusaku. All rights reserved.
+*/
+
+"NSAppleMusicUsageDescription" = "リクエストされた楽曲を再生するためにApple Musicへのアクセスを行います。";

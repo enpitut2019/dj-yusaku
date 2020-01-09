@@ -41,6 +41,7 @@
 		C449C27423B24C8800A34BE0 /* UIColor+YusakuColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C449C27323B24C8800A34BE0 /* UIColor+YusakuColor.swift */; };
 		C46CE2082383EBC000492AC3 /* BatterySaverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46CE2072383EBC000492AC3 /* BatterySaverViewController.swift */; };
 		C4A3C95A2357E908005304AA /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = C4A3C9592357E908005304AA /* SwiftyJSON */; };
+		C4B2B68623C79F9A00515CC0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C4B2B68823C79F9A00515CC0 /* InfoPlist.strings */; };
 		C4CF9725235163EF00C8A102 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CF9724235163EF00C8A102 /* SearchViewController.swift */; };
 		C4D25958235205D10066FCE0 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D25957235205D10066FCE0 /* Secrets.swift */; };
 		C4D2595A235205EC0066FCE0 /* Secrets+Local.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D25959235205EC0066FCE0 /* Secrets+Local.swift */; };
@@ -106,6 +107,8 @@
 		C449C27323B24C8800A34BE0 /* UIColor+YusakuColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+YusakuColor.swift"; sourceTree = "<group>"; };
 		C46CE2072383EBC000492AC3 /* BatterySaverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatterySaverViewController.swift; sourceTree = "<group>"; };
 		C46F48DA23C59A7D00EF7562 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
+		C4B2B68723C79F9A00515CC0 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C4B2B68923C79F9E00515CC0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C4CF9724235163EF00C8A102 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C4D25957235205D10066FCE0 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		C4D25959235205EC0066FCE0 /* Secrets+Local.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Secrets+Local.swift"; sourceTree = "<group>"; };
@@ -206,6 +209,7 @@
 				C41F18E223AE03BE00E1A886 /* UserDefaults+DJYusakuDefaults.swift */,
 				C40DC87F236570DD00E80AB1 /* WelcomeViewController.swift */,
 				C447ACB0234882FB00D535EB /* Assets.xcassets */,
+				C4B2B68823C79F9A00515CC0 /* InfoPlist.strings */,
 				C447ACB2234882FB00D535EB /* LaunchScreen.storyboard */,
 				C417366023C5CCAC003DB3AF /* Localizable.strings */,
 				C447ACAD234882F900D535EB /* Main.storyboard */,
@@ -348,6 +352,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C417365E23C5CCAC003DB3AF /* Localizable.strings in Resources */,
+				C4B2B68623C79F9A00515CC0 /* InfoPlist.strings in Resources */,
 				413DD6F723BF08D70069885E /* Settings.bundle in Resources */,
 				C447ACB4234882FB00D535EB /* LaunchScreen.storyboard in Resources */,
 				C447ACB1234882FB00D535EB /* Assets.xcassets in Resources */,
@@ -485,6 +490,15 @@
 				C447ACB3234882FB00D535EB /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		C4B2B68823C79F9A00515CC0 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C4B2B68723C79F9A00515CC0 /* ja */,
+				C4B2B68923C79F9E00515CC0 /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
