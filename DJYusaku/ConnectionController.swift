@@ -30,11 +30,11 @@ class ConnectionController: NSObject {
     
     private(set) var isInitialized = false
     
-    private(set) var isDJorListener = false
+    private(set) var isInSession = false
     private(set) var connectedDJ: (peerID: MCPeerID, state: MCSessionState)? = nil
     var isDJ: Bool? {
         get {
-            return isDJorListener ? (connectedDJ == nil) : nil
+            return isInSession ? (connectedDJ == nil) : nil
         }
     }
     
@@ -112,7 +112,7 @@ class ConnectionController: NSObject {
         if let wasDJ = self.isDJ, wasDJ {
             PlayerQueue.shared.clearSongs()
         }
-        self.isDJorListener = true
+        self.isInSession = true
         self.disconnect()
         let profile = DefaultsController.shared.profile
         startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: self.numberOfParticipants)
@@ -124,7 +124,7 @@ class ConnectionController: NSObject {
         if let wasDJ = self.isDJ, wasDJ {
             PlayerQueue.shared.clearSongs()
         }
-        self.isDJorListener = true
+        self.isInSession = true
         if selectedDJ != self.connectedDJ?.peerID {
             self.disconnect()
         }
