@@ -252,7 +252,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <color key="tintColor" name="YusakuPinkColor"/>
-                                <state key="normal" title="Join Session...">
+                                <state key="normal" title="Join Session…">
                                     <color key="titleColor" name="YusakuPinkColor"/>
                                 </state>
                                 <connections>
