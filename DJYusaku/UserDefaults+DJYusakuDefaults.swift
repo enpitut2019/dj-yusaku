@@ -15,5 +15,6 @@ extension UserDefaults {
         static let WillUseTwitterProfile = "WillUseTwitterProfile"
         static let IsAutoLockEnabled     = "IsAutoLockEnabled"
         static let IsLaunchedAtLeastOnce = "IsLaunchedAtLeastOnce"
+        static let LaunchCount           = "LaunchCount"
     }
 }

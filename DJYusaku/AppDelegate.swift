@@ -8,11 +8,21 @@
 
 import UIKit
 import Swifter
+import StoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        var launchCount = UserDefaults.standard.integer(forKey: UserDefaults.DJYusakuDefaults.LaunchCount)
+        UserDefaults.standard.set(launchCount + 1, forKey: UserDefaults.DJYusakuDefaults.LaunchCount)
+        UserDefaults.standard.synchronize()
+
+        launchCount = UserDefaults.standard.integer(forKey: UserDefaults.DJYusakuDefaults.LaunchCount)
+        if launchCount >= 7 {
+            SKStoreReviewController.requestReview()
+        }
         sleep(1)    // LaunchScreenを表示
         return true
     }
