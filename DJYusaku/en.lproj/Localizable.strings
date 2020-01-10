@@ -26,3 +26,7 @@
 "Missing" = "Missing";
 "Connecting" = "Connecting";
 "You" = "You";
+
+// WelcomeViewController.swift
+"Apple Music membership could not be confirmed" = "Apple Music membership could not be confirmed";
+"Apple Music songs are not played in this session." = "Apple Music songs are not played in this session.";

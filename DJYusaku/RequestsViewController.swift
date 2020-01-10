@@ -64,6 +64,7 @@ class RequestsViewController: UIViewController {
             // Apple Musicの曲が再生可能か確認
             self.cloudServiceController.requestCapabilities { (capabilities, error) in
                 guard error == nil && capabilities.contains(.musicCatalogPlayback) else { return }
+                ConnectionController.shared.canPlayAppleMusic = true
             }
         }
         
