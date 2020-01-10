@@ -80,7 +80,7 @@ class ConnectionController: NSObject {
             let profile = DefaultsController.shared.profile
             startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: self.numberOfParticipants)
         } else {
-            self.connectedDJ!.state = .connecting
+            self.connectedDJ!.state = .connected
             self.browser.invitePeer(self.connectedDJ!.peerID, to: self.session, withContext: nil, timeout: 10.0)
         }
     }
@@ -136,7 +136,7 @@ class ConnectionController: NSObject {
         if selectedDJ != self.connectedDJ?.peerID {
             self.disconnect()
         }
-        self.connectedDJ = (selectedDJ, .connecting)
+        self.connectedDJ = (selectedDJ, .connected)
         self.browser.invitePeer(selectedDJ, to: session, withContext: nil, timeout: 10.0)
         self.advertiser?.stopAdvertisingPeer()
         NotificationCenter.default.post(name: .DJYusakuUserStateDidUpdate, object: nil)
@@ -192,8 +192,6 @@ extension ConnectionController: MCSessionDelegate {
                     .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
                 let profile = DefaultsController.shared.profile
                 startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: self.numberOfParticipants)
-            } else if peerID == self.connectedDJ?.peerID { // リスナーがDJと接続したとき
-                self.connectedDJ!.state = .connected
             }
             NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
             break
