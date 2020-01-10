@@ -70,6 +70,20 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func joinAsDJ(_ sender: Any) {
+        if !ConnectionController.shared.canPlayAppleMusic {
+            // アラートを表示
+            let alertController = UIAlertController(title:   "Apple Music membership could not be confirmed".localized,
+                                                    message: "Apple Music songs are not played in this session.".localized,
+                                                    preferredStyle: .alert)
+            let alertButton = UIAlertAction(title: "OK",
+                                            style: .cancel) { action in
+                                                ConnectionController.shared.startDJ()
+                                                self.dismiss(animated: true)
+            }
+            alertController.addAction(alertButton)
+            self.present(alertController, animated: true, completion: nil)
+            return
+        }
         ConnectionController.shared.startDJ()
         
         self.dismiss(animated: true, completion: nil)

@@ -52,6 +52,8 @@ class ConnectionController: NSObject {
         }
     }
     
+    var canPlayAppleMusic = false
+
     func initialize() {
         self.session = MCSession(peer: self.peerID)
         self.session.delegate = self
