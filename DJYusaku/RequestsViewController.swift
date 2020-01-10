@@ -299,9 +299,9 @@ extension RequestsViewController: UITableViewDataSource {
                                   : RequestsViewController.self.indexOfNowPlayingItemOnListener
         cell.title.text    = song.title
         cell.artist.text   = song.artist
-        if let profileImageUrl = song.profileImageUrl {
-            cell.profileImageView.image = CachedImage.fetch(url: profileImageUrl)
-        }
+        // cell.artwork.image = nil
+        cell.profileImageView.image = nil
+
         cell.nowPlayingIndicator.isHidden = indexOfNowPlayingItem != indexPath.row
         
         DispatchQueue.global().async {
@@ -309,6 +309,15 @@ extension RequestsViewController: UITableViewDataSource {
             DispatchQueue.main.async {
                 cell.artwork.image = image  // 画像の取得に失敗していたらnilが入ることに注意
                 cell.artwork.setNeedsLayout()
+            }
+        }
+        if let profileImageUrl = song.profileImageUrl {
+            DispatchQueue.global().async {
+                let image = CachedImage.fetch(url: profileImageUrl)
+                DispatchQueue.main.async {
+                    cell.profileImageView.image = image
+                    cell.profileImageView.setNeedsLayout()
+                }
             }
         }
         if (indexPath.row < indexOfNowPlayingItem) {
