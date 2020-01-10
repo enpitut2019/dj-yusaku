@@ -299,8 +299,6 @@ extension RequestsViewController: UITableViewDataSource {
                                   : RequestsViewController.self.indexOfNowPlayingItemOnListener
         cell.title.text    = song.title
         cell.artist.text   = song.artist
-        // cell.artwork.image = nil
-        cell.profileImageView.image = nil
 
         cell.nowPlayingIndicator.isHidden = indexOfNowPlayingItem != indexPath.row
         
@@ -319,6 +317,8 @@ extension RequestsViewController: UITableViewDataSource {
                     cell.profileImageView.setNeedsLayout()
                 }
             }
+        } else {
+            cell.profileImageView.image = nil
         }
         if (indexPath.row < indexOfNowPlayingItem) {
             cell.title.alpha    = 0.3
