@@ -83,6 +83,7 @@ extension SearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchMusicTableViewCell", for: indexPath) as! SearchMusicTableViewCell
+        cell.selectionStyle = .default
         
         let item = results[indexPath.row]
         cell.title.text       = item.title
@@ -123,6 +124,7 @@ extension SearchViewController: UITableViewDelegate {
             let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.requestSong, value: songData))
             
             ConnectionController.shared.send(messageData, toPeers: [ConnectionController.shared.connectedDJ!.peerID], with: .unreliable) { [unowned viewController] in
+                tableView.cellForRow(at: indexPath)?.selectionStyle = .none
                 viewController.dismiss(animated: true)    // 1曲追加するごとにViewを閉じる
             }
         }
