@@ -69,14 +69,20 @@ class ConnectionController: NSObject {
     }
     
     @objc func handleDidEnterBackground() {
+        self.advertiser?.stopAdvertisingPeer()
         guard self.connectedDJ != nil else { return }
         self.session.disconnect()
     }
     
     @objc func handleWillEnterForeground() {
-        guard let connectedDJ = self.connectedDJ else { return }
-        self.browser.invitePeer(connectedDJ.peerID, to: self.session, withContext: nil, timeout: 10.0)
-        self.connectedDJ!.state = .connected
+        guard let isDJ = self.isDJ else { return }
+        if isDJ {
+            let profile = DefaultsController.shared.profile
+            startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: self.numberOfParticipants)
+        } else {
+            self.connectedDJ!.state = .connected
+            self.browser.invitePeer(self.connectedDJ!.peerID, to: self.session, withContext: nil, timeout: 10.0)
+        }
     }
     
     @objc func handleWillTerminate() {
@@ -155,21 +161,19 @@ extension ConnectionController: MCSessionDelegate {
         switch state {
         case .notConnected:
             print("Peer \(peerID.displayName) is disconnected.")
-            NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
             if self.isDJ! {
                 let profile = DefaultsController.shared.profile
                 startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: self.numberOfParticipants)
             } else if peerID == self.connectedDJ?.peerID { // リスナーがDJを見失ったとき
                 self.connectedDJ!.state = .notConnected
             }
+            NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
             break
         case .connecting:
             print("Peer \(peerID.displayName) is connecting...")
             break
         case .connected:
             print("Peer \(peerID.displayName) is connected.")
-            NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
-            
             // 接続したらプロフィールを他のピアに送信する
             let data = try! JSONEncoder().encode(DefaultsController.shared.profile)
             let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.peerProfile, value: data))
@@ -189,6 +193,7 @@ extension ConnectionController: MCSessionDelegate {
                 let profile = DefaultsController.shared.profile
                 startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: self.numberOfParticipants)
             }
+            NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
             break
         default:
             break
