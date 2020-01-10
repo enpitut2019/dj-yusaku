@@ -9,7 +9,7 @@
 "1qy-wg-wl2.text" = "アカウント";
 
 /* Class = "UILabel"; text = "No members"; ObjectID = "2Xn-Xd-sPA"; */
-"2Xn-Xd-sPA.text" = "メンバーがいません";
+"2Xn-Xd-sPA.text" = "参加者がいません";
 
 /* Class = "UILabel"; text = "Yuya Kiuchi"; ObjectID = "4fa-q5-nKY"; */
 "4fa-q5-nKY.text" = "Yuya Kiuchi";
@@ -207,7 +207,7 @@
 "smN-R0-RlJ.text" = "あなた";
 
 /* Class = "UILabel"; text = "Play Together."; ObjectID = "umK-U6-Lcw"; */
-"umK-U6-Lcw.text" = "いっしょに再生。";
+"umK-U6-Lcw.text" = "いっしょに聴こう。";
 
 /* Class = "UILabel"; text = "Self-Introduction."; ObjectID = "v2E-Cq-hjm"; */
 "v2E-Cq-hjm.text" = "自己紹介しよう。";

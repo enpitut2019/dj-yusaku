@@ -93,12 +93,12 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KuE-ce-LIi" userLabel="NoRequestsView">
                                 <rect key="frame" x="67.666666666666686" y="170.66666666666669" width="240" height="300"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.75" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="music.note.list" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DB5-VE-YZb">
-                                        <rect key="frame" x="87.999999999999986" y="99" width="64.000000000000014" height="62.666666666666671"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="music.bubble.pink" translatesAutoresizingMaskIntoConstraints="NO" id="DB5-VE-YZb">
+                                        <rect key="frame" x="95.999999999999986" y="106" width="48.000000000000014" height="48"/>
                                         <color key="tintColor" name="YusakuPinkColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="64" id="5WZ-ss-MXU"/>
-                                            <constraint firstAttribute="width" constant="64" id="jfT-L4-LEq"/>
+                                            <constraint firstAttribute="height" constant="48" id="5WZ-ss-MXU"/>
+                                            <constraint firstAttribute="width" constant="48" id="jfT-L4-LEq"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Requested songs  will be shown here" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g6q-4j-3bI" userLabel="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod">
@@ -111,7 +111,7 @@
                                 <constraints>
                                     <constraint firstItem="DB5-VE-YZb" firstAttribute="centerY" secondItem="KuE-ce-LIi" secondAttribute="centerY" constant="-20" id="5rc-an-o6k"/>
                                     <constraint firstItem="g6q-4j-3bI" firstAttribute="centerX" secondItem="KuE-ce-LIi" secondAttribute="centerX" id="KUj-Ge-bwC"/>
-                                    <constraint firstItem="g6q-4j-3bI" firstAttribute="top" secondItem="DB5-VE-YZb" secondAttribute="bottom" id="RgT-zq-WFu"/>
+                                    <constraint firstItem="g6q-4j-3bI" firstAttribute="top" secondItem="DB5-VE-YZb" secondAttribute="bottom" constant="8" id="RgT-zq-WFu"/>
                                     <constraint firstAttribute="width" constant="240" id="VKC-QZ-Wcg"/>
                                     <constraint firstAttribute="height" constant="300" id="cTL-Zk-XHB"/>
                                     <constraint firstItem="g6q-4j-3bI" firstAttribute="width" secondItem="KuE-ce-LIi" secondAttribute="width" id="oNZ-WN-A5t"/>
@@ -608,16 +608,16 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="37a-eQ-Dej" userLabel="NoConnectableDJsView">
                                 <rect key="frame" x="67.666666666666686" y="121" width="240" height="300"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.75" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="JukeNoSearchResults" translatesAutoresizingMaskIntoConstraints="NO" id="jKe-FC-egM">
-                                        <rect key="frame" x="56" y="66" width="128" height="128"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="JukeNoSearchResults" translatesAutoresizingMaskIntoConstraints="NO" id="jKe-FC-egM">
+                                        <rect key="frame" x="71.999999999999986" y="82" width="96.000000000000014" height="96"/>
                                         <color key="tintColor" name="YusakuPinkColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="128" id="Y4o-4Q-mOd"/>
-                                            <constraint firstAttribute="height" constant="128" id="jKJ-bS-qzd"/>
+                                            <constraint firstAttribute="width" constant="96" id="Y4o-4Q-mOd"/>
+                                            <constraint firstAttribute="height" constant="96" id="jKJ-bS-qzd"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No available sessions" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rrn-Yo-aTG">
-                                        <rect key="frame" x="0.0" y="194" width="240" height="17"/>
+                                        <rect key="frame" x="0.0" y="178" width="240" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -720,14 +720,14 @@
                                 <rect key="frame" x="67.666666666666686" y="0.0" width="240" height="300"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.75" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SearchBarArrow" translatesAutoresizingMaskIntoConstraints="NO" id="kW2-O7-92P">
-                                        <rect key="frame" x="81.333333333333329" y="8" width="45" height="94"/>
+                                        <rect key="frame" x="88.999999999999986" y="8" width="30" height="89"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="94" id="JEb-fN-CTK"/>
-                                            <constraint firstAttribute="width" constant="45" id="uIH-MC-LhG"/>
+                                            <constraint firstAttribute="height" constant="89" id="JEb-fN-CTK"/>
+                                            <constraint firstAttribute="width" constant="30" id="uIH-MC-LhG"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can search for songs on Apple Music by song name, artist name, lyrics, etc. and request them." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XgZ-Sg-IAg">
-                                        <rect key="frame" x="0.0" y="105.99999999999999" width="240" height="50.333333333333329"/>
+                                        <rect key="frame" x="0.0" y="101" width="240" height="50.333333333333343"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -744,15 +744,15 @@
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ez6-o0-DGd" userLabel="NoSearchResultsView">
                                 <rect key="frame" x="67.666666666666686" y="95" width="240" height="300"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.75" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="JukeNoSearchResults" translatesAutoresizingMaskIntoConstraints="NO" id="PSU-ER-fUe">
-                                        <rect key="frame" x="56" y="66" width="128" height="128"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="JukeNoSearchResults" translatesAutoresizingMaskIntoConstraints="NO" id="PSU-ER-fUe">
+                                        <rect key="frame" x="71.999999999999986" y="82" width="96.000000000000014" height="96"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="128" id="a08-hg-iOn"/>
-                                            <constraint firstAttribute="width" constant="128" id="tly-jd-xKz"/>
+                                            <constraint firstAttribute="height" constant="96" id="a08-hg-iOn"/>
+                                            <constraint firstAttribute="width" constant="96" id="tly-jd-xKz"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No results" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9SP-N1-ndf">
-                                        <rect key="frame" x="0.0" y="194" width="240" height="17"/>
+                                        <rect key="frame" x="0.0" y="178" width="240" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1043,29 +1043,19 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x2S-SF-hBr" userLabel="NoListenersView">
                                 <rect key="frame" x="67.666666666666686" y="297.66666666666669" width="240" height="300.00000000000006"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.75" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.3.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="MaM-vw-t0n">
-                                        <rect key="frame" x="87.999999999999986" y="100" width="64.000000000000014" height="60.666666666666671"/>
-                                        <color key="tintColor" name="YusakuPinkColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="64" id="Rz4-cc-s5i"/>
-                                            <constraint firstAttribute="height" constant="64" id="Tcz-Lz-H4p"/>
-                                        </constraints>
-                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No members" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Xn-Xd-sPA">
-                                        <rect key="frame" x="0.0" y="161.99999999999994" width="240" height="17"/>
+                                        <rect key="frame" x="0.0" y="141.33333333333331" width="240" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="2Xn-Xd-sPA" firstAttribute="top" secondItem="MaM-vw-t0n" secondAttribute="bottom" id="7dP-aj-rhy"/>
                                     <constraint firstItem="2Xn-Xd-sPA" firstAttribute="width" secondItem="x2S-SF-hBr" secondAttribute="width" id="JJS-jw-NqJ"/>
+                                    <constraint firstItem="2Xn-Xd-sPA" firstAttribute="centerY" secondItem="x2S-SF-hBr" secondAttribute="centerY" id="KVg-ch-dJ5"/>
                                     <constraint firstItem="2Xn-Xd-sPA" firstAttribute="centerX" secondItem="x2S-SF-hBr" secondAttribute="centerX" id="LSO-Y6-zGi"/>
                                     <constraint firstAttribute="height" constant="300" id="QbN-Xl-RSP"/>
-                                    <constraint firstItem="MaM-vw-t0n" firstAttribute="centerX" secondItem="x2S-SF-hBr" secondAttribute="centerX" id="VS7-Bq-tCn"/>
                                     <constraint firstAttribute="width" constant="240" id="qqu-TW-3nl"/>
-                                    <constraint firstItem="MaM-vw-t0n" firstAttribute="centerY" secondItem="x2S-SF-hBr" secondAttribute="centerY" constant="-20" id="wLx-e1-IkN"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yP3-9N-fvb" userLabel="DJName">
@@ -1950,7 +1940,7 @@
         <image name="JukeSleeping" width="512" height="512"/>
         <image name="Logo" width="256" height="100"/>
         <image name="LogoWhite" width="256" height="100"/>
-        <image name="SearchBarArrow" width="45" height="93.666664123535156"/>
+        <image name="SearchBarArrow" width="30" height="88.666664123535156"/>
         <image name="TemporarySingleColored" width="512" height="512"/>
         <image name="TutorialPlay" width="375" height="812"/>
         <image name="TutorialRequest" width="375" height="812"/>
@@ -1961,6 +1951,7 @@
         <image name="forward.fill" catalog="system" width="64" height="38"/>
         <image name="magnifyingglass" catalog="system" width="64" height="56"/>
         <image name="music.bubble" width="28" height="28"/>
+        <image name="music.bubble.pink" width="28" height="28"/>
         <image name="music.note.list" catalog="system" width="64" height="56"/>
         <image name="person.3.fill" catalog="system" width="71" height="34"/>
         <image name="person.fill" catalog="system" width="64" height="60"/>

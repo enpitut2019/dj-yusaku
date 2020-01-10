@@ -10,6 +10,15 @@ import UIKit
 import Swifter
 import SafariServices
 
+// SFSafariViewControllerが閉じた後にステータスバーの色を戻す必要がある
+extension SFSafariViewController {
+    open override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        NotificationCenter.default.post(name: .DJYusakuModalViewDidDisappear, object: nil)
+    }
+}
+
 class SettingsViewController: UITableViewController, SFSafariViewControllerDelegate {
     
     @IBOutlet weak var userNameLabel: UILabel!
@@ -19,6 +28,8 @@ class SettingsViewController: UITableViewController, SFSafariViewControllerDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleModalViewDidDisappear), name: .DJYusakuModalViewDidDisappear, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,14 +51,20 @@ class SettingsViewController: UITableViewController, SFSafariViewControllerDeleg
         self.tableView.reloadData()
     }
     
-    
     @IBAction func willUseTwitterProfileSwitchValueDidChange(_ sender: UISwitch) {
         UserDefaults.standard.set(sender.isOn, forKey: UserDefaults.DJYusakuDefaults.WillUseTwitterProfile)
     }
     
-    
     @IBAction func isAutoLockEnabledSwitchValueDidChange(_ sender: UISwitch) {
         UserDefaults.standard.set(sender.isOn, forKey: UserDefaults.DJYusakuDefaults.IsAutoLockEnabled)
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+    }
+    
+    @objc func handleModalViewDidDisappear() {
+        self.setNeedsStatusBarAppearanceUpdate()
     }
     
     // MARK: - UITableViewDelegate
@@ -91,9 +108,6 @@ class SettingsViewController: UITableViewController, SFSafariViewControllerDeleg
         }
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return UIStatusBarStyle.lightContent
-    }
 }
 
 // MARK: - SettingsNameViewController
@@ -158,10 +172,16 @@ class SettingsAboutThisAppViewController: UITableViewController, SFSafariViewCon
         super.viewDidLoad()
         
         versionLabel.text = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleModalViewDidDisappear), name: .DJYusakuModalViewDidDisappear, object: nil)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
+    }
+    
+    @objc func handleModalViewDidDisappear() {
+        self.setNeedsStatusBarAppearanceUpdate()
     }
 
     // MARK: - UITableViewDelegate
