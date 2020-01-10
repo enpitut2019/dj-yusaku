@@ -1,15 +1,28 @@
-# DJ YUSAKU
+# Juke
 
-## DJ YUSAKUに音楽をリクエストしよう。
+<p align="center">
+  <img width="240" src="https://user-images.githubusercontent.com/3463901/72130722-af3bf880-33bd-11ea-8213-4dd9df91d490.png"><br>
+  <strong>Hey Juke, take a thousand song and make it better.</strong>
+</p>
 
-「DJ YUSAKU」はその場のみんなで簡単にプレイリストを作って再生できる革新的なアプリケーションです。  
+Juke（コードネーム：DJ YUSAKU）を使えば、Apple Musicを購読している親機にみんなで曲を「リクエスト」することで、プレイリストを作成して再生することができます。 
 
-#### 対応デバイス
+### Jukeの特徴
+
+#### リクエストする。
+
+セッションを作成（あるいは既存のセッションに参加）してから、再生したい楽曲をApple Musicから検索して、セッションの親機に「リクエスト」します。
+
+#### いっしょに聴こう。
+
+セッションの参加者から「リクエスト」された楽曲は、親機の端末上で再生されます。1つのセッションには、最大8人まで参加することができます。
+
+### 対応デバイス
 
 - iOS 13以降を搭載したiPhone/iPod touch
 - iPadOS 13以降を搭載したiPad
 
-DJとしてのセッション参加にはApple Musicのメンバーシップが必要です。
+親機としてのセッション参加にはApple Musicのメンバーシップが必要です。
 
 ## インストール
 
