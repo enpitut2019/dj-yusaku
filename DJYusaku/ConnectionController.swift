@@ -69,14 +69,20 @@ class ConnectionController: NSObject {
     }
     
     @objc func handleDidEnterBackground() {
+        self.advertiser?.stopAdvertisingPeer()
         guard self.connectedDJ != nil else { return }
         self.session.disconnect()
     }
     
     @objc func handleWillEnterForeground() {
-        guard let connectedDJ = self.connectedDJ else { return }
-        self.connectedDJ!.state = .connecting
-        self.browser.invitePeer(connectedDJ.peerID, to: self.session, withContext: nil, timeout: 10.0)
+        guard let isDJ = self.isDJ else { return }
+        if isDJ {
+            let profile = DefaultsController.shared.profile
+            startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: self.numberOfParticipants)
+        } else {
+            self.connectedDJ!.state = .connecting
+            self.browser.invitePeer(self.connectedDJ!.peerID, to: self.session, withContext: nil, timeout: 10.0)
+        }
     }
     
     @objc func handleWillTerminate() {

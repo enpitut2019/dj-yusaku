@@ -59,7 +59,7 @@ class MemberViewController: UIViewController {
         guard let isDJ = ConnectionController.shared.isDJ else { return }
         let connectedDJ = ConnectionController.shared.connectedDJ
         
-        let DJName = ConnectionController.shared.isDJ!
+        let DJName = isDJ
                    ? DefaultsController.shared.profile.name
                    : ConnectionController.shared.peerProfileCorrespondence[connectedDJ!.peerID]!.name
         var DJImage: UIImage?
