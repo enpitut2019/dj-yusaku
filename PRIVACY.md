@@ -8,7 +8,7 @@ In order to improve Juke's quality and solve problems, we will send you informat
 
 We do not provide personally identifiable information to third parties without your permission.
 
-If you have any questions, please contact yaplusoon@gmail.com or Twitter account for support [@JukeApp] (https://twitter.com/yusakuapp) or feel free to contact us.
+If you have any questions, please feel free to contact yaplusoon@gmail.com or Twitter account for support [@JukeApp](https://twitter.com/yusakuapp).
 
 **2020/1/11**
 
@@ -22,6 +22,6 @@ Jukeの品質向上と問題解決のために、ユーザーの使用してい�
 
 これらの情報について、ユーザーの許可なく個人を特定できる情報を第三者に提供することはありません。  
 
-ご不明な点があれば、yaplusoon@gmail.com あるいはサポート用のTwitterアカウント[@JukeApp](https://twitter.com/yusakuapp) までにあるいはお気軽にお問い合わせください。  
+ご不明な点があれば、yaplusoon@gmail.com あるいはサポート用のTwitterアカウント[@JukeApp](https://twitter.com/yusakuapp) までお気軽にお問い合わせください。  
 
 **2020年1月11日**
