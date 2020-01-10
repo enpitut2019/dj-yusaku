@@ -56,6 +56,7 @@ class MemberViewController: UIViewController {
     }
     
     func updateMembers() {
+        guard let isDJ = ConnectionController.shared.isDJ else { return }
         let connectedDJ = ConnectionController.shared.connectedDJ
         
         let DJName = ConnectionController.shared.isDJ!
@@ -65,14 +66,14 @@ class MemberViewController: UIViewController {
         
         self.listeners = ConnectionController.shared.session.connectedPeers
         
-        if !ConnectionController.shared.isDJ! {
+        if !isDJ {
             // 接続している端末（親機）はtableViewには表示しない
             self.listeners = self.listeners.filter({ $0 != connectedDJ!.peerID })
             // 子機のときは自分を先頭に挿入
             self.listeners.insert(ConnectionController.shared.peerID, at: 0)
         }
         
-        if ConnectionController.shared.isDJ! {
+        if isDJ {
             DispatchQueue.global().async {
                 if let imageUrl = DefaultsController.shared.profile.imageUrl {
                     DJImage = CachedImage.fetch(url: imageUrl)
