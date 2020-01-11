@@ -2,7 +2,7 @@
 
 <p align="center">
   <img width="240" src="https://user-images.githubusercontent.com/3463901/72130722-af3bf880-33bd-11ea-8213-4dd9df91d490.png"><br>
-  <strong>Hey Juke, take a thousand song and make it better.</strong>
+  <strong>Hey Juke, take thousands of songs and make it better.</strong>
 </p>
 
 Juke（コードネーム：DJ YUSAKU）を使えば、Apple Musicを購読している親機にみんなで曲を「リクエスト」することで、プレイリストを作成して再生することができます。 
