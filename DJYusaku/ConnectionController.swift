@@ -175,6 +175,9 @@ extension ConnectionController: MCSessionDelegate {
             break
         case .connecting:
             print("Peer \(peerID.displayName) is connecting...")
+            if !isDJ && (peerID == self.connectedDJ?.peerID) { // リスナーがDJに接続試行中のとき
+                NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
+            }
             break
         case .connected:
             print("Peer \(peerID.displayName) is connected.")

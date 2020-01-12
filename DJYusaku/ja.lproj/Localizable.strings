@@ -26,6 +26,7 @@
 // MemberViewController.swift
 "Missing" = "未接続";
 "Connecting" = "接続中";
+"Connected" = "接続済み";
 "You" = "あなた";
 
 // WelcomeViewController.swift

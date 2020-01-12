@@ -27,6 +27,7 @@
 // MemberViewController.swift
 "Missing" = "Missing";
 "Connecting" = "Connecting";
+"Connected" = "Connected";
 "You" = "You";
 
 // WelcomeViewController.swift

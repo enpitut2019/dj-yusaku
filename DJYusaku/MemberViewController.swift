@@ -102,14 +102,20 @@ class MemberViewController: UIViewController {
                 }
             }
             DispatchQueue.main.async {
-                if connectedDJ.state != .connected {
+                switch connectedDJ.state {
+                case .notConnected:
                     self.DJNameLabel.alpha = 0.3
                     self.DJImageView.alpha = 0.3
                     self.DJStatusLabel.text = "Missing".localized
-                } else {
+                case .connecting:
+                    self.DJNameLabel.alpha = 0.7
+                    self.DJImageView.alpha = 0.7
+                    self.DJStatusLabel.text = "Connecting".localized
+                case .connected:
                     self.DJNameLabel.alpha = 1.0
                     self.DJImageView.alpha = 1.0
-                    self.DJStatusLabel.text = "Connecting".localized
+                    self.DJStatusLabel.text = "Connected".localized
+                @unknown default: break
                 }
             }
             
