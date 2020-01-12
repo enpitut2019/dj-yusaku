@@ -145,13 +145,15 @@ class MemberViewController: UIViewController {
 
 extension MemberViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard ConnectionController.shared.isDJ != nil else { return 0 }
         return self.listeners.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell  = tableView.dequeueReusableCell(withIdentifier: "MemberTableViewCell", for: indexPath) as! MemberTableViewCell
+        guard let isDJ = ConnectionController.shared.isDJ else { return cell }
         var listenerImage: UIImage?
-        if indexPath.row == 0 && !ConnectionController.shared.isDJ! { // 自分自身（子機）
+        if indexPath.row == 0 && !isDJ { // 自分自身（子機）
             let profile = DefaultsController.shared.profile
             cell.peerName.text = profile.name
             cell.statusView.isHidden = false
