@@ -81,7 +81,7 @@ class ConnectionController: NSObject {
             startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: self.numberOfParticipants)
         } else {
             guard let connectedDJ = self.connectedDJ else { return }
-            self.connectedDJ?.state = .connected
+            self.connectedDJ?.state = .connecting
             self.browser.invitePeer(connectedDJ.peerID, to: self.session, withContext: nil, timeout: 10.0)
         }
     }
@@ -137,7 +137,7 @@ class ConnectionController: NSObject {
         if selectedDJ != self.connectedDJ?.peerID {
             self.disconnect()
         }
-        self.connectedDJ = (selectedDJ, .connected)
+        self.connectedDJ = (selectedDJ, .connecting)
         self.browser.invitePeer(selectedDJ, to: session, withContext: nil, timeout: 10.0)
         self.advertiser?.stopAdvertisingPeer()
         NotificationCenter.default.post(name: .DJYusakuUserStateDidUpdate, object: nil)
@@ -163,21 +163,26 @@ extension ConnectionController: MCSessionDelegate {
         switch state {
         case .notConnected:
             print("Peer \(peerID.displayName) is disconnected.")
+            if !isDJ && (peerID == self.connectedDJ?.peerID) { // リスナーがDJを見失ったとき
+                self.connectedDJ?.state = .notConnected
+            }
+            NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
+            
             if isDJ {
                 let profile = DefaultsController.shared.profile
                 startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: self.numberOfParticipants)
-            } else {
-                if peerID == self.connectedDJ?.peerID { // リスナーがDJを見失ったとき
-                    self.connectedDJ?.state = .notConnected
-                }
             }
-            NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
             break
         case .connecting:
             print("Peer \(peerID.displayName) is connecting...")
             break
         case .connected:
             print("Peer \(peerID.displayName) is connected.")
+            if !isDJ && (peerID == self.connectedDJ?.peerID) { // リスナーがDJを見つけたとき
+                self.connectedDJ?.state = .connected
+            }
+            NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
+            
             // 接続したらプロフィールを他のピアに送信する
             let data = try! JSONEncoder().encode(DefaultsController.shared.profile)
             let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.peerProfile, value: data))
@@ -194,10 +199,10 @@ extension ConnectionController: MCSessionDelegate {
                 //注意: これはPlayerQueueで実装しているNotification.Nameです
                 NotificationCenter.default.post(name:
                     .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
+                
                 let profile = DefaultsController.shared.profile
                 startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: self.numberOfParticipants)
             }
-            NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
             break
         default:
             break

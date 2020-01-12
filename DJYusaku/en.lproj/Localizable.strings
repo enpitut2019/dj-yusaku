@@ -21,6 +21,8 @@
 // SearchViewController.swift
 "Apple Music connection failed" = "Apple Music connection failed";
 "Please check your online status or Apple Music access permission at \"Settings\" app." = "Please check your online status or Apple Music access permission at \"Settings\" app.";
+"Request failed" = "Request failed";
+"Please check your connection status to session master." = "Please check your connection status to session master.";
 
 // MemberViewController.swift
 "Missing" = "Missing";

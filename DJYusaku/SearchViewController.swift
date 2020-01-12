@@ -120,14 +120,23 @@ extension SearchViewController: UITableViewDelegate {
             }
         } else {                                 // 自分がリスナーのとき
             guard let connectedDJ = ConnectionController.shared.connectedDJ else { return }
-            guard connectedDJ.state == .connected else { return }
-            let songData = try! JSONEncoder().encode(song)
-            
-            let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.requestSong, value: songData))
-            
-            ConnectionController.shared.send(messageData, toPeers: [connectedDJ.peerID], with: .unreliable) { [unowned viewController] in
-                tableView.cellForRow(at: indexPath)?.selectionStyle = .none
-                viewController.dismiss(animated: true)    // 1曲追加するごとにViewを閉じる
+            if connectedDJ.state == .connected {
+                let songData = try! JSONEncoder().encode(song)
+
+                let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.requestSong, value: songData))
+
+                ConnectionController.shared.send(messageData, toPeers: [connectedDJ.peerID], with: .unreliable) { [unowned viewController] in
+                    tableView.cellForRow(at: indexPath)?.selectionStyle = .none
+                    viewController.dismiss(animated: true)    // 1曲追加するごとにViewを閉じる
+                }
+            } else {
+                let alertController = UIAlertController(title:   "Request failed".localized,
+                                                        message: "Please check your connection status to session master.".localized,
+                                                        preferredStyle: UIAlertController.Style.alert)
+                let alertButton = UIAlertAction(title: "OK",
+                                                style: UIAlertAction.Style.cancel)
+                alertController.addAction(alertButton)
+                self.present(alertController, animated: true, completion: nil)
             }
         }
     }
