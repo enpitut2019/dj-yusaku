@@ -136,8 +136,8 @@ class ConnectionController: NSObject {
         self.isInSession = true
         if selectedDJ != self.connectedDJ?.peerID {
             self.disconnect()
+            self.connectedDJ = (selectedDJ, .connecting)
         }
-        self.connectedDJ = (selectedDJ, .connecting)
         self.browser.invitePeer(selectedDJ, to: session, withContext: nil, timeout: 10.0)
         self.advertiser?.stopAdvertisingPeer()
         NotificationCenter.default.post(name: .DJYusakuUserStateDidUpdate, object: nil)
