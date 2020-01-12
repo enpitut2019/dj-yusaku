@@ -109,21 +109,23 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let isDJ = ConnectionController.shared.isDJ else { return }
         self.tableView.deselectRow(at: indexPath, animated: false)  // セルの選択を解除
         
         let song = results[indexPath.row]
         let viewController = self.presentingViewController ?? self   // 閉じる対象のViewController
-        if ConnectionController.shared.isDJ! {   // 自分がDJのとき
+        if isDJ {   // 自分がDJのとき
             PlayerQueue.shared.add(with: song) { [unowned viewController] in
                 viewController.dismiss(animated: true)    // 1曲追加するごとにViewを閉じる
             }
         } else {                                 // 自分がリスナーのとき
-            guard ConnectionController.shared.connectedDJ!.state == .connected else { return }
+            guard let connectedDJ = ConnectionController.shared.connectedDJ else { return }
+            guard connectedDJ.state == .connected else { return }
             let songData = try! JSONEncoder().encode(song)
             
             let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.requestSong, value: songData))
             
-            ConnectionController.shared.send(messageData, toPeers: [ConnectionController.shared.connectedDJ!.peerID], with: .unreliable) { [unowned viewController] in
+            ConnectionController.shared.send(messageData, toPeers: [connectedDJ.peerID], with: .unreliable) { [unowned viewController] in
                 tableView.cellForRow(at: indexPath)?.selectionStyle = .none
                 viewController.dismiss(animated: true)    // 1曲追加するごとにViewを閉じる
             }
