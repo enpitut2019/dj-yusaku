@@ -96,6 +96,7 @@ extension ListenerConnectionViewController: UITableViewDataSource {
 
 extension ListenerConnectionViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: false)  // セルの選択を解除
         guard let numberOfParticipants = ConnectionController.shared.numberOfParticipantsCorrespondence[ConnectionController.shared.connectableDJs[indexPath.row]] else { return }
         if numberOfParticipants < 8 {
             let selectedDJ = ConnectionController.shared.connectableDJs[indexPath.row]
