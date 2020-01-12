@@ -99,8 +99,18 @@ extension ListenerConnectionViewController: UITableViewDelegate {
         guard let numberOfParticipants = ConnectionController.shared.numberOfParticipantsCorrespondence[ConnectionController.shared.connectableDJs[indexPath.row]] else { return }
         if numberOfParticipants < 8 {
             let selectedDJ = ConnectionController.shared.connectableDJs[indexPath.row]
-            ConnectionController.shared.startListener(selectedDJ: selectedDJ)
-            self.dismiss(animated: true)
+            if let connectedDJ = ConnectionController.shared.connectedDJ, connectedDJ.state == .connecting {
+                let alertController = UIAlertController(title:   "You are now trying to connect".localized,
+                                                        message: "Please wait up to process is completed.".localized,
+                                                        preferredStyle: UIAlertController.Style.alert)
+                let alertButton = UIAlertAction(title: "OK",
+                                                style: UIAlertAction.Style.cancel)
+                alertController.addAction(alertButton)
+                self.present(alertController, animated: true, completion: nil)
+            } else {
+                ConnectionController.shared.startListener(selectedDJ: selectedDJ)
+                self.dismiss(animated: true)
+            }
         }
     }
 }
