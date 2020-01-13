@@ -116,8 +116,8 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let isDJ = ConnectionController.shared.isDJ else { return }
         self.tableView.deselectRow(at: indexPath, animated: false)  // セルの選択を解除
+        guard let isDJ = ConnectionController.shared.isDJ else { return }
         
         guard !(self.isSongSelected) else { return }
         self.isSongSelected = true
