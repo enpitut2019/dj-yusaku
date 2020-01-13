@@ -32,5 +32,7 @@
 // WelcomeViewController.swift
 "Apple Music membership could not be confirmed" = "Apple Musicのメンバーシップを確認できませんでした";
 "Apple Music songs are not played in this session." = "このセッションではApple Musicの楽曲は再生されません。";
-"You are now trying to connect" = "現在接続試行中です";
-"Please wait up to process is completed." = "接続プロセスが完了するまでお待ちください。";
+
+// ListenerConnectionViewController.swift
+"You are now trying to connect" = "他のセッションに参加しようとしています";
+"Please wait up to process is completed." = "接続しようとしているセッションへの接続が完了するまでは他のセッションへの参加はできません。";
