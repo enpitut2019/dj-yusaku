@@ -68,9 +68,11 @@ class BatterySaverViewController: UIViewController {
         UIScreen.main.brightness = previousScreenBrightness
         UIView.animate(withDuration: 2.0, delay: 1.0, animations: {
             view.alpha = 0.0
-        }, completion: { _ in
-            view.alpha = 0.0
-            UIScreen.main.brightness = 0.0
+        }, completion: { finished in
+            if finished {
+                view.alpha = 0.0
+                UIScreen.main.brightness = 0.0
+            }
         })
     }
     
