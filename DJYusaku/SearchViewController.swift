@@ -23,7 +23,7 @@ class SearchViewController: UIViewController {
     // 画像の取得の際に用いるキュー
     private let imageFetchQueue = DispatchQueue(label: "DJYusakuImageFetch", qos:.userInteractive)
     private var imageFetchWorkItem : [DispatchWorkItem?] = [DispatchWorkItem?](repeating: nil, count: 25)
-    private var pushed = false
+    private var isSongSelected = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +60,12 @@ class SearchViewController: UIViewController {
             }
             self.storefrontCountryCode = storefrontCountryCode
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.isSongSelected = false
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -110,9 +116,10 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard !(self.pushed) else { return }
-        self.pushed = true
         self.tableView.deselectRow(at: indexPath, animated: false)  // セルの選択を解除
+        
+        guard !(self.isSongSelected) else { return }
+        self.isSongSelected = true
         
         let song = results[indexPath.row]
         let viewController = self.presentingViewController ?? self   // 閉じる対象のViewController
