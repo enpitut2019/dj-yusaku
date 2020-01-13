@@ -147,6 +147,8 @@ extension SearchViewController: UITableViewDelegate {
                                                 style: UIAlertAction.Style.cancel)
                 alertController.addAction(alertButton)
                 self.present(alertController, animated: true, completion: nil)
+            }
+        }
         if isDJ { // 自分がDJのとき
             PlayerQueue.shared.add(with: song)
         } else {  // 自分がリスナーのとき
@@ -156,7 +158,7 @@ extension SearchViewController: UITableViewDelegate {
 
                 let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.requestSong, value: songData))
 
-                ConnectionController.shared.send(messageData, toPeers: [connectedDJ.peerID], with: .unreliable) { [unowned viewController] in
+                ConnectionController.shared.send(messageData, toPeers: [connectedDJ.peerID], with: .unreliable) {
                     tableView.cellForRow(at: indexPath)?.selectionStyle = .none
                 }
             } else {
