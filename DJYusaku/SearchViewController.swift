@@ -23,6 +23,7 @@ class SearchViewController: UIViewController {
     // 画像の取得の際に用いるキュー
     private let imageFetchQueue = DispatchQueue(label: "DJYusakuImageFetch", qos:.userInteractive)
     private var imageFetchWorkItem : [DispatchWorkItem?] = [DispatchWorkItem?](repeating: nil, count: 25)
+    private var isSongSelected = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +60,12 @@ class SearchViewController: UIViewController {
             }
             self.storefrontCountryCode = storefrontCountryCode
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.isSongSelected = false
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -111,23 +118,24 @@ extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: false)  // セルの選択を解除
         
+        guard !(self.isSongSelected) else { return }
+        self.isSongSelected = true
+        
         let song = results[indexPath.row]
         let viewController = self.presentingViewController ?? self   // 閉じる対象のViewController
         if ConnectionController.shared.isDJ! {   // 自分がDJのとき
-            PlayerQueue.shared.add(with: song) { [unowned viewController] in
-                viewController.dismiss(animated: true)    // 1曲追加するごとにViewを閉じる
-            }
+            PlayerQueue.shared.add(with: song)
         } else {                                 // 自分がリスナーのとき
             guard ConnectionController.shared.connectedDJ!.state == .connected else { return }
             let songData = try! JSONEncoder().encode(song)
             
             let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.requestSong, value: songData))
             
-            ConnectionController.shared.send(messageData, toPeers: [ConnectionController.shared.connectedDJ!.peerID], with: .unreliable) { [unowned viewController] in
+            ConnectionController.shared.send(messageData, toPeers: [ConnectionController.shared.connectedDJ!.peerID], with: .unreliable) {
                 tableView.cellForRow(at: indexPath)?.selectionStyle = .none
-                viewController.dismiss(animated: true)    // 1曲追加するごとにViewを閉じる
             }
         }
+        viewController.dismiss(animated: true) //1曲追加するごとにViewを閉じる
     }
     
 }
