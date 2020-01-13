@@ -286,15 +286,16 @@ extension RequestsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RequestsMusicTableViewCell", for: indexPath) as! RequestsMusicTableViewCell
+        guard let isDJ = ConnectionController.shared.isDJ else { return cell }
         var song: Song
-        if ConnectionController.shared.isDJ! {
+        if isDJ {
             guard let queueSong = PlayerQueue.shared.get(at: indexPath.row) else { return cell }
             song = queueSong
         } else {
             song = ConnectionController.shared.receivedSongs[indexPath.row]
         }
         
-        let indexOfNowPlayingItem = ConnectionController.shared.isDJ!
+        let indexOfNowPlayingItem = isDJ
                                   ? PlayerQueue.shared.mpAppController.indexOfNowPlayingItem
                                   : RequestsViewController.self.indexOfNowPlayingItemOnListener
         cell.title.text    = song.title
@@ -344,8 +345,9 @@ extension RequestsViewController: UITableViewDataSource {
 extension RequestsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let isDJ = ConnectionController.shared.isDJ else { return }
         self.tableView.deselectRow(at: indexPath, animated: false)  // セルの選択を解除
-        if ConnectionController.shared.isDJ! {   // 自分がDJのとき
+        if isDJ {   // 自分がDJのとき
             // 曲を再生する
             PlayerQueue.shared.play(at: indexPath.row)
         }

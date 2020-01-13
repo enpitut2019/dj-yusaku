@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.synchronize()
 
         launchCount = UserDefaults.standard.integer(forKey: UserDefaults.DJYusakuDefaults.LaunchCount)
-        if launchCount >= 7 {
+        if (launchCount % 8) == 7 {
             SKStoreReviewController.requestReview()
         }
         sleep(1)    // LaunchScreenを表示

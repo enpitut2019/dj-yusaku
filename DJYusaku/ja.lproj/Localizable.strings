@@ -20,12 +20,17 @@
 // SearchViewController.swift
 "Apple Music connection failed" = "Apple Musicとの接続に失敗しました";
 "Please check your online status or Apple Music access permission at \"Settings\" app." = "インターネットの状態または「設定」アプリでApple Musicの許可を確認してください。";
+"Request failed" = "リクエストに失敗しました";
+"Please check your connection status to session master." = "親機との接続状況を確認してください。";
 
 // MemberViewController.swift
 "Missing" = "未接続";
 "Connecting" = "接続中";
+"Connected" = "接続済み";
 "You" = "あなた";
 
 // WelcomeViewController.swift
 "Apple Music membership could not be confirmed" = "Apple Musicのメンバーシップを確認できませんでした";
 "Apple Music songs are not played in this session." = "このセッションではApple Musicの楽曲は再生されません。";
+"You are now trying to connect" = "現在接続試行中です";
+"Please wait up to process is completed." = "接続プロセスが完了するまでお待ちください。";

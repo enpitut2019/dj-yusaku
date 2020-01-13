@@ -80,8 +80,9 @@ class ConnectionController: NSObject {
             let profile = DefaultsController.shared.profile
             startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: self.numberOfParticipants)
         } else {
-            self.connectedDJ!.state = .connected
-            self.browser.invitePeer(self.connectedDJ!.peerID, to: self.session, withContext: nil, timeout: 10.0)
+            guard let connectedDJ = self.connectedDJ else { return }
+            self.connectedDJ?.state = .connecting
+            self.browser.invitePeer(connectedDJ.peerID, to: self.session, withContext: nil, timeout: 10.0)
         }
     }
     
@@ -135,8 +136,8 @@ class ConnectionController: NSObject {
         self.isInSession = true
         if selectedDJ != self.connectedDJ?.peerID {
             self.disconnect()
+            self.connectedDJ = (selectedDJ, .connecting)
         }
-        self.connectedDJ = (selectedDJ, .connected)
         self.browser.invitePeer(selectedDJ, to: session, withContext: nil, timeout: 10.0)
         self.advertiser?.stopAdvertisingPeer()
         NotificationCenter.default.post(name: .DJYusakuUserStateDidUpdate, object: nil)
@@ -158,28 +159,40 @@ class ConnectionController: NSObject {
 extension ConnectionController: MCSessionDelegate {
     // 接続ピアの状態が変化したとき呼ばれる
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
+        guard let isDJ = self.isDJ else { return }
         switch state {
         case .notConnected:
             print("Peer \(peerID.displayName) is disconnected.")
-            if self.isDJ! {
-                let profile = DefaultsController.shared.profile
-                startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: self.numberOfParticipants)
-            } else if peerID == self.connectedDJ?.peerID { // リスナーがDJを見失ったとき
-                self.connectedDJ!.state = .notConnected
+            if !isDJ && (peerID == self.connectedDJ?.peerID) { // リスナーがDJを見失ったとき
+                self.connectedDJ?.state = .notConnected
             }
             NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
+            
+            if isDJ {
+                let profile = DefaultsController.shared.profile
+                startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: self.numberOfParticipants)
+            }
             break
         case .connecting:
             print("Peer \(peerID.displayName) is connecting...")
+            if !isDJ && (peerID == self.connectedDJ?.peerID) { // リスナーがDJに接続試行中のとき
+                self.connectedDJ?.state = .connecting
+                NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
+            }
             break
         case .connected:
             print("Peer \(peerID.displayName) is connected.")
+            if !isDJ && (peerID == self.connectedDJ?.peerID) { // リスナーがDJを見つけたとき
+                self.connectedDJ?.state = .connected
+            }
+            NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
+            
             // 接続したらプロフィールを他のピアに送信する
             let data = try! JSONEncoder().encode(DefaultsController.shared.profile)
             let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.peerProfile, value: data))
             self.send(messageData, toPeers: [peerID], with: .unreliable)
             
-            if self.isDJ! {   // DJが新しい子機と接続したとき
+            if isDJ {   // DJが新しい子機と接続したとき
                 var songs: [Song] = []
                 for i in 0..<PlayerQueue.shared.count() {
                     songs.append(PlayerQueue.shared.get(at: i)!)
@@ -190,10 +203,10 @@ extension ConnectionController: MCSessionDelegate {
                 //注意: これはPlayerQueueで実装しているNotification.Nameです
                 NotificationCenter.default.post(name:
                     .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
+                
                 let profile = DefaultsController.shared.profile
                 startAdvertise(displayName: profile.name, imageUrl: profile.imageUrl, numberOfParticipants: self.numberOfParticipants)
             }
-            NotificationCenter.default.post(name: .DJYusakuPeerConnectionStateDidUpdate, object: nil)
             break
         default:
             break
@@ -202,10 +215,11 @@ extension ConnectionController: MCSessionDelegate {
     
     // 他のピアによる send を受け取ったとき呼ばれる
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+        guard let isDJ = self.isDJ else { return }
         print("\(peerID)から \(String(data: data, encoding: .utf8)!)を受け取りました")
         
         let messageData = try! JSONDecoder().decode(MessageData.self, from: data)
-        if self.isDJ! { // DJがデータを受け取ったとき
+        if isDJ { // DJがデータを受け取ったとき
             switch messageData.desc {
             case MessageData.DataType.requestSong:
                 let song = try! JSONDecoder().decode(Song.self, from: messageData.value)

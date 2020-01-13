@@ -116,6 +116,7 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let isDJ = ConnectionController.shared.isDJ else { return }
         self.tableView.deselectRow(at: indexPath, animated: false)  // セルの選択を解除
         
         guard !(self.isSongSelected) else { return }
@@ -123,16 +124,26 @@ extension SearchViewController: UITableViewDelegate {
         
         let song = results[indexPath.row]
         let viewController = self.presentingViewController ?? self   // 閉じる対象のViewController
-        if ConnectionController.shared.isDJ! {   // 自分がDJのとき
+        if isDJ { // 自分がDJのとき
             PlayerQueue.shared.add(with: song)
-        } else {                                 // 自分がリスナーのとき
-            guard ConnectionController.shared.connectedDJ!.state == .connected else { return }
-            let songData = try! JSONEncoder().encode(song)
-            
-            let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.requestSong, value: songData))
-            
-            ConnectionController.shared.send(messageData, toPeers: [ConnectionController.shared.connectedDJ!.peerID], with: .unreliable) {
-                tableView.cellForRow(at: indexPath)?.selectionStyle = .none
+        } else {  // 自分がリスナーのとき
+            guard let connectedDJ = ConnectionController.shared.connectedDJ else { return }
+            if connectedDJ.state == .connected {
+                let songData = try! JSONEncoder().encode(song)
+
+                let messageData = try! JSONEncoder().encode(MessageData(desc:  MessageData.DataType.requestSong, value: songData))
+
+                ConnectionController.shared.send(messageData, toPeers: [connectedDJ.peerID], with: .unreliable) {
+                    tableView.cellForRow(at: indexPath)?.selectionStyle = .none
+                }
+            } else {
+                let alertController = UIAlertController(title:   "Request failed".localized,
+                                                        message: "Please check your connection status to session master.".localized,
+                                                        preferredStyle: UIAlertController.Style.alert)
+                let alertButton = UIAlertAction(title: "OK",
+                                                style: UIAlertAction.Style.cancel)
+                alertController.addAction(alertButton)
+                self.present(alertController, animated: true, completion: nil)
             }
         }
         viewController.dismiss(animated: true) //1曲追加するごとにViewを閉じる
