@@ -5,6 +5,12 @@
   <strong>Hey Juke, take thousands of songs and make it better.</strong>
 </p>
 
+<p align="center">
+  <a href="https://itunes.apple.com/jp/app/id1487275864?mt=8"><img width="218" src="https://user-images.githubusercontent.com/3463901/72314380-0ef21680-36d2-11ea-87b7-39d99e282a16.png"></a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://testflight.apple.com/join/EOWicJJ3"><img width="218" src="https://user-images.githubusercontent.com/3463901/72314384-131e3400-36d2-11ea-8793-b9063cdb32c7.png"></a>
+</p>
+
 Juke（コードネーム：DJ YUSAKU）を使えば、Apple Musicを購読している親機にみんなで曲を「リクエスト」することで、プレイリストを作成して再生することができます。 
 
 ### Jukeの特徴
@@ -26,13 +32,9 @@ Juke（コードネーム：DJ YUSAKU）を使えば、Apple Musicを購読し�
 
 ## インストール
 
-**TestFlightを使ってDJ YUSAKU Appを一足先に試用することができます✈️**
-1. 自分の学籍番号（あるいは受信可能なメールアドレス）をenPiTの [#team_優作](https://app.slack.com/client/THHKFQY3H/CM236RA8G) の **[この投稿](https://enpit2019tkb.slack.com/archives/CM236RA8G/p1573648358002600)** に書き込んでください。  
-[@yaplus](https://github.com/yaplus) が確認して、 s(自分の学籍番号)@s.tsukuba.ac.jp （あるいは教えていただいたメールアドレス）をテスターとしてApp Store Connectに登録します。
-2. App Storeから [TestFlight](https://apps.apple.com/jp/app/testflight/id899247664) をインストールします。TestFlight にApple IDでログインを行ってください。  
-（Apple IDの登録メールアドレスは上で教えていただいたメールアドレスと同じである必要はありません。）
-3. 1.でテスター登録したメールアドレス宛に届いているメールに、アプリケーションのインストールに必要なリンクが添付されています。  
-メール内の「View in TestFlight」をタップすると、TestFlightでアプリケーションのインストールを行うことができます。
+- JukeはApp Storeで配布予定です（1/14現在）。公開が開始された場合に **[App Store](https://itunes.apple.com/jp/app/id1487275864?mt=8)** のリンクからお手持ちのiPhone/iPod touch/iPadにインストールすることができます。
+- App Storeで配布される前に試用するには **[TestFlight✈️](https://testflight.apple.com/join/EOWicJJ3)** のリンクからベータテストに参加してください（別途TestFlightのインストールが必要です）。
+  - 詳しくは、リンク先を確認してください。
 
 ## Contributor
 Team 優作
