@@ -7,7 +7,7 @@
 
 <p align="center">
   <a href="https://itunes.apple.com/jp/app/id1487275864?mt=8"><img width="218" src="https://user-images.githubusercontent.com/3463901/72314380-0ef21680-36d2-11ea-87b7-39d99e282a16.png"></a>
-  &nbsp;&nbsp;&nbsp;&nbsp;
+  &emsp;
   <a href="https://testflight.apple.com/join/EOWicJJ3"><img width="218" src="https://user-images.githubusercontent.com/3463901/72314384-131e3400-36d2-11ea-8793-b9063cdb32c7.png"></a>
 </p>
 
