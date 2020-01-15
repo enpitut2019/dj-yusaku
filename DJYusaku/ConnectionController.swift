@@ -23,7 +23,7 @@ class ConnectionController: NSObject {
     
     private let serviceType = "djyusaku"
     
-    let peerID = MCPeerID(displayName: UIDevice.current.name)
+    private(set) var peerID: MCPeerID!
     private(set) var session: MCSession!
     private var advertiser: MCNearbyServiceAdvertiser!
     private var browser: MCNearbyServiceBrowser!
@@ -55,6 +55,14 @@ class ConnectionController: NSObject {
     var canPlayAppleMusic = false
 
     func initialize() {
+        if let peerIDData = UserDefaults.standard.data(forKey: UserDefaults.DJYusakuDefaults.ArchivedPeerID) {
+            self.peerID = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(peerIDData) as? MCPeerID
+        } else {
+            self.peerID = MCPeerID(displayName: UIDevice.current.name)
+            let peerIDData = try! NSKeyedArchiver.archivedData(withRootObject: self.peerID!, requiringSecureCoding: false)
+            UserDefaults.standard.set(peerIDData, forKey: UserDefaults.DJYusakuDefaults.ArchivedPeerID)
+            UserDefaults.standard.synchronize()
+        }
         self.session = MCSession(peer: self.peerID)
         self.session.delegate = self
 

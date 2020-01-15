@@ -16,5 +16,6 @@ extension UserDefaults {
         static let IsAutoLockEnabled     = "IsAutoLockEnabled"
         static let IsLaunchedAtLeastOnce = "IsLaunchedAtLeastOnce"
         static let LaunchCount           = "LaunchCount"
+        static let ArchivedPeerID        = "ArchivedPeerID"
     }
 }
