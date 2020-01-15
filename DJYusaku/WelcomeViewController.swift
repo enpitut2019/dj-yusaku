@@ -99,7 +99,9 @@ class WelcomeViewController: UIViewController {
             }
         }
         
-        ConnectionController.shared.startDJ()
-        self.dismiss(animated: true)
+        DispatchQueue.main.async {
+            ConnectionController.shared.startDJ()
+            self.dismiss(animated: true)
+        }
     }
 }

@@ -21,10 +21,13 @@
 // SearchViewController.swift
 "Apple Music connection failed" = "Apple Music connection failed";
 "Please check your online status or Apple Music access permission at \"Settings\" app." = "Please check your online status or Apple Music access permission at \"Settings\" app.";
+"Request failed" = "Request failed";
+"Please check your connection status to session master." = "Please check your connection status to session master.";
 
 // MemberViewController.swift
 "Missing" = "Missing";
 "Connecting" = "Connecting";
+"Connected" = "Connected";
 "You" = "You";
 
 // WelcomeViewController.swift
@@ -32,3 +35,7 @@
 "Apple Music songs are not played in this session." = "Apple Music songs are not played in this session.";
 "Could not connect to Apple Music" = "Could not connect to Apple Music.";
 "Please check your online status." = "Please check your online status.";
+
+// ListenerConnectionViewController.swift
+"You are now trying to connect" = "You are now trying to connect";
+"Please wait up to process is completed." = "Please wait up to process is completed.";

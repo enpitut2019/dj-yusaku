@@ -49,24 +49,43 @@ extension ListenerConnectionViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListenerConnectableDJsTableViewCell", for: indexPath) as! ListenerConnectableDJsTableViewCell
         var DJImage: UIImage?
-        let profile = ConnectionController.shared.peerProfileCorrespondence[ConnectionController.shared.connectableDJs[indexPath.row]]!
-        cell.djName?.text = profile.name
-        if let numberOfParticipants = ConnectionController.shared.numberOfParticipantsCorrespondence[ConnectionController.shared.connectableDJs[indexPath.row]] {
+        let djPeerID = ConnectionController.shared.connectableDJs[indexPath.row]
+        if let profile = ConnectionController.shared.peerProfileCorrespondence[djPeerID] {
+            cell.djName?.text = profile.name
+
+            DispatchQueue.global().async {
+                if let imageUrl = profile.imageUrl {
+                    DJImage = CachedImage.fetch(url: imageUrl)
+                }
+                DispatchQueue.main.async {
+                    cell.djImageView.image = DJImage ?? UIImage(named: "TemporarySingleColored")
+                }
+            }
+        } else {
+            cell.djName?.text = djPeerID.displayName
+
+            cell.djImageView.image = UIImage(named: "TemporarySingleColored")
+        }
+        
+        if let numberOfParticipants = ConnectionController.shared.numberOfParticipantsCorrespondence[djPeerID] {
             cell.numberOfParticipantsLabel?.text = "\(numberOfParticipants)/8"
             if numberOfParticipants >= 8 {
                 cell.numberOfParticipantsLabel?.layer.backgroundColor = UIColor.red.cgColor
                 cell.djImageView.alpha = 0.3
                 cell.djName.alpha      = 0.3
                 cell.selectionStyle    = .none
+            } else {
+                cell.numberOfParticipantsLabel?.layer.backgroundColor = UIColor.separator.cgColor
+                cell.djImageView.alpha = 1
+                cell.djName.alpha      = 1
+                cell.selectionStyle    = .default
             }
-        }
-        DispatchQueue.global().async {
-            if let imageUrl = profile.imageUrl {
-                DJImage = CachedImage.fetch(url: imageUrl)
-            }
-            DispatchQueue.main.async {
-                cell.djImageView.image = DJImage ?? UIImage(named: "TemporarySingleColored")
-            }
+        } else {
+            cell.numberOfParticipantsLabel?.text = "?/8"
+            cell.numberOfParticipantsLabel?.layer.backgroundColor = UIColor.separator.cgColor
+            cell.djImageView.alpha = 1
+            cell.djName.alpha      = 1
+            cell.selectionStyle    = .default
         }
 
         return cell
@@ -77,10 +96,22 @@ extension ListenerConnectionViewController: UITableViewDataSource {
 
 extension ListenerConnectionViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if ConnectionController.shared.numberOfParticipantsCorrespondence[ConnectionController.shared.connectableDJs[indexPath.row]]! < 8 {
+        self.tableView.deselectRow(at: indexPath, animated: false)  // セルの選択を解除
+        guard let numberOfParticipants = ConnectionController.shared.numberOfParticipantsCorrespondence[ConnectionController.shared.connectableDJs[indexPath.row]] else { return }
+        if numberOfParticipants < 8 {
             let selectedDJ = ConnectionController.shared.connectableDJs[indexPath.row]
-            ConnectionController.shared.startListener(selectedDJ: selectedDJ)
-            self.dismiss(animated: true)
+            if let connectedDJ = ConnectionController.shared.connectedDJ, connectedDJ.state == .connecting {
+                let alertController = UIAlertController(title:   "You are now trying to connect".localized,
+                                                        message: "Please wait up to process is completed.".localized,
+                                                        preferredStyle: UIAlertController.Style.alert)
+                let alertButton = UIAlertAction(title: "OK",
+                                                style: UIAlertAction.Style.cancel)
+                alertController.addAction(alertButton)
+                self.present(alertController, animated: true, completion: nil)
+            } else {
+                ConnectionController.shared.startListener(selectedDJ: selectedDJ)
+                self.dismiss(animated: true)
+            }
         }
     }
 }
