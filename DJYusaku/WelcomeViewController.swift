@@ -76,6 +76,14 @@ class WelcomeViewController: UIViewController {
         // Apple Musicライブラリへのアクセス許可の確認
         SKCloudServiceController.requestAuthorization { status in
             guard status == .authorized else { return }
+            
+            defer {
+                DispatchQueue.main.async {
+                    ConnectionController.shared.startDJ()
+                    self.dismiss(animated: true)
+                }
+            }
+            
             // Apple Musicの曲が再生可能か確認
             self.cloudServiceController.requestCapabilities { [unowned self] (capabilities, error) in
                 guard error == nil && capabilities.contains(.musicCatalogPlayback) else {
@@ -97,11 +105,6 @@ class WelcomeViewController: UIViewController {
                     return
                 }
             }
-        }
-        
-        DispatchQueue.main.async {
-            ConnectionController.shared.startDJ()
-            self.dismiss(animated: true)
         }
     }
 }
