@@ -345,8 +345,8 @@ extension RequestsViewController: UITableViewDataSource {
 extension RequestsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let isDJ = ConnectionController.shared.isDJ else { return }
         self.tableView.deselectRow(at: indexPath, animated: false)  // セルの選択を解除
+        guard let isDJ = ConnectionController.shared.isDJ else { return }
         if isDJ {   // 自分がDJのとき
             // 曲を再生する
             PlayerQueue.shared.play(at: indexPath.row)

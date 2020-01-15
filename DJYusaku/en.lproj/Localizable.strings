@@ -33,5 +33,7 @@
 // WelcomeViewController.swift
 "Apple Music membership could not be confirmed" = "Apple Music membership could not be confirmed";
 "Apple Music songs are not played in this session." = "Apple Music songs are not played in this session.";
+
+// ListenerConnectionViewController.swift
 "You are now trying to connect" = "You are now trying to connect";
 "Please wait up to process is completed." = "Please wait up to process is completed.";
