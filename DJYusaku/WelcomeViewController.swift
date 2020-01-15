@@ -8,6 +8,7 @@
 
 import UIKit
 import MultipeerConnectivity
+import StoreKit
 
 class WelcomeViewController: UIViewController {
     
@@ -15,6 +16,8 @@ class WelcomeViewController: UIViewController {
     
     @IBOutlet weak var newSessionButton: UIButton!
     @IBOutlet weak var joinTheSessionButton: UIButton!
+    
+    private let cloudServiceController = SKCloudServiceController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,22 +73,33 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func joinAsDJ(_ sender: Any) {
-        if !ConnectionController.shared.canPlayAppleMusic {
-            // アラートを表示
-            let alertController = UIAlertController(title:   "Apple Music membership could not be confirmed".localized,
-                                                    message: "Apple Music songs are not played in this session.".localized,
-                                                    preferredStyle: .alert)
-            let alertButton = UIAlertAction(title: "OK",
-                                            style: .cancel) { action in
-                                                ConnectionController.shared.startDJ()
-                                                self.dismiss(animated: true)
+        // Apple Musicライブラリへのアクセス許可の確認
+        SKCloudServiceController.requestAuthorization { status in
+            guard status == .authorized else { return }
+            // Apple Musicの曲が再生可能か確認
+            self.cloudServiceController.requestCapabilities { [unowned self] (capabilities, error) in
+                guard error == nil && capabilities.contains(.musicCatalogPlayback) else {
+                    // アラートを表示
+                    let title = capabilities.contains(.musicCatalogPlayback)
+                              ? "Apple Music membership could not be confirmed"
+                              : "Could not connect to Apple Music"
+                    let message = capabilities.contains(.musicCatalogPlayback)
+                                ? "Apple Music songs are not played in this session."
+                                : "Please check your online status."
+                    let alertController = UIAlertController(title: title.localized,
+                                                            message: message.localized,
+                                                            preferredStyle: .alert)
+                    let alertButton = UIAlertAction(title: "OK", style: .cancel)
+                    alertController.addAction(alertButton)
+                    DispatchQueue.main.async {
+                        self.presentingViewController?.present(alertController, animated: true)
+                    }
+                    return
+                }
             }
-            alertController.addAction(alertButton)
-            self.present(alertController, animated: true, completion: nil)
-            return
         }
-        ConnectionController.shared.startDJ()
         
-        self.dismiss(animated: true, completion: nil)
+        ConnectionController.shared.startDJ()
+        self.dismiss(animated: true)
     }
 }

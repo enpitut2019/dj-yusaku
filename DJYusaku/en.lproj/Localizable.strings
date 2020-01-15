@@ -30,3 +30,5 @@
 // WelcomeViewController.swift
 "Apple Music membership could not be confirmed" = "Apple Music membership could not be confirmed";
 "Apple Music songs are not played in this session." = "Apple Music songs are not played in this session.";
+"Could not connect to Apple Music" = "Could not connect to Apple Music.";
+"Please check your online status." = "Please check your online status.";

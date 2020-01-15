@@ -29,3 +29,5 @@
 // WelcomeViewController.swift
 "Apple Music membership could not be confirmed" = "Apple Musicのメンバーシップを確認できませんでした";
 "Apple Music songs are not played in this session." = "このセッションではApple Musicの楽曲は再生されません。";
+"Could not connect to Apple Music" = "Apple Musicに接続できませんでした";
+"Please check your online status." = "インターネットの状態を確認してください。";
