@@ -51,8 +51,6 @@ class ConnectionController: NSObject {
             return self.session.connectedPeers.count + 1
         }
     }
-    
-    var canPlayAppleMusic = false
 
     func initialize() {
         self.session = MCSession(peer: self.peerID)
