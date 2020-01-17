@@ -122,7 +122,8 @@ class WelcomeViewController: UIViewController {
         }
     }
     
-    @IBAction func joinSessionButtonTouchUpInside(_ sender: Any) {        SKCloudServiceController.requestAuthorization { [unowned self] status in
+    @IBAction func joinSessionButtonTouchUpInside(_ sender: Any) {
+        SKCloudServiceController.requestAuthorization { [unowned self] status in
             guard status == .authorized else {
                 DispatchQueue.main.async {
                     let alertController = UIAlertController(title: "Apple Music authorization failed".localized,
