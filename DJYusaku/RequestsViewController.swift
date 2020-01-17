@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import StoreKit
 import MediaPlayer
 
 extension Notification.Name {
@@ -64,6 +65,13 @@ class RequestsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleButtonStateChange), name: .DJYusakuIsQueueCreatedDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleModalViewDidDisappear), name: .DJYusakuModalViewDidDisappear, object: nil)
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Apple Musicライブラリへのアクセス許可の確認（何もしない）
+        SKCloudServiceController.requestAuthorization( { _ in } )
     }
     
     override func viewDidAppear(_ animated: Bool) {

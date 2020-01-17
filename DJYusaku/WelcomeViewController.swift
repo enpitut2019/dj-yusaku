@@ -73,14 +73,29 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func joinAsDJ(_ sender: Any) {
-        defer {
-            ConnectionController.shared.startDJ()
-            self.dismiss(animated: true, completion: nil)
-        }
         
-        // Apple Musicライブラリへのアクセス許可の確認
-        SKCloudServiceController.requestAuthorization { status in
-            guard status == .authorized else { return }
+        SKCloudServiceController.requestAuthorization { [unowned self] status in
+            guard status == .authorized else {
+                DispatchQueue.main.async {
+                    let alertController = UIAlertController(title: "Apple Music authorization failed".localized,
+                                                            message: "Please check your Apple Music access permission at \"Settings\" app.".localized,
+                                                            preferredStyle: .alert)
+                    let alertButton = UIAlertAction(title: "OK",
+                                                    style: .cancel) { _ in
+                        NotificationCenter.default.post(name: .DJYusakuModalViewDidDisappear, object: nil)
+                    }
+                    alertController.addAction(alertButton)
+                    self.present(alertController, animated: true)
+                }
+                return
+            }
+            
+            defer {
+                DispatchQueue.main.async {
+                    ConnectionController.shared.startDJ()
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
             // Apple Musicの曲が再生可能か確認
             self.cloudServiceController.requestCapabilities { (capabilities, error) in
                 DispatchQueue.main.async {
