@@ -73,7 +73,6 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func joinAsDJ(_ sender: Any) {
-        
         SKCloudServiceController.requestAuthorization { [unowned self] status in
             guard status == .authorized else {
                 DispatchQueue.main.async {
@@ -99,7 +98,7 @@ class WelcomeViewController: UIViewController {
                         let alertController = UIAlertController(title: "Apple Music connection failed".localized,
                                                                 message: "Please check your online status.".localized,
                                                                 preferredStyle: .alert)
-                        let alertButton = UIAlertAction(title: "OK", style: .cancel) { _ in
+                        let alertButton = UIAlertAction(title: "OK", style: .cancel) { [unowned self] _ in
                             self.dismiss(animated: true, completion: nil)
                         }
                         alertController.addAction(alertButton)
@@ -110,7 +109,7 @@ class WelcomeViewController: UIViewController {
                         let alertController = UIAlertController(title: "Apple Music membership could not be confirmed".localized,
                                                                 message: "Apple Music songs are not played in this session.".localized,
                                                                 preferredStyle: .alert)
-                        let alertButton = UIAlertAction(title: "OK", style: .cancel) { _ in
+                        let alertButton = UIAlertAction(title: "OK", style: .cancel) { [unowned self] _ in
                             self.dismiss(animated: true, completion: nil)
                         }
                         alertController.addAction(alertButton)

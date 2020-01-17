@@ -51,7 +51,7 @@ class SearchViewController: UIViewController {
                                                         message: "Please check your online status or Apple Music access permission at \"Settings\" app.".localized,
                                                         preferredStyle: UIAlertController.Style.alert)
                 let alertButton = UIAlertAction(title: "OK",
-                                                style: UIAlertAction.Style.cancel) { action in
+                                                style: UIAlertAction.Style.cancel) { [unowned self] action in
                                                     self.dismiss(animated: true)
                 }
                 alertController.addAction(alertButton)
