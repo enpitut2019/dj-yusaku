@@ -72,7 +72,7 @@ class WelcomeViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func joinAsDJ(_ sender: Any) {
+    @IBAction func newSessionButtonTouchUpInside(_ sender: Any) {
         SKCloudServiceController.requestAuthorization { [unowned self] status in
             guard status == .authorized else {
                 DispatchQueue.main.async {
@@ -118,6 +118,24 @@ class WelcomeViewController: UIViewController {
                     }
                     self.dismiss(animated: true, completion: nil)
                 }
+            }
+        }
+    }
+    
+    @IBAction func joinSessionButtonTouchUpInside(_ sender: Any) {        SKCloudServiceController.requestAuthorization { [unowned self] status in
+            guard status == .authorized else {
+                DispatchQueue.main.async {
+                    let alertController = UIAlertController(title: "Apple Music authorization failed".localized,
+                                                            message: "Please check your Apple Music access permission at \"Settings\" app.".localized,
+                                                            preferredStyle: .alert)
+                    let alertButton = UIAlertAction(title: "OK", style: .cancel)
+                    alertController.addAction(alertButton)
+                    self.present(alertController, animated: true)
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: "goToListenerConnectionSegue", sender: nil)
             }
         }
     }
