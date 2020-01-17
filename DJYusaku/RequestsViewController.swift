@@ -57,6 +57,9 @@ class RequestsViewController: UIViewController {
         footerView.frame.size.height = 128
         tableView.tableFooterView = footerView // 空のセルの罫線を消す
         
+        // Apple Musicライブラリへのアクセス許可の確認（何もしない）
+        SKCloudServiceController.requestAuthorization( { _ in } )
+        
         NotificationCenter.default.addObserver(self, selector: #selector(handleRequestsDidUpdate), name: .DJYusakuPlayerQueueDidUpdate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChangeOnDJ), name: .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handlePlaybackStateDidChange), name: .DJYusakuPlayerQueuePlaybackStateDidChange, object: nil)
@@ -65,13 +68,6 @@ class RequestsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleButtonStateChange), name: .DJYusakuIsQueueCreatedDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleModalViewDidDisappear), name: .DJYusakuModalViewDidDisappear, object: nil)
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // Apple Musicライブラリへのアクセス許可の確認（何もしない）
-        SKCloudServiceController.requestAuthorization( { _ in } )
     }
     
     override func viewDidAppear(_ animated: Bool) {
