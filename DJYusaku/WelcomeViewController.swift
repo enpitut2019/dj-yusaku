@@ -99,20 +99,18 @@ class WelcomeViewController: UIViewController {
                         let alertController = UIAlertController(title: "Apple Music connection failed".localized,
                                                                 message: "Please check your online status.".localized,
                                                                 preferredStyle: .alert)
-                        let alertButton = UIAlertAction(title: "OK",
-                                                        style: .cancel) { _ in
+                        let alertButton = UIAlertAction(title: "OK", style: .cancel) { _ in
                             self.dismiss(animated: true, completion: nil)
                         }
                         alertController.addAction(alertButton)
                         self.present(alertController, animated: true)
                         return
                     }
-                    if capabilities.contains(.musicCatalogPlayback) { // Apple Musicの再生権限がないとき
+                    if !capabilities.contains(.musicCatalogPlayback) { // Apple Musicの再生権限がないとき
                         let alertController = UIAlertController(title: "Apple Music membership could not be confirmed".localized,
                                                                 message: "Apple Music songs are not played in this session.".localized,
                                                                 preferredStyle: .alert)
-                        let alertButton = UIAlertAction(title: "OK",
-                                                        style: .cancel) { _ in
+                        let alertButton = UIAlertAction(title: "OK", style: .cancel) { _ in
                             self.dismiss(animated: true, completion: nil)
                         }
                         alertController.addAction(alertButton)
