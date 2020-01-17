@@ -80,10 +80,7 @@ class WelcomeViewController: UIViewController {
                     let alertController = UIAlertController(title: "Apple Music authorization failed".localized,
                                                             message: "Please check your Apple Music access permission at \"Settings\" app.".localized,
                                                             preferredStyle: .alert)
-                    let alertButton = UIAlertAction(title: "OK",
-                                                    style: .cancel) { _ in
-                        NotificationCenter.default.post(name: .DJYusakuModalViewDidDisappear, object: nil)
-                    }
+                    let alertButton = UIAlertAction(title: "OK", style: .cancel)
                     alertController.addAction(alertButton)
                     self.present(alertController, animated: true)
                 }
@@ -93,37 +90,36 @@ class WelcomeViewController: UIViewController {
             defer {
                 DispatchQueue.main.async {
                     ConnectionController.shared.startDJ()
-                    self.dismiss(animated: true, completion: nil)
                 }
             }
             // Apple Musicの曲が再生可能か確認
-            self.cloudServiceController.requestCapabilities { (capabilities, error) in
+            self.cloudServiceController.requestCapabilities { [unowned self] (capabilities, error) in
                 DispatchQueue.main.async {
-                    guard let rootViewController = (UIApplication.shared.windows.filter{$0.isKeyWindow}.first)?.rootViewController else { return }
                     guard error == nil else { // なんらかの理由で接続に失敗していたとき
                         let alertController = UIAlertController(title: "Apple Music connection failed".localized,
                                                                 message: "Please check your online status.".localized,
                                                                 preferredStyle: .alert)
                         let alertButton = UIAlertAction(title: "OK",
                                                         style: .cancel) { _ in
-                            NotificationCenter.default.post(name: .DJYusakuModalViewDidDisappear, object: nil)
+                            self.dismiss(animated: true, completion: nil)
                         }
                         alertController.addAction(alertButton)
-                        rootViewController.present(alertController, animated: true)
+                        self.present(alertController, animated: true)
                         return
                     }
-                    if !capabilities.contains(.musicCatalogPlayback) { // Apple Musicの再生権限がないとき
+                    if capabilities.contains(.musicCatalogPlayback) { // Apple Musicの再生権限がないとき
                         let alertController = UIAlertController(title: "Apple Music membership could not be confirmed".localized,
                                                                 message: "Apple Music songs are not played in this session.".localized,
                                                                 preferredStyle: .alert)
                         let alertButton = UIAlertAction(title: "OK",
                                                         style: .cancel) { _ in
-                            NotificationCenter.default.post(name: .DJYusakuModalViewDidDisappear, object: nil)
+                            self.dismiss(animated: true, completion: nil)
                         }
                         alertController.addAction(alertButton)
-                        rootViewController.present(alertController, animated: true)
+                        self.present(alertController, animated: true)
                         return
                     }
+                    self.dismiss(animated: true, completion: nil)
                 }
             }
         }
