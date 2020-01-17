@@ -82,7 +82,7 @@ class WelcomeViewController: UIViewController {
         SKCloudServiceController.requestAuthorization { status in
             guard status == .authorized else { return }
             // Apple Musicの曲が再生可能か確認
-            self.cloudServiceController.requestCapabilities { [unowned self] (capabilities, error) in
+            self.cloudServiceController.requestCapabilities { [weak self] (capabilities, error) in
                 guard error == nil else { // なんらかの理由で接続に失敗していたとき
                     DispatchQueue.main.async {
                         let alertController = UIAlertController(title: "Apple Music connection failed".localized,
@@ -91,7 +91,7 @@ class WelcomeViewController: UIViewController {
                         let alertButton = UIAlertAction(title: "OK",
                                                         style: .cancel)
                         alertController.addAction(alertButton)
-                        self.presentingViewController?.present(alertController, animated: true)
+                        self?.presentingViewController?.present(alertController, animated: true)
                     }
                     return
                 }
@@ -103,7 +103,7 @@ class WelcomeViewController: UIViewController {
                         let alertButton = UIAlertAction(title: "OK",
                                                         style: .cancel)
                         alertController.addAction(alertButton)
-                        self.presentingViewController?.present(alertController, animated: true)
+                        self?.presentingViewController?.present(alertController, animated: true)
                     }
                     return
                 }
