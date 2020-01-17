@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import StoreKit
 import MultipeerConnectivity
 
 class WelcomeViewController: UIViewController {
@@ -15,6 +16,8 @@ class WelcomeViewController: UIViewController {
     
     @IBOutlet weak var newSessionButton: UIButton!
     @IBOutlet weak var joinTheSessionButton: UIButton!
+    
+    private let cloudServiceController = SKCloudServiceController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,22 +73,42 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func joinAsDJ(_ sender: Any) {
-        if !ConnectionController.shared.canPlayAppleMusic {
-            // アラートを表示
-            let alertController = UIAlertController(title:   "Apple Music membership could not be confirmed".localized,
-                                                    message: "Apple Music songs are not played in this session.".localized,
-                                                    preferredStyle: .alert)
-            let alertButton = UIAlertAction(title: "OK",
-                                            style: .cancel) { action in
-                                                ConnectionController.shared.startDJ()
-                                                self.dismiss(animated: true)
-            }
-            alertController.addAction(alertButton)
-            self.present(alertController, animated: true, completion: nil)
-            return
+        defer {
+            ConnectionController.shared.startDJ()
+            self.dismiss(animated: true, completion: nil)
         }
-        ConnectionController.shared.startDJ()
         
-        self.dismiss(animated: true, completion: nil)
+        // Apple Musicライブラリへのアクセス許可の確認
+        SKCloudServiceController.requestAuthorization { status in
+            guard status == .authorized else { return }
+            // Apple Musicの曲が再生可能か確認
+            self.cloudServiceController.requestCapabilities { [unowned self] (capabilities, error) in
+                guard error == nil else { // なんらかの理由で接続に失敗していたとき
+                    DispatchQueue.main.async {
+                        let alertController = UIAlertController(title: "Apple Music connection failed".localized,
+                                                                message: "Please check your online status.".localized,
+                                                                preferredStyle: .alert)
+                        let alertButton = UIAlertAction(title: "OK",
+                                                        style: .cancel)
+                        alertController.addAction(alertButton)
+                        self.presentingViewController?.present(alertController, animated: true)
+                    }
+                    return
+                }
+                if !capabilities.contains(.musicCatalogPlayback) { // Apple Musicの再生権限がないとき
+                    DispatchQueue.main.async {
+                        let alertController = UIAlertController(title: "Apple Music membership could not be confirmed".localized,
+                                                                message: "Apple Music songs are not played in this session.".localized,
+                                                                preferredStyle: .alert)
+                        let alertButton = UIAlertAction(title: "OK",
+                                                        style: .cancel)
+                        alertController.addAction(alertButton)
+                        self.presentingViewController?.present(alertController, animated: true)
+                    }
+                    return
+                }
+            }
+        }
     }
+    
 }

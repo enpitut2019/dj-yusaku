@@ -30,6 +30,7 @@
 "You" = "あなた";
 
 // WelcomeViewController.swift
+"Please check your online status." = "インターネットの状態を確認してください。";
 "Apple Music membership could not be confirmed" = "Apple Musicのメンバーシップを確認できませんでした";
 "Apple Music songs are not played in this session." = "このセッションではApple Musicの楽曲は再生されません。";
 
