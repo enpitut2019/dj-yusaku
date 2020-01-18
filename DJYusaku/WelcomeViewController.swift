@@ -16,6 +16,7 @@ class WelcomeViewController: UIViewController {
     
     @IBOutlet weak var newSessionButton: UIButton!
     @IBOutlet weak var joinTheSessionButton: UIButton!
+    @IBOutlet weak var tutorialButton: UIButton!
     
     private let cloudServiceController = SKCloudServiceController()
     
@@ -25,6 +26,7 @@ class WelcomeViewController: UIViewController {
         // 同時タップの防止
         self.newSessionButton.isExclusiveTouch     = true
         self.joinTheSessionButton.isExclusiveTouch = true
+        self.tutorialButton.isExclusiveTouch       = true
         
         // ナビゲーションバーの見た目を設定
         self.navigationController?.navigationBar.shadowImage = UIImage()    // 下線を消す
@@ -49,6 +51,7 @@ class WelcomeViewController: UIViewController {
         
         self.newSessionButton.isEnabled     = true
         self.joinTheSessionButton.isEnabled = true
+        self.tutorialButton.isEnabled       = true
         
         // 初回起動の際にはTutorialViewControllerを表示する
         let isLaunchedAtLeastOnce = UserDefaults.standard.bool(forKey: UserDefaults.DJYusakuDefaults.IsLaunchedAtLeastOnce)
@@ -78,6 +81,7 @@ class WelcomeViewController: UIViewController {
     @IBAction func newSessionButtonTouchUpInside(_ sender: Any) {
         self.newSessionButton.isEnabled     = false
         self.joinTheSessionButton.isEnabled = false
+        self.tutorialButton.isEnabled       = false
 
         SKCloudServiceController.requestAuthorization { [weak self] status in
             guard status == .authorized else {
@@ -90,6 +94,7 @@ class WelcomeViewController: UIViewController {
                     self?.present(alertController, animated: true)
                     self?.newSessionButton.isEnabled     = true
                     self?.joinTheSessionButton.isEnabled = true
+                    self?.tutorialButton.isEnabled       = true
                 }
                 return
             }
@@ -109,6 +114,7 @@ class WelcomeViewController: UIViewController {
                         let alertButton = UIAlertAction(title: "OK", style: .cancel) { [unowned self] _ in
                             self?.newSessionButton.isEnabled     = true
                             self?.joinTheSessionButton.isEnabled = true
+                            self?.tutorialButton.isEnabled       = true
                             self?.dismiss(animated: true, completion: nil)
                         }
                         alertController.addAction(alertButton)
@@ -124,6 +130,7 @@ class WelcomeViewController: UIViewController {
                         let alertButton = UIAlertAction(title: "OK", style: .cancel) { [unowned self] _ in
                             self?.newSessionButton.isEnabled     = true
                             self?.joinTheSessionButton.isEnabled = true
+                            self?.tutorialButton.isEnabled       = true
                             self?.dismiss(animated: true, completion: nil)
                         }
                         alertController.addAction(alertButton)
@@ -134,6 +141,7 @@ class WelcomeViewController: UIViewController {
                 DispatchQueue.main.async {
                     self?.newSessionButton.isEnabled     = true
                     self?.joinTheSessionButton.isEnabled = true
+                    self?.tutorialButton.isEnabled       = true
                     self?.dismiss(animated: true, completion: nil)
                 }
             }
@@ -143,6 +151,7 @@ class WelcomeViewController: UIViewController {
     @IBAction func joinSessionButtonTouchUpInside(_ sender: Any) {
         self.newSessionButton.isEnabled     = false
         self.joinTheSessionButton.isEnabled = false
+        self.tutorialButton.isEnabled       = false
 
         SKCloudServiceController.requestAuthorization { [weak self] status in
             guard status == .authorized else {
@@ -154,6 +163,7 @@ class WelcomeViewController: UIViewController {
                     alertController.addAction(alertButton)
                     self?.newSessionButton.isEnabled     = true
                     self?.joinTheSessionButton.isEnabled = true
+                    self?.tutorialButton.isEnabled       = true
                     self?.present(alertController, animated: true)
                 }
                 return
@@ -161,6 +171,7 @@ class WelcomeViewController: UIViewController {
             DispatchQueue.main.async {
                 self?.newSessionButton.isEnabled     = true
                 self?.joinTheSessionButton.isEnabled = true
+                self?.tutorialButton.isEnabled       = true
                 self?.performSegue(withIdentifier: "goToListenerConnectionSegue", sender: nil)
             }
         }
