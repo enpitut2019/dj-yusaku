@@ -112,9 +112,6 @@ class WelcomeViewController: UIViewController {
                                                                 message: "Please check your online status.".localized,
                                                                 preferredStyle: .alert)
                         let alertButton = UIAlertAction(title: "OK", style: .cancel) { [unowned self] _ in
-                            self?.newSessionButton.isEnabled     = true
-                            self?.joinTheSessionButton.isEnabled = true
-                            self?.tutorialButton.isEnabled       = true
                             self?.dismiss(animated: true, completion: nil)
                         }
                         alertController.addAction(alertButton)
@@ -128,9 +125,6 @@ class WelcomeViewController: UIViewController {
                                                                 message: "Apple Music songs are not played in this session.".localized,
                                                                 preferredStyle: .alert)
                         let alertButton = UIAlertAction(title: "OK", style: .cancel) { [unowned self] _ in
-                            self?.newSessionButton.isEnabled     = true
-                            self?.joinTheSessionButton.isEnabled = true
-                            self?.tutorialButton.isEnabled       = true
                             self?.dismiss(animated: true, completion: nil)
                         }
                         alertController.addAction(alertButton)
@@ -139,9 +133,6 @@ class WelcomeViewController: UIViewController {
                     return
                 }
                 DispatchQueue.main.async {
-                    self?.newSessionButton.isEnabled     = true
-                    self?.joinTheSessionButton.isEnabled = true
-                    self?.tutorialButton.isEnabled       = true
                     self?.dismiss(animated: true, completion: nil)
                 }
             }
@@ -169,9 +160,6 @@ class WelcomeViewController: UIViewController {
                 return
             }
             DispatchQueue.main.async {
-                self?.newSessionButton.isEnabled     = true
-                self?.joinTheSessionButton.isEnabled = true
-                self?.tutorialButton.isEnabled       = true
                 self?.performSegue(withIdentifier: "goToListenerConnectionSegue", sender: nil)
             }
         }
