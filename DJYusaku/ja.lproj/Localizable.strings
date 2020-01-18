@@ -14,12 +14,14 @@
 "Swap failed. Try again." = "曲の入れ替えに失敗しました。時間をおいて再度試してください。";
 
 // RequestsViewController.swift
+"Apple Music authorization failed" = "Apple Musicへのアクセスに失敗しました";
+"Please check your Apple Music access permission at \"Settings\" app." = "「設定」アプリでApple Musicの許可を確認してください。";
 "Battery Saver Mode" = "省電力モード";
 "To exit battery saver mode, double-tap the screen." = "画面をダブルタップすると、省電力モードを終了します。";
 
 // SearchViewController.swift
 "Apple Music connection failed" = "Apple Musicとの接続に失敗しました";
-"Please check your online status or Apple Music access permission at \"Settings\" app." = "インターネットの状態または「設定」アプリでApple Musicの許可を確認してください。";
+"Please check your online status." = "インターネットの状態を確認してください。";
 "Request failed" = "リクエストに失敗しました";
 "Please check your connection status to session master." = "親機との接続状況を確認してください。";
 

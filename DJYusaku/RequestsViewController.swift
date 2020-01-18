@@ -26,7 +26,6 @@ class RequestsViewController: UIViewController {
     static private var isViewAppearedAtLeastOnce: Bool = false
     static private var indexOfNowPlayingItemOnListener: Int = 0
     
-    private let cloudServiceController = SKCloudServiceController()
     private let defaultArtwork : UIImage = UIImage()
     
     override func viewDidLoad() {
@@ -58,15 +57,8 @@ class RequestsViewController: UIViewController {
         footerView.frame.size.height = 128
         tableView.tableFooterView = footerView // 空のセルの罫線を消す
         
-        // Apple Musicライブラリへのアクセス許可の確認
-        SKCloudServiceController.requestAuthorization { status in
-            guard status == .authorized else { return }
-            // Apple Musicの曲が再生可能か確認
-            self.cloudServiceController.requestCapabilities { (capabilities, error) in
-                guard error == nil && capabilities.contains(.musicCatalogPlayback) else { return }
-                ConnectionController.shared.canPlayAppleMusic = true
-            }
-        }
+        // Apple Musicライブラリへのアクセス許可の確認（何もしない）
+        SKCloudServiceController.requestAuthorization( { _ in } )
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleRequestsDidUpdate), name: .DJYusakuPlayerQueueDidUpdate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChangeOnDJ), name: .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)

@@ -9,18 +9,19 @@
 // PlayerQueue.swift
 "Request failed" = "Request failed";
 "Queue insertion failed. Try again." = "Queue insertion failed. Try again.";
-"Queue insertion failed. Try again." = "Queue insertion failed. Try again.";
 "Queue deletion failed. Try again." = "Queue deletion failed. Try again.";
 "Move failed" = "Move failed";
 "Swap failed. Try again." = "Swap failed. Try again.";
 
 // RequestsViewController.swift
+"Apple Music authorization failed" = "Apple Music authorization failed";
+"Please check your Apple Music access permission at \"Settings\" app." = "Please check your Apple Music access permission at \"Settings\" app.";
 "Battery Saver Mode" = "Battery Saver Mode";
 "To exit battery saver mode, double-tap the screen." = "To exit battery saver mode, double-tap the screen.";
 
 // SearchViewController.swift
 "Apple Music connection failed" = "Apple Music connection failed";
-"Please check your online status or Apple Music access permission at \"Settings\" app." = "Please check your online status or Apple Music access permission at \"Settings\" app.";
+"Please check your online status." = "Please check your online status.";
 "Request failed" = "Request failed";
 "Please check your connection status to session master." = "Please check your connection status to session master.";
 
