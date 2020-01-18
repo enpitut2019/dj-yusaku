@@ -93,8 +93,8 @@ class WelcomeViewController: UIViewController {
             }
             // Apple Musicの曲が再生可能か確認
             self.cloudServiceController.requestCapabilities { [unowned self] (capabilities, error) in
-                DispatchQueue.main.async {
-                    guard error == nil else { // なんらかの理由で接続に失敗していたとき
+                guard error == nil else { // なんらかの理由で接続に失敗していたとき
+                    DispatchQueue.main.async {
                         let alertController = UIAlertController(title: "Apple Music connection failed".localized,
                                                                 message: "Please check your online status.".localized,
                                                                 preferredStyle: .alert)
@@ -103,9 +103,11 @@ class WelcomeViewController: UIViewController {
                         }
                         alertController.addAction(alertButton)
                         self.present(alertController, animated: true)
-                        return
                     }
-                    if !capabilities.contains(.musicCatalogPlayback) { // Apple Musicの再生権限がないとき
+                    return
+                }
+                if !capabilities.contains(.musicCatalogPlayback) { // Apple Musicの再生権限がないとき
+                    DispatchQueue.main.async {
                         let alertController = UIAlertController(title: "Apple Music membership could not be confirmed".localized,
                                                                 message: "Apple Music songs are not played in this session.".localized,
                                                                 preferredStyle: .alert)
@@ -114,8 +116,10 @@ class WelcomeViewController: UIViewController {
                         }
                         alertController.addAction(alertButton)
                         self.present(alertController, animated: true)
-                        return
                     }
+                    return
+                }
+                DispatchQueue.main.async {
                     self.dismiss(animated: true, completion: nil)
                 }
             }

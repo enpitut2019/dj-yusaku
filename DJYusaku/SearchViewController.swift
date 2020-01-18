@@ -48,7 +48,7 @@ class SearchViewController: UIViewController {
             if error != nil {
                 // アラートを表示
                 let alertController = UIAlertController(title:   "Apple Music connection failed".localized,
-                                                        message: "Please check your online status or Apple Music access permission at \"Settings\" app.".localized,
+                                                        message: "Please check your online status.".localized,
                                                         preferredStyle: UIAlertController.Style.alert)
                 let alertButton = UIAlertAction(title: "OK",
                                                 style: UIAlertAction.Style.cancel) { [unowned self] action in
