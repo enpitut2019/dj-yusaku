@@ -23,7 +23,7 @@ class WelcomeViewController: UIViewController {
         super.viewDidLoad()
         
         // 同時タップの防止
-        self.newSessionButton.isExclusiveTouch = true
+        self.newSessionButton.isExclusiveTouch     = true
         self.joinTheSessionButton.isExclusiveTouch = true
         
         // ナビゲーションバーの見た目を設定
@@ -46,6 +46,9 @@ class WelcomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.newSessionButton.isEnabled     = true
+        self.joinTheSessionButton.isEnabled = true
         
         // 初回起動の際にはTutorialViewControllerを表示する
         let isLaunchedAtLeastOnce = UserDefaults.standard.bool(forKey: UserDefaults.DJYusakuDefaults.IsLaunchedAtLeastOnce)
@@ -73,6 +76,9 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func newSessionButtonTouchUpInside(_ sender: Any) {
+        self.newSessionButton.isEnabled     = false
+        self.joinTheSessionButton.isEnabled = false
+
         SKCloudServiceController.requestAuthorization { [weak self] status in
             guard status == .authorized else {
                 DispatchQueue.main.async {
@@ -82,6 +88,8 @@ class WelcomeViewController: UIViewController {
                     let alertButton = UIAlertAction(title: "OK", style: .cancel)
                     alertController.addAction(alertButton)
                     self?.present(alertController, animated: true)
+                    self?.newSessionButton.isEnabled     = true
+                    self?.joinTheSessionButton.isEnabled = true
                 }
                 return
             }
@@ -99,6 +107,8 @@ class WelcomeViewController: UIViewController {
                                                                 message: "Please check your online status.".localized,
                                                                 preferredStyle: .alert)
                         let alertButton = UIAlertAction(title: "OK", style: .cancel) { [unowned self] _ in
+                            self?.newSessionButton.isEnabled     = true
+                            self?.joinTheSessionButton.isEnabled = true
                             self?.dismiss(animated: true, completion: nil)
                         }
                         alertController.addAction(alertButton)
@@ -112,6 +122,8 @@ class WelcomeViewController: UIViewController {
                                                                 message: "Apple Music songs are not played in this session.".localized,
                                                                 preferredStyle: .alert)
                         let alertButton = UIAlertAction(title: "OK", style: .cancel) { [unowned self] _ in
+                            self?.newSessionButton.isEnabled     = true
+                            self?.joinTheSessionButton.isEnabled = true
                             self?.dismiss(animated: true, completion: nil)
                         }
                         alertController.addAction(alertButton)
@@ -120,6 +132,8 @@ class WelcomeViewController: UIViewController {
                     return
                 }
                 DispatchQueue.main.async {
+                    self?.newSessionButton.isEnabled     = true
+                    self?.joinTheSessionButton.isEnabled = true
                     self?.dismiss(animated: true, completion: nil)
                 }
             }
@@ -127,6 +141,9 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func joinSessionButtonTouchUpInside(_ sender: Any) {
+        self.newSessionButton.isEnabled     = false
+        self.joinTheSessionButton.isEnabled = false
+
         SKCloudServiceController.requestAuthorization { [weak self] status in
             guard status == .authorized else {
                 DispatchQueue.main.async {
@@ -135,11 +152,15 @@ class WelcomeViewController: UIViewController {
                                                             preferredStyle: .alert)
                     let alertButton = UIAlertAction(title: "OK", style: .cancel)
                     alertController.addAction(alertButton)
+                    self?.newSessionButton.isEnabled     = true
+                    self?.joinTheSessionButton.isEnabled = true
                     self?.present(alertController, animated: true)
                 }
                 return
             }
             DispatchQueue.main.async {
+                self?.newSessionButton.isEnabled     = true
+                self?.joinTheSessionButton.isEnabled = true
                 self?.performSegue(withIdentifier: "goToListenerConnectionSegue", sender: nil)
             }
         }
