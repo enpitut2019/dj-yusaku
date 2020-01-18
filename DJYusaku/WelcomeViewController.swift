@@ -127,7 +127,7 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func joinSessionButtonTouchUpInside(_ sender: Any) {
-        SKCloudServiceController.requestAuthorization { [unowned self] status in
+        SKCloudServiceController.requestAuthorization { [weak self] status in
             guard status == .authorized else {
                 DispatchQueue.main.async {
                     let alertController = UIAlertController(title: "Apple Music authorization failed".localized,
@@ -135,12 +135,12 @@ class WelcomeViewController: UIViewController {
                                                             preferredStyle: .alert)
                     let alertButton = UIAlertAction(title: "OK", style: .cancel)
                     alertController.addAction(alertButton)
-                    self.present(alertController, animated: true)
+                    self?.present(alertController, animated: true)
                 }
                 return
             }
             DispatchQueue.main.async {
-                self.performSegue(withIdentifier: "goToListenerConnectionSegue", sender: nil)
+                self?.performSegue(withIdentifier: "goToListenerConnectionSegue", sender: nil)
             }
         }
     }
