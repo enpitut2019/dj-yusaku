@@ -22,6 +22,10 @@ class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 同時タップの防止
+        self.newSessionButton.isExclusiveTouch = true
+        self.joinTheSessionButton.isExclusiveTouch = true
+        
         // ナビゲーションバーの見た目を設定
         self.navigationController?.navigationBar.shadowImage = UIImage()    // 下線を消す
         
@@ -55,11 +59,7 @@ class WelcomeViewController: UIViewController {
             self.present(tutorialViewController, animated: true)
         }
         
-        if ConnectionController.shared.isDJ != nil {
-            self.doneButtonItem.isEnabled = true
-        } else {
-            self.doneButtonItem.isEnabled = false
-        }
+        self.doneButtonItem.isEnabled = ConnectionController.shared.isDJ != nil
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -73,7 +73,7 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func newSessionButtonTouchUpInside(_ sender: Any) {
-        SKCloudServiceController.requestAuthorization { [unowned self] status in
+        SKCloudServiceController.requestAuthorization { [weak self] status in
             guard status == .authorized else {
                 DispatchQueue.main.async {
                     let alertController = UIAlertController(title: "Apple Music authorization failed".localized,
@@ -81,7 +81,7 @@ class WelcomeViewController: UIViewController {
                                                             preferredStyle: .alert)
                     let alertButton = UIAlertAction(title: "OK", style: .cancel)
                     alertController.addAction(alertButton)
-                    self.present(alertController, animated: true)
+                    self?.present(alertController, animated: true)
                 }
                 return
             }
@@ -92,17 +92,17 @@ class WelcomeViewController: UIViewController {
                 }
             }
             // Apple Musicの曲が再生可能か確認
-            self.cloudServiceController.requestCapabilities { [unowned self] (capabilities, error) in
+            self?.cloudServiceController.requestCapabilities { [weak self] (capabilities, error) in
                 guard error == nil else { // なんらかの理由で接続に失敗していたとき
                     DispatchQueue.main.async {
                         let alertController = UIAlertController(title: "Apple Music connection failed".localized,
                                                                 message: "Please check your online status.".localized,
                                                                 preferredStyle: .alert)
                         let alertButton = UIAlertAction(title: "OK", style: .cancel) { [unowned self] _ in
-                            self.dismiss(animated: true, completion: nil)
+                            self?.dismiss(animated: true, completion: nil)
                         }
                         alertController.addAction(alertButton)
-                        self.present(alertController, animated: true)
+                        self?.present(alertController, animated: true)
                     }
                     return
                 }
@@ -112,15 +112,15 @@ class WelcomeViewController: UIViewController {
                                                                 message: "Apple Music songs are not played in this session.".localized,
                                                                 preferredStyle: .alert)
                         let alertButton = UIAlertAction(title: "OK", style: .cancel) { [unowned self] _ in
-                            self.dismiss(animated: true, completion: nil)
+                            self?.dismiss(animated: true, completion: nil)
                         }
                         alertController.addAction(alertButton)
-                        self.present(alertController, animated: true)
+                        self?.present(alertController, animated: true)
                     }
                     return
                 }
                 DispatchQueue.main.async {
-                    self.dismiss(animated: true, completion: nil)
+                    self?.dismiss(animated: true, completion: nil)
                 }
             }
         }
