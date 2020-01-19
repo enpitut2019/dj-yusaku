@@ -9,7 +9,7 @@
   <a href="https://itunes.apple.com/jp/app/id1487275864?mt=8"><img width="218" src="https://user-images.githubusercontent.com/3463901/72315758-4b744100-36d7-11ea-8672-842ed603ef0b.png"></a>
 </p>
 
-Juke（コードネーム：DJ YUSAKU）を使えば、Apple Musicを購読している親機にみんなで曲を「リクエスト」することで、プレイリストを作成して再生することができます。 
+Jukeを使えば、Apple Musicを購読している親機にみんなで曲を「リクエスト」することで、プレイリストを作成して再生することができます。 
 
 ### Jukeの特徴
 
