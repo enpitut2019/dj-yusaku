@@ -30,7 +30,7 @@ Juke（コードネーム：DJ YUSAKU）を使えば、Apple Musicを購読し�
 
 ## インストール
 
-- JukeはApp Storeで配信中しています。 **[App Store](https://itunes.apple.com/jp/app/id1487275864?mt=8)** のリンクからお手持ちのiPhone/iPod touch/iPadにインストールすることができます。
+- JukeはApp Storeで配信中です。 **[App Store](https://itunes.apple.com/jp/app/id1487275864?mt=8)** のリンクからお手持ちのiPhone/iPod touch/iPadにインストールすることができます。
 - 評価版（バグが含まれる場合があります）を試用するには、 **[TestFlight✈️](https://testflight.apple.com/join/EOWicJJ3)** のリンクからベータテストに参加してください（別途TestFlightのインストールが必要です）。
   - 詳しくは、リンク先を確認してください。
 
