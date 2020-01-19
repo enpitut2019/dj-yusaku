@@ -7,8 +7,6 @@
 
 <p align="center">
   <a href="https://itunes.apple.com/jp/app/id1487275864?mt=8"><img width="218" src="https://user-images.githubusercontent.com/3463901/72315758-4b744100-36d7-11ea-8672-842ed603ef0b.png"></a>
-  &emsp;
-  <a href="https://testflight.apple.com/join/EOWicJJ3"><img width="218" src="https://user-images.githubusercontent.com/3463901/72315759-4d3e0480-36d7-11ea-988b-12bf02a3fcc8.png"></a>
 </p>
 
 Juke（コードネーム：DJ YUSAKU）を使えば、Apple Musicを購読している親機にみんなで曲を「リクエスト」することで、プレイリストを作成して再生することができます。 
@@ -32,8 +30,8 @@ Juke（コードネーム：DJ YUSAKU）を使えば、Apple Musicを購読し�
 
 ## インストール
 
-- JukeはApp Storeで配布予定です（1/14現在）。公開が開始された場合に **[App Store](https://itunes.apple.com/jp/app/id1487275864?mt=8)** のリンクからお手持ちのiPhone/iPod touch/iPadにインストールすることができます。
-- App Storeで配布される前に試用するには **[TestFlight✈️](https://testflight.apple.com/join/EOWicJJ3)** のリンクからベータテストに参加してください（別途TestFlightのインストールが必要です）。
+- JukeはApp Storeで配信中しています。 **[App Store](https://itunes.apple.com/jp/app/id1487275864?mt=8)** のリンクからお手持ちのiPhone/iPod touch/iPadにインストールすることができます。
+- 評価版（バグが含まれる場合があります）を試用するには、 **[TestFlight✈️](https://testflight.apple.com/join/EOWicJJ3)** のリンクからベータテストに参加してください（別途TestFlightのインストールが必要です）。
   - 詳しくは、リンク先を確認してください。
 
 ## Contributor
