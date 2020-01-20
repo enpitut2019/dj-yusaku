@@ -83,58 +83,53 @@ class WelcomeViewController: UIViewController {
         self.joinTheSessionButton.isEnabled = false
         self.tutorialButton.isEnabled       = false
 
-        SKCloudServiceController.requestAuthorization { [weak self] status in
-            guard status == .authorized else {
+        let status = SKCloudServiceController.authorizationStatus()
+        guard status == .authorized else {
+            let alertController = UIAlertController(title: "Apple Music authorization failed".localized,
+                                                    message: "Please check your Apple Music access permission at \"Settings\" app.".localized,
+                                                    preferredStyle: .alert)
+            let alertButton = UIAlertAction(title: "OK", style: .cancel)
+            alertController.addAction(alertButton)
+            self.present(alertController, animated: true)
+            self.newSessionButton.isEnabled     = true
+            self.joinTheSessionButton.isEnabled = true
+            self.tutorialButton.isEnabled       = true
+            return
+        }
+
+        defer {
+            ConnectionController.shared.startDJ()
+        }
+        // Apple Musicの曲が再生可能か確認
+        self.cloudServiceController.requestCapabilities { [weak self] (capabilities, error) in
+            guard error == nil else { // なんらかの理由で接続に失敗していたとき
                 DispatchQueue.main.async {
-                    let alertController = UIAlertController(title: "Apple Music authorization failed".localized,
-                                                            message: "Please check your Apple Music access permission at \"Settings\" app.".localized,
+                    let alertController = UIAlertController(title: "Apple Music connection failed".localized,
+                                                            message: "Please check your online status.".localized,
                                                             preferredStyle: .alert)
-                    let alertButton = UIAlertAction(title: "OK", style: .cancel)
+                    let alertButton = UIAlertAction(title: "OK", style: .cancel) { [unowned self] _ in
+                        self?.dismiss(animated: true, completion: nil)
+                    }
                     alertController.addAction(alertButton)
                     self?.present(alertController, animated: true)
-                    self?.newSessionButton.isEnabled     = true
-                    self?.joinTheSessionButton.isEnabled = true
-                    self?.tutorialButton.isEnabled       = true
                 }
                 return
             }
-            
-            defer {
+            if !capabilities.contains(.musicCatalogPlayback) { // Apple Musicの再生権限がないとき
                 DispatchQueue.main.async {
-                    ConnectionController.shared.startDJ()
+                    let alertController = UIAlertController(title: "Apple Music membership could not be confirmed".localized,
+                                                            message: "Apple Music songs are not played in this session.".localized,
+                                                            preferredStyle: .alert)
+                    let alertButton = UIAlertAction(title: "OK", style: .cancel) { [unowned self] _ in
+                        self?.dismiss(animated: true, completion: nil)
+                    }
+                    alertController.addAction(alertButton)
+                    self?.present(alertController, animated: true)
                 }
+                return
             }
-            // Apple Musicの曲が再生可能か確認
-            self?.cloudServiceController.requestCapabilities { [weak self] (capabilities, error) in
-                guard error == nil else { // なんらかの理由で接続に失敗していたとき
-                    DispatchQueue.main.async {
-                        let alertController = UIAlertController(title: "Apple Music connection failed".localized,
-                                                                message: "Please check your online status.".localized,
-                                                                preferredStyle: .alert)
-                        let alertButton = UIAlertAction(title: "OK", style: .cancel) { [unowned self] _ in
-                            self?.dismiss(animated: true, completion: nil)
-                        }
-                        alertController.addAction(alertButton)
-                        self?.present(alertController, animated: true)
-                    }
-                    return
-                }
-                if !capabilities.contains(.musicCatalogPlayback) { // Apple Musicの再生権限がないとき
-                    DispatchQueue.main.async {
-                        let alertController = UIAlertController(title: "Apple Music membership could not be confirmed".localized,
-                                                                message: "Apple Music songs are not played in this session.".localized,
-                                                                preferredStyle: .alert)
-                        let alertButton = UIAlertAction(title: "OK", style: .cancel) { [unowned self] _ in
-                            self?.dismiss(animated: true, completion: nil)
-                        }
-                        alertController.addAction(alertButton)
-                        self?.present(alertController, animated: true)
-                    }
-                    return
-                }
-                DispatchQueue.main.async {
-                    self?.dismiss(animated: true, completion: nil)
-                }
+            DispatchQueue.main.async {
+                self?.dismiss(animated: true, completion: nil)
             }
         }
     }
@@ -144,25 +139,20 @@ class WelcomeViewController: UIViewController {
         self.joinTheSessionButton.isEnabled = false
         self.tutorialButton.isEnabled       = false
 
-        SKCloudServiceController.requestAuthorization { [weak self] status in
-            guard status == .authorized else {
-                DispatchQueue.main.async {
-                    let alertController = UIAlertController(title: "Apple Music authorization failed".localized,
-                                                            message: "Please check your Apple Music access permission at \"Settings\" app.".localized,
-                                                            preferredStyle: .alert)
-                    let alertButton = UIAlertAction(title: "OK", style: .cancel)
-                    alertController.addAction(alertButton)
-                    self?.newSessionButton.isEnabled     = true
-                    self?.joinTheSessionButton.isEnabled = true
-                    self?.tutorialButton.isEnabled       = true
-                    self?.present(alertController, animated: true)
-                }
-                return
-            }
-            DispatchQueue.main.async {
-                self?.performSegue(withIdentifier: "goToListenerConnectionSegue", sender: nil)
-            }
+        let status = SKCloudServiceController.authorizationStatus()
+        guard status == .authorized else {
+            let alertController = UIAlertController(title: "Apple Music authorization failed".localized,
+                                                    message: "Please check your Apple Music access permission at \"Settings\" app.".localized,
+                                                    preferredStyle: .alert)
+            let alertButton = UIAlertAction(title: "OK", style: .cancel)
+            alertController.addAction(alertButton)
+            self.newSessionButton.isEnabled     = true
+            self.joinTheSessionButton.isEnabled = true
+            self.tutorialButton.isEnabled       = true
+            self.present(alertController, animated: true)
+            return
         }
+        self.performSegue(withIdentifier: "goToListenerConnectionSegue", sender: nil)
     }
     
 }
