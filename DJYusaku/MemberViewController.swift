@@ -163,13 +163,19 @@ extension MemberViewController: UITableViewDataSource {
             let profile = DefaultsController.shared.profile
             cell.peerName.text = profile.name
             cell.statusView.isHidden = false
+            if cell.peerImageUrl != profile.imageUrl {
+                cell.peerImageView.image = nil
+            }
+            cell.peerImageUrl = profile.imageUrl
             DispatchQueue.global().async {
                 if let imageUrl = profile.imageUrl {
                     listenerImage = CachedImage.fetch(url: imageUrl)
                 }
                 DispatchQueue.main.async {
-                    cell.peerImageView.image = listenerImage ?? UIImage(named: "TemporarySingleColored")
-                    cell.peerImageView.setNeedsLayout()
+                    if let cell = self.tableView.cellForRow(at: indexPath) as? MemberTableViewCell {
+                        cell.peerImageView.image = listenerImage ?? UIImage(named: "TemporarySingleColored")
+                        cell.peerImageView.setNeedsLayout()
+                    }
                 }
             }
         } else { // 自分以外の子機
@@ -181,8 +187,10 @@ extension MemberViewController: UITableViewDataSource {
                         listenerImage = CachedImage.fetch(url: imageUrl)
                     }
                     DispatchQueue.main.async {
-                        cell.peerImageView.image = listenerImage ?? UIImage(named: "TemporarySingleColored")
-                        cell.peerImageView.setNeedsLayout()
+                        if let cell = self.tableView.cellForRow(at: indexPath) as? MemberTableViewCell {
+                            cell.peerImageView.image = listenerImage ?? UIImage(named: "TemporarySingleColored")
+                            cell.peerImageView.setNeedsLayout()
+                        }
                     }
                 }
             } else { // このリスナーのprofileをまだ受け取ってないとき

@@ -95,14 +95,19 @@ extension SearchViewController: UITableViewDataSource {
         let item = results[indexPath.row]
         cell.title.text       = item.title
         cell.artist.text      = item.artist
-        cell.artwork.image    = defaultArtwork
+        if cell.artworkUrl != item.artworkUrl {
+            cell.artwork.image = defaultArtwork
+        }
+        cell.artworkUrl       = item.artworkUrl
         
         self.imageFetchWorkItem[indexPath.row]?.cancel()
         self.imageFetchWorkItem[indexPath.row] = DispatchWorkItem {
             let image = CachedImage.fetch(url: item.artworkUrl)
             DispatchQueue.main.async {
-                cell.artwork.image = image  // 画像の取得に失敗していたらnilが入ることに注意
-                cell.artwork.setNeedsLayout()
+                if let cell = self.tableView.cellForRow(at: indexPath) as? SearchMusicTableViewCell {
+                    cell.artwork.image = image  // 画像の取得に失敗していたらnilが入ることに注意
+                    cell.artwork.setNeedsLayout()
+                }
             }
         }
         imageFetchQueue.async(execute: self.imageFetchWorkItem[indexPath.row]!)

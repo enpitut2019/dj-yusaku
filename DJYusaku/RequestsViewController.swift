@@ -287,32 +287,46 @@ extension RequestsViewController: UITableViewDataSource {
             song = ConnectionController.shared.receivedSongs[indexPath.row]
         }
         
-        let indexOfNowPlayingItem = isDJ
-                                  ? PlayerQueue.shared.mpAppController.indexOfNowPlayingItem
-                                  : RequestsViewController.self.indexOfNowPlayingItemOnListener
         cell.title.text    = song.title
         cell.artist.text   = song.artist
-
-        cell.nowPlayingIndicator.isHidden = indexOfNowPlayingItem != indexPath.row
+        if cell.artworkUrl != song.artworkUrl {
+            cell.artwork.image = nil
+        }
+        cell.artworkUrl    = song.artworkUrl
         
         DispatchQueue.global().async {
             let image = CachedImage.fetch(url: song.artworkUrl)
             DispatchQueue.main.async {
-                cell.artwork.image = image  // 画像の取得に失敗していたらnilが入ることに注意
-                cell.artwork.setNeedsLayout()
+                if let cell = self.tableView.cellForRow(at: indexPath) as? RequestsMusicTableViewCell {
+                    cell.artwork.image = image  // 画像の取得に失敗していたらnilが入ることに注意
+                    cell.artwork.setNeedsLayout()
+                }
             }
         }
         if let profileImageUrl = song.profileImageUrl {
+            if cell.profileImageUrl != profileImageUrl {
+                cell.artwork.image = nil
+            }
+            cell.profileImageUrl = profileImageUrl
             DispatchQueue.global().async {
                 let image = CachedImage.fetch(url: profileImageUrl)
                 DispatchQueue.main.async {
-                    cell.profileImageView.image = image
-                    cell.profileImageView.setNeedsLayout()
+                    if let cell = self.tableView.cellForRow(at: indexPath) as? RequestsMusicTableViewCell {
+                        cell.profileImageView.image = image
+                        cell.profileImageView.setNeedsLayout()
+                    }
                 }
             }
         } else {
             cell.profileImageView.image = nil
         }
+
+        let indexOfNowPlayingItem = isDJ
+                                  ? PlayerQueue.shared.mpAppController.indexOfNowPlayingItem
+                                  : RequestsViewController.self.indexOfNowPlayingItemOnListener
+
+        cell.nowPlayingIndicator.isHidden = indexOfNowPlayingItem != indexPath.row
+
         if (indexPath.row < indexOfNowPlayingItem) {
             cell.title.alpha    = 0.3
             cell.artist.alpha   = 0.3

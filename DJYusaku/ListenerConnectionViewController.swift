@@ -53,12 +53,18 @@ extension ListenerConnectionViewController: UITableViewDataSource {
         if let profile = ConnectionController.shared.peerProfileCorrespondence[djPeerID] {
             cell.djName?.text = profile.name
 
+            if cell.djImageUrl != profile.imageUrl {
+                cell.djImageView.image = nil
+            }
+            cell.djImageUrl = profile.imageUrl
             DispatchQueue.global().async {
                 if let imageUrl = profile.imageUrl {
                     DJImage = CachedImage.fetch(url: imageUrl)
                 }
                 DispatchQueue.main.async {
-                    cell.djImageView.image = DJImage ?? UIImage(named: "TemporarySingleColored")
+                    if let cell = self.tableView.cellForRow(at: indexPath) as? ListenerConnectableDJsTableViewCell {
+                        cell.djImageView.image = DJImage ?? UIImage(named: "TemporarySingleColored")
+                    }
                 }
             }
         } else {
