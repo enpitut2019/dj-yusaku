@@ -158,7 +158,6 @@ extension MemberViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell  = tableView.dequeueReusableCell(withIdentifier: "MemberTableViewCell", for: indexPath) as! MemberTableViewCell
         guard let isDJ = ConnectionController.shared.isDJ else { return cell }
-        var listenerImage: UIImage?
         if indexPath.row == 0 && !isDJ { // 自分自身（子機）
             let profile = DefaultsController.shared.profile
             cell.peerName.text = profile.name
@@ -167,31 +166,35 @@ extension MemberViewController: UITableViewDataSource {
                 cell.peerImageView.image = nil
             }
             cell.peerImageUrl = profile.imageUrl
-            DispatchQueue.global().async {
-                if let imageUrl = profile.imageUrl {
-                    listenerImage = CachedImage.fetch(url: imageUrl)
-                }
-                DispatchQueue.main.async {
-                    if let cell = self.tableView.cellForRow(at: indexPath) as? MemberTableViewCell {
-                        cell.peerImageView.image = listenerImage ?? UIImage(named: "TemporarySingleColored")
-                        cell.peerImageView.setNeedsLayout()
+            if let imageUrl = profile.imageUrl {
+                DispatchQueue.global().async {
+                    let image = CachedImage.fetch(url: imageUrl)
+                    DispatchQueue.main.async {
+                        if let cell = self.tableView.cellForRow(at: indexPath) as? MemberTableViewCell {
+                            cell.peerImageView.image = image ?? UIImage(named: "TemporarySingleColored")
+                            cell.peerImageView.setNeedsLayout()
+                        }
                     }
                 }
+            } else {
+                cell.peerImageView.image = UIImage(named: "TemporarySingleColored")
             }
         } else { // 自分以外の子機
             if let profile = ConnectionController.shared.peerProfileCorrespondence[self.listeners[indexPath.row]] {
                 cell.peerName.text = profile.name
                 cell.statusView.isHidden = true
-                DispatchQueue.global().async {
-                    if let imageUrl = profile.imageUrl {
-                        listenerImage = CachedImage.fetch(url: imageUrl)
-                    }
-                    DispatchQueue.main.async {
-                        if let cell = self.tableView.cellForRow(at: indexPath) as? MemberTableViewCell {
-                            cell.peerImageView.image = listenerImage ?? UIImage(named: "TemporarySingleColored")
-                            cell.peerImageView.setNeedsLayout()
+                if let imageUrl = profile.imageUrl {
+                    DispatchQueue.global().async {
+                        let image = CachedImage.fetch(url: imageUrl)
+                        DispatchQueue.main.async {
+                            if let cell = self.tableView.cellForRow(at: indexPath) as? MemberTableViewCell {
+                                cell.peerImageView.image = image ?? UIImage(named: "TemporarySingleColored")
+                                cell.peerImageView.setNeedsLayout()
+                            }
                         }
                     }
+                } else {
+                    cell.peerImageView.image = UIImage(named: "TemporarySingleColored")
                 }
             } else { // このリスナーのprofileをまだ受け取ってないとき
                 cell.peerName.text = self.listeners[indexPath.row].displayName
