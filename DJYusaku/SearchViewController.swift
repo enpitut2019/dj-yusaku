@@ -21,7 +21,7 @@ class SearchViewController: UIViewController {
     private var results : [Song] = []
     private let defaultArtwork : UIImage = UIImage()
     // 画像の取得の際に用いるキュー
-    private let imageFetchQueue = DispatchQueue(label: "DJYusakuImageFetch", qos:.userInteractive)
+    private let imageFetchQueue = DispatchQueue(label: "DJYusakuImageFetch", qos:.userInteractive, attributes: .concurrent)
     private var imageFetchWorkItem : [DispatchWorkItem?] = [DispatchWorkItem?](repeating: nil, count: 25)
     private var isSongSelected = false
     
