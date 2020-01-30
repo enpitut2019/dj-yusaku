@@ -153,7 +153,7 @@
 "clx-m3-sFM.text" = "システムの自動ロック";
 
 /* Class = "UINavigationItem"; title = "Available Sessions"; ObjectID = "dzb-SC-M7Y"; */
-"dzb-SC-M7Y.title" = "開催中";
+"dzb-SC-M7Y.title" = "開催中のセッション";
 
 /* Class = "UILabel"; text = "If you are the session master and do not make a request, you can turn off the screen in \"battery saver mode\" to save battery power."; ObjectID = "eMj-i6-vVp"; */
 "eMj-i6-vVp.text" = "あなたがセッションの親機であり、リクエストをしない場合（たとえば車の運転中など）は、省電力モードにすることで、画面をオフにして電力を節約することができます。";
