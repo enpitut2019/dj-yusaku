@@ -48,10 +48,8 @@ class BatterySaverViewController: UIViewController {
         // 元の画面の明るさを記録しておく
         self.previousScreenBrightness = UIScreen.main.brightness
         
-        // 注意書きを表示してフェードアウトする
-        self.nowplayingView.alpha = 0
-        self.animateFadeOut(view: self.noteView)
-        self.animateFadeOut(view: self.nowplayingView)
+        // 注意書きと現在再生中の楽曲を表示してフェードアウトする
+        self.animateDissolveAndFadeOut(prevView: self.noteView, nextView: self.nowplayingView)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -82,10 +80,24 @@ class BatterySaverViewController: UIViewController {
         })
     }
     
+    func animateDissolveAndFadeOut(prevView: UIView, nextView: UIView){
+        prevView.alpha = 1.0
+        nextView.alpha = 0.0
+        UIScreen.main.brightness = previousScreenBrightness
+        UIView.animate(withDuration: 2.0, delay: 1.0, animations: {
+            prevView.alpha = 0.0
+            nextView.alpha = 1.0
+        }, completion: { finished in
+            if finished {
+                self.animateFadeOut(view: nextView)
+            }
+        })
+    }
+    
     // 画面のどこかしらがシングルタップされたら
     @objc func handleSingleTapeed(_ gesture: UITapGestureRecognizer) -> Void {
-        // 注意書きを表示してフェードアウトする
-        self.animateFadeOut(view: self.noteView)
+        // 注意書きと現在再生中の楽曲を表示してフェードアウトする
+        self.animateDissolveAndFadeOut(prevView: self.noteView, nextView: self.nowplayingView)
     }
 
     // 画面のどこかしらがダブルタップされたら
@@ -101,8 +113,8 @@ class BatterySaverViewController: UIViewController {
         // 元の画面の明るさを記録しておく
         self.previousScreenBrightness = UIScreen.main.brightness
         
-        // 注意書きを表示してフェードアウトする
-        self.animateFadeOut(view: self.noteView)
+        // 注意書きと現在再生中の楽曲を表示してフェードアウトする
+        self.animateDissolveAndFadeOut(prevView: self.noteView, nextView: self.nowplayingView)
     }
     
     // アプリがアクティブじゃなくなる（例：ホーム画面に戻る）とき
