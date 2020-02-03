@@ -859,24 +859,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mcg-F5-Ag6" userLabel="Nowplaying View">
                                 <rect key="frame" x="40" y="313" width="334" height="280"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="T0H-AM-waI" userLabel="Artwork">
-                                        <rect key="frame" x="143" y="56" width="48" height="48"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="48" id="AIR-41-1Nm"/>
-                                            <constraint firstAttribute="height" constant="48" id="p0B-Hi-zJ2"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="70q-sl-adH" userLabel="Artist">
-                                        <rect key="frame" x="0.0" y="124" width="334" height="28"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="28" id="kIb-0h-uL8"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZH-nQ-dgv" userLabel="Title">
-                                        <rect key="frame" x="0.0" y="182" width="334" height="28"/>
+                                        <rect key="frame" x="0.0" y="124" width="334" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="DXN-gj-diG"/>
                                         </constraints>
@@ -884,17 +868,33 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="70q-sl-adH" userLabel="Artist">
+                                        <rect key="frame" x="0.0" y="174" width="334" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="kIb-0h-uL8"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CXz-ea-F1e" userLabel="Artwork">
+                                        <rect key="frame" x="143" y="66" width="48" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="E1m-on-PPc"/>
+                                            <constraint firstAttribute="width" constant="48" id="MTA-Qe-UeF"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="70q-sl-adH" firstAttribute="top" secondItem="T0H-AM-waI" secondAttribute="bottom" constant="20" id="1P8-Ob-IkL"/>
                                     <constraint firstAttribute="trailing" secondItem="iZH-nQ-dgv" secondAttribute="trailing" id="3Bg-b4-JXW"/>
-                                    <constraint firstItem="T0H-AM-waI" firstAttribute="centerX" secondItem="mcg-F5-Ag6" secondAttribute="centerX" id="Gu8-EF-ja2"/>
-                                    <constraint firstItem="T0H-AM-waI" firstAttribute="centerY" secondItem="mcg-F5-Ag6" secondAttribute="centerY" constant="-60" id="Mnx-Qc-U5H"/>
+                                    <constraint firstItem="iZH-nQ-dgv" firstAttribute="top" secondItem="CXz-ea-F1e" secondAttribute="bottom" constant="10" id="9Sg-il-6IZ"/>
                                     <constraint firstItem="70q-sl-adH" firstAttribute="leading" secondItem="mcg-F5-Ag6" secondAttribute="leading" id="QJL-GT-22S"/>
                                     <constraint firstAttribute="height" constant="280" id="QjX-t9-HD8"/>
+                                    <constraint firstItem="70q-sl-adH" firstAttribute="top" secondItem="iZH-nQ-dgv" secondAttribute="bottom" constant="22" id="Vts-17-gIj"/>
+                                    <constraint firstItem="CXz-ea-F1e" firstAttribute="centerY" secondItem="mcg-F5-Ag6" secondAttribute="centerY" constant="-50" id="d3W-lB-hSg"/>
                                     <constraint firstItem="iZH-nQ-dgv" firstAttribute="leading" secondItem="mcg-F5-Ag6" secondAttribute="leading" id="q9E-GR-ina"/>
                                     <constraint firstAttribute="trailing" secondItem="70q-sl-adH" secondAttribute="trailing" id="seh-Bq-0Dw"/>
-                                    <constraint firstItem="iZH-nQ-dgv" firstAttribute="top" secondItem="70q-sl-adH" secondAttribute="bottom" constant="30" id="xN8-DE-XOA"/>
+                                    <constraint firstItem="CXz-ea-F1e" firstAttribute="centerX" secondItem="mcg-F5-Ag6" secondAttribute="centerX" id="wNT-o2-3e7"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -913,10 +913,10 @@
                     </view>
                     <connections>
                         <outlet property="noteView" destination="Fx4-pT-4uu" id="IBf-SR-nXz"/>
-                        <outlet property="nowplayingArtist" destination="70q-sl-adH" id="PU8-xf-J93"/>
-                        <outlet property="nowplayingArtwork" destination="T0H-AM-waI" id="m1G-xi-XLx"/>
-                        <outlet property="nowplayingTitle" destination="iZH-nQ-dgv" id="YKo-4T-uBe"/>
-                        <outlet property="nowplayingView" destination="mcg-F5-Ag6" id="nAM-El-GOn"/>
+                        <outlet property="nowPlayingArtist" destination="70q-sl-adH" id="Zcr-gm-LpN"/>
+                        <outlet property="nowPlayingArtwork" destination="CXz-ea-F1e" id="Uno-fl-85Z"/>
+                        <outlet property="nowPlayingTitle" destination="iZH-nQ-dgv" id="k3X-eM-fRl"/>
+                        <outlet property="nowPlayingView" destination="mcg-F5-Ag6" id="xvI-Yj-uaD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IbK-vi-r2D" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

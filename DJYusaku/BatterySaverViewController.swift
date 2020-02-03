@@ -11,14 +11,17 @@ import UIKit
 class BatterySaverViewController: UIViewController {
     
     @IBOutlet weak var noteView: UIView!
-    @IBOutlet weak var nowplayingView: UIView!
-    @IBOutlet weak var nowplayingArtwork: UIImageView!
-    @IBOutlet weak var nowplayingArtist: UILabel!
-    @IBOutlet weak var nowplayingTitle: UILabel!
+    @IBOutlet weak var nowPlayingView: UIView!
+    @IBOutlet weak var nowPlayingTitle: UILabel!
+    @IBOutlet weak var nowPlayingArtist: UILabel!
+    @IBOutlet weak var nowPlayingArtwork: UIImageView!
+    
     private var previousScreenBrightness : CGFloat = 0.0    // 元の画面の明るさ
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        updateNowPlaying()
         
         // シングルタップジェスチャを追加
         let singleTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
@@ -37,6 +40,7 @@ class BatterySaverViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleWillResignActiveNotification), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleDidBecomeActiveNotification), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNowPlayingItemDidChange), name: .DJYusakuPlayerQueueNowPlayingSongDidChange, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,7 +53,7 @@ class BatterySaverViewController: UIViewController {
         self.previousScreenBrightness = UIScreen.main.brightness
         
         // 注意書きと現在再生中の楽曲を表示してフェードアウトする
-        self.animateDissolveAndFadeOut(prevView: self.noteView, nextView: self.nowplayingView)
+        self.animateDissolveAndFadeOut(prevView: self.noteView, nextView: self.nowPlayingView)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -80,6 +84,7 @@ class BatterySaverViewController: UIViewController {
         })
     }
     
+    // TODO:ディゾルブのメソッドに直す
     func animateDissolveAndFadeOut(prevView: UIView, nextView: UIView){
         prevView.alpha = 1.0
         nextView.alpha = 0.0
@@ -94,10 +99,24 @@ class BatterySaverViewController: UIViewController {
         })
     }
     
+    private func updateNowPlaying(){
+        let indexNowPlayingItem = PlayerQueue.shared.mpAppController.indexOfNowPlayingItem;
+        if let nowPlayingSong = PlayerQueue.shared.get(at: indexNowPlayingItem) {
+            DispatchQueue.global().async {
+                let image = CachedImage.fetch(url: nowPlayingSong.artworkUrl)
+                DispatchQueue.main.async {
+                    self.nowPlayingArtwork.image = image
+                    self.nowPlayingTitle.text  = nowPlayingSong.title
+                    self.nowPlayingArtist.text = nowPlayingSong.artist
+                }
+            }
+        }
+    }
+    
     // 画面のどこかしらがシングルタップされたら
     @objc func handleSingleTapeed(_ gesture: UITapGestureRecognizer) -> Void {
         // 注意書きと現在再生中の楽曲を表示してフェードアウトする
-        self.animateDissolveAndFadeOut(prevView: self.noteView, nextView: self.nowplayingView)
+        self.animateDissolveAndFadeOut(prevView: self.noteView, nextView: self.nowPlayingView)
     }
 
     // 画面のどこかしらがダブルタップされたら
@@ -114,13 +133,18 @@ class BatterySaverViewController: UIViewController {
         self.previousScreenBrightness = UIScreen.main.brightness
         
         // 注意書きと現在再生中の楽曲を表示してフェードアウトする
-        self.animateDissolveAndFadeOut(prevView: self.noteView, nextView: self.nowplayingView)
+        self.animateDissolveAndFadeOut(prevView: self.noteView, nextView: self.nowPlayingView)
     }
     
     // アプリがアクティブじゃなくなる（例：ホーム画面に戻る）とき
     @objc func handleWillResignActiveNotification() {
         UIApplication.shared.isIdleTimerDisabled = false    // 自動スリープをONにする
         UIScreen.main.brightness = previousScreenBrightness // 画面の明るさを復元する
+    }
+    
+    @objc func handleNowPlayingItemDidChange(){
+        updateNowPlaying()
+        self.animateFadeOut(view: self.nowPlayingView)
     }
     
     // ホームインジケータ(iPhone X以降)を非表示にする
