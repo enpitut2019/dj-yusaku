@@ -99,6 +99,7 @@ class BatterySaverViewController: UIViewController {
         })
     }
     
+    // TODO:タッチイベントと被った時の処理
     private func updateNowPlaying(){
         let indexNowPlayingItem = PlayerQueue.shared.mpAppController.indexOfNowPlayingItem;
         if let nowPlayingSong = PlayerQueue.shared.get(at: indexNowPlayingItem) {
