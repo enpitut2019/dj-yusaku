@@ -74,7 +74,7 @@ class BatterySaverViewController: UIViewController {
     func animateFadeOut(view: UIView) {
         view.alpha = 1.0
         UIScreen.main.brightness = previousScreenBrightness
-        UIView.animate(withDuration: 2.0, delay: 1.0, animations: {
+        UIView.animate(withDuration: 2.0, delay: 1.0, options: [.allowUserInteraction], animations: {
             view.alpha = 0.0
         }, completion: { finished in
             if finished {
@@ -89,7 +89,7 @@ class BatterySaverViewController: UIViewController {
         prevView.alpha = 1.0
         nextView.alpha = 0.0
         UIScreen.main.brightness = previousScreenBrightness
-        UIView.animate(withDuration: 2.0, delay: 1.0, animations: {
+        UIView.animate(withDuration: 2.0, delay: 1.0, options: [.allowUserInteraction], animations: {
             prevView.alpha = 0.0
             nextView.alpha = 1.0
         }, completion: { finished in
@@ -145,7 +145,10 @@ class BatterySaverViewController: UIViewController {
     
     @objc func handleNowPlayingItemDidChange(){
         updateNowPlaying()
-        self.animateFadeOut(view: self.nowPlayingView)
+        if !(self.noteView.alpha > 0) {
+            self.animateFadeOut(view: self.nowPlayingView)
+        }
+
     }
     
     // ホームインジケータ(iPhone X以降)を非表示にする
