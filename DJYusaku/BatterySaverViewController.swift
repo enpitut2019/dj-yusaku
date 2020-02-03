@@ -11,6 +11,10 @@ import UIKit
 class BatterySaverViewController: UIViewController {
     
     @IBOutlet weak var noteView: UIView!
+    @IBOutlet weak var nowplayingView: UIView!
+    @IBOutlet weak var nowplayingArtwork: UIImageView!
+    @IBOutlet weak var nowplayingArtist: UILabel!
+    @IBOutlet weak var nowplayingTitle: UILabel!
     private var previousScreenBrightness : CGFloat = 0.0    // 元の画面の明るさ
     
     override func viewDidLoad() {
@@ -45,7 +49,9 @@ class BatterySaverViewController: UIViewController {
         self.previousScreenBrightness = UIScreen.main.brightness
         
         // 注意書きを表示してフェードアウトする
+        self.nowplayingView.alpha = 0
         self.animateFadeOut(view: self.noteView)
+        self.animateFadeOut(view: self.nowplayingView)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
