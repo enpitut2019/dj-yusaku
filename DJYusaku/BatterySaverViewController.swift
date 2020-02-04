@@ -53,7 +53,11 @@ class BatterySaverViewController: UIViewController {
         self.previousScreenBrightness = UIScreen.main.brightness
         
         // 注意書きと現在再生中の楽曲を表示してフェードアウトする
-        self.animateDissolveAndFadeOut(prevView: self.noteView, nextView: self.nowPlayingView)
+        if(PlayerQueue.shared.isQueueCreated){
+            self.animateDissolveAndFadeOut(prevView: self.noteView, nextView: self.nowPlayingView)
+        }else{
+            self.animateFadeOut(view: self.noteView)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -84,7 +88,6 @@ class BatterySaverViewController: UIViewController {
         })
     }
     
-    // TODO:ディゾルブのメソッドに直す
     func animateDissolveAndFadeOut(prevView: UIView, nextView: UIView){
         prevView.alpha = 1.0
         nextView.alpha = 0.0
@@ -117,7 +120,11 @@ class BatterySaverViewController: UIViewController {
     // 画面のどこかしらがシングルタップされたら
     @objc func handleSingleTapeed(_ gesture: UITapGestureRecognizer) -> Void {
         // 注意書きと現在再生中の楽曲を表示してフェードアウトする
-        self.animateDissolveAndFadeOut(prevView: self.noteView, nextView: self.nowPlayingView)
+        if(PlayerQueue.shared.isQueueCreated){
+            self.animateDissolveAndFadeOut(prevView: self.noteView, nextView: self.nowPlayingView)
+        }else{
+            self.animateFadeOut(view: self.noteView)
+        }
     }
 
     // 画面のどこかしらがダブルタップされたら
@@ -134,7 +141,11 @@ class BatterySaverViewController: UIViewController {
         self.previousScreenBrightness = UIScreen.main.brightness
         
         // 注意書きと現在再生中の楽曲を表示してフェードアウトする
-        self.animateDissolveAndFadeOut(prevView: self.noteView, nextView: self.nowPlayingView)
+        if(PlayerQueue.shared.isQueueCreated){
+            self.animateDissolveAndFadeOut(prevView: self.noteView, nextView: self.nowPlayingView)
+        }else{
+            self.animateFadeOut(view: self.noteView)
+        }
     }
     
     // アプリがアクティブじゃなくなる（例：ホーム画面に戻る）とき
@@ -143,6 +154,7 @@ class BatterySaverViewController: UIViewController {
         UIScreen.main.brightness = previousScreenBrightness // 画面の明るさを復元する
     }
     
+    //NowPlayingの内容が変わったら更新して再表示
     @objc func handleNowPlayingItemDidChange(){
         updateNowPlaying()
         if !(self.noteView.alpha > 0) {
