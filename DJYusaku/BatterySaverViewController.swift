@@ -45,7 +45,6 @@ class BatterySaverViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.nowPlayingView.alpha = 0.0
         
         // 自動スリープをOFFにする
         UIApplication.shared.isIdleTimerDisabled = true
@@ -55,8 +54,10 @@ class BatterySaverViewController: UIViewController {
         
         // 注意書きと現在再生中の楽曲を表示してフェードアウトする
         if(PlayerQueue.shared.isQueueCreated){
-            self.animateDissolveAndFadeOut(prevView: self.noteView, nextView: self.nowPlayingView)
+            self.noteView.alpha = 0.0
+            self.animateFadeOut(view: self.nowPlayingView)
         }else{
+            self.nowPlayingView.alpha = 0.0
             self.animateFadeOut(view: self.noteView)
         }
     }
@@ -89,28 +90,6 @@ class BatterySaverViewController: UIViewController {
         })
     }
     
-    func animateDissolveAndFadeOut(prevView: UIView, nextView: UIView){
-        prevView.alpha = 1.0
-        nextView.alpha = 0.0
-        UIScreen.main.brightness = previousScreenBrightness
-        UIView.animate(withDuration: 2.0, delay: 1.0, options: [.allowUserInteraction], animations: {
-            prevView.alpha = 0.0
-            nextView.alpha = 1.0
-        }, completion: { dissolveFinished in
-            if dissolveFinished {
-                UIView.animate(withDuration: 2.0, delay: 1.0, options: [.allowUserInteraction], animations: {
-                    nextView.alpha = 0.0
-                }, completion: { fadeOutFinished in
-                    if fadeOutFinished {
-                        nextView.alpha = 0.0
-                        UIScreen.main.brightness = 0.0
-                    }
-                })
-            }
-        })
-    }
-    
-    // TODO:タッチイベントと被った時の処理
     private func updateNowPlaying(){
         let indexNowPlayingItem = PlayerQueue.shared.mpAppController.indexOfNowPlayingItem;
         if let nowPlayingSong = PlayerQueue.shared.get(at: indexNowPlayingItem) {
@@ -127,12 +106,12 @@ class BatterySaverViewController: UIViewController {
     
     // 画面のどこかしらがシングルタップされたら
     @objc func handleSingleTapeed(_ gesture: UITapGestureRecognizer) -> Void {
-//        self.noteView.layer.removeAllAnimations()
-//        self.nowPlayingView.layer.removeAllAnimations()
         // 注意書きと現在再生中の楽曲を表示してフェードアウトする
-        if(PlayerQueue.shared.isQueueCreated) {
-            self.animateDissolveAndFadeOut(prevView: self.noteView, nextView: self.nowPlayingView)
-        } else {
+        if(PlayerQueue.shared.isQueueCreated){
+            self.noteView.alpha = 0.0
+            self.animateFadeOut(view: self.nowPlayingView)
+        }else{
+            self.nowPlayingView.alpha = 0.0
             self.animateFadeOut(view: self.noteView)
         }
     }
@@ -152,9 +131,10 @@ class BatterySaverViewController: UIViewController {
         
         // 注意書きと現在再生中の楽曲を表示してフェードアウトする
         if(PlayerQueue.shared.isQueueCreated){
-//            if(self.nowPlayingView.alpha > 0.0)
-            self.animateDissolveAndFadeOut(prevView: self.noteView, nextView: self.nowPlayingView)
+            self.noteView.alpha = 0.0
+            self.animateFadeOut(view: self.nowPlayingView)
         }else{
+            self.nowPlayingView.alpha = 0.0
             self.animateFadeOut(view: self.noteView)
         }
     }
@@ -170,10 +150,8 @@ class BatterySaverViewController: UIViewController {
         self.noteView.layer.removeAllAnimations()
         self.nowPlayingView.layer.removeAllAnimations()
         updateNowPlaying()
-        if !(self.noteView.alpha > 0) {
-            self.animateFadeOut(view: self.nowPlayingView)
-        }
-
+        self.noteView.alpha = 0.0
+        self.animateFadeOut(view: self.nowPlayingView)
     }
     
     // ホームインジケータ(iPhone X以降)を非表示にする
