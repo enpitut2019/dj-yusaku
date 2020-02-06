@@ -10,12 +10,13 @@ import UIKit
 
 extension UserDefaults {
     class DJYusakuDefaults {
-        static let ProfileName           = "ProfileName"
-        static let TwitterAccount        = "TwitterAccount"
-        static let WillUseTwitterProfile = "WillUseTwitterProfile"
-        static let IsAutoLockEnabled     = "IsAutoLockEnabled"
-        static let IsLaunchedAtLeastOnce = "IsLaunchedAtLeastOnce"
-        static let LaunchCount           = "LaunchCount"
-        static let ArchivedPeerID        = "ArchivedPeerID"
+        static let ProfileName                = "ProfileName"
+        static let TwitterAccount             = "TwitterAccount"
+        static let WillUseTwitterProfile      = "WillUseTwitterProfile"
+        static let IsAutoLockEnabled          = "IsAutoLockEnabled"
+        static let IsLaunchedAtLeastOnce      = "IsLaunchedAtLeastOnce"
+        static let LaunchCount                = "LaunchCount"
+        static let ArchivedPeerID             = "ArchivedPeerID"
+        static let IsNowPlayingDisplayEnabled = "isNowPlayingDisplayEnabled"
     }
 }

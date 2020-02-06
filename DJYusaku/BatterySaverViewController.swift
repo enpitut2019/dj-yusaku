@@ -53,7 +53,7 @@ class BatterySaverViewController: UIViewController {
         self.previousScreenBrightness = UIScreen.main.brightness
         
         // 注意書きと現在再生中の楽曲を表示してフェードアウトする
-        if(PlayerQueue.shared.isQueueCreated){
+        if(PlayerQueue.shared.isQueueCreated && DefaultsController.shared.isNowPlayingDisplayEnabled){
             self.noteView.alpha = 0.0
             self.animateFadeOut(view: self.nowPlayingView)
         }else{
@@ -107,7 +107,7 @@ class BatterySaverViewController: UIViewController {
     // 画面のどこかしらがシングルタップされたら
     @objc func handleSingleTapeed(_ gesture: UITapGestureRecognizer) -> Void {
         // 注意書きと現在再生中の楽曲を表示してフェードアウトする
-        if(PlayerQueue.shared.isQueueCreated){
+        if(PlayerQueue.shared.isQueueCreated && DefaultsController.shared.isNowPlayingDisplayEnabled){
             self.noteView.alpha = 0.0
             self.animateFadeOut(view: self.nowPlayingView)
         }else{
@@ -130,7 +130,7 @@ class BatterySaverViewController: UIViewController {
         self.previousScreenBrightness = UIScreen.main.brightness
         
         // 注意書きと現在再生中の楽曲を表示してフェードアウトする
-        if(PlayerQueue.shared.isQueueCreated){
+        if(PlayerQueue.shared.isQueueCreated && DefaultsController.shared.isNowPlayingDisplayEnabled){
             self.noteView.alpha = 0.0
             self.animateFadeOut(view: self.nowPlayingView)
         }else{
@@ -147,11 +147,13 @@ class BatterySaverViewController: UIViewController {
     
     //NowPlayingの内容が変わったら更新して再表示
     @objc func handleNowPlayingItemDidChange(){
-        self.noteView.layer.removeAllAnimations()
-        self.nowPlayingView.layer.removeAllAnimations()
-        updateNowPlaying()
-        self.noteView.alpha = 0.0
-        self.animateFadeOut(view: self.nowPlayingView)
+        if(DefaultsController.shared.isNowPlayingDisplayEnabled){
+            self.noteView.layer.removeAllAnimations()
+            self.nowPlayingView.layer.removeAllAnimations()
+            updateNowPlaying()
+            self.noteView.alpha = 0.0
+            self.animateFadeOut(view: self.nowPlayingView)
+        }
     }
     
     // ホームインジケータ(iPhone X以降)を非表示にする

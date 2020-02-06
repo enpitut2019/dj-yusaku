@@ -1414,10 +1414,48 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="NowPlaying" footerTitle="When now-playing is enabled,  Now playing song is displayed in battery saver mode." id="lTj-NI-drX">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="GtC-eO-tiy">
+                                        <rect key="frame" x="20" y="508" width="374" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GtC-eO-tiy" id="YN6-NC-6D7">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w17-nQ-FSf" userLabel="Is Now Playing Display In Battery Saver Mode Enabled Switch">
+                                                    <rect key="frame" x="305" y="6.5" width="49" height="31"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="31" id="U32-ou-24G"/>
+                                                        <constraint firstAttribute="width" constant="47" id="Zwp-nH-yag"/>
+                                                    </constraints>
+                                                    <color key="onTintColor" name="YusakuPinkColor"/>
+                                                    <connections>
+                                                        <action selector="isNowPlayingDisplayEnabledSwitchValueDidChange:" destination="Xlt-eI-mT8" eventType="valueChanged" id="Kvf-tR-RWT"/>
+                                                    </connections>
+                                                </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Display Now-Playing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aR4-UY-Y6a">
+                                                    <rect key="frame" x="15" y="11.5" width="344" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="aR4-UY-Y6a" firstAttribute="centerX" secondItem="YN6-NC-6D7" secondAttribute="centerX" id="JLo-Ie-hn9"/>
+                                                <constraint firstItem="aR4-UY-Y6a" firstAttribute="centerY" secondItem="YN6-NC-6D7" secondAttribute="centerY" id="P2v-nb-gf7"/>
+                                                <constraint firstItem="aR4-UY-Y6a" firstAttribute="leading" secondItem="YN6-NC-6D7" secondAttribute="leading" constant="15" id="X2J-r4-anQ"/>
+                                                <constraint firstAttribute="trailing" secondItem="w17-nQ-FSf" secondAttribute="trailing" constant="22" id="fH7-0N-45O"/>
+                                                <constraint firstItem="w17-nQ-FSf" firstAttribute="centerY" secondItem="YN6-NC-6D7" secondAttribute="centerY" id="gge-ba-MDE"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                             <tableViewSection id="c1Y-Le-C7u">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="IKi-es-3Ji" style="IBUITableViewCellStyleDefault" id="5oP-6Y-muh">
-                                        <rect key="frame" x="20" y="480.5" width="374" height="43.5"/>
+                                        <rect key="frame" x="20" y="615.5" width="374" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5oP-6Y-muh" id="Q0o-gm-JIS">
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
@@ -1447,6 +1485,7 @@
                     <navigationItem key="navigationItem" title="Settings" id="gio-Mw-drT"/>
                     <connections>
                         <outlet property="isAutoLockEnabledSwitch" destination="fCY-sL-Iuc" id="gbG-LZ-QGF"/>
+                        <outlet property="isNowPlayingDisplayEnabledSwitch" destination="w17-nQ-FSf" id="ia7-MP-lWT"/>
                         <outlet property="twitterAccountLabel" destination="Y5i-Fz-AZG" id="Q91-th-3wE"/>
                         <outlet property="userNameLabel" destination="Bl7-8g-a7O" id="VKY-0W-nYe"/>
                         <outlet property="willUseTwitterProfileSwitch" destination="u1w-l1-k2W" id="dez-90-UEc"/>

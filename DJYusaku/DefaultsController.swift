@@ -35,12 +35,14 @@ class DefaultsController: NSObject {
     private(set) var profile: PeerProfile = PeerProfile(name: UIDevice.current.name, imageUrl: nil)
     private(set) var willUseTwitterProfile : Bool = false
     private(set) var isAutoLockEnabled : Bool = true
+    private(set) var isNowPlayingDisplayEnabled: Bool = true
     
     private override init() {
         super.init()
         
         // UserDefaultsに初期値を設定する
         UserDefaults.standard.register(defaults: [UserDefaults.DJYusakuDefaults.IsAutoLockEnabled : true])
+        UserDefaults.standard.register(defaults: [UserDefaults.DJYusakuDefaults.IsNowPlayingDisplayEnabled : true])
         
         // UserDefaultsの変更を監視する
         NotificationCenter.default.addObserver(self,
@@ -79,6 +81,9 @@ class DefaultsController: NSObject {
         DispatchQueue.main.async {
             UIApplication.shared.isIdleTimerDisabled = !self.isAutoLockEnabled
         }
+        
+        // 省電力モードでNowPlayingを表示するかを設定する
+        self.isNowPlayingDisplayEnabled = UserDefaults.standard.bool(forKey: UserDefaults.DJYusakuDefaults.IsNowPlayingDisplayEnabled)
         
         self.sendProfile()  // プロフィールを他のピアに送信する
     }

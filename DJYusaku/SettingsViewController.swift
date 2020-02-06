@@ -25,6 +25,8 @@ class SettingsViewController: UITableViewController, SFSafariViewControllerDeleg
     @IBOutlet weak var twitterAccountLabel: UILabel!
     @IBOutlet weak var willUseTwitterProfileSwitch: UISwitch!
     @IBOutlet weak var isAutoLockEnabledSwitch: UISwitch!
+    @IBOutlet weak var isNowPlayingDisplayEnabledSwitch: UISwitch!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +60,9 @@ class SettingsViewController: UITableViewController, SFSafariViewControllerDeleg
     @IBAction func isAutoLockEnabledSwitchValueDidChange(_ sender: UISwitch) {
         UserDefaults.standard.set(sender.isOn, forKey: UserDefaults.DJYusakuDefaults.IsAutoLockEnabled)
     }
+    @IBAction func isNowPlayingDisplayEnabledSwitchValueDidChange(_ sender: UISwitch) {
+        UserDefaults.standard.set(sender.isOn, forKey: UserDefaults.DJYusakuDefaults.IsNowPlayingDisplayEnabled)
+    }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
@@ -78,7 +83,9 @@ class SettingsViewController: UITableViewController, SFSafariViewControllerDeleg
             self.tableViewTwitterSection(at: indexPath.row)
         case 2: // Auto-Lock
             break
-        case 3: // About This App
+        case 3: // NowPlaying
+            break
+        case 4: // About This App
             break
         default:
             break
