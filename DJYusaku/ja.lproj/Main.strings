@@ -221,9 +221,6 @@
 /* Class = "UILabel"; text = "To exit battery saver mode, double-tap the screen."; ObjectID = "whP-AR-UDb"; */
 "whP-AR-UDb.text" = "画面をダブルタップすると、 省電力モードを終了します。";
 
-/* Class = "UILabel"; text = "To exit battery saver mode, double-tap the screen."; ObjectID = "7II-4V-DS7"; */
-"7II-4V-DS7.text" = "画面をダブルタップすると、 省電力モードを終了します。";
-
 /* Class = "UILabel"; text = "Name"; ObjectID = "yP3-9N-fvb"; */
 "yP3-9N-fvb.text" = "名前";
 
