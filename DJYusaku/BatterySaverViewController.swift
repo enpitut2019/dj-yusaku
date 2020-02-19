@@ -131,7 +131,6 @@ class BatterySaverViewController: UIViewController {
     //NowPlayingの内容が変わったら更新して再表示
     @objc func handleNowPlayingItemDidChange(){
         if(DefaultsController.shared.isNowPlayingDisplayEnabled){
-            self.noteView.layer.removeAllAnimations()
             updateNowPlaying()
             self.animateFadeOut(view: self.noteView, delay: 5.0)
         }
