@@ -51,9 +51,6 @@ class BatterySaverViewController: UIViewController {
         
         if(PlayerQueue.shared.isQueueCreated && DefaultsController.shared.isNowPlayingDisplayEnabled){
             updateNowPlaying()
-            nowPlayingArtwork.alpha = 1.0
-            nowPlayingTitle.alpha   = 1.0
-            nowPlayingArtist.alpha  = 1.0
         }else{
             nowPlayingArtwork.alpha = 0.0
             nowPlayingTitle.alpha   = 0.0
