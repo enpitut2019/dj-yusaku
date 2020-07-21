@@ -14,6 +14,8 @@ class ListenerConnectableDJsTableViewCell: UITableViewCell {
     @IBOutlet weak var djImageView: UIImageView!
     @IBOutlet weak var numberOfParticipantsLabel: UILabel!
     
+    var djImageUrl: URL?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         
