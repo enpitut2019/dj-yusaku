@@ -14,6 +14,8 @@ class SearchMusicTableViewCell: UITableViewCell {
     @IBOutlet weak var artist: UILabel!
     @IBOutlet weak var artwork: UIImageView!
     
+    var artworkUrl: URL?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         

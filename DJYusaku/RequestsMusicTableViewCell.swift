@@ -16,6 +16,9 @@ class RequestsMusicTableViewCell: UITableViewCell {
     @IBOutlet weak var nowPlayingIndicator: UIImageView!
     @IBOutlet weak var profileImageView: UIImageView!
     
+    var artworkUrl: URL?
+    var profileImageUrl: URL?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
