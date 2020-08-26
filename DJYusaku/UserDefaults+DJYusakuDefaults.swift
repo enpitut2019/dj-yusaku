@@ -17,5 +17,6 @@ extension UserDefaults {
         static let IsLaunchedAtLeastOnce = "IsLaunchedAtLeastOnce"
         static let LaunchCount           = "LaunchCount"
         static let ArchivedPeerID        = "ArchivedPeerID"
+        static let IsNowPlayingDisplayEnabled = "IsNowPlayingDisplayEnabled"
     }
 }
