@@ -78,33 +78,6 @@ class TabBarController: UITabBarController {
         self.sessionTabImageView.contentMode = .center
     }
     
-    // tabBarを押した時のバウンドしているアニメーション
-    func animateBounce(imageView: UIImageView){ //FIXME: 関数名
-        imageView.transform = CGAffineTransform.identity
-        UIView.animateKeyframes(withDuration: 0.2, delay: 0, options: [], animations: {() -> Void in
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3, animations: {() -> Void in
-                imageView.transform = CGAffineTransform(scaleX: CGFloat(0.8), y: CGFloat(0.8))
-            })
-            UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.3, animations: {() -> Void in
-                imageView.transform = CGAffineTransform.identity
-            })
-        }, completion: nil)
-    }
-    
-    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        let tagNumber = TabButtonTagNumber(rawValue: item.tag)
-        switch tagNumber {
-        case .requests:
-            animateBounce(imageView: self.requestTabImageView)
-            break
-        case .session:
-            animateBounce(imageView: self.sessionTabImageView)
-            break
-        default:
-            break
-        }
-    }
-    
     func animateShrinkDown(view: UIView, scale: CGFloat) {
         UIView.animate(withDuration: 0.05, delay: 0.0, animations: {
             view.transform = CGAffineTransform(scaleX: scale, y: scale);
