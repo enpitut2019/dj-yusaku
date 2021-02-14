@@ -33,6 +33,13 @@
 	<true/>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>Juke accesses Apple Music to play requested songs.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_djyusaku._tcp</string>
+		<string>_djyusaku._udp</string>
+	</array>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Juke communicates with nearby devices in the session.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

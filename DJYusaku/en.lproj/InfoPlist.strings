@@ -6,4 +6,5 @@
   Copyright © 2020 Yusaku. All rights reserved.
 */
 
-"NSAppleMusicUsageDescription" = "Juke accesses Apple Music to play requested songs.";
+"NSAppleMusicUsageDescription"   = "Juke accesses Apple Music to play requested songs.";
+"NSLocalNetworkUsageDescription" = "Juke communicates with nearby devices in the session.";

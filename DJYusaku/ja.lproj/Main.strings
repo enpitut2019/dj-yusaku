@@ -173,9 +173,6 @@
 /* Class = "UILabel"; text = "Artist"; ObjectID = "hw4-hv-Z0J"; */
 "hw4-hv-Z0J.text" = "Artist";
 
-/* Class = "UITableViewSection"; footerTitle = "Yusaku is developer team organized by university students. We all have job hunting ❤️"; ObjectID = "ig8-lj-p2R"; */
-"ig8-lj-p2R.footerTitle" = "Jukeの開発チームである優作は、筑波大学の学生で構成されています。就職活動中なので、仕事をください🙏";
-
 /* Class = "UITableViewSection"; headerTitle = "Developer"; ObjectID = "ig8-lj-p2R"; */
 "ig8-lj-p2R.headerTitle" = "開発者";
 

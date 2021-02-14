@@ -7,3 +7,4 @@
 */
 
 "NSAppleMusicUsageDescription" = "リクエストされた楽曲を再生するためにApple Musicへのアクセスを行います。";
+"NSLocalNetworkUsageDescription" = "セッションを行うために近くにあるデバイスと通信を行います。";
